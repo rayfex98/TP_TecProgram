@@ -1,34 +1,32 @@
 ﻿using System.Data;
 using System.Data.SqlClient;
 using CapaEntidad;
-//usar sql
 
 namespace Datos
 {
-    public class DProveedor
+    public class DUsuario
     {
-        public string Nuevo(Proveedor ObjProveedor)
+        public string Nuevo(Usuario unUsuario)
         {
             //conexion con bbdd
             return "Ok";
         }
-        public string Editar(Proveedor ObjProveedor)
+        public string Editar(Usuario unUsuario)
         {
             //conexion con bbdd
             return "Ok";
         }
-        public Proveedor Eliminar(int Cuil)
+        public Usuario Eliminar(int idUsuario)
         {
-            Proveedor eliminado = new Proveedor();
+            Usuario eliminado = new Usuario();
             //conexion con bbdd
             return eliminado;
         }
-        public int ID_Proveedor()
+        public int ID_Usuario()
         {
             return 0;
         }
-
-        public DataTable ListadeProveedores()
+        public DataTable ListadeUsuario()
         {
             DataTable dt = new DataTable();
             //busco en tabla

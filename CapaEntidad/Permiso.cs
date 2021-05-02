@@ -4,6 +4,7 @@ namespace CapaEntidad
 {
     public class Permiso
     {
+        private int _idPermiso;
         private string _descripcion;
 
 

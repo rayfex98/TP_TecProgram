@@ -3,7 +3,7 @@
 
 namespace CapaEntidad
 {
-    public abstract class Persona
+    public class Persona
     {
         public Persona()
         {

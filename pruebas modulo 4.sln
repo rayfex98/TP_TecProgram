@@ -3,8 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31112.23
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "prueba_unitaria", "prueba_unitaria\prueba_unitaria.csproj", "{E2FB1F6E-D40E-410D-9869-D7B5BC6D84E3}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Negocio", "Negocio\Negocio.csproj", "{7CDCCD8E-EC7E-4583-9A0C-913A40E2B514}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Datos", "Datos\Datos.csproj", "{07422F25-C06D-4844-8EB9-47B2EAB90614}"
@@ -13,9 +11,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Conexion", "Conexion\Conexi
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CapaEntidad", "CapaEntidad\CapaEntidad.csproj", "{A9115CA7-FB99-46DC-8B76-B40B44591AF2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Modulo_4", "Modulo_4\Modulo_4.csproj", "{3FD2C33B-0828-424A-9595-A684D096EB67}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Modulo_4", "Modulo_4\Modulo_4.csproj", "{3FD2C33B-0828-424A-9595-A684D096EB67}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PruebaUnitaria", "PruebaUnitaria\PruebaUnitaria.csproj", "{980AE260-7E92-4E98-A752-4AE93F5FD9B5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PruebaUnitaria", "PruebaUnitaria\PruebaUnitaria.csproj", "{980AE260-7E92-4E98-A752-4AE93F5FD9B5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -23,10 +21,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{E2FB1F6E-D40E-410D-9869-D7B5BC6D84E3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{E2FB1F6E-D40E-410D-9869-D7B5BC6D84E3}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{E2FB1F6E-D40E-410D-9869-D7B5BC6D84E3}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{E2FB1F6E-D40E-410D-9869-D7B5BC6D84E3}.Release|Any CPU.Build.0 = Release|Any CPU
 		{7CDCCD8E-EC7E-4583-9A0C-913A40E2B514}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{7CDCCD8E-EC7E-4583-9A0C-913A40E2B514}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7CDCCD8E-EC7E-4583-9A0C-913A40E2B514}.Release|Any CPU.ActiveCfg = Release|Any CPU

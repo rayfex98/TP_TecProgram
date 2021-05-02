@@ -1,39 +1,32 @@
-﻿using CapaEntidad;
-using System;
+﻿using System.Data;
+using Datos;
+using CapaEntidad;
 
 namespace Negocio
 {
-    class NOrden
+    public class NOrden
     {
-        public void CreaOrden() /// :base(Nombre)
-        {
-            ///persiste en la base de datos
-            ///en principio lo hardcodeariamos ahora 
-            ///alter-add
-        }
+        DOrden unOrden = new DOrden();
 
-        public void Modifica() ///:base(id) se incluye en el caso de uso de busqueda 
+        public string Nuevo(Orden _unOrden)
         {
-            ///persiste en la base de datos 
-            ///alter modify
-
+            return unOrden.Nuevo(_unOrden);
         }
-        public void Elimina() ///:base(id) se incluye en el caso de uso de busqueda 
+        public string Editar(Orden _unOrden)
         {
-            ///persiste en la base de datos
-            ///en principio lo hardcodeariamos ahora 
-            ///alter delete
+            return unOrden.Editar(_unOrden);
         }
-        public void Busca()///:base(id) 
+        public Orden Eliminar(int _idOrden)
         {
-            ///en principio lo hardcodeariamos ahora 
-
+            return unOrden.Eliminar(_idOrden);
         }
-        public void habilita(Usuario _UsuarioHabilitador)///:base(id) se incluye en el caso de uso de busqueda 
+        public int ID_Orden()
         {
-            ///habilita orden de compra 
-            ///esto puede ser usado por generente unicamente hay que ver como usar la condicion con rol 
-
+            return unOrden.ID_Orden();
+        }
+        public DataTable ListarOrden()
+        {
+            return unOrden.ListadeOrden();
         }
     }
 }

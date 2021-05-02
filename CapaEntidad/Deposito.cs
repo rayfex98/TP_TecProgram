@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace CapaEntidad
 {
-    abstract class Deposito //en principio hay un solo deposito y por eso no se instanciaria 
+    public class Deposito //en principio hay un solo deposito y por eso no se instanciaria 
     {
         private HashSet<Stock> _stock = new HashSet<Stock>();
 

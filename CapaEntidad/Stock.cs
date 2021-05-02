@@ -4,6 +4,7 @@ namespace CapaEntidad
 {
     public class Stock
     {
+        int _idStock;
         int _cantidad;
         Producto _producto;
 

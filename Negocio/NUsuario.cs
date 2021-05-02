@@ -1,36 +1,32 @@
-﻿using System;
+﻿using System.Data;
+using Datos;
 using CapaEntidad;
 
 namespace Negocio
 {
-    class NUsuario
+    public class NUsuario
     {
-        public void Crea() /// :base(Nombre)
-        {
-            ///varios usuarios van a poder usar esto 
-            ///persiste en la base de datos 
-            ///en principio lo hardcodeariamos ahora 
-            ///alter-add
-        }
-        public void Modifica() ///:base(id) se incluye en el caso de uso de busqueda 
-        {
-            ///varios usuarios van a poder usar esto 
-            ///persiste en la base de datos 
-            ///alter modify
+        DUsuario unUsuario = new DUsuario();
 
-        }
-        public void Elimina() ///:base(id) se incluye en el caso de uso de busqueda 
+        public string Nuevo(Usuario _unUsuario)
         {
-            ///varios usuarios van a poder usar esto 
-            ///persiste en la base de datos
-            ///en principio lo hardcodeariamos ahora 
-            ///alter delete
+            return unUsuario.Nuevo(_unUsuario);
         }
-        public void Busca()///:base(id) 
+        public string Editar(Usuario _unUsuario)
         {
-            ///varios usuarios van a poder usar esto 
-            ///en principio lo hardcodeariamos ahora 
-
+            return unUsuario.Editar(_unUsuario);
+        }
+        public Usuario Eliminar(int _DNI)
+        {
+            return unUsuario.Eliminar(_DNI);
+        }
+        public int ID_Usuario()
+        {
+            return unUsuario.ID_Usuario();
+        }
+        public DataTable ListarUsuario()
+        {
+            return unUsuario.ListadeUsuario();
         }
     }
 }

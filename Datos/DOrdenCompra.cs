@@ -16,7 +16,7 @@ namespace Datos
             //conexion con bbdd
             return "Ok";
         }
-        public OrdenCompra Eliminar(int idOrdenCompra)
+        public OrdenCompra Eliminar(int idOrden)
         {
             OrdenCompra eliminado = new OrdenCompra();
             //conexion con bbdd

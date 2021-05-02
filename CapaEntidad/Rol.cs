@@ -5,6 +5,7 @@ namespace CapaEntidad
 {
     public class Rol
     {
+        private int _idRol;
         private HashSet<Permiso> _permiso = new HashSet<Permiso>();
         private string _descripcion;
 

@@ -7,7 +7,6 @@ namespace CapaEntidad
         private int _legajo;
         private Rol _rol;
 
-
         public Usuario()
         {
             Console.Write("\n se crea un usuario");

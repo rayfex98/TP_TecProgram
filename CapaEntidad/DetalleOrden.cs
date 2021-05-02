@@ -2,9 +2,9 @@
 
 namespace CapaEntidad
 {
-    public class Detalle_orden
+    public class DetalleOrden
     {
-
+        private int _idDetalle;
         private int _cantidad;
         private string _producto;
 

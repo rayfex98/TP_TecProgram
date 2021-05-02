@@ -16,9 +16,9 @@ namespace Negocio
         {
             return unOrdenCompra.Editar(_unOrdenCompra);
         }
-        public OrdenCompra Eliminar(int _idOrdenCompra) //verID
+        public OrdenCompra Eliminar(int _idOrdena) //verID
         {
-            return unOrdenCompra.Eliminar(_idOrdenCompra);
+            return unOrdenCompra.Eliminar(_idOrden);
         }
         public int ID_OrdenCompra()
         {

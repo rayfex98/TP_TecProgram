@@ -6,7 +6,7 @@ namespace CapaEntidad
     public abstract class Orden
     {
         protected int _idOrden;
-        private HashSet<Detalle_orden> _detalle = new HashSet<Detalle_orden>();
+        private HashSet<DetalleOrden> _detalle = new HashSet<DetalleOrden>();
         private DateTime _fecha;
         private Usuario _usuarioCreador;
 
