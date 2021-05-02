@@ -16,7 +16,7 @@ namespace Negocio
         {
             return unOrdenCompra.Editar(_unOrdenCompra);
         }
-        public OrdenCompra Eliminar(int _idOrdena) //verID
+        public OrdenCompra Eliminar(int _idOrden) //verID
         {
             return unOrdenCompra.Eliminar(_idOrden);
         }
@@ -31,7 +31,7 @@ namespace Negocio
         public bool EstaAprobada(Usuario UsuarioAprovador)
         {
             //guardar el atributo
-            return true;
+            return unOrdenCompra.EstaAprobada(UsuarioAprovador);
         }
 
     }

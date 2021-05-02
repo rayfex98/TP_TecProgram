@@ -33,5 +33,10 @@ namespace Datos
             //busco en tabla
             return dt;
         }
+        public bool EstaAprobada(Usuario UsuarioAprovador)
+        {
+            //conexion
+            return true;
+        }
     }
 }
