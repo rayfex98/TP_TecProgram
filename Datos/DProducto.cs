@@ -1,13 +1,37 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Data;
+using System.Data.SqlClient;
+using Entidades;
 
 namespace Datos
 {
-    class DProducto
+    public class DProducto
     {
-        //crear obj producto hardcodeado y retornar
+        public string Nuevo(Producto unProducto)
+        {
+            //conexion con bbdd
+            return "Ok";
+        }
+        public string Editar(Proveedor unProducto)
+        {
+            //conexion con bbdd
+            return "Ok";
+        }
+        public Producto Eliminar(int idProducto)
+        {
+            Producto eliminado = new Producto();
+            //conexion con bbdd
+            return eliminado;
+        }
+        public int ID_Producto()
+        {
+            return 0;
+        }
+
+        public DataTable ListadeProductos()
+        {
+            DataTable dt = new DataTable();
+            //busco en tabla
+            return dt;
+        }
     }
 }

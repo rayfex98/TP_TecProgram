@@ -7,7 +7,7 @@ namespace Conexion
     public class SQL
     {
         private string cadena = ""; //conectar BBDD local
-        private SqlConnection conectar;
+        /*private SqlConnection conectar;
 
         public SqlConnection conectar_db()
         {
@@ -25,6 +25,6 @@ namespace Conexion
 
             return conectar;
 
-        }
+        }*/
     }
 }

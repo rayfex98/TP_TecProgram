@@ -6,8 +6,8 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{4890716B-230F-4AF9-848C-F9A602053D52}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>pruebas_modulo_4</RootNamespace>
-    <AssemblyName>pruebas modulo 4</AssemblyName>
+    <RootNamespace>Modulo4</RootNamespace>
+    <AssemblyName>Modulo4</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -51,6 +51,16 @@
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Connected Services\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Entidades\Entidades.csproj">
+      <Project>{efedd762-4dee-44a8-8979-524ea81ec846}</Project>
+      <Name>Entidades</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Negocio\Negocio.csproj">
+      <Project>{7cdccd8e-ec7e-4583-9a0c-913a40e2b514}</Project>
+      <Name>Negocio</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

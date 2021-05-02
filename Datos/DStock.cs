@@ -1,28 +1,36 @@
 ﻿using Entidades;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Data;
 
 namespace Datos
 {
-    class DStock
+    public class DStock
     {
-        public string Crear(Stock ObjStock)
+        public string Nuevo(DStock _Stock)
         {
             //conexion con bbdd
             return "Ok";
         }
-        public string Editar(Stock ObjStock)
+        public string Editar(DStock _Stock)
         {
             //conexion con bbdd
             return "Ok";
         }
-        public string Eliminar(Stock ObjStock)
+        public Stock Eliminar(int idProducto)
         {
+            Stock eliminado = new Stock();
             //conexion con bbdd
-            return "Ok";
+            return eliminado;
+        }
+        public int ID_Stock()
+        {
+            return 0;
+        }
+
+        public DataTable ListadeProveedores()
+        {
+            DataTable dt = new DataTable();
+            //busco en tabla
+            return dt;
         }
     }
 }

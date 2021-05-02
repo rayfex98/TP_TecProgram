@@ -1,37 +1,34 @@
 ﻿using System;
 using System.Data;
 using Entidades;
+using Datos;
 
 namespace Negocio
 {
     class NStock
     {
-        public static string Crear(int _cant, Producto _producto)
-        {
-            Stock _stock = new()
-            {
-                Cantidad = _cant,
-                Producto = _producto
-            };            
-            return _stock.Crear(_stock);
-        }
+        DStock unStock = new DStock();
 
-        public static string Eliminar(int _idProducto)
+        public string Nuevo(DStock _Stock)
         {
-            Stock Obj = new();
-            Obj.Producto.IdProducto = _idProducto;
-            return Obj.Eliminar(Obj);
+            return unStock.Nuevo(_Stock);
         }
-        public static string Editar(int _idProducto, int _cant, Producto _producto)
+        public string Editar(DStock _Stock)
         {
-            Stock Obj = new Stock()
-            {
-                IdProd = _idProducto,
-                Cantidad = _cant,
-                Producto = _producto
-            };
-
-            return Obj.Editar(Obj);
+            return unStock.Editar(_Stock);
         }
+        public Stock Eliminar(int _idProducto)
+        {
+            return unStock.Eliminar(_idProducto);
+        }
+        public int ID_Stock()
+        {
+            return unStock.ID_Stock();
+        }
+        public DataTable ListarStock()
+        {
+            return unStock.ListadeProveedores();
+        }
+    }
     }
 }
