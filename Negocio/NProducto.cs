@@ -1,6 +1,6 @@
 ﻿using System.Data;
 using Datos;
-using Entidades;
+using CapaEntidad;
 
 namespace Negocio
 {
@@ -12,21 +12,21 @@ namespace Negocio
         {
             return unProducto.Nuevo(_proveedor);
         }
-        public string Editar(Producto _proveedor)
+        public string Editar(Producto _producto)
         {
-            return unProducto.Editar(_proveedor);
+            return unProducto.Editar(_producto);
         }
-        public string Eliminar(int _idProducto)
+        public Producto Eliminar(int _idProducto)
         {
             return unProducto.Eliminar(_idProducto);
         }
-        public int ID_Proveedor()
+        public int ID_Producto()
         {
             return unProducto.ID_Producto();
         }
         public DataTable ListarProductos()
         {
-            return unProducto.ListadeProveedores();
+            return unProducto.ListadeProductos();
         }
     }
 }

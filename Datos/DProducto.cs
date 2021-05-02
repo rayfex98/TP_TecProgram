@@ -1,6 +1,6 @@
 ﻿using System.Data;
 using System.Data.SqlClient;
-using Entidades;
+using CapaEntidad;
 
 namespace Datos
 {
@@ -11,7 +11,7 @@ namespace Datos
             //conexion con bbdd
             return "Ok";
         }
-        public string Editar(Proveedor unProducto)
+        public string Editar(Producto unProducto)
         {
             //conexion con bbdd
             return "Ok";

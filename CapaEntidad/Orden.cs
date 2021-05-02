@@ -1,13 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace Entidades
+namespace CapaEntidad
 {
-
-    
     public abstract class Orden
     {
         protected int _idOrden;
@@ -19,7 +14,7 @@ namespace Entidades
         { return this._fecha; }
         public void SetFecha(DateTime value)
         { _fecha = value; }
-        
+
         public Usuario Usuario
         {
             get { return this._usuarioCreador; }

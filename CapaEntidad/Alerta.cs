@@ -1,12 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace Entidades
+namespace CapaEntidad
 {
-    class Alerta
+    public class Alerta
     {
         private int _cantidadMinima;
         private Stock _stock;

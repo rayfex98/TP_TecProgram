@@ -1,10 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace Entidades
+namespace CapaEntidad
 {
     public class Producto
     {
@@ -15,7 +11,7 @@ namespace Entidades
         private string _nombre;
 
 
-        public  Categoria Categoria
+        public Categoria Categoria
         {
             get { return _categoria; }
             set { _categoria = value; }
@@ -32,10 +28,10 @@ namespace Entidades
         }
         public float PrecioVenta
         {
-            get { return this._precioVenta;  }
+            get { return this._precioVenta; }
             set { _precioVenta = value; }
         }
-        public int IdProducto 
+        public int IdProducto
         {
             get { return this._idProducto; }
             set { _idProducto = value; }

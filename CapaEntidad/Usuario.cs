@@ -1,23 +1,23 @@
 ﻿using System;
 
-namespace Entidades
+namespace CapaEntidad
 {
     public class Usuario : Persona
     {
         private int _legajo;
         private Rol _rol;
-        
 
-        public Usuario ()
+
+        public Usuario()
         {
             Console.Write("\n se crea un usuario");
         }
         public int Legajo
         {
-            get { return _legajo;  }
+            get { return _legajo; }
             set { _legajo = value; }
         }
-        public  Rol Rol
+        public Rol Rol
         {
             get { return _rol; }
             set { _rol = value; }

@@ -1,15 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace Entidades
+namespace CapaEntidad
 {
-
     public class Detalle_orden
     {
-     
+
         private int _cantidad;
         private string _producto;
 
@@ -18,11 +13,11 @@ namespace Entidades
             get { return _cantidad; }
             set { _cantidad = value; }
         }
-   
-        public  string Producto 
+
+        public string Producto
         {
             get { return _producto; }
             set { _producto = value; }
         }
     }
-}  
+}

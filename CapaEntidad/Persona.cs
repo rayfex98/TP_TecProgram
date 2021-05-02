@@ -1,11 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 
-namespace Entidades
+namespace CapaEntidad
 {
     public abstract class Persona
     {
@@ -24,12 +20,12 @@ namespace Entidades
             get { return _direccion; }
             set { _direccion = value; }
         }
-        public  string Apellido
+        public string Apellido
         {
             get { return _apellido; }
             set { _apellido = value; }
         }
-        public  string Nombre
+        public string Nombre
         {
             get { return _nombre; }
             set { _nombre = value; }

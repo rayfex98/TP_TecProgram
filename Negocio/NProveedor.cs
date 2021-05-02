@@ -1,6 +1,6 @@
 ﻿using System.Data;
 using Datos;
-using Entidades;
+using CapaEntidad;
 
 namespace Negocio
 {

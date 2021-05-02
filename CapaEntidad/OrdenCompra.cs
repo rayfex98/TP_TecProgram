@@ -1,12 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace Entidades
+namespace CapaEntidad
 {
-    public class Orden_compra : Orden
+    public class OrdenCompra : Orden
     {
         private DateTime _fechaAprobacion;
         private Proveedor _proveedor;

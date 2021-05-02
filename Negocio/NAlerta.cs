@@ -1,16 +1,32 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Data;
+using Datos;
+using CapaEntidad;
 
 namespace Negocio
 {
-    class NAlerta
+    public class NAlerta
     {
-        //Metodo crear/modificar (idproducto, cantMinima, usuario) si no esta lo creo, si esta lo modifico
-        //Metodo eliminar(idproducto)
-        //Metodo mostrar()
+        DAlerta unAlerta = new DAlerta();
 
+        public string Nuevo(Alerta _unAlerta)
+        {
+            return unAlerta.Nuevo(_unAlerta);
+        }
+        public string Editar(Alerta _unAlerta)
+        {
+            return unAlerta.Editar(_unAlerta);
+        }
+        public Alerta Eliminar(int _idProducto)
+        {
+            return unAlerta.Eliminar(_idProducto);
+        }
+        public int ID_Alerta()
+        {
+            return unAlerta.ID_Alerta();
+        }
+        public DataTable ListarAlerta()
+        {
+            return unAlerta.ListadeAlertas();
+        }
     }
 }

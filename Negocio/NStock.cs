@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Data;
-using Entidades;
+using CapaEntidad;
 using Datos;
 
 namespace Negocio
@@ -29,6 +29,5 @@ namespace Negocio
         {
             return unStock.ListadeProveedores();
         }
-    }
     }
 }

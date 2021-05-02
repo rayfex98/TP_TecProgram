@@ -1,10 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace Entidades
+namespace CapaEntidad
 {
     public class Stock
     {
@@ -12,7 +8,7 @@ namespace Entidades
         Producto _producto;
 
 
-        public  Producto Producto
+        public Producto Producto
         {
             get { return _producto; }
             set { _producto = value; }

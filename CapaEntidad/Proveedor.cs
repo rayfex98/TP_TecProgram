@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Data;
-using System.Data.SqlClient;
 
-namespace Entidades
+namespace CapaEntidad
 {
     public class Proveedor
     {
@@ -26,6 +24,6 @@ namespace Entidades
             get { return this._cuil; }
             set { _cuil = value; }
         }
-        
+
     }
 }

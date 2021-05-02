@@ -1,4 +1,4 @@
-﻿using Entidades;
+﻿using CapaEntidad;
 using System.Data;
 
 namespace Datos
