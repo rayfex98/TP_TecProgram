@@ -1,40 +1,47 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Text;
 
-namespace CapaEntidad
+namespace Entidades
 {
-    public class Producto
+    public class Producto : EntidadPersistible
     {
-        private Categoria _categoria;
-        private int _idProducto;
-        private float _precioCompra;
-        private float _precioVenta;
         private string _nombre;
 
+        public string Nombre
+        {
+            get { return _nombre; }
+            set { _nombre = value; }
+        }
+
+
+        private Categoria _categoria;
 
         public Categoria Categoria
         {
             get { return _categoria; }
             set { _categoria = value; }
         }
-        public string Nombre
-        {
-            get { return _nombre; }
-            set { _nombre = value; }
-        }
-        public float PrecioCompra
-        {
-            get { return this._precioCompra; }
-            set { _precioCompra = value; }
-        }
+
+
+        private float _precioVenta;
+
         public float PrecioVenta
         {
-            get { return this._precioVenta; }
+            get { return _precioVenta; }
             set { _precioVenta = value; }
         }
-        public int IdProducto
+
+        private float _precioCompra;
+
+        public float PrecioCompra
         {
-            get { return this._idProducto; }
-            set { _idProducto = value; }
+            get { return _precioCompra; }
+            set { _precioCompra = value; }
         }
+
+
+
+
     }
 }

@@ -5,7 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\CapaEntidad\CapaEntidad.csproj" />
+    <ProjectReference Include="..\CapaEntidad\Entidades.csproj" />
     <ProjectReference Include="..\Conexion\Conexion.csproj" />
   </ItemGroup>
 

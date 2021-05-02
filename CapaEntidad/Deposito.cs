@@ -1,17 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text;
 
-namespace CapaEntidad
+namespace Entidades
 {
-    public class Deposito //en principio hay un solo deposito y por eso no se instanciaria 
+    public class Deposito
     {
-        private HashSet<Stock> _stock = new HashSet<Stock>();
+        private List<Stock> stocks;
 
-        public bool AgregarStock(Stock _stock)
+        public List<Stock> Stocks
         {
-            return this._stock.Add(_stock);
+            get { return stocks; }
+            set { stocks = value; }
         }
-
 
     }
 }

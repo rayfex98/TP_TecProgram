@@ -9,7 +9,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Datos", "Datos\Datos.csproj
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Conexion", "Conexion\Conexion.csproj", "{63657F28-10D9-480E-AEEC-70213CDDE5F9}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CapaEntidad", "CapaEntidad\CapaEntidad.csproj", "{A9115CA7-FB99-46DC-8B76-B40B44591AF2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Entidades", "CapaEntidad\Entidades.csproj", "{A9115CA7-FB99-46DC-8B76-B40B44591AF2}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Modulo_4", "Modulo_4\Modulo_4.csproj", "{3FD2C33B-0828-424A-9595-A684D096EB67}"
 EndProject

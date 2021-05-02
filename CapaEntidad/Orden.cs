@@ -1,24 +1,34 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text;
 
-namespace CapaEntidad
+namespace Entidades
 {
-    public abstract class Orden
+    public abstract class Orden : EntidadPersistible
     {
-        protected int _idOrden;
-        private HashSet<DetalleOrden> _detalle = new HashSet<DetalleOrden>();
         private DateTime _fecha;
+
+        public DateTime Fecha
+        {
+            get { return _fecha; }
+            set { _fecha = value; }
+        }
+
         private Usuario _usuarioCreador;
 
-        public DateTime GetFecha()
-        { return this._fecha; }
-        public void SetFecha(DateTime value)
-        { _fecha = value; }
-
-        public Usuario Usuario
+        public Usuario UsuarioCreador
         {
-            get { return this._usuarioCreador; }
+            get { return _usuarioCreador; }
             set { _usuarioCreador = value; }
         }
+
+        private List<DetalleOrden> _detalles = new List<DetalleOrden>();
+
+        public List<DetalleOrden> Detalles
+        {
+            get { return _detalles; }
+            set { _detalles = value; }
+        }
+
     }
 }

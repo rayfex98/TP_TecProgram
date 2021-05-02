@@ -1,22 +1,22 @@
 ﻿using System.Data;
 using Datos;
-using CapaEntidad;
+using Entidades;
 
 namespace Negocio
 {
-    class NOrdenCompra
+    public class NOrdenCompra
     {
         DOrdenCompra unOrdenCompra = new DOrdenCompra();
 
-        public string Nuevo(OrdenCompra _unOrdenCompra)
+        public string Nuevo(OrdenDeCompra _unOrdenCompra)
         {
             return unOrdenCompra.Nuevo(_unOrdenCompra);
         }
-        public string Editar(OrdenCompra _unOrdenCompra)
+        public string Editar(OrdenDeCompra _unOrdenCompra)
         {
             return unOrdenCompra.Editar(_unOrdenCompra);
         }
-        public OrdenCompra Eliminar(int _idOrden) //verID
+        public OrdenDeCompra Eliminar(int _idOrden) //verID
         {
             return unOrdenCompra.Eliminar(_idOrden);
         }

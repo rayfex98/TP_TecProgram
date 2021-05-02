@@ -1,23 +1,25 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Text;
 
-namespace CapaEntidad
+namespace Entidades
 {
-    public class Stock
+    public class Stock : EntidadPersistible
     {
-        int _idStock;
-        int _cantidad;
-        Producto _producto;
+        private int _cantidad;
 
+        public int Cantidad
+        {
+            get { return _cantidad; }
+            set { _cantidad = value; }
+        }
+        private Producto _producto;
 
         public Producto Producto
         {
             get { return _producto; }
             set { _producto = value; }
         }
-        public int Cantidad
-        {
-            get { return _cantidad; }
-            set { _cantidad = value; }
-        }
+
     }
 }

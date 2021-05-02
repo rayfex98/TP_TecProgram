@@ -1,28 +1,36 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Text;
 
-namespace CapaEntidad
+namespace Entidades
 {
-    public class Alerta
+    public class Alerta : Reporte
     {
-        private int _cantidadMinima;
         private Stock _stock;
-        private Usuario _usuarioCreador;
+
+        public Stock Stock
+        {
+            get { return _stock; }
+            set { _stock = value; }
+        }
+
+        private int _cantidadMinima;
 
         public int CantidadMinima
         {
-            get { return this._cantidadMinima; }
+            get { return _cantidadMinima; }
             set { _cantidadMinima = value; }
         }
-        public Stock Stock
-        {
-            get { return this._stock; }
-            set { _stock = value; }
-        }
+
+        private Usuario _usuarioCreador;
+
         public Usuario UsuarioCreador
         {
-            get { return this._usuarioCreador; }
+            get { return _usuarioCreador; }
             set { _usuarioCreador = value; }
         }
+
+
 
     }
 }

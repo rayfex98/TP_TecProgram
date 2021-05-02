@@ -1,10 +1,11 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Text;
 
-namespace CapaEntidad
+namespace Entidades
 {
-    public class Categoria
+    public class Categoria : EntidadPersistible
     {
-        private int _idCategoria;
         private string _nombre;
 
         public string Nombre
@@ -12,5 +13,6 @@ namespace CapaEntidad
             get { return _nombre; }
             set { _nombre = value; }
         }
+
     }
 }

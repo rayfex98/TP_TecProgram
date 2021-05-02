@@ -1,16 +1,15 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Text;
 
-namespace CapaEntidad
+namespace Entidades
 {
-    public class Permiso
+    public class Permiso : EntidadPersistible
     {
-        private int _idPermiso;
         private string _descripcion;
-
-
         public string Descripcion
         {
-            get { return this._descripcion; }
+            get { return _descripcion; }
             set { _descripcion = value; }
         }
     }

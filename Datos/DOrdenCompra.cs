@@ -1,24 +1,23 @@
 ﻿using System.Data;
-using System.Data.SqlClient;
-using CapaEntidad;
+using Entidades;
 
 namespace Datos
 {
     public class DOrdenCompra
     {
-        public string Nuevo(OrdenCompra unOrdenCompra)
+        public string Nuevo(OrdenDeCompra unOrdenCompra)
         {
             //conexion con bbdd
             return "Ok";
         }
-        public string Editar(OrdenCompra unOrdenCompra)
+        public string Editar(OrdenDeCompra unOrdenCompra)
         {
             //conexion con bbdd
             return "Ok";
         }
-        public OrdenCompra Eliminar(int idOrden)
+        public OrdenDeCompra Eliminar(int idOrden)
         {
-            OrdenCompra eliminado = new OrdenCompra();
+            OrdenDeCompra eliminado = new OrdenDeCompra();
             //conexion con bbdd
             return eliminado;
         }

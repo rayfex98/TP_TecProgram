@@ -1,23 +1,26 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Text;
 
-namespace CapaEntidad
+namespace Entidades
 {
-    public class DetalleOrden
+    public abstract class DetalleOrden: EntidadPersistible
     {
-        private int _idDetalle;
+
+        private Producto _producto;
+
+        public Producto Producto
+        {
+            get { return _producto; }
+            set { _producto = value; }
+        }
+
         private int _cantidad;
-        private string _producto;
 
         public int Cantidad
         {
             get { return _cantidad; }
             set { _cantidad = value; }
-        }
-
-        public string Producto
-        {
-            get { return _producto; }
-            set { _producto = value; }
         }
     }
 }

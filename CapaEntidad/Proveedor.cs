@@ -1,29 +1,36 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Text;
 
-namespace CapaEntidad
+namespace Entidades
 {
-    public class Proveedor
+    public class Proveedor : EntidadPersistible
     {
-        private Direccion _direccion;
         private string _razonSocial;
+
+        public string RazonSocial
+        {
+            get { return _razonSocial; }
+            set { _razonSocial = value; }
+        }
+
         private string _cuil;
 
+        public string CUIL
+        {
+            get { return _cuil; }
+            set { _cuil = value; }
+        }
+
+        private Direccion _direccion;
 
         public Direccion Direccion
         {
-            get { return this._direccion; }
+            get { return _direccion; }
             set { _direccion = value; }
         }
-        public string RazonSocial
-        {
-            get { return this._razonSocial; }
-            set { _razonSocial = value; }
-        }
-        public string Cuil
-        {
-            get { return this._cuil; }
-            set { _cuil = value; }
-        }
+
+
 
     }
 }

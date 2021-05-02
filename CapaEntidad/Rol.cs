@@ -1,23 +1,27 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text;
 
-namespace CapaEntidad
+namespace Entidades
 {
-    public class Rol
+    public class Rol : EntidadPersistible
     {
-        private int _idRol;
-        private HashSet<Permiso> _permiso = new HashSet<Permiso>();
         private string _descripcion;
-
 
         public string Descripcion
         {
             get { return _descripcion; }
             set { _descripcion = value; }
         }
-        public bool AgregarPermiso(Permiso _permiso)
+
+
+        private List<Permiso> _permisos = new List<Permiso>();
+
+        public List<Permiso> Permisos
         {
-            return this._permiso.Add(_permiso);
+            get { return _permisos; }
+            set { _permisos = value; }
         }
+
     }
 }
