@@ -28,5 +28,6 @@ namespace Negocio
         {
             return unCategoria.ListadeCategoria();
         }
+        //nuevo metodo devuelve tabla de categorias
     }
 }

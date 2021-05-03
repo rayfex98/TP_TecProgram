@@ -28,5 +28,6 @@ namespace Negocio
         {
             return ObjProveedor.ListadeProveedores();
         }
+        //nuevo metodo devuelve tabla de proveedores
     }
 }

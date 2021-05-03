@@ -29,5 +29,6 @@ namespace Negocio
         {
             return unStock.ListadeProveedores();
         }
+        //nuevo metodo devuelve tabla de productos
     }
 }

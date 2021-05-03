@@ -6,7 +6,7 @@ namespace Entidades
 {
     public class Deposito
     {
-        private List<Stock> stocks;
+        private List<Stock> stocks; //preguntar el fin de la lista
 
         public List<Stock> Stocks
         {
