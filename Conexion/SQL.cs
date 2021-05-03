@@ -6,7 +6,7 @@ namespace Conexion
 {
     public class SQL
     {
-        private string cadena = ""; //conectar BBDD local
+        private string cadena = "Server=(local);DataBase=NombreSistema;Integrated Security=True"; //conectar BBDD local
         /*private SqlConnection conectar;
 
         public SqlConnection conectar_db()
