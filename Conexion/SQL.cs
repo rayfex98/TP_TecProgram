@@ -2,6 +2,18 @@
 using System.Data.SqlClient;
 using System.Data;
 
+/*Uso en CapaNegocio
+Conexion cn = new Conexion(); 
+SqlCommand cmd;
+
+public void Metodo()
+{
+    cmd = new SqlCommand("Metodo", cn.conectar_db());
+    *Operaciones de la BBDD*
+}
+*/
+
+
 namespace Conexion
 {
     public class SQL
