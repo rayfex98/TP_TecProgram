@@ -5,21 +5,33 @@ namespace ddl_modulo
 {
     public class DDetalleOrden
     {
-        public string Nuevo(DetalleOrden unDetalleOrden)
+        Conexion db = new Conexion();
+        public bool Nuevo(DetalleOrden unDetalleOrden, int id_orden)
         {
-            //conexion con bbdd
-            return "Ok";
+            string query = string.Format("DETALLEPROC @ID = null,@ORDEN={0},@PRODUCTO={1},@CANTIDAD={2},@TIPO = 'INSERT'; ",id_orden,unDetalleOrden.Producto, unDetalleOrden.Producto,unDetalleOrden.Cantidad);
+            if (1 != db.EscribirPorComando(query))
+            {
+                return false;
+            }
+            return true;
         }
-        public string Editar(DetalleOrden unDetalleOrden)
+        public bool Editar(DetalleOrden unDetalleOrden,int detalle, int id_orden)
         {
-            //conexion con bbdd
-            return "Ok";
+            string query = string.Format("DETALLEPROC @ID = {0}, @ORDEN ={ 1},@PRODUCTO ={ 2},@CANTIDAD ={ 3},@TIPO = 'UPDATE'; ", detalle,id_orden,unDetalleOrden.Producto,unDetalleOrden.Cantidad);
+            if (1 != db.EscribirPorComando(query))
+            {
+                return false;
+            }
+            return true;
         }
-        public DetalleOrden Eliminar(int idDetalleOrden)
+        public bool Eliminar(short idDetalleOrden)
         {
-            DetalleOrden eliminado = new DetalleOrden();
-            //conexion con bbdd
-            return eliminado;
+            string query = string.Format("DETALLEPROC @ID = {0}, @ORDEN =null,@PRODUCTO =null,@CANTIDAD =null,@TIPO = 'DELETE';",idDetalleOrden );
+            if (1 != db.EscribirPorComando(query))
+            {
+                return false;
+            }
+            return true;
         }
         public int ID_DetalleOrden()
         {
@@ -27,9 +39,8 @@ namespace ddl_modulo
         }
         public DataTable ListadeDetalleOrden()
         {
-            DataTable dt = new DataTable();
-            //busco en tabla
-            return dt;
+
+            return db.LeerPorStoreProcedure("VISTADETALLE");
         }
     }
 }

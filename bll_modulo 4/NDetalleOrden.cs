@@ -9,15 +9,15 @@ namespace bll_modulo
     {
         DDetalleOrden unDetalleOrden = new DDetalleOrden();
 
-        public string Nuevo(DetalleOrden _unDetalleOrden)
+        public bool Nuevo(DetalleOrden _unDetalleOrden, int id_orden)
         {
-            return unDetalleOrden.Nuevo(_unDetalleOrden);
+            return unDetalleOrden.Nuevo(_unDetalleOrden,id_orden);
         }
-        public string Editar(DetalleOrden _unDetalleOrden)
+        public bool Editar(DetalleOrden _unDetalleOrden, int detalle, int id_orden)
         {
-            return unDetalleOrden.Editar(_unDetalleOrden);
+            return unDetalleOrden.Editar(_unDetalleOrden,detalle,id_orden);
         }
-        public DetalleOrden Eliminar(int _idDetalle)
+        public bool Eliminar(short _idDetalle)
         {
             return unDetalleOrden.Eliminar(_idDetalle);
         }

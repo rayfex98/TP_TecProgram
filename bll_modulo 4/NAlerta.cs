@@ -13,11 +13,11 @@ namespace bll_modulo
 
             return unAlerta.Nuevo(_unAlerta, unapersona, stock);
         }
-        public string Editar(Alerta _unAlerta)
+        public bool Editar(Alerta _unAlerta, int id_alerta)
         {
-            return unAlerta.Editar(_unAlerta);
+            return unAlerta.Editar(_unAlerta, id_alerta);
         }
-        public Alerta Eliminar(int _idProducto)
+        public bool Eliminar(int _idProducto)
         {
             return unAlerta.Eliminar(_idProducto);
         }

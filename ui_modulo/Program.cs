@@ -40,9 +40,9 @@ namespace ui_modulo
                         }
                     case 2:
                         {
-                            int id;
+                            short id;
                             Console.WriteLine("ingrese el id de la categoria a eliminar ");
-                            id = Convert.ToInt32(Console.ReadLine());
+                            id = Convert.ToInt16(Console.ReadLine());
                             if (ncategoria.Eliminar(id))
                             {
                                 Console.WriteLine("categoria eliminada con exito");
@@ -55,10 +55,10 @@ namespace ui_modulo
                         }
                     case 3:
                         {
-                            int id_categoria;
+                            short id_categoria;
                             string descripcionnueva;
                             Console.WriteLine("ingrese el id de la categoria a modificar ");
-                            id_categoria = Convert.ToInt32(Console.ReadLine());
+                            id_categoria = Convert.ToInt16(Console.ReadLine());
                             Console.WriteLine("ingrese nueva descripcion");
                             descripcionnueva = Console.ReadLine();
                             if (ncategoria.Editar(id_categoria, descripcionnueva))

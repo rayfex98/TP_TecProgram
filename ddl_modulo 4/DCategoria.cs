@@ -5,31 +5,30 @@ namespace ddl_modulo
 {
     public class DCategoria
     {
+
+        Conexion db = new Conexion();
         public bool Nuevo(Categoria unCategoria)
         {
-            Conexion db = new Conexion();
-            string query = string.Format("insert into CATEGORIA(DESCRIPCION)" +
-                "values ('{0}')",unCategoria.Nombre);
+            string query = string.Format(" CATEGORIAPROC @ID ={0},@DESCRIPCION ={1},@TIPO= 'INSERT' ;", unCategoria.ID, unCategoria.Nombre);
             if ( 1 != db.EscribirPorComando(query) )
             {
                 return false;
             }
             return true;
         }
+
         public bool Editar(int idcategoria, string descripcionnueva)
         {
-            Conexion db = new Conexion();
-            string query = string.Format("update[dbo].[CATEGORIA] set DESCRIPCION = '{0}' where IDCATEGORIA like '{1}'",descripcionnueva,idcategoria);
+            string query = string.Format("CATEGORIAPROC @ID ={0},@DESCRIPCION ={1},@TIPO= 'UPDATE'", idcategoria, descripcionnueva);
             if (1 != db.EscribirPorComando(query))
             {
                 return false;
             }
             return true;          
         }
-        public bool Eliminar(int idCategoria)
+        public bool Eliminar(short idCategoria)
         {
-            Conexion db = new Conexion();
-            string query = string.Format("delete from CATEGORIA where IDCATEGORIA = {0};",idCategoria);
+            string query = string.Format("CATEGORIAPROC @ID = {0} ,@DESCRIPCION =null,@TIPO= 'DELETE'", idCategoria);
             if (1 != db.EscribirPorComando(query))
             {
                 return false;
@@ -43,8 +42,8 @@ namespace ddl_modulo
 
         public DataTable ListadeCategoria()
         {
-            Conexion db = new Conexion();
-            return db.LeerPorStoreProcedure("mostrarcategoria");
+           // return db.LeerPorStoreProcedure("CATEGORIAPROC @ID = NULL,@STOCK = NULL,@USUARIO = NULL,@MINIMO = NULL,@TIPO = 'SELECTALL'");           
+            return db.LeerPorStoreProcedure("VISTACAT");
          
         }
     }

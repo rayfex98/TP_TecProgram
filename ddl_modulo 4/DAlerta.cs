@@ -5,26 +5,33 @@ namespace ddl_modulo
 {
     public class DAlerta
     {
+            Conexion db = new Conexion();
         public bool Nuevo(Alerta unAlerta, Persona unapersona , Stock stock)
         {
-            Conexion db = new Conexion();
-            string query = string.Format("insert into ALERTA(CANTIDADMINIMA, IDPERSONA, IDSTOCK)" + 
-                "values({0}, {1}, {2})",unAlerta.CantidadMinima, unapersona.ID, stock.ID);
-                db.EscribirPorComando(query);
-      
-            //conexion con bbdd
+            string query = string.Format("ALERTAPROC @ID = null,@STOCK = {0},@USUARIO = {1},@MINIMO = {2},@TIPO = 'INSERT';",stock.ID,unapersona.ID,unAlerta.CantidadMinima);
+            if (1 != db.EscribirPorComando(query))
+            {
+                return false;
+            }
             return true;
         }
-        public string Editar(Alerta unAlerta)
+        public bool Editar(Alerta unAlerta, int id_alerta)
         {
-            //conexion con bbdd
-            return "Ok";
+            string query = string.Format("ALERTAPROC @ID = {0},@STOCK = null,@USUARIO = null,@MINIMO = {1},@TIPO = 'UPDATE';",id_alerta,unAlerta.CantidadMinima);
+            if (1 != db.EscribirPorComando(query))
+            {
+                return false;
+            }
+            return true;
         }
-        public Alerta Eliminar(int idAlerta)
+        public bool Eliminar(int id_alerta)
         {
-            Alerta eliminado = new Alerta();
-            //conexion con bbdd
-            return eliminado;
+            string query = string.Format("ALERTAPROC @ID = {0},@STOCK = null,@USUARIO = null,@MINIMO = null ,@TIPO = 'DELETE';", id_alerta);
+            if (1 != db.EscribirPorComando(query))
+            {
+                return false;
+            }
+            return true;
         }
         public int ID_Alerta()
         {
@@ -33,9 +40,7 @@ namespace ddl_modulo
 
         public DataTable ListadeAlertas()
         {
-            DataTable dt = new DataTable();
-            //busco en tabla
-            return dt;
+            return db.LeerPorStoreProcedure("VISTAALERTA");
         }
     }
 }

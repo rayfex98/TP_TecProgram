@@ -16,7 +16,7 @@ namespace bll_modulo
         {
             return unCategoria.Editar(idcategoria,descripcionnueva);
         }
-        public bool Eliminar(int _idCategoria)
+        public bool Eliminar(short _idCategoria)
         {
             return unCategoria.Eliminar(_idCategoria);
         }

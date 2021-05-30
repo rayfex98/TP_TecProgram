@@ -4,22 +4,35 @@ using Entidades;
 namespace ddl_modulo
 {
     public class DDireccion
-    {
-        public string Nuevo(Direccion unDireccion)
+    { 
+        Conexion db = new Conexion();
+        public bool Nuevo(Direccion unDireccion)
         {
-            //conexion con bbdd
-            return "Ok";
+           
+            string query = string.Format("DIRECCIONPROC  @ID=null,@ALTURA={0},@CALLE={1},@CP={2},@LOCALIDAD={3},@PROVINCIA={4},@TIPO='INSERT';", unDireccion.Altura,unDireccion.Calle,unDireccion.CodigoPostal,unDireccion.Localidad,unDireccion.Provincia);
+            if (1 != db.EscribirPorComando(query))
+            {
+                return false;
+            }
+            return true;
         }
-        public string Editar(Direccion unDireccion)
+        public bool Editar(Direccion unDireccion, short id)
         {
-            //conexion con bbdd
-            return "Ok";
+            string query = string.Format("DIRECCIONPROC  @ID={0},@ALTURA={1},@CALLE={2},@CP={3},@LOCALIDAD={4},@PROVINCIA={5},@TIPO='UPDATE';",id, unDireccion.Altura, unDireccion.Calle, unDireccion.CodigoPostal, unDireccion.Localidad, unDireccion.Provincia);
+            if (1 != db.EscribirPorComando(query))
+            {
+                return false;
+            }
+            return true;
         }
-        public Direccion Eliminar(int idDireccion, int _DNI)
+        public bool Eliminar(short idDireccion)
         {
-            Direccion eliminado = new Direccion();
-            //conexion con bbdd
-            return eliminado;
+            string query = string.Format("DIRECCIONPROC  @ID={0},@ALTURA=null,@CALLE=null,@CP=null,@LOCALIDAD=null,@PROVINCIA=null,@TIPO='DELETE';",idDireccion);
+            if (1 != db.EscribirPorComando(query))
+            {
+                return false;
+            }
+            return true;
         }
         public int ID_Direccion()
         {
@@ -27,9 +40,7 @@ namespace ddl_modulo
         }
         public DataTable ListadeDireccion()
         {
-            DataTable dt = new DataTable();
-            //busco en tabla
-            return dt;
+            return db.LeerPorStoreProcedure("VISTADIR");
         }
     }
 }

@@ -8,17 +8,17 @@ namespace bll_modulo
     {
         DDireccion unDireccion = new DDireccion();
 
-        public string Nuevo(Direccion _unDireccion)
+        public bool Nuevo(Direccion _unDireccion)
         {
             return unDireccion.Nuevo(_unDireccion);
         }
-        public string Editar(Direccion _unDireccion)
+        public bool Editar(Direccion _unDireccion, short id)
         {
-            return unDireccion.Editar(_unDireccion);
+            return unDireccion.Editar(_unDireccion,id);
         }
-        public Direccion Eliminar(int _idDireccion,int _DNI)
+        public bool Eliminar(short _idDireccion)
         {
-            return unDireccion.Eliminar(_idDireccion, _DNI);
+            return unDireccion.Eliminar(_idDireccion);
         }
         public int ID_Direccion()
         {
