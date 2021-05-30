@@ -4,6 +4,6 @@ namespace Entidades
 {
     public abstract class EntidadPersistible
     {
-        public int ID { get; private set; }
+        public int ID { get;set; }
     }
 }

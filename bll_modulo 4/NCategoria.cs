@@ -10,19 +10,17 @@ namespace bll_modulo
 
         public bool Nuevo(Categoria _unCategoria)
         {
+            _unCategoria.Nombre = _unCategoria.Nombre.ToUpper();
             return unCategoria.Nuevo(_unCategoria);
         }
-        public bool Editar(int idcategoria, string descripcionnueva)
+        public bool Editar(Categoria _unCategoria)
         {
-            return unCategoria.Editar(idcategoria,descripcionnueva);
+            if(_unCategoria.Nombre != "") _unCategoria.Nombre = _unCategoria.Nombre.ToUpper();
+            return unCategoria.Editar(_unCategoria);
         }
         public bool Eliminar(int _idCategoria)
         {
             return unCategoria.Eliminar(_idCategoria);
-        }
-        public bool ID_Categoria(string descripcion) //crear nuevo que retorne el id?
-        {
-            return unCategoria.ID_Categoria(descripcion);
         }
         public DataTable ListarCategoria() //nuevo metodo devuelve tabla de categorias
         {

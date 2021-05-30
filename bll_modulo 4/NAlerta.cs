@@ -8,22 +8,22 @@ namespace bll_modulo
     {
         DAlerta unAlerta = new DAlerta();
 
-        public bool Nuevo(Alerta _unAlerta, Persona unapersona, Stock stock)
+        public bool Nuevo(Alerta _unAlerta)
         {
 
-            return unAlerta.Nuevo(_unAlerta, unapersona, stock);
+            return unAlerta.Nuevo(_unAlerta);
         }
-        public string Editar(Alerta _unAlerta)
+        public bool Editar(Alerta _unAlerta)
         {
             return unAlerta.Editar(_unAlerta);
         }
-        public Alerta Eliminar(int _idProducto)
+        public bool Eliminar(Alerta _unAlerta)
         {
-            return unAlerta.Eliminar(_idProducto);
+            return unAlerta.Eliminar(_unAlerta);
         }
-        public int ID_Alerta()
+        public bool ID_Alerta(int stock) //SI EXISTE RETORNA TRUE
         {
-            return unAlerta.ID_Alerta();
+            return unAlerta.ID_Alerta(stock);
         }
         public DataTable ListarAlerta()
         {

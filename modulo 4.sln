@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ui_modulo", "ui_modulo\ui_m
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ui_vista", "ui_vista\ui_vista.csproj", "{C4C15145-421A-42E7-AAE4-C3B0B1AD0E9A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pruebas", "Pruebas\Pruebas.csproj", "{95D5DFC8-35B4-4CAD-B842-610EAD6D18B2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{C4C15145-421A-42E7-AAE4-C3B0B1AD0E9A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C4C15145-421A-42E7-AAE4-C3B0B1AD0E9A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C4C15145-421A-42E7-AAE4-C3B0B1AD0E9A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{95D5DFC8-35B4-4CAD-B842-610EAD6D18B2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{95D5DFC8-35B4-4CAD-B842-610EAD6D18B2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{95D5DFC8-35B4-4CAD-B842-610EAD6D18B2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{95D5DFC8-35B4-4CAD-B842-610EAD6D18B2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

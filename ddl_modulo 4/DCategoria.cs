@@ -1,5 +1,4 @@
-﻿using System;
-using System.Data;
+﻿using System.Data;
 using Entidades;
 
 namespace ddl_modulo
@@ -8,51 +7,105 @@ namespace ddl_modulo
     {
         public bool Nuevo(Categoria unCategoria)
         {
-            Conexion db = new Conexion();
-            if (!ID_Categoria(unCategoria.Nombre)) //si la nueva no existe ya dentro de la bbdd
-            {
-                string query = string.Format("IF NOT EXISTS (SELECT [IDCATEGORIA] FROM CATEGORIA WHERE [DESCRIPCION] = '{0}') EXEC CATEGORIAPROC @ID = NULL,@DESCRIPCION = '{0}',@TIPO = 'INSERT';", unCategoria.Nombre);
-                if (1 != db.EscribirPorComando(query))
+            try {
+                Conexion db = new Conexion();
+                if (!ID_Categoria(false, unCategoria.Nombre))
                 {
-                    return false;
+                    string query = string.Format("EXEC CATEGORIAPROC @ID = NULL,@DESCRIPCION = '{0}',@TIPO = 'INSERT';", unCategoria.Nombre);
+                    if (1 != db.EscribirPorComando(query))
+                    {
+                        return false;
+                    }
                 }
+                return true;
             }
-            return true;
+            catch(System.Data.SqlClient.SqlException)
+            {
+                return false;
+            }
+            
         }
-        public bool Editar(int idcategoria, string descripcionnueva)
+        public bool Editar(Categoria unaCat) //
         {
-            Conexion db = new Conexion();
-            if (!ID_Categoria(descripcionnueva)) //si la nueva no existe ya dentro de la bbdd
+            try
             {
-                string query = string.Format("IF EXISTS (SELECT [IDCATEGORIA] FROM CATEGORIA WHERE [IDCATEGORIA] = {0}) " +
-                "EXEC CATEGORIAPROC @ID = {0},@DESCRIPCION = '{1}',@TIPO = 'UPDATE';", idcategoria, descripcionnueva);
-                if (1 != db.EscribirPorComando(query))
+                Conexion db = new Conexion();
+                if (!ID_Categoria(true, unaCat.ID.ToString())) //id debe existir
                 {
-                    return false;
+                    string query = string.Format("EXEC CATEGORIAPROC @ID = {0},@DESCRIPCION = '{1}',@TIPO = 'UPDATE';", unaCat.ID.ToString(), unaCat.Nombre);
+                    if (1 != db.EscribirPorComando(query))
+                    {
+                        return false;
+                    }
+                    return true;
                 }
+                return false;
             }
-            return true;          
+            catch (System.Data.SqlClient.SqlException)
+            {
+                return false;
+            }
+            catch (System.NullReferenceException)
+            {
+                return false;
+            }
         }
         public bool Eliminar(int idCategoria)
         {
-            Conexion db = new Conexion();
-            string query = string.Format("IF EXISTS (SELECT [IDCATEGORIA] FROM CATEGORIA WHERE [IDCATEGORIA] = {0}) " +
-                "EXEC CATEGORIAPROC @ID = {0},@DESCRIPCION = NULL,@TIPO = 'DELETE';", idCategoria);
-            if (1 != db.EscribirPorComando(query))
+            try
+            {
+                Conexion db = new Conexion();
+                if (ID_Categoria(true, idCategoria.ToString()))
+                {
+                    string query = string.Format("EXEC CATEGORIAPROC @ID = {0},@DESCRIPCION = NULL,@TIPO = 'DELETE';", idCategoria);
+                    if (1 != db.EscribirPorComando(query))
+                    {
+                        return false;
+                    }
+                }
+                return true;
+            }
+            catch (System.Data.SqlClient.SqlException)
             {
                 return false;
             }
-            return true;
+            catch (System.NullReferenceException)
+            {
+                return false;
+            }
         }
-        public bool ID_Categoria(string descripcion) //SI EXISTE RETORNA TRUE
+        public bool ID_Categoria(bool metodo,string descripcion) //SI EXISTE RETORNA TRUE
         {
-            Conexion db = new Conexion();
-            string query = string.Format("EXEC CATEGORIAPROC @ID = NULL,@DESCRIPCION = {0},@TIPO = 'SELECTID';",descripcion);
-            if (1 != db.EscribirPorComando(query))
+            try
+            {
+                Conexion db = new Conexion();
+                string query;
+                if (metodo == true)
+                {
+                    query = string.Format("EXEC CATEGORIAPROC @ID = {0},@DESCRIPCION = NULL,@TIPO = 'SELECTONE';", descripcion);
+                    if (1 != db.EscribirPorComando(query))
+                    {
+                        return false;
+                    }
+                }
+                else
+                {
+                    query = string.Format("EXEC CATEGORIAPROC @ID = NULL,@DESCRIPCION = {0},@TIPO = 'SELECTID';", descripcion);
+                    if (1 != db.EscribirPorComando(query))
+                    {
+                        return false;
+                    }
+                }
+                return true;
+            }
+            catch (System.Data.SqlClient.SqlException)
             {
                 return false;
             }
-            return true;
+            catch (System.NullReferenceException)
+            {
+                return false;
+            }
         }
 
         public DataTable ListadeCategoria()

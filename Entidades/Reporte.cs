@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Entidades
 {
-    public abstract class Reporte
+    public abstract class Reporte : EntidadPersistible
     {
         private DataTable _tablaReporte;
 
