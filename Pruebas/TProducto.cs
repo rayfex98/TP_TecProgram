@@ -1,18 +1,17 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Entidades;
 using bll_modulo;
-using System;
 
 namespace Pruebas
 {
     [TestClass]
-    public class TCategoria
+    public class TProducto
     {
         [TestMethod]
         public void _1Insert()
         {
-            Categoria unObj = new Categoria();
-            NCategoria Obj = new NCategoria();
+            Producto unObj = new Producto();
+            NProducto Obj = new NProducto();
             unObj.Nombre = "cereal";
             Assert.AreEqual(Obj.Nuevo(unObj), true);
             unObj.Nombre = "hogar";
@@ -24,8 +23,8 @@ namespace Pruebas
         [TestMethod]
         public void _2Editar()
         {
-            Categoria unObj = new Categoria();
-            NCategoria Obj = new NCategoria();
+            Producto unObj = new Producto();
+            NProducto Obj = new NProducto();
             unObj.Nombre = "electro";
             unObj.ID = 2;
             Assert.AreEqual(Obj.Editar(unObj), true);
@@ -33,10 +32,10 @@ namespace Pruebas
         [TestMethod]
         public void _3Borrado()
         {
-            Categoria unObj = new Categoria();
-            NCategoria Obj = new NCategoria();
+            Producto unObj = new Producto();
+            NProducto Obj = new NProducto();
             unObj.ID = 2;
             Assert.AreEqual(Obj.Eliminar(unObj), true);
-        }    
+        }
     }
 }

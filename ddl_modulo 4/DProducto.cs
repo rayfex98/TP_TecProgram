@@ -5,25 +5,125 @@ namespace ddl_modulo
 {
     public class DProducto
     {
-        public string Nuevo(Producto unProducto)
+        public bool Nuevo(Producto unProducto)
         {
-            //conexion con bbdd
-            return "Ok";
+            try
+            {
+                Conexion db = new Conexion();
+                if (!ID_Producto(false,-1,unProducto.Nombre))
+                {
+                    string query = string.Format("EXEC PRODUCTOPROC @ID=NULL,@CATEGORIA={0},@NOMBRE={1},@COMPRA = {2} ,@VENTA = {3},@TIPO='INSERT';"
+                        ,unProducto.Categoria.ID, unProducto.Nombre, unProducto.PrecioCompra, unProducto.PrecioVenta);
+                    if (1 != db.EscribirPorComando(query))
+                    {
+                        return false;
+                    }
+                }
+                return true;
+            }
+            catch (System.Data.SqlClient.SqlException)
+            {
+                return false;
+            }
         }
-        public string Editar(Producto unProducto)
+        public bool Editar(Producto unProducto)
         {
-            //conexion con bbdd
-            return "Ok";
+            try
+            {
+                Conexion db = new Conexion();
+                if (!ID_Producto(true, unProducto.ID,"NULL")) //id debe existir
+                {
+                    string query = string.Format("EXEC PRODUCTOPROC @ID={0},@CATEGORIA={1},@NOMBRE={2},@COMPRA = {3} ,@VENTA = {4},@TIPO='UPDATE';"
+                        ,unProducto.ID, unProducto.Categoria.ID, unProducto.Nombre, unProducto.PrecioCompra, unProducto.PrecioVenta);
+                    if (1 != db.EscribirPorComando(query))
+                    {
+                        return false;
+                    }
+                    return true;
+                }
+                return false;
+            }
+            catch (System.Data.SqlClient.SqlException)
+            {
+                return false;
+            }
+            catch (System.NullReferenceException)
+            {
+                return false;
+            }
         }
-        public Producto Eliminar(int idProducto)
+        public bool Eliminar(Producto unProducto)
         {
-            Producto eliminado = new Producto();
-            //conexion con bbdd
-            return eliminado;
+            try
+            {
+                Conexion db = new Conexion();
+                if (unProducto.ID.ToString() != null)
+                {
+                    if (ID_Producto(true, unProducto.ID,"NULL"))
+                    {
+
+                        string query = string.Format("EXEC PRODUCTOPROC @ID = {0},@CATEGORIA=NULL,@NOMBRE=NULL,@COMPRA = NULL,@VENTA = NULL,@TIPO = 'DELETE';",unProducto.ID); ///
+                        if (1 != db.EscribirPorComando(query))
+                        {
+                            return false;
+                        }
+                    }
+                }
+                else
+                {
+                    if (ID_Producto(false,-1, unProducto.Nombre))
+                    {
+                        string query = string.Format("EXEC PRODUCTOPROC @ID = NULL,@CATEGORIA={1},@NOMBRE={0},@COMPRA = NULL,@VENTA = NULL,@TIPO = 'DELETE';",unProducto.Nombre, unProducto.Categoria.ID);
+                        if (1 != db.EscribirPorComando(query))
+                        {
+                            return false;
+                        }
+                    }
+                }
+                
+                return true;
+            }
+            catch (System.Data.SqlClient.SqlException)
+            {
+                return false;
+            }
+            catch (System.NullReferenceException)
+            {
+                return false;
+            }
         }
-        public int ID_Producto()
+        public bool ID_Producto(bool metodo, int id, string nombre)
         {
-            return 0;
+            try
+            {
+                Conexion db = new Conexion();
+                string query;
+                if (metodo == true)
+                {
+                    query = string.Format("EXEC PRODUCTOPROC @ID = {0},@CATEGORIA=NULL,@NOMBRE=NULL,@COMPRA = NULL,@VENTA = NULL,@TIPO = 'SELECTID';", id, null);
+                    if (1 != db.EscribirPorComando(query))
+                    {
+                        return false;
+                    }
+                }
+                else
+                {
+                    query = string.Format("EXEC PRODUCTOPROC @ID = NULL,@CATEGORIA={0},@NOMBRE={1},@COMPRA = NULL ,@VENTA = NULL,@TIPO = 'SELECTID';", id, nombre);
+                    if (1 != db.EscribirPorComando(query))
+                    {
+                        return false;
+                    }
+                }
+                return true;
+            }
+            catch (System.Data.SqlClient.SqlException)
+            {
+                return false;
+            }
+            catch (System.NullReferenceException)
+            {
+                return false;
+            }
         }
 
         public DataTable ListadeProductos()

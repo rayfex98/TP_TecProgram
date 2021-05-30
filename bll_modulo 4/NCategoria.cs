@@ -18,9 +18,9 @@ namespace bll_modulo
             if(_unCategoria.Nombre != "") _unCategoria.Nombre = _unCategoria.Nombre.ToUpper();
             return unCategoria.Editar(_unCategoria);
         }
-        public bool Eliminar(int _idCategoria)
+        public bool Eliminar(Categoria _unCategoria)
         {
-            return unCategoria.Eliminar(_idCategoria);
+            return unCategoria.Eliminar(_unCategoria);
         }
         public DataTable ListarCategoria() //nuevo metodo devuelve tabla de categorias
         {

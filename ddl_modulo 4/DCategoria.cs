@@ -50,14 +50,14 @@ namespace ddl_modulo
                 return false;
             }
         }
-        public bool Eliminar(int idCategoria)
+        public bool Eliminar(Categoria unCat)
         {
             try
             {
                 Conexion db = new Conexion();
-                if (ID_Categoria(true, idCategoria.ToString()))
+                if (ID_Categoria(true, unCat.ID.ToString()))
                 {
-                    string query = string.Format("EXEC CATEGORIAPROC @ID = {0},@DESCRIPCION = NULL,@TIPO = 'DELETE';", idCategoria);
+                    string query = string.Format("EXEC CATEGORIAPROC @ID = {0},@DESCRIPCION = NULL,@TIPO = 'DELETE';", unCat.ID);
                     if (1 != db.EscribirPorComando(query))
                     {
                         return false;
@@ -82,7 +82,7 @@ namespace ddl_modulo
                 string query;
                 if (metodo == true)
                 {
-                    query = string.Format("EXEC CATEGORIAPROC @ID = {0},@DESCRIPCION = NULL,@TIPO = 'SELECTONE';", descripcion);
+                    query = string.Format("EXEC CATEGORIAPROC @ID = {0},@DESCRIPCION = NULL,@TIPO = 'SELECTID';", descripcion);
                     if (1 != db.EscribirPorComando(query))
                     {
                         return false;

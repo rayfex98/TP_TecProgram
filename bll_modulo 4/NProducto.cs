@@ -4,25 +4,21 @@ using Entidades;
 
 namespace bll_modulo
 {
-    class NProducto
+    public class NProducto
     {
         DProducto unProducto = new DProducto();
 
-        public string Nuevo(Producto _proveedor)
+        public bool Nuevo(Producto _proveedor)
         {
             return unProducto.Nuevo(_proveedor);
         }
-        public string Editar(Producto _producto)
+        public bool Editar(Producto _producto)
         {
             return unProducto.Editar(_producto);
         }
-        public Producto Eliminar(int _idProducto)
+        public bool Eliminar(Producto _idProducto)
         {
             return unProducto.Eliminar(_idProducto);
-        }
-        public int ID_Producto()
-        {
-            return unProducto.ID_Producto();
         }
         public DataTable ListarProductos()
         {

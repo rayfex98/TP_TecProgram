@@ -7,58 +7,106 @@ namespace ddl_modulo
     {
         public bool Nuevo(Alerta unAlerta)
         {
-            Conexion db = new Conexion();
-            if (!ID_Alerta(unAlerta.Stock.ID)) //si tupla unica no existe ya dentro de la bbdd
+            try
             {
-                string query = string.Format("EXEC ALERTAPROC @ID = NULL,@STOCK = {0},@USUARIO = {1},@MINIMO = {2},@TIPO = 'INSERT';", unAlerta.Stock.ID, unAlerta.UsuarioCreador.ID, unAlerta.CantidadMinima);
-                if (1 != db.EscribirPorComando(query))
+                Conexion db = new Conexion();
+                if (!ID_Alerta(false, unAlerta.Stock.ID))
                 {
-                    return false;
+                    string query = string.Format("EXEC ALERTAPROC @ID = NULL, @STOCK = { 0},@USUARIO = { 1},@MINIMO = { 2},@TIPO = 'INSERT'; ", unAlerta.Stock.ID, unAlerta.UsuarioCreador.ID, unAlerta.CantidadMinima);
+                    if (1 != db.EscribirPorComando(query))
+                    {
+                        return false;
+                    }
                 }
+                return true;
             }
-            return true;
+            catch (System.Data.SqlClient.SqlException)
+            {
+                return false;
+            }
         }
         public bool Editar(Alerta unAlerta) //
         {
-            Conexion db = new Conexion();
-            if (ID_Alerta(unAlerta.ID) && !ID_Alerta(unAlerta.Stock.ID))
+            try
             {
-                string query = string.Format("ALERTAPROC @ID = {0},@STOCK = null,@USUARIO = null,@MINIMO = {1},@TIPO = 'UPDATE';", unAlerta.ID, unAlerta.CantidadMinima);
-                if (1 != db.EscribirPorComando(query))
+                Conexion db = new Conexion();
+                if (ID_Alerta(true, unAlerta.ID) && !ID_Alerta(false, unAlerta.Stock.ID)) //id debe existir
                 {
-                    return false;
+                    string query = string.Format("ALERTAPROC @ID = {0},@STOCK = null,@USUARIO = null,@MINIMO = {1},@TIPO = 'UPDATE';", unAlerta.ID, unAlerta.CantidadMinima);
+                    if (1 != db.EscribirPorComando(query))
+                    {
+                        return false;
+                    }
+                    return true;
                 }
+                return false;
             }
-            return true;
+            catch (System.Data.SqlClient.SqlException)
+            {
+                return false;
+            }
+            catch (System.NullReferenceException)
+            {
+                return false;
+            }
         }
         public bool Eliminar(Alerta unAlerta)
         {
-            Conexion db = new Conexion();
-            if (ID_Alerta(unAlerta.ID))
+            try
             {
-                string query = string.Format("ALERTAPROC @ID = {0},@STOCK = null,@USUARIO = null,@MINIMO = null ,@TIPO = 'DELETE';", unAlerta.ID);
-                if (1 != db.EscribirPorComando(query))
+                Conexion db = new Conexion();
+                if (ID_Alerta(true, unAlerta.ID))
                 {
-                    return false;
+                    string query = string.Format("ALERTAPROC @ID = {0},@STOCK = null,@USUARIO = null,@MINIMO = null ,@TIPO = 'DELETE';", unAlerta.ID);
+                    if (1 != db.EscribirPorComando(query))
+                    {
+                        return false;
+                    }
                 }
+                return true;
             }
-            return true;
+            catch (System.Data.SqlClient.SqlException)
+            {
+                return false;
+            }
+            catch (System.NullReferenceException)
+            {
+                return false;
+            }
         }
-        public bool ID_Alerta(int id) //SI EXISTE RETORNA TRUE
+
+        public bool ID_Alerta(bool metodo, int id) //SI EXISTE RETORNA TRUE
         {
-            Conexion db = new Conexion();
-            string query;
-            query = string.Format("EXEC ALERTAPROC @ID = NULL,@STOCK = {0},@USUARIO = NULL,@MINIMO = NULL,@TIPO = 'SELECTONE';", id);
-            if (1 != db.EscribirPorComando(query))
+            try
+            {
+                Conexion db = new Conexion();
+                string query;
+                if (metodo == true)
+                {
+                    query = string.Format("EXEC ALERTAPROC @ID = NULL,@STOCK = {0},@USUARIO = NULL,@MINIMO = NULL,@TIPO = 'SELECTONE';", id);
+                    if (1 != db.EscribirPorComando(query))
+                    {
+                        return false;
+                    }
+                }
+                else
+                {
+                    query = string.Format("EXEC ALERTAPROC @ID = NULL,@STOCK = {0},@USUARIO = NULL,@MINIMO = NULL,@TIPO = 'SELECTID';", id);
+                    if (1 != db.EscribirPorComando(query))
+                    {
+                        return false;
+                    }
+                }
+                return true;
+            }
+            catch (System.Data.SqlClient.SqlException)
             {
                 return false;
             }
-            query = string.Format("EXEC ALERTAPROC @ID = NULL,@STOCK = {0},@USUARIO = NULL,@MINIMO = NULL,@TIPO = 'SELECTID';", id);
-            if (1 != db.EscribirPorComando(query))
+            catch (System.NullReferenceException)
             {
                 return false;
             }
-            return true;
         }
 
         public DataTable ListadeAlertas()

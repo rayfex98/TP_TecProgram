@@ -10,7 +10,6 @@ namespace bll_modulo
 
         public bool Nuevo(Alerta _unAlerta)
         {
-
             return unAlerta.Nuevo(_unAlerta);
         }
         public bool Editar(Alerta _unAlerta)
@@ -20,10 +19,6 @@ namespace bll_modulo
         public bool Eliminar(Alerta _unAlerta)
         {
             return unAlerta.Eliminar(_unAlerta);
-        }
-        public bool ID_Alerta(int stock) //SI EXISTE RETORNA TRUE
-        {
-            return unAlerta.ID_Alerta(stock);
         }
         public DataTable ListarAlerta()
         {
