@@ -21,7 +21,7 @@ namespace ui_vista
 
         private void button1_Click(object sender, EventArgs e)
         {
-             DCategoria cat = new DCategoria();
+            DCategoria cat = new DCategoria();
             dtgvcategoria.DataSource = cat.ListadeCategoria();
         }
     }

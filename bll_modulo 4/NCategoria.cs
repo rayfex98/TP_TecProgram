@@ -20,14 +20,13 @@ namespace bll_modulo
         {
             return unCategoria.Eliminar(_idCategoria);
         }
-        public int ID_Categoria()
+        public bool ID_Categoria(string descripcion) //crear nuevo que retorne el id?
         {
-            return unCategoria.ID_Categoria();
+            return unCategoria.ID_Categoria(descripcion);
         }
-        public DataTable ListarCategoria()
+        public DataTable ListarCategoria() //nuevo metodo devuelve tabla de categorias
         {
             return unCategoria.ListadeCategoria();
         }
-        //nuevo metodo devuelve tabla de categorias
     }
 }
