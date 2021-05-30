@@ -1,0 +1,6 @@
+C:\Users\ghami\Desktop\primer cuatrimestre 2021\Técnicas de programación\modulo 4\Entidades\bin\Debug\Entidades.dll
+C:\Users\ghami\Desktop\primer cuatrimestre 2021\Técnicas de programación\modulo 4\Entidades\bin\Debug\Entidades.pdb
+C:\Users\ghami\Desktop\primer cuatrimestre 2021\Técnicas de programación\modulo 4\Entidades\obj\Debug\Entidades.csprojAssemblyReference.cache
+C:\Users\ghami\Desktop\primer cuatrimestre 2021\Técnicas de programación\modulo 4\Entidades\obj\Debug\Entidades.csproj.CoreCompileInputs.cache
+C:\Users\ghami\Desktop\primer cuatrimestre 2021\Técnicas de programación\modulo 4\Entidades\obj\Debug\Entidades.dll
+C:\Users\ghami\Desktop\primer cuatrimestre 2021\Técnicas de programación\modulo 4\Entidades\obj\Debug\Entidades.pdb
