@@ -63,10 +63,10 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="conexionbdd.udl" />
+    <Content Include="SQLQuery3.sql" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="SQLQuery3.sql" />
+    <None Include="ConexionBD.udl" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Entidades
 {
-    public class Direccion 
+    public class Direccion : EntidadPersistible
     {
         private string _calle;
 

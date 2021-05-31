@@ -100,7 +100,7 @@ namespace ddl_modulo
                 string query;
                 if (metodo == true)
                 {
-                    query = string.Format("EXEC PRODUCTOPROC @ID = {0},@CATEGORIA=NULL,@NOMBRE=NULL,@COMPRA = NULL,@VENTA = NULL,@TIPO = 'SELECTID';", id, null);
+                    query = string.Format("EXEC PRODUCTOPROC @ID = {0},@CATEGORIA=NULL,@NOMBRE=NULL,@COMPRA = NULL,@VENTA = NULL,@TIPO = 'SELECTONE';", id, null);
                     if (1 != db.EscribirPorComando(query))
                     {
                         return false;

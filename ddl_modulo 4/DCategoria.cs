@@ -23,14 +23,13 @@ namespace ddl_modulo
             {
                 return false;
             }
-            
         }
         public bool Editar(Categoria unaCat) //
         {
             try
             {
                 Conexion db = new Conexion();
-                if (!ID_Categoria(true, unaCat.ID.ToString())) //id debe existir
+                if (!ID_Categoria(true, unaCat.ID.ToString()))
                 {
                     string query = string.Format("EXEC CATEGORIAPROC @ID = {0},@DESCRIPCION = '{1}',@TIPO = 'UPDATE';", unaCat.ID.ToString(), unaCat.Nombre);
                     if (1 != db.EscribirPorComando(query))
@@ -82,7 +81,7 @@ namespace ddl_modulo
                 string query;
                 if (metodo == true)
                 {
-                    query = string.Format("EXEC CATEGORIAPROC @ID = {0},@DESCRIPCION = NULL,@TIPO = 'SELECTID';", descripcion);
+                    query = string.Format("EXEC CATEGORIAPROC @ID = {0},@DESCRIPCION = NULL,@TIPO = 'SELECTONE';", descripcion);
                     if (1 != db.EscribirPorComando(query))
                     {
                         return false;

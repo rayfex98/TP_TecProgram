@@ -8,21 +8,18 @@ namespace bll_modulo
     {
         DDireccion unDireccion = new DDireccion();
 
-        public string Nuevo(Direccion _unDireccion)
+        public bool Nuevo(Direccion _unDireccion)
         {
+            _unDireccion.Calle = _unDireccion.Calle.ToUpper();
             return unDireccion.Nuevo(_unDireccion);
         }
-        public string Editar(Direccion _unDireccion)
+        public bool Editar(Direccion _unDireccion)
         {
             return unDireccion.Editar(_unDireccion);
         }
-        public Direccion Eliminar(int _idDireccion,int _DNI)
+        public bool Eliminar(Direccion _unDireccion)
         {
-            return unDireccion.Eliminar(_idDireccion, _DNI);
-        }
-        public int ID_Direccion()
-        {
-            return unDireccion.ID_Direccion();
+            return unDireccion.Eliminar(_unDireccion);
         }
         public DataTable ListarDireccion()
         {

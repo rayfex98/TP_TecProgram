@@ -53,6 +53,8 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TAlerta.cs" />
     <Compile Include="TProducto.cs" />
+    <Compile Include="TDireccion.cs" />
+    <Compile Include="TDetalle.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
