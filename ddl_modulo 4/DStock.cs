@@ -1,5 +1,6 @@
 ﻿using Entidades;
 using System.Data;
+using ExcepcionesControladas;
 
 namespace ddl_modulo
 {

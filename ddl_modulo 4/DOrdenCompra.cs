@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Data;
 using Entidades;
+using ExcepcionesControladas;
 
 namespace ddl_modulo
 {
@@ -11,6 +12,7 @@ namespace ddl_modulo
             try
             {
                 Conexion db = new Conexion();
+                unOrdenCompra.FechaAprobacion = DateTime.Now;
                 string query = string.Format("EXEC ORDENCOMPRAPROC @ID=NULL,@PROVEEDOR={0},@USUARIO={1},@FECHA={2},@TIPO = 'INSERT';"
                 , unOrdenCompra.Proveedor.ID, unOrdenCompra.UsuarioAprobador.ID, unOrdenCompra.FechaAprobacion);
                 if (1 != db.EscribirPorComando(query))

@@ -1,5 +1,7 @@
-﻿using System.Data;
+﻿using System;
+using System.Data;
 using Entidades;
+using ExcepcionesControladas;
 
 namespace ddl_modulo
 {
@@ -10,6 +12,7 @@ namespace ddl_modulo
             try
             {
                 Conexion db = new Conexion();
+                unOrden.Fecha = DateTime.Now;
                 string query = string.Format("EXEC CATEGORIAPROC @ID = NULL,@USUARIO={0},@FECHA={1},@TIPO = 'INSERT';", unOrden.UsuarioCreador.ID, unOrden.Fecha);
                 if (1 != db.EscribirPorComando(query))
                 {
@@ -27,6 +30,7 @@ namespace ddl_modulo
             try
             {
                 Conexion db = new Conexion();
+                unOrden.Fecha = DateTime.Now;
                 if (ID_Orden(unOrden.ID))
                 {
                     string query = string.Format("EXEC ORDENPROD @ID={0},@USUARIO={1},@FECHA={2},@TIPO = 'UPDATE';", unOrden.ID, unOrden.UsuarioCreador.ID, unOrden.Fecha);
