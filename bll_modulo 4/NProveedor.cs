@@ -8,26 +8,21 @@ namespace bll_modulo
     {
         DProveedor ObjProveedor = new DProveedor();
 
-        public string Nuevo(Proveedor _proveedor)
+        public bool Nuevo(Proveedor _proveedor)
         {
             return ObjProveedor.Nuevo(_proveedor);
         }
-        public string Editar(Proveedor _proveedor)
+        public bool Editar(Proveedor _proveedor)
         {
             return ObjProveedor.Editar(_proveedor);
         }
-        public Proveedor Eliminar(int _cuil)
+        public bool Eliminar(Proveedor _proveedor)
         {
-            return ObjProveedor.Eliminar(_cuil);
-        }
-        public int ID_Proveedor()
-        {
-            return ObjProveedor.ID_Proveedor();
+            return ObjProveedor.Eliminar(_proveedor);
         }
         public DataTable ListarProveedores()
         {
             return ObjProveedor.ListadeProveedores();
         }
-        //nuevo metodo devuelve tabla de proveedores
     }
 }

@@ -5,25 +5,112 @@ namespace ddl_modulo
 {
     public class DProveedor
     {
-        public string Nuevo(Proveedor ObjProveedor)
+        public bool Nuevo(Proveedor ObjProveedor)
         {
-            //conexion con bbdd
-            return "Ok";
+            try
+            {
+                Conexion db = new Conexion();
+                if (!ID_Proveedor(false, -1, int.Parse(ObjProveedor.CUIL)))
+                {
+                    string query = string.Format("EXEC PROVEEDORPROC @ID=NULL,@DIRECCION={0},@CUIL={1},@RAZONSOCIAL={2},@TIPO = 'INSERT';"
+                        , ObjProveedor.Direccion, ObjProveedor.CUIL, ObjProveedor.RazonSocial);
+                    if (1 != db.EscribirPorComando(query))
+                    {
+                        return false;
+                    }
+                }
+                return true;
+            }
+            catch (System.Data.SqlClient.SqlException)
+            {
+                return false;
+            }
         }
-        public string Editar(Proveedor ObjProveedor)
+        public bool Editar(Proveedor ObjProveedor)
         {
-            //conexion con bbdd
-            return "Ok";
+            try
+            {
+                Conexion db = new Conexion();
+                if (!ID_Proveedor(true, ObjProveedor.ID, -1))
+                {
+                    if (!ID_Proveedor(false, -1, int.Parse(ObjProveedor.CUIL)))
+                    {
+                        string query = string.Format("EXEC PROVEEDORPROC @ID={0},@DIRECCION={1},@CUIL={2},@RAZONSOCIAL={3},@TIPO = 'UPDATE';"
+                            , ObjProveedor.ID, ObjProveedor.Direccion, ObjProveedor.CUIL, ObjProveedor.RazonSocial);
+                        if (1 != db.EscribirPorComando(query))
+                        {
+                            return false;
+                        }
+                        return true;
+                    }
+                }
+                return false;
+            }
+            catch (System.Data.SqlClient.SqlException)
+            {
+                return false;
+            }
+            catch (System.NullReferenceException)
+            {
+                return false;
+            }
         }
-        public Proveedor Eliminar(int Cuil)
+        public bool Eliminar(Proveedor ObjProveedor)
         {
-            Proveedor eliminado = new Proveedor();
-            //conexion con bbdd
-            return eliminado;
+            try
+            {
+                Conexion db = new Conexion();
+                if (ID_Proveedor(true, ObjProveedor.ID, int.Parse(ObjProveedor.CUIL)))
+                {
+                    string query = string.Format("EXEC PROVEEDORPROC @ID={0},@DIRECCION=NULL,@CUIL=NULL,@RAZONSOCIAL=NULL,@TIPO = 'DELETE';", ObjProveedor.ID);
+                    if (1 != db.EscribirPorComando(query))
+                    {
+                        return false;
+                    }
+                }
+                return true;
+            }
+            catch (System.Data.SqlClient.SqlException)
+            {
+                return false;
+            }
+            catch (System.NullReferenceException)
+            {
+                return false;
+            }
         }
-        public int ID_Proveedor()
+        public bool ID_Proveedor(bool metodo, int id, int cuil)
         {
-            return 0;
+            try
+            {
+                Conexion db = new Conexion();
+                string query;
+                if (metodo == true)
+                {
+                    query = string.Format("EXEC PROVEEDORPROC @ID={0},@DIRECCION=NULL,@CUIL=NULL,@RAZONSOCIAL=NULL,@TIPO = 'SELECTONE';", id);
+                    if (1 != db.EscribirPorComando(query))
+                    {
+                        return false;
+                    }
+                }
+                else
+                {
+                    query = string.Format("EXEC PROVEEDORPROC @ID=NULL,@DIRECCION=NULL,@CUIL={0},@RAZONSOCIAL=NULL,@TIPO = 'SELECTID';", cuil);
+                    if (1 != db.EscribirPorComando(query))
+                    {
+                        return false;
+                    }
+                }
+                return true;
+            }
+            catch (System.Data.SqlClient.SqlException)
+            {
+                return false;
+            }
+            catch (System.NullReferenceException)
+            {
+                return false;
+            }
         }
 
         public DataTable ListadeProveedores()

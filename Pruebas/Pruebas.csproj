@@ -54,7 +54,8 @@
     <Compile Include="TAlerta.cs" />
     <Compile Include="TProducto.cs" />
     <Compile Include="TDireccion.cs" />
-    <Compile Include="TDetalle.cs" />
+    <Compile Include="TDetallePENDIENTE.cs" />
+    <Compile Include="TOrdenCompraPENDIENTE.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

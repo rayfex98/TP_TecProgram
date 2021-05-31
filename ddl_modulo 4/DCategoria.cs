@@ -111,7 +111,6 @@ namespace ddl_modulo
         {
             Conexion db = new Conexion();
             return db.LeerPorStoreProcedure("mostrarcategoria");
-         
         }
     }
 }

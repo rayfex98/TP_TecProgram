@@ -5,32 +5,93 @@ namespace ddl_modulo
 {
     public class DStock
     {
-        public string Nuevo(DStock _Stock)
+        public bool Nuevo(Stock unStock)
         {
-            //conexion con bbdd
-            return "Ok";
+            try
+            {
+                Conexion db = new Conexion();
+                string query = string.Format("EXEC STOCKPROC @ID=NULL,@PRODUCTO={0},@CANTIDAD={1},@TIPO = 'INSERT';", unStock.Producto.ID, unStock.Cantidad);
+                if (1 != db.EscribirPorComando(query))
+                {
+                    return false;
+                }
+                return true;
+            }
+            catch (System.Data.SqlClient.SqlException)
+            {
+                return false;
+            }
         }
-        public string Editar(DStock _Stock)
+        public bool Editar(Stock unStock)
         {
-            //conexion con bbdd
-            return "Ok";
+            try
+            {
+                Conexion db = new Conexion();
+                if (!ID_Stock(unStock.ID))
+                {
+                    string query = string.Format("EXEC STOCKPROC @ID={0},@PRODUCTO={1},@CANTIDAD={3},@TIPO = 'UPDATE';", unStock.ID, unStock.Producto.ID, unStock.Cantidad);
+                    if (1 != db.EscribirPorComando(query))
+                    {
+                        return false;
+                    }
+                    return true;
+                }
+                return false;
+            }
+            catch (System.Data.SqlClient.SqlException)
+            {
+                return false;
+            }
+            catch (System.NullReferenceException)
+            {
+                return false;
+            }
         }
-        public Stock Eliminar(int idProducto)
+        public bool Eliminar(int idProducto)
         {
-            Stock eliminado = new Stock();
-            //conexion con bbdd
-            return eliminado;
+            try
+            {
+                Conexion db = new Conexion();
+                if (ID_Stock(idProducto))
+                {
+                    string query = string.Format("EXEC STOCKPROC @ID={0},@PRODUCTO=NULL,@CANTIDAD=NULL,@TIPO = 'DELETE';", idProducto);
+                    if (1 != db.EscribirPorComando(query))
+                    {
+                        return false;
+                    }
+                }
+                return true;
+            }
+            catch (System.Data.SqlClient.SqlException)
+            {
+                return false;
+            }
+            catch (System.NullReferenceException)
+            {
+                return false;
+            }
         }
-        public int ID_Stock()
+        public bool ID_Stock(int idStock)
         {
-            return 0;
-        }
-
-        public DataTable ListadeProveedores()
-        {
-            DataTable dt = new DataTable();
-            //busco en tabla
-            return dt;
+            try
+            {
+                Conexion db = new Conexion();
+                string query;
+                query = string.Format("EXEC STOCKPROC @ID={0},@PRODUCTO=NULL,@CANTIDAD=NULL,@TIPO = 'SELECTONE';", idStock);
+                if (1 != db.EscribirPorComando(query))
+                {
+                    return false;
+                }
+                return true;
+            }
+            catch (System.Data.SqlClient.SqlException)
+            {
+                return false;
+            }
+            catch (System.NullReferenceException)
+            {
+                return false;
+            }
         }
     }
 }

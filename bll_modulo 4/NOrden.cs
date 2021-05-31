@@ -8,21 +8,17 @@ namespace bll_modulo
     {
         DOrden unOrden = new DOrden();
 
-        public string Nuevo(Orden _unOrden)
+        public bool Nuevo(Orden _unOrden)
         {
             return unOrden.Nuevo(_unOrden);
         }
-        public string Editar(Orden _unOrden)
+        public bool Editar(Orden _unOrden)
         {
             return unOrden.Editar(_unOrden);
         }
-        public Orden Eliminar(int _idOrden)
+        public bool Eliminar(int _idOrden)
         {
             return unOrden.Eliminar(_idOrden);
-        }
-        public int ID_Orden()
-        {
-            return unOrden.ID_Orden();
         }
         public DataTable ListarOrden()
         {

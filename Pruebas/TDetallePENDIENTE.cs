@@ -6,7 +6,7 @@ using System;
 namespace Pruebas
 {
     [TestClass]
-    public class TDetalle
+    public class TDetallePENDIENTE
     {
         [TestMethod]
         public void _1Insert()

@@ -9,26 +9,17 @@ namespace bll_modulo
     {
         DStock unStock = new DStock();
 
-        public string Nuevo(DStock _Stock)
+        public bool Nuevo(Stock _Stock)
         {
             return unStock.Nuevo(_Stock);
         }
-        public string Editar(DStock _Stock)
+        public bool Editar(Stock _Stock)
         {
             return unStock.Editar(_Stock);
         }
-        public Stock Eliminar(int _idProducto)
+        public bool Eliminar(int _idProducto)
         {
             return unStock.Eliminar(_idProducto);
         }
-        public int ID_Stock()
-        {
-            return unStock.ID_Stock();
-        }
-        public DataTable ListarStock()
-        {
-            return unStock.ListadeProveedores();
-        }
-        //nuevo metodo devuelve tabla de productos
     }
 }

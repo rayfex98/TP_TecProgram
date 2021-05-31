@@ -1,31 +1,113 @@
-﻿using System.Data;
+﻿using System;
+using System.Data;
 using Entidades;
 
 namespace ddl_modulo
 {
     public class DOrdenCompra
     {
-        public string Nuevo(OrdenDeCompra unOrdenCompra)
+        public bool Nuevo(OrdenDeCompra unOrdenCompra)
         {
-            //conexion con bbdd
-            return "Ok";
+            try
+            {
+                Conexion db = new Conexion();
+                string query = string.Format("EXEC ORDENCOMPRAPROC @ID=NULL,@PROVEEDOR={0},@USUARIO={1},@FECHA={2},@TIPO = 'INSERT';"
+                , unOrdenCompra.Proveedor.ID, unOrdenCompra.UsuarioAprobador.ID, unOrdenCompra.FechaAprobacion);
+                if (1 != db.EscribirPorComando(query))
+                {
+                    return false;
+                }
+                return true;
+            }
+            catch (System.Data.SqlClient.SqlException)
+            {
+                return false;
+            }
         }
-        public string Editar(OrdenDeCompra unOrdenCompra)
+        public bool Editar(OrdenDeCompra unOrdenCompra)
         {
-            //conexion con bbdd
-            return "Ok";
+            try
+            {
+                Conexion db = new Conexion();
+                if (!ID_OrdenCompra(true, unOrdenCompra.ID, -1))
+                {
+                    unOrdenCompra.FechaAprobacion = DateTime.Now;
+                    string query = string.Format("EXEC ORDENCOMPRAPROC @ID={0},@PROVEEDOR={1},@USUARIO={2},@FECHA={3},@TIPO = 'UPDATE';"
+                        , unOrdenCompra.ID, unOrdenCompra.Proveedor.ID, unOrdenCompra.UsuarioAprobador.ID, unOrdenCompra.FechaAprobacion);
+                    if (1 != db.EscribirPorComando(query))
+                    {
+                        return false;
+                    }
+                    return true;
+                }
+                return false;
+            }
+            catch (System.Data.SqlClient.SqlException)
+            {
+                return false;
+            }
+            catch (System.NullReferenceException)
+            {
+                return false;
+            }
         }
-        public OrdenDeCompra Eliminar(int idOrden)
+        public bool Eliminar(int idOrden)
         {
-            OrdenDeCompra eliminado = new OrdenDeCompra();
-            //conexion con bbdd
-            return eliminado;
+            try
+            {
+                Conexion db = new Conexion();
+                if (ID_OrdenCompra(true, idOrden, -1))
+                {
+                    string query = string.Format("EXEC ORDENCOMPRAPROC @ID={0},@PROVEEDOR=NULL,@USUARIO=NULL,@FECHA=NULL,@TIPO = 'DELETE';", idOrden);
+                    if (1 != db.EscribirPorComando(query))
+                    {
+                        return false;
+                    }
+                }
+                return true;
+            }
+            catch (System.Data.SqlClient.SqlException)
+            {
+                return false;
+            }
+            catch (System.NullReferenceException)
+            {
+                return false;
+            }
         }
-        public int ID_OrdenCompra()
+        public bool ID_OrdenCompra(bool metodo, int id, int proveedor ) //casi siempre se da solo por ID o muestro todo, seria raro que acierte con SMALLDATE
         {
-            return 0;
+            try
+            {
+                Conexion db = new Conexion();
+                string query;
+                if (metodo == true)
+                {
+                    query = string.Format("EXEC ORDENCOMPRAPROC @ID={0},@PROVEEDOR=NULL,@USUARIO=NULL,@FECHA=NULL,@TIPO = 'SELECTONE';", id);
+                    if (1 != db.EscribirPorComando(query))
+                    {
+                        return false;
+                    }
+                }
+                else
+                {
+                    query = string.Format("EXEC ORDENCOMPRAPROC @ID=NULL,@PROVEEDOR={1},@USUARIO={0},@FECHA=NULL,@TIPO = 'SELECTID';", id, proveedor);
+                    if (1 != db.EscribirPorComando(query))
+                    {
+                        return false;
+                    }
+                }
+                return true;
+            }
+            catch (System.Data.SqlClient.SqlException)
+            {
+                return false;
+            }
+            catch (System.NullReferenceException)
+            {
+                return false;
+            }
         }
-
         public DataTable ListadeOrdenCompra()
         {
             DataTable dt = new DataTable();
@@ -34,8 +116,13 @@ namespace ddl_modulo
         }
         public bool EstaAprobada(Usuario UsuarioAprovador)
         {
-            //conexion
             return true;
+        }
+        public DataTable OrdenPendiente()
+        {
+            DataTable dt = new DataTable();
+            //busco en tabla
+            return dt;
         }
     }
 }

@@ -7,22 +7,17 @@ namespace bll_modulo
     public class NPersona
     {
         DPersona unPersona = new DPersona();
-
-        public string Nuevo(Persona _unPersona)
+        public bool Nuevo(Persona _unPersona)
         {
             return unPersona.Nuevo(_unPersona);
         }
-        public string Editar(Persona _unPersona)
+        public bool Editar(Persona _unPersona)
         {
             return unPersona.Editar(_unPersona);
         }
-        public Persona Eliminar(int _DNI) //verID
+        public bool Eliminar(Persona _unPersona) //elimino con DNI o ID
         {
-            return unPersona.Eliminar(_DNI);
-        }
-        public int ID_Persona()
-        {
-            return unPersona.ID_Persona();
+            return unPersona.Eliminar(_unPersona);
         }
         public DataTable ListarPersona()
         {

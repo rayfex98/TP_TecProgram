@@ -8,21 +8,17 @@ namespace bll_modulo
     {
         DUsuario unUsuario = new DUsuario();
 
-        public string Nuevo(Usuario _unUsuario)
+        public bool Nuevo(Usuario _unUsuario)
         {
             return unUsuario.Nuevo(_unUsuario);
         }
-        public string Editar(Usuario _unUsuario)
+        public bool Editar(Usuario _unUsuario)
         {
             return unUsuario.Editar(_unUsuario);
         }
-        public Usuario Eliminar(int _DNI)
+        public bool Eliminar(int _DNI)
         {
             return unUsuario.Eliminar(_DNI);
-        }
-        public int ID_Usuario()
-        {
-            return unUsuario.ID_Usuario();
         }
         public DataTable ListarUsuario()
         {
