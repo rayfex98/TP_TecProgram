@@ -19,7 +19,6 @@ namespace Pruebas
             Assert.AreEqual(Obj.Nuevo(unObj), true);
             unObj.Nombre = "vinos";
             Assert.AreEqual(Obj.Nuevo(unObj), true);
-            Assert.AreEqual(Obj.Nuevo(unObj), false); //no vuelve a agregar si tiene el mismo nombre
         }
         [TestMethod]
         public void _2Editar()

@@ -11,7 +11,7 @@ namespace ddl_modulo
             try
             {
                 Conexion db = new Conexion();
-                if (!ID_Direccion(false,-1, unDireccion.Altura, unDireccion.Calle,int.Parse(unDireccion.CodigoPostal)))
+                if (ID_Direccion(false,-1, unDireccion.Altura, unDireccion.Calle,int.Parse(unDireccion.CodigoPostal)))
                 {
                     string query = string.Format("EXEC DIRECCIONPROC @ID=NULL,@ALTURA={0},@CALLE={1},@CP={2},@LOCALIDAD={3},@PROVINCIA={4},@TIPO = 'INSERT';"
                         , unDireccion.Altura, unDireccion.Calle, int.Parse(unDireccion.CodigoPostal), unDireccion.Localidad, unDireccion.Provincia);

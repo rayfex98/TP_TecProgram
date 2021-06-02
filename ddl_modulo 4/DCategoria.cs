@@ -25,7 +25,7 @@ namespace ddl_modulo
                 return false;
             }
         }
-        public bool Editar(Categoria unaCat) //
+        public bool Editar(Categoria unaCat)
         {
             try
             {
