@@ -21,7 +21,7 @@ GO
 CREATE TABLE CATEGORIA /*Necesaria*/
        (
        IDCATEGORIA SMALLINT IDENTITY,                              
-       DESCRIPCION VARCHAR(20) UNIQUE NOT NULL,
+       DESCRIPCION VARCHAR(30) UNIQUE NOT NULL,
 	   HABILITADO DATETIME NULL,
        PRIMARY KEY
                (
@@ -50,7 +50,6 @@ CREATE TABLE PERSONA
        DNI INT NOT NULL UNIQUE CHECK (DNI > 0 AND DNI < 150000000),     /*No sabria donde poner el techo del DNI*/                         
        NOMBRE VARCHAR(30) NOT NULL,                              
        APELLIDO VARCHAR(30) NOT NULL,
-	   HABILITADO DATETIME NULL,
        PRIMARY KEY
                (
                IDPERSONA
@@ -211,7 +210,6 @@ CREATE TABLE DETALLEORDEN /*Necesaria(Posiblemente mediar con modulo 3/4)*/ /*En
        IDORDEN INT NOT NULL,                              
        IDPRODUCTO INT NOT NULL,                              
        CANTIDAD SMALLINT NOT NULL CHECK (CANTIDAD > 0),                              /* Permite vender hasta 32000 del mismo producto */
-	   HABILITADO DATETIME NULL, /*Por si quiero eliminar cierto producto, pero sin generar otra orden nueva*/
        PRIMARY KEY
                (
                IDORDEN,
