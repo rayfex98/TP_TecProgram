@@ -41,9 +41,8 @@ namespace bll_modulo
         /// <returns></returns>
         public DataTable ListarProveedores(string filtro)
         {
-            if (string.IsNullOrEmpty(filtro))
+            if (string.Compare(filtro, "TODOS") == 0)
             {
-
                 return ObjProveedor.ListadeProveedores(filtro);
             }
             DataTable dt = new DataTable();

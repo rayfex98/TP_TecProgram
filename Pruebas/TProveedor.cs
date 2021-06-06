@@ -52,8 +52,9 @@ namespace Pruebas
         [TestMethod]
         public void ListarProveedor() //Necesito filtro, string con: "TODOS" / "*CUIT levantado de txtbox*" / "HABILITADOS" / "DESHABILITADOS"
         {
-            string filtro = "20445556668";
-            Assert.IsNotNull(obj.ListarProveedores(filtro));
+            string filtro = "CUIL";
+            string cuil = "20445556668";
+            Assert.IsNotNull(obj.ListarProveedores(filtro, cuil));
         }
     }
 }
