@@ -1,4 +1,5 @@
-﻿using System.Data;
+﻿using System;
+using System.Data;
 using Entidades;
 using ExcepcionesControladas;
 
@@ -12,8 +13,8 @@ namespace ddl_modulo
             try
             {
                 Conexion db = new Conexion();
-                string query = string.Format("EXEC PROVEEDORPROC @ID=NULL,@DIRECCION={0},@CUIL={1},@RAZONSOCIAL={2},@TIPO = 'INSERT';"
-                        , ObjProveedor.Direccion.ID, ObjProveedor.CUIL, ObjProveedor.RazonSocial);
+                string query = string.Format("EXEC PROVEEDORPROC @ID=NULL,@DIRECCION={0},@CUIL={1},@RAZONSOCIAL={2},@HABILITADO = {3},@TIPO = 'INSERT';"
+                        , ObjProveedor.Direccion.ID, ObjProveedor.CUIL, ObjProveedor.RazonSocial, DateTime.Now);
                 if (1 != db.EscribirPorComando(query))
                 {
                     return ObjProveedor.ID;
@@ -32,7 +33,7 @@ namespace ddl_modulo
             try
             {
                 Conexion db = new Conexion();
-                string query = string.Format("EXEC PROVEEDORPROC @ID={0},@DIRECCION={1},@CUIL={2},@RAZONSOCIAL={3},@TIPO = 'UPDATE';"
+                string query = string.Format("EXEC PROVEEDORPROC @ID={0},@DIRECCION={1},@CUIL={2},@RAZONSOCIAL={3},@HABILITADO = NULL,@TIPO = 'UPDATE';"
                             , ObjProveedor.ID, ObjProveedor.Direccion, ObjProveedor.CUIL, ObjProveedor.RazonSocial);
                 if (1 != db.EscribirPorComando(query))
                 {
@@ -49,12 +50,12 @@ namespace ddl_modulo
                 return false;
             }
         }
-        public bool Estado(int id)
+        public bool Estado(int id, DateTime? hoy)
         {
             try
             {
                 Conexion db = new Conexion();
-                string query = string.Format("EXEC PROVEEDORPROC @ID={0},@DIRECCION=NULL,@CUIL=NULL,@RAZONSOCIAL=NULL,@TIPO = 'ESTADO';", id);
+                string query = string.Format("EXEC PROVEEDORPROC @ID={0},@DIRECCION=NULL,@CUIL=NULL,@RAZONSOCIAL=NULL,@HABILITADO = {1},@TIPO = 'ESTADO';", id, hoy);
                 if (1 != db.EscribirPorComando(query))
                 {
                     return false;

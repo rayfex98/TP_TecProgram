@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Data;
 using ddl_modulo;
 using Entidades;
@@ -7,7 +8,7 @@ namespace bll_modulo
 {
     public class NProveedor
     {
-        private List<Stock> stocks;
+        private List<Proveedor> proveedores;
         DProveedor ObjProveedor = new DProveedor();
         //Metodo que carga lista proveedores
 
@@ -20,9 +21,9 @@ namespace bll_modulo
         {
             return ObjProveedor.Editar(_proveedor);
         }
-        private bool Estado(int id)
+        private bool Estado(int id, DateTime? hoy)
         {
-            return ObjProveedor.Estado(id);
+            return ObjProveedor.Estado(id, hoy);
         }
         private bool ID_Proveedor(int id, string cuil) //metodo propio, busca filtro en una lista de proveedores
         {
@@ -40,7 +41,38 @@ namespace bll_modulo
         /// <returns></returns>
         public DataTable ListarProveedores(string filtro)
         {
-            return ObjProveedor.ListadeProveedores(filtro);
+            if (string.IsNullOrEmpty(filtro))
+            {
+
+                return ObjProveedor.ListadeProveedores(filtro);
+            }
+            DataTable dt = new DataTable();
+            filtro.ToUpper();
+            if (string.Compare(filtro, "CUIL") == 0)
+            {
+                foreach (Proveedor prov in proveedores)
+                {
+
+                }
+                //busco en lista y cargo al dt
+            }
+            else if (string.Compare(filtro, "DESHABILITADO") == 0)
+            {
+                foreach (Proveedor prov in proveedores)
+                {
+
+                }
+                //busco en lista y cargo al dt
+            }
+            else if (string.Compare(filtro, "HABILITADO") == 0)
+            {
+                foreach (Proveedor prov in proveedores)
+                {
+
+                }
+                //busco en lista y cargo al dt
+            }
+            return dt;
         }
         #endregion
 
@@ -66,13 +98,23 @@ namespace bll_modulo
         /// Permite hacer un "borrado logico". Deshabilitado  o habilitado mediante el id
         /// </summary>
         /// <returns></returns>
-        public bool EstadoProveedor(int ID)
+        public bool EstadoProveedor(int ID, bool opcion)//opcion es alta o baja
         {
             if (ID_Proveedor(ID, "")) //busco en lista por id
             {
-                if (Estado(ID))
+                DateTime? hoy = null;
+                if (opcion) //para alta necesito fecha actual
                 {
-                    //modificar estado en lista
+                    hoy = DateTime.Now;
+                }
+                if (opcion && Estado(ID, hoy))
+                {
+                    //Dar de alta en lista
+                    return true;
+                }
+                else if(Estado(ID, hoy))
+                {
+                    //Dar de baja en lista
                     return true;
                 }
             }
