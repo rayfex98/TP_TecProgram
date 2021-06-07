@@ -1,46 +1,144 @@
 ﻿using System.Data;
 using Entidades;
+using ExcepcionesControladas;
 
 namespace ddl_modulo
 {
     public class DDetalleOrden
     {
-        Conexion db = new Conexion();
-        public bool Nuevo(DetalleOrden unDetalleOrden, int id_orden)
+        public bool Nuevo(DetalleOrden unDetalleOrden, int idOrden)
         {
-            string query = string.Format("DETALLEPROC @ID = null,@ORDEN={0},@PRODUCTO={1},@CANTIDAD={2},@TIPO = 'INSERT'; ",id_orden,unDetalleOrden.Producto, unDetalleOrden.Producto,unDetalleOrden.Cantidad);
-            if (1 != db.EscribirPorComando(query))
+            try
+            {
+                Conexion db = new Conexion();
+                if (!ID_DetalleOrden(false, idOrden, unDetalleOrden.ID))
+                {
+                    string query = string.Format("EXEC DETALLEPROC @ID = NULL,@ORDEN={0},@PRODUCTO={1},@CANTIDAD={2},@TIPO = 'INSERT';"
+                        , idOrden, unDetalleOrden.Producto.ID, unDetalleOrden.Cantidad);
+                    if (1 != db.EscribirPorComando(query))
+                    {
+                        return false;
+                    }
+                }
+                return true;
+            }
+            catch (System.Data.SqlClient.SqlException)
             {
                 return false;
             }
-            return true;
         }
-        public bool Editar(DetalleOrden unDetalleOrden,int detalle, int id_orden)
+        public bool Editar(DetalleOrden unDetalleOrden, int idOrden)
         {
-            string query = string.Format("DETALLEPROC @ID = {0}, @ORDEN ={ 1},@PRODUCTO ={ 2},@CANTIDAD ={ 3},@TIPO = 'UPDATE'; ", detalle,id_orden,unDetalleOrden.Producto,unDetalleOrden.Cantidad);
-            if (1 != db.EscribirPorComando(query))
+            try
+            {
+                Conexion db = new Conexion();
+                if (!ID_DetalleOrden(true, unDetalleOrden.ID, -1))
+                {
+                    string query = string.Format("EXEC DETALLEPROC @ID = {0},@ORDEN={1},@PRODUCTO={2},@CANTIDAD={3},@TIPO = 'UPDATE';"
+                        , unDetalleOrden.ID, idOrden, unDetalleOrden.Producto.ID, unDetalleOrden.Cantidad);
+                    if (1 != db.EscribirPorComando(query))
+                    {
+                        return false;
+                    }
+                    return true;
+                }
+                return false;
+            }
+            catch (System.Data.SqlClient.SqlException)
             {
                 return false;
             }
-            return true;
-        }
-        public bool Eliminar(short idDetalleOrden)
-        {
-            string query = string.Format("DETALLEPROC @ID = {0}, @ORDEN =null,@PRODUCTO =null,@CANTIDAD =null,@TIPO = 'DELETE';",idDetalleOrden );
-            if (1 != db.EscribirPorComando(query))
+            catch (System.NullReferenceException)
             {
                 return false;
             }
-            return true;
         }
-        public int ID_DetalleOrden()
+        public bool Eliminar(DetalleOrden unDetalle)
         {
-            return 0;
+            try
+            {
+                Conexion db = new Conexion();
+                if (ID_DetalleOrden(true, unDetalle.ID, -1))
+                {
+                    string query = string.Format("EXEC DETALLEPROC @ID = {0},@ORDEN=NULL,@PRODUCTO=NULL,@CANTIDAD=NULL,@TIPO = 'DELETE';", unDetalle.ID);
+                    if (1 != db.EscribirPorComando(query))
+                    {
+                        return false;
+                    }
+                }
+                return true;
+            }
+            catch (System.Data.SqlClient.SqlException)
+            {
+                return false;
+            }
+            catch (System.NullReferenceException)
+            {
+                return false;
+            }
+        }
+        public bool EliminarPorOrden(DetalleOrden unDetalle)
+        {
+            try
+            {
+                Conexion db = new Conexion();
+                if (ID_DetalleOrden(true, unDetalle.ID, -1))
+                {
+                    string query = string.Format("EXEC DETALLEPROC @ID = NULL,@ORDEN={0},@PRODUCTO=NULL,@CANTIDAD=NULL,@TIPO = 'DELETE';", unDetalle.ID);
+                    if (1 != db.EscribirPorComando(query))
+                    {
+                        return false;
+                    }
+                }
+                return true;
+            }
+            catch (System.Data.SqlClient.SqlException)
+            {
+                return false;
+            }
+            catch (System.NullReferenceException)
+            {
+                return false;
+            }
+        }
+        public bool ID_DetalleOrden(bool metodo, int orden, int producto)
+        {
+            try
+            {
+                Conexion db = new Conexion();
+                string query;
+                if (metodo == true)
+                {
+                    query = string.Format("EXEC DETALLEPROC @ID = {0},@ORDEN=NULL,@PRODUCTO=NULL,@CANTIDAD=NULL,@TIPO = 'SELECTONE';", orden);
+                    if (1 != db.EscribirPorComando(query))
+                    {
+                        return false;
+                    }
+                }
+                else
+                {
+                    query = string.Format("EXEC DETALLEPROC @ID = NULL,@ORDEN={0},@PRODUCTO={1},@CANTIDAD=NULL,@TIPO = 'SELECTID';", orden, producto);
+                    if (1 != db.EscribirPorComando(query))
+                    {
+                        return false;
+                    }
+                }
+                return true;
+            }
+            catch (System.Data.SqlClient.SqlException)
+            {
+                return false;
+            }
+            catch (System.NullReferenceException)
+            {
+                return false;
+            }
         }
         public DataTable ListadeDetalleOrden()
         {
-
-            return db.LeerPorStoreProcedure("VISTADETALLE");
+            DataTable dt = new DataTable();
+            //busco en tabla
+            return dt;
         }
     }
 }

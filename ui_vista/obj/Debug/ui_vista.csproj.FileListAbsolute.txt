@@ -1,17 +1,17 @@
-C:\Users\ghami\Desktop\primer cuatrimestre 2021\Técnicas de programación\modulo 4\ui_vista\bin\Debug\ui_vista.exe.config
-C:\Users\ghami\Desktop\primer cuatrimestre 2021\Técnicas de programación\modulo 4\ui_vista\bin\Debug\ui_vista.exe
-C:\Users\ghami\Desktop\primer cuatrimestre 2021\Técnicas de programación\modulo 4\ui_vista\bin\Debug\ui_vista.pdb
-C:\Users\ghami\Desktop\primer cuatrimestre 2021\Técnicas de programación\modulo 4\ui_vista\bin\Debug\bll_modulo 4.dll
-C:\Users\ghami\Desktop\primer cuatrimestre 2021\Técnicas de programación\modulo 4\ui_vista\bin\Debug\Entidades.dll
-C:\Users\ghami\Desktop\primer cuatrimestre 2021\Técnicas de programación\modulo 4\ui_vista\bin\Debug\ddl_modulo 4.dll
-C:\Users\ghami\Desktop\primer cuatrimestre 2021\Técnicas de programación\modulo 4\ui_vista\bin\Debug\bll_modulo 4.pdb
-C:\Users\ghami\Desktop\primer cuatrimestre 2021\Técnicas de programación\modulo 4\ui_vista\bin\Debug\Entidades.pdb
-C:\Users\ghami\Desktop\primer cuatrimestre 2021\Técnicas de programación\modulo 4\ui_vista\bin\Debug\ddl_modulo 4.pdb
-C:\Users\ghami\Desktop\primer cuatrimestre 2021\Técnicas de programación\modulo 4\ui_vista\obj\Debug\ui_vista.csprojAssemblyReference.cache
-C:\Users\ghami\Desktop\primer cuatrimestre 2021\Técnicas de programación\modulo 4\ui_vista\obj\Debug\ui_vista.Form1.resources
-C:\Users\ghami\Desktop\primer cuatrimestre 2021\Técnicas de programación\modulo 4\ui_vista\obj\Debug\ui_vista.Properties.Resources.resources
-C:\Users\ghami\Desktop\primer cuatrimestre 2021\Técnicas de programación\modulo 4\ui_vista\obj\Debug\ui_vista.csproj.GenerateResource.cache
-C:\Users\ghami\Desktop\primer cuatrimestre 2021\Técnicas de programación\modulo 4\ui_vista\obj\Debug\ui_vista.csproj.CoreCompileInputs.cache
-C:\Users\ghami\Desktop\primer cuatrimestre 2021\Técnicas de programación\modulo 4\ui_vista\obj\Debug\ui_vista.csproj.CopyComplete
-C:\Users\ghami\Desktop\primer cuatrimestre 2021\Técnicas de programación\modulo 4\ui_vista\obj\Debug\ui_vista.exe
-C:\Users\ghami\Desktop\primer cuatrimestre 2021\Técnicas de programación\modulo 4\ui_vista\obj\Debug\ui_vista.pdb
+C:\Users\ghami\Desktop\primer cuatrimestre 2021\Técnicas de programación\xd\TP_TecProgram-main\ui_vista\bin\Debug\ui_vista.exe.config
+C:\Users\ghami\Desktop\primer cuatrimestre 2021\Técnicas de programación\xd\TP_TecProgram-main\ui_vista\bin\Debug\ui_vista.exe
+C:\Users\ghami\Desktop\primer cuatrimestre 2021\Técnicas de programación\xd\TP_TecProgram-main\ui_vista\bin\Debug\ui_vista.pdb
+C:\Users\ghami\Desktop\primer cuatrimestre 2021\Técnicas de programación\xd\TP_TecProgram-main\ui_vista\bin\Debug\bll_modulo 4.dll
+C:\Users\ghami\Desktop\primer cuatrimestre 2021\Técnicas de programación\xd\TP_TecProgram-main\ui_vista\bin\Debug\ddl_modulo 4.dll
+C:\Users\ghami\Desktop\primer cuatrimestre 2021\Técnicas de programación\xd\TP_TecProgram-main\ui_vista\bin\Debug\Entidades.dll
+C:\Users\ghami\Desktop\primer cuatrimestre 2021\Técnicas de programación\xd\TP_TecProgram-main\ui_vista\bin\Debug\bll_modulo 4.pdb
+C:\Users\ghami\Desktop\primer cuatrimestre 2021\Técnicas de programación\xd\TP_TecProgram-main\ui_vista\bin\Debug\ddl_modulo 4.pdb
+C:\Users\ghami\Desktop\primer cuatrimestre 2021\Técnicas de programación\xd\TP_TecProgram-main\ui_vista\bin\Debug\Entidades.pdb
+C:\Users\ghami\Desktop\primer cuatrimestre 2021\Técnicas de programación\xd\TP_TecProgram-main\ui_vista\obj\Debug\ui_vista.csprojAssemblyReference.cache
+C:\Users\ghami\Desktop\primer cuatrimestre 2021\Técnicas de programación\xd\TP_TecProgram-main\ui_vista\obj\Debug\ui_vista.Form1.resources
+C:\Users\ghami\Desktop\primer cuatrimestre 2021\Técnicas de programación\xd\TP_TecProgram-main\ui_vista\obj\Debug\ui_vista.Properties.Resources.resources
+C:\Users\ghami\Desktop\primer cuatrimestre 2021\Técnicas de programación\xd\TP_TecProgram-main\ui_vista\obj\Debug\ui_vista.csproj.GenerateResource.cache
+C:\Users\ghami\Desktop\primer cuatrimestre 2021\Técnicas de programación\xd\TP_TecProgram-main\ui_vista\obj\Debug\ui_vista.csproj.CoreCompileInputs.cache
+C:\Users\ghami\Desktop\primer cuatrimestre 2021\Técnicas de programación\xd\TP_TecProgram-main\ui_vista\obj\Debug\ui_vista.csproj.CopyComplete
+C:\Users\ghami\Desktop\primer cuatrimestre 2021\Técnicas de programación\xd\TP_TecProgram-main\ui_vista\obj\Debug\ui_vista.exe
+C:\Users\ghami\Desktop\primer cuatrimestre 2021\Técnicas de programación\xd\TP_TecProgram-main\ui_vista\obj\Debug\ui_vista.pdb

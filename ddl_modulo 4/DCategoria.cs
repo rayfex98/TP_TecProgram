@@ -1,50 +1,117 @@
 ﻿using System.Data;
 using Entidades;
+using ExcepcionesControladas;
 
 namespace ddl_modulo
 {
     public class DCategoria
     {
-
-        Conexion db = new Conexion();
         public bool Nuevo(Categoria unCategoria)
         {
-            string query = string.Format(" CATEGORIAPROC @ID ={0},@DESCRIPCION ={1},@TIPO= 'INSERT' ;", unCategoria.ID, unCategoria.Nombre);
-            if ( 1 != db.EscribirPorComando(query) )
+            try {
+                Conexion db = new Conexion();
+                if (!ID_Categoria(false, unCategoria.Nombre))
+                {
+                    string query = string.Format("EXEC CATEGORIAPROC @ID = NULL,@DESCRIPCION = '{0}',@TIPO = 'INSERT';", unCategoria.Nombre);
+                    if (1 != db.EscribirPorComando(query))
+                    {
+                        return false;
+                    }
+                }
+                return true;
+            }
+            catch(System.Data.SqlClient.SqlException)
             {
                 return false;
             }
-            return true;
         }
-
-        public bool Editar(int idcategoria, string descripcionnueva)
+        public bool Editar(Categoria unaCat)
         {
-            string query = string.Format("CATEGORIAPROC @ID ={0},@DESCRIPCION ={1},@TIPO= 'UPDATE'", idcategoria, descripcionnueva);
-            if (1 != db.EscribirPorComando(query))
+            try
+            {
+                Conexion db = new Conexion();
+                if (!ID_Categoria(true, unaCat.ID.ToString()))
+                {
+                    string query = string.Format("EXEC CATEGORIAPROC @ID = {0},@DESCRIPCION = '{1}',@TIPO = 'UPDATE';", unaCat.ID.ToString(), unaCat.Nombre);
+                    if (1 != db.EscribirPorComando(query))
+                    {
+                        return false;
+                    }
+                    return true;
+                }
+                return false;
+            }
+            catch (System.Data.SqlClient.SqlException)
             {
                 return false;
             }
-            return true;          
-        }
-        public bool Eliminar(short idCategoria)
-        {
-            string query = string.Format("CATEGORIAPROC @ID = {0} ,@DESCRIPCION =null,@TIPO= 'DELETE'", idCategoria);
-            if (1 != db.EscribirPorComando(query))
+            catch (System.NullReferenceException)
             {
                 return false;
             }
-            return true;
         }
-        public int ID_Categoria()
+        public bool Eliminar(Categoria unCat)
         {
-            return 0;
+            try
+            {
+                Conexion db = new Conexion();
+                if (ID_Categoria(true, unCat.ID.ToString()))
+                {
+                    string query = string.Format("EXEC CATEGORIAPROC @ID = {0},@DESCRIPCION = NULL,@TIPO = 'DELETE';", unCat.ID);
+                    if (1 != db.EscribirPorComando(query))
+                    {
+                        return false;
+                    }
+                }
+                return true;
+            }
+            catch (System.Data.SqlClient.SqlException)
+            {
+                return false;
+            }
+            catch (System.NullReferenceException)
+            {
+                return false;
+            }
+        }
+        public bool ID_Categoria(bool metodo,string descripcion) //SI EXISTE RETORNA TRUE
+        {
+            try
+            {
+                Conexion db = new Conexion();
+                string query;
+                if (metodo == true)
+                {
+                    query = string.Format("EXEC CATEGORIAPROC @ID = {0},@DESCRIPCION = NULL,@TIPO = 'SELECTONE';", descripcion);
+                    if (1 != db.EscribirPorComando(query))
+                    {
+                        return false;
+                    }
+                }
+                else
+                {
+                    query = string.Format("EXEC CATEGORIAPROC @ID = NULL,@DESCRIPCION = {0},@TIPO = 'SELECTID';", descripcion);
+                    if (1 != db.EscribirPorComando(query))
+                    {
+                        return false;
+                    }
+                }
+                return true;
+            }
+            catch (System.Data.SqlClient.SqlException)
+            {
+                return false;
+            }
+            catch (System.NullReferenceException)
+            {
+                return false;
+            }
         }
 
         public DataTable ListadeCategoria()
         {
-           // return db.LeerPorStoreProcedure("CATEGORIAPROC @ID = NULL,@STOCK = NULL,@USUARIO = NULL,@MINIMO = NULL,@TIPO = 'SELECTALL'");           
-            return db.LeerPorStoreProcedure("VISTACAT");
-         
+            Conexion db = new Conexion();
+            return db.LeerPorStoreProcedure("mostrarcategoria");
         }
     }
 }

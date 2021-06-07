@@ -2,33 +2,55 @@
 using System.Data;
 using Entidades;
 using ddl_modulo;
+using System.Collections.Generic;
 
 namespace bll_modulo
 {
-    class NStock
+    public class NStock
     {
         DStock unStock = new DStock();
+        private List<Stock> stocks;
 
-        public string Nuevo(DStock _Stock)
+        public bool Nuevo(Stock _Stock)
         {
             return unStock.Nuevo(_Stock);
         }
-        public string Editar(DStock _Stock)
+        public bool Editar(Stock _Stock)
         {
             return unStock.Editar(_Stock);
         }
-        public Stock Eliminar(int _idProducto)
+        public bool Eliminar(int _idProducto)
         {
             return unStock.Eliminar(_idProducto);
         }
-        public int ID_Stock()
+        #region listarStock
+        public List<Stock> ListaStock()
         {
-            return unStock.ID_Stock();
+            stocks = unStock.ListadoStock();
+            return stocks;
+
         }
-        public DataTable ListarStock()
+        #endregion
+        public List<Stock> CargarLista()
         {
-            return unStock.ListadeProveedores();
+            stocks = unStock.ListadoStock();
+            return stocks;
         }
-        //nuevo metodo devuelve tabla de productos
+
+        public List<Stock> AgregarStock(int id_producto, int cantidad)
+        {
+            stocks = unStock.AgregarStock(id_producto,cantidad);
+
+            return stocks;
+        }
+        public List<Stock> RestarStock(int id_producto, int cantidad)
+        {
+            stocks = unStock.RestarStock(id_producto, cantidad);
+
+            return stocks;
+        }
+
+
+
     }
 }

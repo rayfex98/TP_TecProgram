@@ -1,9 +1,11 @@
-C:\Users\ghami\Desktop\primer cuatrimestre 2021\Técnicas de programación\modulo 4\ddl_modulo 4\bin\Debug\ddl_modulo 4.dll
-C:\Users\ghami\Desktop\primer cuatrimestre 2021\Técnicas de programación\modulo 4\ddl_modulo 4\bin\Debug\ddl_modulo 4.pdb
-C:\Users\ghami\Desktop\primer cuatrimestre 2021\Técnicas de programación\modulo 4\ddl_modulo 4\bin\Debug\Entidades.dll
-C:\Users\ghami\Desktop\primer cuatrimestre 2021\Técnicas de programación\modulo 4\ddl_modulo 4\bin\Debug\Entidades.pdb
-C:\Users\ghami\Desktop\primer cuatrimestre 2021\Técnicas de programación\modulo 4\ddl_modulo 4\obj\Debug\ddl_modulo.csprojAssemblyReference.cache
-C:\Users\ghami\Desktop\primer cuatrimestre 2021\Técnicas de programación\modulo 4\ddl_modulo 4\obj\Debug\ddl_modulo.csproj.CoreCompileInputs.cache
-C:\Users\ghami\Desktop\primer cuatrimestre 2021\Técnicas de programación\modulo 4\ddl_modulo 4\obj\Debug\ddl_modulo.csproj.CopyComplete
-C:\Users\ghami\Desktop\primer cuatrimestre 2021\Técnicas de programación\modulo 4\ddl_modulo 4\obj\Debug\ddl_modulo 4.dll
-C:\Users\ghami\Desktop\primer cuatrimestre 2021\Técnicas de programación\modulo 4\ddl_modulo 4\obj\Debug\ddl_modulo 4.pdb
+C:\Users\ghami\Desktop\primer cuatrimestre 2021\Técnicas de programación\xd\TP_TecProgram-main\ddl_modulo 4\bin\Debug\ddl_modulo 4.dll
+C:\Users\ghami\Desktop\primer cuatrimestre 2021\Técnicas de programación\xd\TP_TecProgram-main\ddl_modulo 4\bin\Debug\ddl_modulo 4.pdb
+C:\Users\ghami\Desktop\primer cuatrimestre 2021\Técnicas de programación\xd\TP_TecProgram-main\ddl_modulo 4\bin\Debug\Entidades.dll
+C:\Users\ghami\Desktop\primer cuatrimestre 2021\Técnicas de programación\xd\TP_TecProgram-main\ddl_modulo 4\bin\Debug\Entidades.pdb
+C:\Users\ghami\Desktop\primer cuatrimestre 2021\Técnicas de programación\xd\TP_TecProgram-main\ddl_modulo 4\obj\Debug\ddl_modulo.csprojAssemblyReference.cache
+C:\Users\ghami\Desktop\primer cuatrimestre 2021\Técnicas de programación\xd\TP_TecProgram-main\ddl_modulo 4\obj\Debug\ddl_modulo.csproj.CoreCompileInputs.cache
+C:\Users\ghami\Desktop\primer cuatrimestre 2021\Técnicas de programación\xd\TP_TecProgram-main\ddl_modulo 4\obj\Debug\ddl_modulo.csproj.CopyComplete
+C:\Users\ghami\Desktop\primer cuatrimestre 2021\Técnicas de programación\xd\TP_TecProgram-main\ddl_modulo 4\obj\Debug\ddl_modulo 4.dll
+C:\Users\ghami\Desktop\primer cuatrimestre 2021\Técnicas de programación\xd\TP_TecProgram-main\ddl_modulo 4\obj\Debug\ddl_modulo 4.pdb
+C:\Users\ghami\Desktop\primer cuatrimestre 2021\Técnicas de programación\xd\TP_TecProgram-main\ddl_modulo 4\bin\Debug\ExcepcionesControladas.dll
+C:\Users\ghami\Desktop\primer cuatrimestre 2021\Técnicas de programación\xd\TP_TecProgram-main\ddl_modulo 4\bin\Debug\ExcepcionesControladas.pdb

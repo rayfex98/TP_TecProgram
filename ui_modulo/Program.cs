@@ -12,13 +12,12 @@ namespace ui_modulo
     {
         static void Main(string[] args)
         {
-
             int aux;
             do
             {
                 Console.WriteLine("1-agregar \n2-eliminar \n3-editar \n0-salir \n ");
-                aux = Convert.ToInt32(Console.ReadLine());
-                Categoria categoria = new Categoria();
+                aux = int.Parse(Console.ReadLine());
+                Categoria unCategoria = new Categoria();
                 NCategoria ncategoria = new NCategoria();
                 switch (aux)
                 {
@@ -27,8 +26,8 @@ namespace ui_modulo
                             string nombre;
                             Console.WriteLine("escriba una descripcion para categoria");
                             nombre = Console.ReadLine();
-                            categoria.Nombre = nombre;
-                            if (ncategoria.Nuevo(categoria))
+                            unCategoria.Nombre = nombre;
+                            if (ncategoria.Nuevo(unCategoria))
                             {
                                 Console.WriteLine("se agrego una nueva categoria");
                             }
@@ -40,10 +39,9 @@ namespace ui_modulo
                         }
                     case 2:
                         {
-                            short id;
+                            
                             Console.WriteLine("ingrese el id de la categoria a eliminar ");
-                            id = Convert.ToInt16(Console.ReadLine());
-                            if (ncategoria.Eliminar(id))
+                            if (ncategoria.Eliminar(unCategoria))
                             {
                                 Console.WriteLine("categoria eliminada con exito");
                             }
@@ -55,30 +53,26 @@ namespace ui_modulo
                         }
                     case 3:
                         {
-                            short id_categoria;
-                            string descripcionnueva;
                             Console.WriteLine("ingrese el id de la categoria a modificar ");
-                            id_categoria = Convert.ToInt16(Console.ReadLine());
+                            unCategoria.ID = Convert.ToInt32(Console.ReadLine());
                             Console.WriteLine("ingrese nueva descripcion");
-                            descripcionnueva = Console.ReadLine();
-                            if (ncategoria.Editar(id_categoria, descripcionnueva))
+                            unCategoria.Nombre = Console.ReadLine();
+                            if (ncategoria.Editar(unCategoria))
                             {
-                                Console.WriteLine("se edito la categoria con id {0}",id_categoria);
+                                Console.WriteLine("se edito la categoria con id {0}",unCategoria.ID);
                             }
                             else
                             {
-                                Console.WriteLine("no se pudo editar categoria con id {0}",id_categoria);
+                                Console.WriteLine("no se pudo editar categoria con id {0}",unCategoria.ID);
                             }
 
                             break;
                         }
                         default:
-                        Console.WriteLine("opcion incorrecta vuelva a intentar ");
+                        if(aux != 0) Console.WriteLine("opcion incorrecta vuelva a intentar ");
                         break;
                 }
             } while (aux != 0);
-            Console.ReadKey();
-
         }
     }
 }

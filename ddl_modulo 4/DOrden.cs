@@ -1,29 +1,100 @@
-﻿using System.Data;
+﻿using System;
+using System.Data;
 using Entidades;
+using ExcepcionesControladas;
 
 namespace ddl_modulo
 {
     public class DOrden
     {
-        public string Nuevo(Orden unOrden)
+        public bool Nuevo(Orden unOrden)
         {
-            //conexion con bbdd
-            return "Ok";
+            try
+            {
+                Conexion db = new Conexion();
+                unOrden.Fecha = DateTime.Now;
+                string query = string.Format("EXEC CATEGORIAPROC @ID = NULL,@USUARIO={0},@FECHA={1},@TIPO = 'INSERT';", unOrden.UsuarioCreador.ID, unOrden.Fecha);
+                if (1 != db.EscribirPorComando(query))
+                {
+                    return false;
+                }
+                return true;
+            }
+            catch (System.Data.SqlClient.SqlException)
+            {
+                return false;
+            }
         }
-        public string Editar(Orden unOrden)
+        public bool Editar(Orden unOrden)
         {
-            //conexion con bbdd
-            return "Ok";
+            try
+            {
+                Conexion db = new Conexion();
+                unOrden.Fecha = DateTime.Now;
+                if (ID_Orden(unOrden.ID))
+                {
+                    string query = string.Format("EXEC ORDENPROD @ID={0},@USUARIO={1},@FECHA={2},@TIPO = 'UPDATE';", unOrden.ID, unOrden.UsuarioCreador.ID, unOrden.Fecha);
+                    if (1 != db.EscribirPorComando(query))
+                    {
+                        return false;
+                    }
+                    return true;
+                }
+                return false;
+            }
+            catch (System.Data.SqlClient.SqlException)
+            {
+                return false;
+            }
+            catch (System.NullReferenceException)
+            {
+                return false;
+            }
         }
-        public Orden Eliminar(int idOrden)
+        public bool Eliminar(int idOrden)
         {
-            Orden eliminado = new Orden();
-            //conexion con bbdd
-            return eliminado;
+            try
+            {
+                Conexion db = new Conexion();
+                if (ID_Orden(idOrden))
+                {
+                    string query = string.Format("EXEC ORDENPROD @ID={0},@USUARIO=NULL,@FECHA=NULL,@TIPO = 'DELETE';", idOrden);
+                    if (1 != db.EscribirPorComando(query))
+                    {
+                        return false;
+                    }
+                }
+                return true;
+            }
+            catch (System.Data.SqlClient.SqlException)
+            {
+                return false;
+            }
+            catch (System.NullReferenceException)
+            {
+                return false;
+            }
         }
-        public int ID_Orden()
+        public bool ID_Orden(int id)
         {
-            return 0;
+            try
+            {
+                Conexion db = new Conexion();
+                string query = string.Format("EXEC ORDENPROD @ID={0},@USUARIO=NULL,@FECHA=NULL,@TIPO = 'SELECTONE';", id);
+                if (1 != db.EscribirPorComando(query))
+                {
+                    return false;
+                }
+                return true;
+            }
+            catch (System.Data.SqlClient.SqlException)
+            {
+                return false;
+            }
+            catch (System.NullReferenceException)
+            {
+                return false;
+            }
         }
         public DataTable ListadeOrden()
         {

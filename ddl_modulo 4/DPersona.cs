@@ -1,29 +1,117 @@
 ﻿using System.Data;
 using Entidades;
+using ExcepcionesControladas;
 
 namespace ddl_modulo
 {
     public class DPersona
     {
-        public string Nuevo(Persona unPersona)
+        public bool Nuevo(Persona unPersona)
         {
-            //conexion con bbdd
-            return "Ok";
+            try
+            {
+                Conexion db = new Conexion();
+                if (!ID_Persona(false, -1, unPersona.DNI))
+                {
+                    string query = string.Format("EXEC PERSONAPROC @ID=NULL,@DIRECCION={0},@DNI={1},@NOMBRE={2},@APELLIDO={3},@TIPO = 'INSERT';"
+                            , unPersona.Direccion, unPersona.DNI, unPersona.Nombre, unPersona.Apellido);
+                    if (1 != db.EscribirPorComando(query))
+                    {
+                        return false;
+                    }
+                }
+                return true;
+            }
+            catch (System.Data.SqlClient.SqlException)
+            {
+                return false;
+            }
         }
-        public string Editar(Persona unPersona)
+        public bool Editar(Persona unPersona)
         {
-            //conexion con bbdd
-            return "Ok";
+            try
+            {
+                Conexion db = new Conexion();
+                if (!ID_Persona(true, unPersona.ID, -1))
+                {
+                    if (!ID_Persona(false, -1, unPersona.DNI))
+                    {
+                        string query = string.Format("EXEC PERSONAPROC @ID={0},@DIRECCION={1},@DNI={2},@NOMBRE={3},@APELLIDO={4},@TIPO = 'UPDATE';"
+                            , unPersona.ID, unPersona.Direccion, unPersona.DNI, unPersona.Nombre, unPersona.Apellido);
+                        if (1 != db.EscribirPorComando(query))
+                        {
+                            return false;
+                        }
+                        return true;
+                    }
+                }
+                return false;
+            }
+            catch (System.Data.SqlClient.SqlException)
+            {
+                return false;
+            }
+            catch (System.NullReferenceException)
+            {
+                return false;
+            }
         }
-        public Persona Eliminar(int DNI)
+        public bool Eliminar(Persona unPersona)
         {
-            Persona eliminado = new Persona();
-            //conexion con bbdd
-            return eliminado;
+            try
+            {
+                Conexion db = new Conexion();
+                if (ID_Persona(true, unPersona.ID, -1))
+                {
+                    string query = string.Format("EXEC PERSONAPROC @ID={0},@DIRECCION=NULL,@DNI=NULL,@NOMBRE=NULL,@APELLIDO=NULL,@TIPO = 'DELETE';", unPersona.ID);
+                    if (1 != db.EscribirPorComando(query))
+                    {
+                        return false;
+                    }
+                }
+                return true;
+            }
+            catch (System.Data.SqlClient.SqlException)
+            {
+                return false;
+            }
+            catch (System.NullReferenceException)
+            {
+                return false;
+            }
         }
-        public int ID_Persona()
+        public bool ID_Persona(bool metodo, int id, int dni)
         {
-            return 0;
+            try
+            {
+                Conexion db = new Conexion();
+                string query;
+                if (metodo == true)
+                {
+                    query = string.Format("EXEC PERSONAPROC @ID={0},@DIRECCION=NULL,@DNI=NULL,@NOMBRE=NULL,@APELLIDO=NULL,@TIPO = 'SELECTONE';", id);
+                    if (1 != db.EscribirPorComando(query))
+                    {
+                        return false;
+                    }
+                }
+                else
+                {
+                    query = string.Format("EXEC PERSONAPROC @ID=NULL,@DIRECCION=NULL,@DNI={0},@NOMBRE=NULL,@APELLIDO=NULL,@TIPO = 'SELECTID';", dni);
+                    if (1 != db.EscribirPorComando(query))
+                    {
+                        return false;
+                    }
+                }
+                return true;
+            }
+            catch (System.Data.SqlClient.SqlException)
+            {
+                return false;
+            }
+            catch (System.NullReferenceException)
+            {
+                return false;
+            }
         }
         public DataTable ListadePersona()
         {

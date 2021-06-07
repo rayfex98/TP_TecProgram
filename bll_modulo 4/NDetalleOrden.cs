@@ -9,21 +9,21 @@ namespace bll_modulo
     {
         DDetalleOrden unDetalleOrden = new DDetalleOrden();
 
-        public bool Nuevo(DetalleOrden _unDetalleOrden, int id_orden)
+        public bool Nuevo(DetalleOrden _unDetalleOrden, int _idOrden)
         {
-            return unDetalleOrden.Nuevo(_unDetalleOrden,id_orden);
+            return unDetalleOrden.Nuevo(_unDetalleOrden, _idOrden);
         }
-        public bool Editar(DetalleOrden _unDetalleOrden, int detalle, int id_orden)
+        public bool Editar(DetalleOrden _unDetalleOrden, int _idOrden)
         {
-            return unDetalleOrden.Editar(_unDetalleOrden,detalle,id_orden);
+            return unDetalleOrden.Editar(_unDetalleOrden, _idOrden);
         }
-        public bool Eliminar(short _idDetalle)
+        public bool Eliminar(DetalleOrden _unDetalleOrden)
         {
-            return unDetalleOrden.Eliminar(_idDetalle);
+            return unDetalleOrden.Eliminar(_unDetalleOrden);
         }
-        public int ID_DetalleOrden()
+        public bool EliminarPorOrden(DetalleOrden _unDetalleOrden)
         {
-            return unDetalleOrden.ID_DetalleOrden();
+            return unDetalleOrden.EliminarPorOrden(_unDetalleOrden);
         }
         public DataTable ListarDetalleOrden()
         {

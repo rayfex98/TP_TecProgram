@@ -1,14 +1,14 @@
-C:\Users\ghami\Desktop\primer cuatrimestre 2021\Técnicas de programación\modulo 4\ui_modulo\obj\Debug\ui_modulo.csproj.CoreCompileInputs.cache
-C:\Users\ghami\Desktop\primer cuatrimestre 2021\Técnicas de programación\modulo 4\ui_modulo\bin\Debug\ui_modulo.exe.config
-C:\Users\ghami\Desktop\primer cuatrimestre 2021\Técnicas de programación\modulo 4\ui_modulo\bin\Debug\ui_modulo.exe
-C:\Users\ghami\Desktop\primer cuatrimestre 2021\Técnicas de programación\modulo 4\ui_modulo\bin\Debug\ui_modulo.pdb
-C:\Users\ghami\Desktop\primer cuatrimestre 2021\Técnicas de programación\modulo 4\ui_modulo\bin\Debug\bll_modulo 4.dll
-C:\Users\ghami\Desktop\primer cuatrimestre 2021\Técnicas de programación\modulo 4\ui_modulo\bin\Debug\Entidades.dll
-C:\Users\ghami\Desktop\primer cuatrimestre 2021\Técnicas de programación\modulo 4\ui_modulo\bin\Debug\ddl_modulo 4.dll
-C:\Users\ghami\Desktop\primer cuatrimestre 2021\Técnicas de programación\modulo 4\ui_modulo\bin\Debug\bll_modulo 4.pdb
-C:\Users\ghami\Desktop\primer cuatrimestre 2021\Técnicas de programación\modulo 4\ui_modulo\bin\Debug\Entidades.pdb
-C:\Users\ghami\Desktop\primer cuatrimestre 2021\Técnicas de programación\modulo 4\ui_modulo\bin\Debug\ddl_modulo 4.pdb
-C:\Users\ghami\Desktop\primer cuatrimestre 2021\Técnicas de programación\modulo 4\ui_modulo\obj\Debug\ui_modulo.csprojAssemblyReference.cache
-C:\Users\ghami\Desktop\primer cuatrimestre 2021\Técnicas de programación\modulo 4\ui_modulo\obj\Debug\ui_modulo.csproj.CopyComplete
-C:\Users\ghami\Desktop\primer cuatrimestre 2021\Técnicas de programación\modulo 4\ui_modulo\obj\Debug\ui_modulo.exe
-C:\Users\ghami\Desktop\primer cuatrimestre 2021\Técnicas de programación\modulo 4\ui_modulo\obj\Debug\ui_modulo.pdb
+C:\Users\ghami\Desktop\primer cuatrimestre 2021\Técnicas de programación\xd\TP_TecProgram-main\ui_modulo\bin\Debug\ui_modulo.exe.config
+C:\Users\ghami\Desktop\primer cuatrimestre 2021\Técnicas de programación\xd\TP_TecProgram-main\ui_modulo\bin\Debug\ui_modulo.exe
+C:\Users\ghami\Desktop\primer cuatrimestre 2021\Técnicas de programación\xd\TP_TecProgram-main\ui_modulo\bin\Debug\ui_modulo.pdb
+C:\Users\ghami\Desktop\primer cuatrimestre 2021\Técnicas de programación\xd\TP_TecProgram-main\ui_modulo\bin\Debug\bll_modulo 4.dll
+C:\Users\ghami\Desktop\primer cuatrimestre 2021\Técnicas de programación\xd\TP_TecProgram-main\ui_modulo\bin\Debug\Entidades.dll
+C:\Users\ghami\Desktop\primer cuatrimestre 2021\Técnicas de programación\xd\TP_TecProgram-main\ui_modulo\bin\Debug\ddl_modulo 4.dll
+C:\Users\ghami\Desktop\primer cuatrimestre 2021\Técnicas de programación\xd\TP_TecProgram-main\ui_modulo\bin\Debug\bll_modulo 4.pdb
+C:\Users\ghami\Desktop\primer cuatrimestre 2021\Técnicas de programación\xd\TP_TecProgram-main\ui_modulo\bin\Debug\Entidades.pdb
+C:\Users\ghami\Desktop\primer cuatrimestre 2021\Técnicas de programación\xd\TP_TecProgram-main\ui_modulo\bin\Debug\ddl_modulo 4.pdb
+C:\Users\ghami\Desktop\primer cuatrimestre 2021\Técnicas de programación\xd\TP_TecProgram-main\ui_modulo\obj\Debug\ui_modulo.csprojAssemblyReference.cache
+C:\Users\ghami\Desktop\primer cuatrimestre 2021\Técnicas de programación\xd\TP_TecProgram-main\ui_modulo\obj\Debug\ui_modulo.csproj.CoreCompileInputs.cache
+C:\Users\ghami\Desktop\primer cuatrimestre 2021\Técnicas de programación\xd\TP_TecProgram-main\ui_modulo\obj\Debug\ui_modulo.csproj.CopyComplete
+C:\Users\ghami\Desktop\primer cuatrimestre 2021\Técnicas de programación\xd\TP_TecProgram-main\ui_modulo\obj\Debug\ui_modulo.exe
+C:\Users\ghami\Desktop\primer cuatrimestre 2021\Técnicas de programación\xd\TP_TecProgram-main\ui_modulo\obj\Debug\ui_modulo.pdb

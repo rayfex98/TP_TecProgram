@@ -61,12 +61,13 @@
       <Project>{f4982d4c-63ef-4edd-b43e-759ba3915762}</Project>
       <Name>Entidades</Name>
     </ProjectReference>
+    <ProjectReference Include="..\ExcepcionesControladas\ExcepcionesControladas.csproj">
+      <Project>{bcca5c96-004c-4979-8fcb-d0b5f4eeb67f}</Project>
+      <Name>ExcepcionesControladas</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="conexionbdd.udl" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="SQLQuery3.sql" />
+    <None Include="ConexionBD.udl" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
