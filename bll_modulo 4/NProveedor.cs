@@ -13,7 +13,7 @@ namespace bll_modulo
         //Metodo que carga lista proveedores
 
         #region MetodosPrivados
-        private int Nuevo(Proveedor _proveedor)
+        private bool Nuevo(Proveedor _proveedor)
         {
             return ObjProveedor.Nuevo(_proveedor);
         }
@@ -32,6 +32,14 @@ namespace bll_modulo
             return true; 
         }
         #endregion
+        #region CargarObjeto
+        private Proveedor cargarObjeto()
+        {
+            Proveedor objproveedor = new Proveedor();
+
+            return objproveedor;
+        }
+        #endregion
 
         #region Listar
         /// <summary>
@@ -39,17 +47,20 @@ namespace bll_modulo
         /// </summary>
         /// <param name="filtro"></param>
         /// <returns></returns>
-        public DataTable ListarProveedores(string filtro)
+        public List<Proveedor> ListarProveedores(string filtro, string cuil)
         {
             if (string.Compare(filtro, "TODOS") == 0)
             {
-                return ObjProveedor.ListadeProveedores(filtro);
+                foreach (Proveedor item in proveedores)
+                {
+
+                }
             }
             DataTable dt = new DataTable();
             filtro.ToUpper();
             if (string.Compare(filtro, "CUIL") == 0)
             {
-                foreach (Proveedor prov in proveedores)
+                foreach (Proveedor item in proveedores)
                 {
 
                 }
@@ -57,7 +68,7 @@ namespace bll_modulo
             }
             else if (string.Compare(filtro, "DESHABILITADO") == 0)
             {
-                foreach (Proveedor prov in proveedores)
+                foreach (Proveedor item in proveedores)
                 {
 
                 }
@@ -65,7 +76,7 @@ namespace bll_modulo
             }
             else if (string.Compare(filtro, "HABILITADO") == 0)
             {
-                foreach (Proveedor prov in proveedores)
+                foreach (Proveedor item in proveedores)
                 {
 
                 }
@@ -83,7 +94,7 @@ namespace bll_modulo
         public bool AltaProveedor(Proveedor obj)
         {
             if (ID_Proveedor(-1, obj.CUIL))
-                if (Nuevo(obj) != -1)
+                if (Nuevo(obj))
                 {
                     //Agregar en lista
                     return true;
@@ -139,5 +150,12 @@ namespace bll_modulo
         }
         #endregion
 
+        #region CargarLista
+        public List<Proveedor> CargarLista()
+        {
+            proveedores = ObjProveedor.ListadeProveedores();
+            return proveedores;
+        }
+        #endregion
     }
 }
