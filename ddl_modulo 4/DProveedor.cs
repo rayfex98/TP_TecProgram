@@ -88,7 +88,7 @@ namespace ddl_modulo
 
         public List<Proveedor> ListadeProveedores()
         {
-            string query = string.Format("EXEC PROVEEDORPROC @ID=NULL,@DIRECCION=NULL,@CUIL=NULL,@RAZONSOCIAL=NULL,@HABILITADO = NULL,@TIPO = 'SELECT';");
+            string query = string.Format("EXEC PROVEEDORPROC @ID=NULL,@DIRECCION=NULL,@CUIL=NULL,@RAZONSOCIAL=NULL,@HABILITADO = NULL,@TIPO = 'SELECTALL';");
             dt = db.LeerPorComando(query);
             foreach (DataRow item in dt.Rows)
             {

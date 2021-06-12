@@ -7,7 +7,7 @@ namespace ddl_modulo
 {
     public class DStock
     {
-        private List<Stock> stocks;
+        List<Stock> stocks;
         DataTable dt = new DataTable();
         Conexion db = new Conexion();
         public bool Nuevo(Stock unStock)
@@ -32,7 +32,7 @@ namespace ddl_modulo
             {
                 if (!ID_Stock(unStock.ID))
                 {
-                    string query = string.Format("EXEC STOCKPROC @ID={0},@PRODUCTO={1},@CANTIDAD={3},@TIPO = 'UPDATE';", unStock.ID, unStock.Producto.ID, unStock.Cantidad);
+                    string query = string.Format("EXEC STOCKPROC @ID={0},@PRODUCTO={1},@CANTIDAD=null ,@TIPO = 'UPDATE';", unStock.ID, unStock.Producto.ID);
                     if (1 != db.EscribirPorComando(query))
                     {
                         return false;
@@ -94,7 +94,9 @@ namespace ddl_modulo
                 return false;
             }
         }
-        public List<Stock> AgregarStock(int ID_producto, int cantidad)
+
+        //public List<Stock> AgregarStock(int ID_producto, int cantidad)
+        public bool AgregarStock(int ID_producto, int cantidad)
         {
             DataTable ListaStock = new DataTable();
             Producto product = new Producto();
@@ -113,7 +115,7 @@ namespace ddl_modulo
                 });
             }
 
-            return stocks;
+            return true;
         }
         public List<Stock> RestarStock (int ID_producto, int cantidad)
         {
@@ -138,20 +140,21 @@ namespace ddl_modulo
         }
         public Stock cargarObj(object[] obj)
         {
-            string query = string.Format("SELECT[IDPRODUCTO], [IDSTOCK], [CANTIDAD], [NOMBRE]" +
-            "FROM[DBO].[STOCK] AS S INNER JOIN[DBO].[PRODUCTO] AS P ON S.IDPRODUCTO = P.IDPRODUCTO WHERE ID = {0}", obj[0]);
+
+            // string query = string.Format("SELECT [IDSTOCK], [CANTIDAD], [NOMBRE]" +
+            //   "FROM [DBO].[STOCK] AS S INNER JOIN[DBO].[PRODUCTO] AS P ON S.IDPRODUCTO = P.IDPRODUCTO WHERE IDSTOCK = {0}", obj[0]);
+            string query = string.Format("SELECT IDSTOCK, IDPRODUCTO, CANTIDAD" +
+                        "FROM [dbo].[STOCK] where IDSTOCK = {0}", obj[0]);
             dt = db.LeerPorComando(query);
             Stock unStock = new Stock();
             unStock.ID = int.Parse(dt.Rows[0].ItemArray[0].ToString());
             unStock.Producto.ID = int.Parse(dt.Rows[1].ItemArray[0].ToString());
             unStock.Cantidad = int.Parse(dt.Rows[2].ItemArray[0].ToString());
-            unStock.Producto.Nombre = dt.Rows[3].ItemArray.ToString();      
-            
             return unStock;
         }
         public List<Stock> ListadoStock()
         {
-            string query = string.Format("EXEC PROVEEDORPROC @ID=NULL,@DIRECCION=NULL,@CUIL=NULL,@RAZONSOCIAL=NULL,@HABILITADO = NULL,@TIPO = 'SELECT';");
+            string query = string.Format("EXEC STOCKPROC @ID=NULL,@PRODUCTO=NULL,@CANTIDAD=NULL,@TIPO = 'SELECTALL';");
             dt = db.LeerPorComando(query);
             foreach (DataRow item in dt.Rows)
             {

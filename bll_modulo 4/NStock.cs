@@ -11,18 +11,24 @@ namespace bll_modulo
         DStock unStock = new DStock();
         private List<Stock> stocks;
 
+        #region NuevoStock
         public bool Nuevo(Stock _Stock)
         {
             return unStock.Nuevo(_Stock);
         }
+        #endregion
+        #region EditarStock
         public bool Editar(Stock _Stock)
         {
             return unStock.Editar(_Stock);
         }
+        #endregion
+        #region EliminarDeStock
         public bool Eliminar(int _idProducto)
         {
             return unStock.Eliminar(_idProducto);
         }
+        #endregion
         #region listarStock
         public List<Stock> ListaStock()
         {
@@ -31,24 +37,34 @@ namespace bll_modulo
 
         }
         #endregion
+        #region CargarLista
         public List<Stock> CargarLista()
         {
             stocks = unStock.ListadoStock();
             return stocks;
         }
-
-        public List<Stock> AgregarStock(int id_producto, int cantidad)
+        #endregion
+        #region AgregarStock
+        public bool AgregarStock(int id_producto, int cantidad)
         {
-            stocks = unStock.AgregarStock(id_producto,cantidad);
-
-            return stocks;
+            if (unStock.AgregarStock(id_producto, cantidad))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
+        #endregion
+        #region RestarStock
         public List<Stock> RestarStock(int id_producto, int cantidad)
         {
             stocks = unStock.RestarStock(id_producto, cantidad);
 
             return stocks;
         }
+        #endregion
 
 
 
