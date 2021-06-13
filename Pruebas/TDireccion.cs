@@ -18,7 +18,7 @@ namespace Pruebas
             unObj.CodigoPostal = "1645";
             unObj.Localidad = "Moron";
             unObj.Provincia = "Buenos Aires";
-            Assert.AreEqual(Obj.Nuevo(unObj), true);
+            Assert.AreEqual(expected: Obj.Nuevo(unObj), true);
             unObj.Altura = "4654";
             unObj.Calle = "Nazca";
             unObj.CodigoPostal = "1405";

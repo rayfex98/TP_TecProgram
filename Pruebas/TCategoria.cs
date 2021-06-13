@@ -26,7 +26,7 @@ namespace Pruebas
             Categoria unObj = new Categoria();
             NCategoria Obj = new NCategoria();
             unObj.Nombre = "electro";
-            unObj.ID = 2;
+            unObj.ID = 5;
             Assert.AreEqual(Obj.Editar(unObj), true);
         }
         [TestMethod]

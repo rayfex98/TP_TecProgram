@@ -30,11 +30,16 @@ namespace bll_modulo
         }
         #endregion
         #region listarStock
-        public List<Stock> ListaStock()
+        public List<Stock> ListaStock(string filtro)
         {
-            stocks = unStock.ListadoStock();
-            return stocks;
+            if (string.Compare(filtro, "TODOS") == 0)
+            {
+                foreach (Stock item in stocks)
+                {
 
+                }
+            }
+            return stocks;
         }
         #endregion
         #region CargarLista
@@ -58,11 +63,16 @@ namespace bll_modulo
         }
         #endregion
         #region RestarStock
-        public List<Stock> RestarStock(int id_producto, int cantidad)
+        public bool RestarStock(int id_producto, int cantidad)
         {
-            stocks = unStock.RestarStock(id_producto, cantidad);
-
-            return stocks;
+            if (unStock.RestarStock(id_producto, cantidad))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
         #endregion
 

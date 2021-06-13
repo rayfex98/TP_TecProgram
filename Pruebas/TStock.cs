@@ -16,7 +16,7 @@ namespace Pruebas
         [TestMethod]
         public void Agregarunproducto()//agrega un producto ya existente al stock, el producto debe existir para luego agregarlo al stock 
         {
-            unproducto.ID = 4;
+            unproducto.ID = 5;
             unstock.Producto = unproducto;
             unstock.Cantidad = 10;
             Assert.AreEqual(newstock.Nuevo(unstock), true);
@@ -25,9 +25,9 @@ namespace Pruebas
         [TestMethod]
         public void EditarStock()
         {
-            unproducto.ID = 4;
+            unproducto.ID = 2;
             unstock.Producto = unproducto;
-            unstock.ID = 15;
+            unstock.ID = 1;
             Assert.AreEqual(newstock.Editar(unstock), true);
 
         }
@@ -35,12 +35,12 @@ namespace Pruebas
         [TestMethod]
         public void SumarStock()// le paso un id_producto y la cantidad para sumar el stock relacionado a ese producto 
         {
-            Assert.AreEqual(newstock.AgregarStock(2, 2), true);
+            Assert.AreEqual(newstock.AgregarStock(2, 20), true);
         }
         [TestMethod]
         public void QuitarStock()// le paso un id_producto y la cantidad para restar el stock relacionado a ese producto 
         {
-            Assert.AreEqual(newstock.AgregarStock(2, 4), true);
+            Assert.AreEqual(newstock.RestarStock(2, 4), true);
         }
         [TestMethod]
         public void EliminarProductoDeStock()//
@@ -51,7 +51,7 @@ namespace Pruebas
         [TestMethod]
         public void ListaStock()
         {
-            Assert.IsNotNull(newstock.ListaStock());
+            Assert.IsNotNull(newstock.CargarLista());
         }
 
     }
