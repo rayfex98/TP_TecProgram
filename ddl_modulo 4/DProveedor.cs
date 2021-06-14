@@ -8,49 +8,26 @@ namespace ddl_modulo
 {
     public class DProveedor
     {
-        List<Proveedor> proveedores;
         DataTable dt = new DataTable();
         Conexion db = new Conexion();
-        public Proveedor cargarObj(object[] obj)
-        {
-            string query = string.Format("SELECT [IDPROVEEDOR], [CUIL], [RAZONSOCIAL], [ALTURA], [CALLE], [CODIGOPOSTAL], [LOCALIDAD], [PROVINCIA]" +
-            "FROM[DBO].[PROVEEDOR] AS P INNER JOIN[DBO].[DIRECCION] AS D ON P.IDDIRECCION = D.IDDIRECCION WHERE ID = {0}", obj[0]);
-            dt = db.LeerPorComando(query);
-            Proveedor unProveedor = new Proveedor();
-            unProveedor.ID = int.Parse(dt.Rows[0].ItemArray[0].ToString());
-            unProveedor.CUIL = dt.Rows[0].ItemArray[2].ToString();
-            unProveedor.RazonSocial = dt.Rows[0].ItemArray[3].ToString();
-            unProveedor.Direccion.Altura = dt.Rows[0].ItemArray[4].ToString();
-            unProveedor.Direccion.Calle = dt.Rows[0].ItemArray[5].ToString();
-            unProveedor.Direccion.CodigoPostal = dt.Rows[0].ItemArray[6].ToString();
-            unProveedor.Direccion.Localidad = dt.Rows[0].ItemArray[7].ToString();
-            unProveedor.Direccion.Provincia = dt.Rows[0].ItemArray[8].ToString();
-            return unProveedor;
-        }
+        
         public bool Nuevo(Proveedor ObjProveedor)
         {
             try
             {
-                string query;
-                if (ObjProveedor.Direccion.ID < 0)
+                DDireccion dir = new DDireccion();
+                if (dir.Nuevo(ObjProveedor.Direccion) == 1)
                 {
-                    query = string.Format("EXEC DIRECCIONPROC @ID=NULL,@ALTURA={0},@CALLE={1},@CP={2},@LOCALIDAD={3},@PROVINCIA={4},@TIPO = 'INSERT';"
-                    , ObjProveedor.Direccion.Altura, ObjProveedor.Direccion.Calle, ObjProveedor.Direccion.CodigoPostal, ObjProveedor.Direccion.Localidad, ObjProveedor.Direccion.Provincia);
+                    ObjProveedor.Direccion.ID = dir.RecuperarUltimoID();
+                    string query = string.Format("EXEC PROVEEDORPROC @ID=NULL,@DIRECCION={0},@CUIL={1},@RAZONSOCIAL={2},@HABILITADO = {3},@TIPO = 'INSERT';"
+                            , ObjProveedor.Direccion.ID, ObjProveedor.CUIL, ObjProveedor.RazonSocial, DateTime.Now);
                     if (1 != db.EscribirPorComando(query))
                     {
                         return false;
                     }
-                    query = string.Format("SELECT MAX([id_categoria]) FROM [dbo].[categoria]");
-                    dt.Rows[0].ItemArray[1] = db.LeerPorComando(query);
+                    return true;
                 }
-                query = string.Format("EXEC PROVEEDORPROC @ID=NULL,@DIRECCION={0},@CUIL={1},@RAZONSOCIAL={2},@HABILITADO = {3},@TIPO = 'INSERT';"
-                        , ObjProveedor.Direccion.ID, ObjProveedor.CUIL, ObjProveedor.RazonSocial, DateTime.Now);
-                if (1 != db.EscribirPorComando(query))
-                {
-                    return false;
-                }
-                
-                return true;
+                return false;
             }
             catch (System.Data.SqlClient.SqlException)
             {
@@ -99,16 +76,42 @@ namespace ddl_modulo
             }
         }
 
+        public Proveedor cargarObj(object[] obj)
+        {
+            string query = string.Format("SELECT [id_proveedor], [cuil], [razonsocial], [altura], [calle], [codigo_postal], [localidad], [provincia]" +
+            "FROM[dbo].[proveedor] AS P INNER JOIN[dbo].[direccion] AS D ON P.id_direccion = D.id_direccion WHERE ID = {0}", obj[0]);
+            dt = db.LeerPorComando(query);
+            Proveedor unProveedor = new Proveedor();
+            unProveedor.ID = int.Parse(dt.Rows[0].ItemArray[0].ToString());
+            unProveedor.CUIL = dt.Rows[0].ItemArray[2].ToString();
+            unProveedor.RazonSocial = dt.Rows[0].ItemArray[3].ToString();
+            unProveedor.Direccion.Altura = dt.Rows[0].ItemArray[4].ToString();
+            unProveedor.Direccion.Calle = dt.Rows[0].ItemArray[5].ToString();
+            unProveedor.Direccion.CodigoPostal = dt.Rows[0].ItemArray[6].ToString();
+            unProveedor.Direccion.Localidad = dt.Rows[0].ItemArray[7].ToString();
+            unProveedor.Direccion.Provincia = dt.Rows[0].ItemArray[8].ToString();
+            return unProveedor;
+        }
+
         public List<Proveedor> ListadeProveedores()
         {
+            List<Proveedor> proveedores = new List<Proveedor>();
             string query = string.Format("EXEC PROVEEDORPROC @ID=NULL,@DIRECCION=NULL,@CUIL=NULL,@RAZONSOCIAL=NULL,@HABILITADO = NULL,@TIPO = 'SELECT';");
             dt = db.LeerPorComando(query);
             foreach (DataRow item in dt.Rows)
             {
                 proveedores.Add(cargarObj(item.ItemArray));
             }
-
             return proveedores;
+        }
+
+        public int RecuperarUltimoID()
+        {
+            int id;
+            string query = string.Format("SELECT MAX(id_proveedor) FROM [dbo].[proveedor]");
+            dt = db.LeerPorComando(query);
+            id = int.Parse(dt.Rows[0].ItemArray[0].ToString());
+            return id;
         }
     }
 }

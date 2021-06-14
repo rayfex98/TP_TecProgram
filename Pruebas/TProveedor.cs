@@ -11,17 +11,22 @@ namespace Pruebas
         Proveedor unObj = new Proveedor();//clase entidad
         Direccion dir = new Direccion();//clase entidad
         [TestMethod]
+        public void _0CargarLista() //Necesito proveedor sin ID, retorno true si pudo cargar o false si no(ya se encuentra cuil en tabla o hubo un error en los parametros)
+        {
+            Assert.AreNotEqual(null, obj.CargarLista());
+        }
+        [TestMethod]
         public void _1AgregarProveedor() //Necesito proveedor sin ID, retorno true si pudo cargar o false si no(ya se encuentra cuil en tabla o hubo un error en los parametros)
         {
             dir.Altura = "1245";
-            dir.Calle = "San Martin";
+            dir.Calle = "Urquiza";
             dir.CodigoPostal = "1642";
             dir.Localidad = "Quilmes";
-            dir.Provincia = "Buenos Aires";
+            dir.Provincia = "Buenos_Aires";
             unObj.Direccion = dir;
-            unObj.RazonSocial = "La Fabrica";
+            unObj.RazonSocial = "La_Fabrica";
             unObj.CUIL = "3097654123";
-            Assert.AreEqual(obj.AltaProveedor(unObj),true);
+            Assert.AreEqual(true, obj.Agregar(unObj));
         }
         [TestMethod]
         public void _2EliminarProveedor()
@@ -47,14 +52,14 @@ namespace Pruebas
             unObj.Direccion = dir;
             unObj.RazonSocial = "La Anonima";
             unObj.CUIL = "20445556668";
-            Assert.AreEqual(obj.ModificarProveedor(id, unObj), true);
+            Assert.AreEqual(obj.Modificar(id, unObj), true);
         }
         [TestMethod]
-        public void ListarProveedor() //Necesito filtro, string con: "TODOS" / "*CUIT levantado de txtbox*" / "HABILITADOS" / "DESHABILITADOS"
+        public void _5ListarProveedor() //Necesito filtro, string con: "TODOS" / "*CUIT levantado de txtbox*" / "HABILITADOS" / "DESHABILITADOS"
         {
             string filtro = "CUIL";
             string cuit = "20445556668";
-            Assert.IsNotNull(obj.ListarProveedores(filtro, cuit));
+            Assert.IsNotNull(obj.Mostrar(filtro, cuit));
         }
     }
 }

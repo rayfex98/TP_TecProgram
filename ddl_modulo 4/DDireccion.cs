@@ -6,32 +6,30 @@ namespace ddl_modulo
 {
     public class DDireccion
     {
-        public bool Nuevo(Direccion unDireccion)
+        Conexion db = new Conexion();
+        DataTable dt = new DataTable();
+        public int Nuevo(Direccion unDireccion)
         {
             try
             {
-                Conexion db = new Conexion();
-                if (ID_Direccion(false,-1, unDireccion.Altura, unDireccion.Calle,int.Parse(unDireccion.CodigoPostal)))
+                string query = string.Format("EXEC DIRECCIONPROC @ID=NULL,@ALTURA={0},@CALLE={1},@CP={2},@LOCALIDAD={3},@PROVINCIA={4},@TIPO = 'INSERT';"
+                    , unDireccion.Altura, unDireccion.Calle, int.Parse(unDireccion.CodigoPostal), unDireccion.Localidad, unDireccion.Provincia);
+                if (1 != db.EscribirPorComando(query))
                 {
-                    string query = string.Format("EXEC DIRECCIONPROC @ID=NULL,@ALTURA={0},@CALLE={1},@CP={2},@LOCALIDAD={3},@PROVINCIA={4},@TIPO = 'INSERT';"
-                        , unDireccion.Altura, unDireccion.Calle, int.Parse(unDireccion.CodigoPostal), unDireccion.Localidad, unDireccion.Provincia);
-                    if (1 != db.EscribirPorComando(query))
-                    {
-                        return false;
-                    }
+                    return 0;
                 }
-                return true;
+
+                return 1;
             }
             catch (System.Data.SqlClient.SqlException)
             {
-                return false;
+                return 0;
             }
         }
         public bool Editar(Direccion unDireccion)
         {
             try
             {
-                Conexion db = new Conexion();
                 if (ID_Direccion(true, unDireccion.ID,"NULL","NULL",-1))
                 {
                     if(!ID_Direccion(false,-1, unDireccion.Altura, unDireccion.Calle, int.Parse(unDireccion.CodigoPostal)))
@@ -60,7 +58,6 @@ namespace ddl_modulo
         {
             try
             {
-                Conexion db = new Conexion();
                 if (ID_Direccion(true, unDireccion.ID, "NULL", "NULL", -1))
                 {
                     string query = string.Format("EXEC DIRECCIONPROC @ID={0},@ALTURA=NULL,@CALLE=NULL,@CP=NULL,@LOCALIDAD=NULL,@PROVINCIA=NULL,@TIPO = 'DELETE';", unDireccion.ID);
@@ -84,7 +81,6 @@ namespace ddl_modulo
         {
             try
             {
-                Conexion db = new Conexion();
                 string query;
                 if (metodo == true)
                 {
@@ -115,9 +111,16 @@ namespace ddl_modulo
         }
         public DataTable ListadeDireccion()
         {
-            DataTable dt = new DataTable();
             //busco en tabla
             return dt;
+        }
+        public int RecuperarUltimoID()
+        {
+            int id;
+            string query = string.Format("SELECT MAX(id) FROM [dbo].[direccion]");
+            dt = db.LeerPorComando(query);
+            id = int.Parse(dt.Rows[0].ItemArray[0].ToString());
+            return id;
         }
     }
 }

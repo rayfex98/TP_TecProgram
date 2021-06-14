@@ -32,22 +32,15 @@ namespace bll_modulo
             return true; 
         }
         #endregion
-        #region CargarObjeto
-        private Proveedor cargarObjeto()
-        {
-            Proveedor objproveedor = new Proveedor();
-
-            return objproveedor;
-        }
-        #endregion
-
-        #region Listar
+       
+        #region Mostrar
         /// <summary>
-        /// Puede ser todos los proveedores o necesito parametro de filtro proveedores habilitados, deshabilitados(borrado logico), o por cuit
+        /// Puede ser todos los proveedores o necesito parametro de filtro proveedores habilitados, deshabilitados(borrado logico), o por cuil
         /// </summary>
-        /// <param name="filtro"></param>
-        /// <returns></returns>
-        public DataTable ListarProveedores(string filtro, string cuil)
+        /// <param name="filtro">Opciones: TODOS,CUIL, HABILITADOS, DESHABILITADOS</param>
+        /// <param name="cuil">string cuil sin guiones ni espacios</param>
+        /// <returns>DataTable</returns>
+        public DataTable Mostrar(string filtro, string cuil)
         {
             DataTable dt = new DataTable();
             filtro.ToUpper(); 
@@ -87,17 +80,29 @@ namespace bll_modulo
 
         #region Alta
         /// <summary>
-        /// Requiero una direccion o su id. Tambien string(13) cuil y string(30) razon social 
+        /// Cargar un proveedor
         /// </summary>
-        /// <returns></returns>
-        public bool AltaProveedor(Proveedor obj)
+        /// <returns>true si pudo cargar</returns>
+        public bool Agregar(Proveedor obj)
         {
-            if (ID_Proveedor(-1, obj.CUIL))
-                if (Nuevo(obj))
+            DDireccion unDireccion = new DDireccion();
+            if(proveedores != null)
+            {
+                foreach (Proveedor item in proveedores)
                 {
-                    //Agregar en lista
-                    return true;
+                    if (item.RazonSocial == obj.RazonSocial || item.CUIL == obj.CUIL)
+                    {
+                        return false;
+                    }
                 }
+            }
+            if (Nuevo(obj))
+            {
+                obj.ID = ObjProveedor.RecuperarUltimoID();
+                obj.Direccion.ID = unDireccion.RecuperarUltimoID();
+                proveedores.Add(obj);
+                return true;
+            }
             return false;
         }
         #endregion
@@ -136,7 +141,7 @@ namespace bll_modulo
         /// Update, necesito una direccion o su id. Tambien CUIL string(13) y razon social string(30)
         /// </summary>
         /// <returns></returns>
-        public bool ModificarProveedor(int id, Proveedor obj)
+        public bool Modificar(int id, Proveedor obj)
         {
             if (id < 0) return false; //llamar a listar. Ver si ID se encuentra y CUIL no se encuentran en lista de productos
             //ver si agrego o no la direccion a la bbdd antes de modificarla
@@ -148,12 +153,21 @@ namespace bll_modulo
             return false;
         }
         #endregion
+      
 
         #region CargarLista
+        /// <summary>
+        /// Carga lista desde la bbdd
+        /// </summary>
+        /// <returns>List<Proveedor></returns>
         public List<Proveedor> CargarLista()
         {
             proveedores = ObjProveedor.ListadeProveedores();
-            return proveedores;
+            if (proveedores.Count > 0)
+            {
+                return proveedores;
+            }
+            return null;
         }
         #endregion
     }
