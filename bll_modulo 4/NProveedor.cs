@@ -47,18 +47,17 @@ namespace bll_modulo
         /// </summary>
         /// <param name="filtro"></param>
         /// <returns></returns>
-        public List<Proveedor> ListarProveedores(string filtro, string cuil)
+        public DataTable ListarProveedores(string filtro, string cuil)
         {
+            DataTable dt = new DataTable();
+            filtro.ToUpper(); 
             if (string.Compare(filtro, "TODOS") == 0)
             {
                 foreach (Proveedor item in proveedores)
                 {
 
                 }
-            }
-            DataTable dt = new DataTable();
-            filtro.ToUpper();
-            if (string.Compare(filtro, "CUIL") == 0)
+            }else if (string.Compare(filtro, "CUIL") == 0)
             {
                 foreach (Proveedor item in proveedores)
                 {

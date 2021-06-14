@@ -1,0 +1,49 @@
+//ENCARGADO Form OrdenCompra
+//tengo combobox de productos, datagridview con detalle de productos para la orden, boton de agregar, quitar y finalizar
+Producto.Listar() retorna lista de productos habilitados //desplegar combobox
+DetalleOrden.Agregar(idproducto, cantidad) //boton para agregar y tomo el producto de la lista seleccionado y lo agrego en datagridview
+//Si quiero modificar un producto, debo borrarlo y volver a ingresar
+DetalleOrden.Quitar(idproducto) 
+OrdenDeCompra.Crear(usuarioCreador, idproveedor, list<detalles>) //boton de finalizar
+
+//GERENTE Form OrdenCompra
+//tengo combobox con idorden, datagridview con detalles de la orden y boton de aprobar
+OrdenDeCompra.ListarNoAprobadas() //en cmbox cargo lista del no aprobados para que seleccione uno, al seleccionar llamo a CargarProductos
+OrdenDeCompra.CargarProductos() //muestro en datagridview idorden, nombre del producto y cantidad
+OdenDeCompra.Aprobar(idorden,usuarioAprobador) return bool //boton de aprobar, toma el id del combobox 
+
+
+//Form Alertas
+//cmbox con nombre de productos, textbox para cantidad, boton crear, dgv(con columnas NombreProducto, cantidad, minimo)
+Alerta.Crear/Modificar(idproducto, cantidadminima,idusuario) retorna bool
+Alerta.MostrarTodas() //
+Alerta.NivelCritico() //retorna en DataGridView los productos que tienen cantidad <= minimo
+
+
+//Form Categoria
+//Datagridview, combobox donde escriben idcategoria y boton para cambiar estado
+Crear(nombre) //retorna bool
+Estado(idcategoria, opcion) //retorna bool, si opcion es true guardo fecha, si es false guardo null
+Mostrar() //carga en dgv las categorias
+
+
+//Form Producto
+Producto.Crear(nombre, preciocompra, precioventa, idcategoria) retorna bool
+Modificar(idproducto, nombre, preciocompra, idcategoria) retorna bool
+ActualizarPrecio(idproducto, precioventa) retorna bool
+Producto.Estado(idproducto) retorna bool //true si pudo editar el campo "habilitado"
+
+
+//ENCARGADO Stock
+//
+CargarProductoEnStock(idproducto,cantidad) //cuando se compra, se agrega a lista el id del producto y su cantidad
+AgregarStock(idproducto, cantidad) retorna bool //modifica en la lista cantidad del producto
+RestarStock(idproducto, cantidad) retorna bool //modifica cantidad del producto, ingresa numero positivo, despues lo convertimos a negativo
+//Form Deposito
+MostrarStock() retorna lista de stock 
+
+//Form Proveedor
+Agregar(cuit, razon social, altura, calle, codigo postal, localidad, provincia) retorna bool
+Modificar(cuit, razon social, altura, calle, codigo postal, localidad, provincia) retorna bool//toma los datos de textbox
+Estado(idproveedor, opcion) return bool
+Mostrar(filtro, cuit) return lista //txtbox, string con: "TODOS" si txtbox esta vacio / "*CUIT levantado de txtbox*" / "HABILITADOS" / "DESHABILITADOS"

@@ -18,25 +18,38 @@ namespace ddl_modulo
             dt = db.LeerPorComando(query);
             Proveedor unProveedor = new Proveedor();
             unProveedor.ID = int.Parse(dt.Rows[0].ItemArray[0].ToString());
-            unProveedor.CUIL = dt.Rows[1].ItemArray.ToString();
-            unProveedor.RazonSocial = dt.Rows[2].ItemArray.ToString();
-            unProveedor.Direccion.Altura = dt.Rows[3].ItemArray.ToString();
-            unProveedor.Direccion.Calle = dt.Rows[4].ItemArray.ToString();
-            unProveedor.Direccion.CodigoPostal = dt.Rows[4].ItemArray.ToString();
-            unProveedor.Direccion.Localidad = dt.Rows[4].ItemArray.ToString();
-            unProveedor.Direccion.Provincia = dt.Rows[4].ItemArray.ToString();
+            unProveedor.CUIL = dt.Rows[0].ItemArray[2].ToString();
+            unProveedor.RazonSocial = dt.Rows[0].ItemArray[3].ToString();
+            unProveedor.Direccion.Altura = dt.Rows[0].ItemArray[4].ToString();
+            unProveedor.Direccion.Calle = dt.Rows[0].ItemArray[5].ToString();
+            unProveedor.Direccion.CodigoPostal = dt.Rows[0].ItemArray[6].ToString();
+            unProveedor.Direccion.Localidad = dt.Rows[0].ItemArray[7].ToString();
+            unProveedor.Direccion.Provincia = dt.Rows[0].ItemArray[8].ToString();
             return unProveedor;
         }
         public bool Nuevo(Proveedor ObjProveedor)
         {
             try
             {
-                string query = string.Format("EXEC PROVEEDORPROC @ID=NULL,@DIRECCION={0},@CUIL={1},@RAZONSOCIAL={2},@HABILITADO = {3},@TIPO = 'INSERT';"
+                string query;
+                if (ObjProveedor.Direccion.ID < 0)
+                {
+                    query = string.Format("EXEC DIRECCIONPROC @ID=NULL,@ALTURA={0},@CALLE={1},@CP={2},@LOCALIDAD={3},@PROVINCIA={4},@TIPO = 'INSERT';"
+                    , ObjProveedor.Direccion.Altura, ObjProveedor.Direccion.Calle, ObjProveedor.Direccion.CodigoPostal, ObjProveedor.Direccion.Localidad, ObjProveedor.Direccion.Provincia);
+                    if (1 != db.EscribirPorComando(query))
+                    {
+                        return false;
+                    }
+                    query = string.Format("SELECT MAX([id_categoria]) FROM [dbo].[categoria]");
+                    dt.Rows[0].ItemArray[1] = db.LeerPorComando(query);
+                }
+                query = string.Format("EXEC PROVEEDORPROC @ID=NULL,@DIRECCION={0},@CUIL={1},@RAZONSOCIAL={2},@HABILITADO = {3},@TIPO = 'INSERT';"
                         , ObjProveedor.Direccion.ID, ObjProveedor.CUIL, ObjProveedor.RazonSocial, DateTime.Now);
                 if (1 != db.EscribirPorComando(query))
                 {
                     return false;
                 }
+                
                 return true;
             }
             catch (System.Data.SqlClient.SqlException)
