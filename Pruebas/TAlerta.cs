@@ -16,14 +16,14 @@ namespace Pruebas
             unCat.Stock.ID = 1;
             unCat.Stock.Producto.ID = 1;
             unCat.UsuarioCreador.ID = 1;
-            Assert.AreEqual(Cat.Nuevo(unCat), true);
+            Assert.AreEqual(Cat.CrearAlerta(unCat), true);
             unCat.Stock.ID = 2;
             unCat.UsuarioCreador.ID = 1;
-            Assert.AreEqual(Cat.Nuevo(unCat), true);
+            Assert.AreEqual(Cat.CrearAlerta(unCat), true);
             unCat.Stock.ID = 3;
             unCat.UsuarioCreador.ID = 2;
-            Assert.AreEqual(Cat.Nuevo(unCat), true);
-            Assert.AreEqual(Cat.Nuevo(unCat), false); //no vuelve a agregar si tiene el mismo nombre
+            Assert.AreEqual(Cat.CrearAlerta(unCat), true);
+            Assert.AreEqual(Cat.CrearAlerta(unCat), false); //no vuelve a agregar si tiene el mismo nombre
         }
         [TestMethod]
         public void _2Editar()
@@ -33,7 +33,7 @@ namespace Pruebas
             unObj.Stock.ID = 1;
             unObj.UsuarioCreador.ID = 2;
             unObj.ID = 1;
-            Assert.AreEqual(Obj.Editar(unObj), true);
+            Assert.AreEqual(Obj.EditarAlerta(unObj), true);
         }
         [TestMethod]
         public void _3Borrado()
@@ -41,7 +41,7 @@ namespace Pruebas
             Alerta unObj = new Alerta();
             NAlerta Cat = new NAlerta();
             unObj.ID = 2;
-            Assert.AreEqual(Cat.Eliminar(unObj), true);
+            Assert.AreEqual(Cat.EliminarAlerta(unObj), true);
         }
     }
 }

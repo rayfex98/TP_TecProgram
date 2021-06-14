@@ -14,11 +14,11 @@ namespace Pruebas
             Categoria unObj = new Categoria();
             NCategoria Obj = new NCategoria();
             unObj.Nombre = "cereal";
-            Assert.AreEqual(Obj.Nuevo(unObj), true);
+            Assert.AreEqual(Obj.AgregarCategoria(unObj), true);
             unObj.Nombre = "hogar";
-            Assert.AreEqual(Obj.Nuevo(unObj), true);
+            Assert.AreEqual(Obj.AgregarCategoria(unObj), true);
             unObj.Nombre = "vinos";
-            Assert.AreEqual(Obj.Nuevo(unObj), true);
+            Assert.AreEqual(Obj.AgregarCategoria(unObj), true);
         }
         [TestMethod]
         public void _2Editar()
@@ -27,7 +27,7 @@ namespace Pruebas
             NCategoria Obj = new NCategoria();
             unObj.Nombre = "electro";
             unObj.ID = 5;
-            Assert.AreEqual(Obj.Editar(unObj), true);
+            Assert.AreEqual(Obj.EditarCategoria(unObj), true);
         }
         [TestMethod]
         public void _3Borrado()
@@ -35,7 +35,7 @@ namespace Pruebas
             Categoria unObj = new Categoria();
             NCategoria Obj = new NCategoria();
             unObj.ID = 2;
-            Assert.AreEqual(Obj.Eliminar(unObj), true);
+            Assert.AreEqual(Obj.EliminarCategoria(unObj), true);
         }    
     }
 }

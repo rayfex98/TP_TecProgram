@@ -7,7 +7,7 @@ namespace ddl_modulo
 {
     public class DOrdenCompra
     {
-        public bool Nuevo(OrdenDeCompra unOrdenCompra)
+        public bool NuevoOrden(OrdenDeCompra unOrdenCompra)
         {
             try
             {
@@ -26,7 +26,7 @@ namespace ddl_modulo
                 return false;
             }
         }
-        public bool Editar(OrdenDeCompra unOrdenCompra)
+        public bool EditarOrden(OrdenDeCompra unOrdenCompra)
         {
             try
             {
@@ -53,7 +53,7 @@ namespace ddl_modulo
                 return false;
             }
         }
-        public bool Eliminar(int idOrden)
+        public bool EliminarOrden(int idOrden)
         {
             try
             {

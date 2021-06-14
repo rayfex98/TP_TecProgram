@@ -6,7 +6,7 @@ namespace ddl_modulo
 {
     public class DProducto
     {
-        public bool Nuevo(Producto unProducto)
+        public bool NuevoProducto(Producto unProducto)
         {
             try
             {
@@ -27,7 +27,7 @@ namespace ddl_modulo
                 return false;
             }
         }
-        public bool Editar(Producto unProducto)
+        public bool EditarProducto(Producto unProducto)
         {
             try
             {
@@ -53,7 +53,7 @@ namespace ddl_modulo
                 return false;
             }
         }
-        public bool Eliminar(Producto unProducto)
+        public bool EliminarProducto(Producto unProducto)
         {
             try
             {

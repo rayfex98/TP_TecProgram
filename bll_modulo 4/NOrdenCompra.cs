@@ -8,23 +8,23 @@ namespace bll_modulo
     {
         DOrdenCompra unOrdenCompra = new DOrdenCompra();
 
-        public bool Nuevo(OrdenDeCompra _unOrdenCompra)
+        public bool NuevoOrden(OrdenDeCompra _unOrdenCompra)
         {
-            return unOrdenCompra.Nuevo(_unOrdenCompra);
+            return unOrdenCompra.NuevoOrden(_unOrdenCompra);
         }
-        public bool Editar(OrdenDeCompra _unOrdenCompra)
+        public bool EditarOrden(OrdenDeCompra _unOrdenCompra)
         {
-            return unOrdenCompra.Editar(_unOrdenCompra);
+            return unOrdenCompra.EditarOrden(_unOrdenCompra);
         }
-        public bool Eliminar(int _idOrden)
+        public bool EliminarOrden(int _idOrden)
         {
-            return unOrdenCompra.Eliminar(_idOrden);
+            return unOrdenCompra.EliminarOrden(_idOrden);
         }
         public DataTable ListarOrdenCompra()
         {
             return unOrdenCompra.ListadeOrdenCompra();
         }
-        public bool EstaAprobada(Usuario UsuarioAprovador)
+        public bool EstaAprobadaOrden(Usuario UsuarioAprovador)
         {
             //guardar el atributo
             return unOrdenCompra.EstaAprobada(UsuarioAprovador);

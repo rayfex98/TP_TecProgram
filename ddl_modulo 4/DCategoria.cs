@@ -6,7 +6,7 @@ namespace ddl_modulo
 {
     public class DCategoria
     {
-        public bool Nuevo(Categoria unCategoria)
+        public bool AgregarCategoria(Categoria unCategoria)
         {
             try {
                 Conexion db = new Conexion();
@@ -25,7 +25,7 @@ namespace ddl_modulo
                 return false;
             }
         }
-        public bool Editar(Categoria unaCat)
+        public bool EditarCategoria(Categoria unaCat)
         {
             try
             {
@@ -50,7 +50,7 @@ namespace ddl_modulo
                 return false;
             }
         }
-        public bool Eliminar(Categoria unCat)
+        public bool EliminarCategoria(Categoria unCat)
         {
             try
             {

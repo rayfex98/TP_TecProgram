@@ -8,19 +8,19 @@ namespace bll_modulo
     {
         DCategoria unCategoria = new DCategoria();
 
-        public bool Nuevo(Categoria _unCategoria)
+        public bool AgregarCategoria(Categoria _unCategoria)
         {
             _unCategoria.Nombre = _unCategoria.Nombre.ToUpper();
-            return unCategoria.Nuevo(_unCategoria);
+            return unCategoria.AgregarCategoria(_unCategoria);
         }
-        public bool Editar(Categoria _unCategoria)
+        public bool EditarCategoria(Categoria _unCategoria)
         {
             if(_unCategoria.Nombre != "") _unCategoria.Nombre = _unCategoria.Nombre.ToUpper();
-            return unCategoria.Editar(_unCategoria);
+            return unCategoria.EditarCategoria(_unCategoria);
         }
-        public bool Eliminar(Categoria _unCategoria)
+        public bool EliminarCategoria(Categoria _unCategoria)
         {
-            return unCategoria.Eliminar(_unCategoria);
+            return unCategoria.EliminarCategoria(_unCategoria);
         }
         public DataTable ListarCategoria() //nuevo metodo devuelve tabla de categorias
         {

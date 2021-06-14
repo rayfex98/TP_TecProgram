@@ -11,7 +11,6 @@ namespace Pruebas
         NStock newstock = new NStock();
         Stock unstock = new Stock();
         Producto unproducto = new Producto();
-        Categoria unacategoria = new Categoria();
 
         [TestMethod]
         public void Agregarunproducto()//agrega un producto ya existente al stock, el producto debe existir para luego agregarlo al stock 
@@ -19,7 +18,7 @@ namespace Pruebas
             unproducto.ID = 5;
             unstock.Producto = unproducto;
             unstock.Cantidad = 10;
-            Assert.AreEqual(newstock.Nuevo(unstock), true);
+            Assert.AreEqual(newstock.CargarProductoEnStock(unstock), true);
 
         }
         [TestMethod]
@@ -28,7 +27,7 @@ namespace Pruebas
             unproducto.ID = 2;
             unstock.Producto = unproducto;
             unstock.ID = 1;
-            Assert.AreEqual(newstock.Editar(unstock), true);
+            Assert.AreEqual(newstock.EditarStock(unstock), true);
 
         }
 
@@ -45,7 +44,7 @@ namespace Pruebas
         [TestMethod]
         public void EliminarProductoDeStock()//
         {
-            Assert.AreEqual(newstock.Eliminar(4), true);
+            Assert.AreEqual(newstock.EliminarStock(4), true);
         }
 
         [TestMethod]

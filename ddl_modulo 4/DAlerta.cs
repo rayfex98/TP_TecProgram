@@ -6,7 +6,7 @@ namespace ddl_modulo
 {
     public class DAlerta
     {
-        public bool Nuevo(Alerta unAlerta)
+        public bool CrearAlerta(Alerta unAlerta)
         {
             try
             {
@@ -26,7 +26,7 @@ namespace ddl_modulo
                 return false;
             }
         }
-        public bool Editar(Alerta unAlerta) //
+        public bool EditarAlerta(Alerta unAlerta) //
         {
             try
             {
@@ -51,7 +51,7 @@ namespace ddl_modulo
                 return false;
             }
         }
-        public bool Eliminar(Alerta unAlerta)
+        public bool EliminarAlerta(Alerta unAlerta)
         {
             try
             {

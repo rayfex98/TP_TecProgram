@@ -13,12 +13,12 @@ namespace Pruebas
             Producto unObj = new Producto();
             NProducto Obj = new NProducto();
             unObj.Nombre = "cereal";
-            Assert.AreEqual(Obj.Nuevo(unObj), true);
+            Assert.AreEqual(Obj.NuevoProducto(unObj), true);
             unObj.Nombre = "hogar";
-            Assert.AreEqual(Obj.Nuevo(unObj), true);
+            Assert.AreEqual(Obj.NuevoProducto(unObj), true);
             unObj.Nombre = "vinos";
-            Assert.AreEqual(Obj.Nuevo(unObj), true);
-            Assert.AreEqual(Obj.Nuevo(unObj), false); //no vuelve a agregar si tiene el mismo nombre
+            Assert.AreEqual(Obj.NuevoProducto(unObj), true);
+            Assert.AreEqual(Obj.NuevoProducto(unObj), false); //no vuelve a agregar si tiene el mismo nombre
         }
         [TestMethod]
         public void _2Editar()
@@ -27,7 +27,7 @@ namespace Pruebas
             NProducto Obj = new NProducto();
             unObj.Nombre = "electro";
             unObj.ID = 2;
-            Assert.AreEqual(Obj.Editar(unObj), true);
+            Assert.AreEqual(Obj.EditarProducto (unObj), true);
         }
         [TestMethod]
         public void _3Borrado()
@@ -35,7 +35,7 @@ namespace Pruebas
             Producto unObj = new Producto();
             NProducto Obj = new NProducto();
             unObj.ID = 2;
-            Assert.AreEqual(Obj.Eliminar(unObj), true);
+            Assert.AreEqual(Obj.EditarProducto(unObj), true);
         }
     }
 }

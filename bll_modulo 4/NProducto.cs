@@ -8,17 +8,17 @@ namespace bll_modulo
     {
         DProducto unProducto = new DProducto();
 
-        public bool Nuevo(Producto _proveedor)
+        public bool NuevoProducto(Producto _proveedor)
         {
-            return unProducto.Nuevo(_proveedor);
+            return unProducto.NuevoProducto(_proveedor);
         }
-        public bool Editar(Producto _producto)
+        public bool EditarProducto(Producto _producto)
         {
-            return unProducto.Editar(_producto);
+            return unProducto.EditarProducto(_producto);
         }
         public bool Eliminar(Producto _idProducto)
         {
-            return unProducto.Eliminar(_idProducto);
+            return unProducto.EliminarProducto(_idProducto);
         }
         public DataTable ListarProductos()
         {

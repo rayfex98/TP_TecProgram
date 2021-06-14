@@ -12,21 +12,21 @@ namespace bll_modulo
         private List<Stock> stocks;
 
         #region NuevoStock
-        public bool Nuevo(Stock _Stock)
+        public bool CargarProductoEnStock(Stock _Stock)
         {
-            return unStock.Nuevo(_Stock);
+            return unStock.CargarProductoEnStock(_Stock);
         }
         #endregion
         #region EditarStock
-        public bool Editar(Stock _Stock)
+        public bool EditarStock(Stock _Stock)
         {
-            return unStock.Editar(_Stock);
+            return unStock.EditarStock(_Stock);
         }
         #endregion
         #region EliminarDeStock
-        public bool Eliminar(int _idProducto)
+        public bool EliminarStock(int _idProducto)
         {
-            return unStock.Eliminar(_idProducto);
+            return unStock.EliminarStock(_idProducto);
         }
         #endregion
         #region listarStock
