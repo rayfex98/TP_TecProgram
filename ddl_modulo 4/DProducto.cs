@@ -7,6 +7,7 @@ namespace ddl_modulo
     public class DProducto
     {
         Conexion db = new Conexion();
+        DataTable dt = new DataTable();
         public bool NuevoProducto(Producto unProducto)
         {
             try
@@ -28,16 +29,15 @@ namespace ddl_modulo
         {
             try
             {
-                Conexion db = new Conexion();
                 if (!ID_Producto(true, unProducto.ID,"NULL")) //id debe existir
                 {
-                    string query = string.Format("EXEC PRODUCTOPROC @ID = {0},@CATEGORIA = {1},@NOMBRE = {2},@COMPRA ={3}, @VENTA ={4},@HABILITADO = null,@TIPO 'UPDATE';"
+                    string query = string.Format("PRODUCTOPROC @ID = {0} ,@CATEGORIA = {1} ,@NOMBRE = {2} ,@COMPRA ={3} ,@VENTA ={4} ,@HABILITADO = null ,@TIPO 'UPDATE';"
                         , unProducto.ID, unProducto.Categoria.ID, unProducto.Nombre, unProducto.PrecioCompra, unProducto.PrecioVenta);
                     if (1 != db.EscribirPorComando(query))
                     {
                         return false;
                     }
-                    return true;
+                return true;
                 }
                 return false;
             }
@@ -54,7 +54,6 @@ namespace ddl_modulo
         {
             try
             {
-                Conexion db = new Conexion();
                 if (unProducto.ID.ToString() != null)
                 {
                     if (ID_Producto(true, unProducto.ID,"NULL"))
@@ -94,11 +93,10 @@ namespace ddl_modulo
         {
             try
             {
-                Conexion db = new Conexion();
                 string query;
                 if (metodo == true)
                 {
-                    query = string.Format("EXEC PRODUCTOPROC @ID = {0},@CATEGORIA=NULL,@NOMBRE=NULL,@COMPRA = NULL,@VENTA = NULL,@HABILITADO = null,@TIPO = 'SELECTONE';", id, null);
+                    query = string.Format("PRODUCTOPROC @ID = {0},@CATEGORIA=NULL,@NOMBRE=NULL,@COMPRA = NULL,@VENTA = NULL,@HABILITADO = null,@TIPO = 'SELECTONE';", id, null);
                     if (1 != db.EscribirPorComando(query))
                     {
                         return false;
@@ -106,7 +104,7 @@ namespace ddl_modulo
                 }
                 else
                 {
-                    query = string.Format("EXEC PRODUCTOPROC @ID = NULL,@CATEGORIA={0},@NOMBRE={1},@COMPRA = NULL ,@VENTA = NULL,@HABILITADO = null,@TIPO = 'SELECTID';", id, nombre);
+                    query = string.Format("PRODUCTOPROC @ID = NULL,@CATEGORIA={0},@NOMBRE={1},@COMPRA = NULL ,@VENTA = NULL,@HABILITADO = null,@TIPO = 'SELECTID';", id, nombre);
                     if (1 != db.EscribirPorComando(query))
                     {
                         return false;
@@ -126,9 +124,11 @@ namespace ddl_modulo
 
         public DataTable ListadeProductos()
         {
-            DataTable dt = new DataTable();
+                string query = string.Format("EXEC PRODUCTOPROC @ID = null,@CATEGORIA = null,@NOMBRE = =null,@COMPRA =null, @VENTA =null,@HABILITADO = null,@TIPO = 'SELECT';");
+            
             //busco en tabla
             return dt;
         }
+
     }
 }

@@ -7,11 +7,11 @@ namespace Pruebas
     [TestClass]
     public class TProducto
     {
+         Producto unObj = new Producto();
+         NProducto Obj = new NProducto();
         [TestMethod]
         public void _1Insert()
         {
-            Producto unObj = new Producto();
-            NProducto Obj = new NProducto();
             unObj.Categoria = new Categoria();
             unObj.Nombre = "lavavajilla";
             unObj.Categoria.ID = 1;
@@ -33,21 +33,33 @@ namespace Pruebas
         [TestMethod]
         public void _2Editar()
         {
-            Producto unObj = new Producto();
-            NProducto Obj = new NProducto();
-            unObj.Categoria = new Categoria();
+            unObj.ID = 9;
             unObj.Nombre = "electro";
-            unObj.ID = 2;
+            unObj.Categoria = new Categoria();
             unObj.Categoria.ID = 2;
-            Assert.AreEqual(Obj.EditarProducto (unObj), true);
+            unObj.PrecioCompra = 200;
+            unObj.PrecioVenta = 300;
+            Assert.AreEqual(Obj.EditarProducto(unObj), false);
+            unObj.ID = 8;
+            unObj.Nombre = "libro";
+            unObj.Categoria = new Categoria();
+            unObj.Categoria.ID = 3;
+            unObj.PrecioCompra = 200;
+            unObj.PrecioVenta = 300;
+            Assert.AreEqual(Obj.EditarProducto(unObj), true);
         }
         [TestMethod]
         public void _3Borrado()
         {
-            Producto unObj = new Producto();
-            NProducto Obj = new NProducto();
+
             unObj.ID = 2;
             Assert.AreEqual(Obj.EliminarProducto(unObj), true);
+        }
+        [TestMethod]
+        public void ListaProductos()
+        {
+            NProducto Obj = new NProducto();
+            Assert.IsNotNull(Obj.ListarProductos());
         }
     }
 }

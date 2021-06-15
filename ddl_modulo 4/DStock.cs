@@ -38,8 +38,9 @@ namespace ddl_modulo
                     {
                         return false;
                     }
-                }
                  return true;
+                }
+                return false;
             }
             catch (System.Data.SqlClient.SqlException)
             {
