@@ -14,11 +14,11 @@ namespace Pruebas
             Categoria unObj = new Categoria();
             NCategoria Obj = new NCategoria();
             unObj.Nombre = "cereal";
-            Assert.AreEqual(Obj.AgregarCategoria(unObj), true);
+            Assert.AreEqual(Obj.AgregarCategoria(unObj), false);
             unObj.Nombre = "hogar";
-            Assert.AreEqual(Obj.AgregarCategoria(unObj), true);
+            Assert.AreEqual(Obj.AgregarCategoria(unObj), false);
             unObj.Nombre = "vinos";
-            Assert.AreEqual(Obj.AgregarCategoria(unObj), true);
+            Assert.AreEqual(Obj.AgregarCategoria(unObj), false);
         }
         [TestMethod]
         public void _2Editar()

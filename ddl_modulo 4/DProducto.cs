@@ -6,20 +6,17 @@ namespace ddl_modulo
 {
     public class DProducto
     {
+        Conexion db = new Conexion();
         public bool NuevoProducto(Producto unProducto)
         {
             try
             {
-                Conexion db = new Conexion();
-                if (!ID_Producto(false,-1,unProducto.Nombre))
-                {
-                    string query = string.Format("EXEC PRODUCTOPROC @ID=NULL,@CATEGORIA={0},@NOMBRE={1},@COMPRA = {2} ,@VENTA = {3},@TIPO='INSERT';"
-                        ,unProducto.Categoria.ID, unProducto.Nombre, unProducto.PrecioCompra, unProducto.PrecioVenta);
+                    string query = string.Format(" EXEC PRODUCTOPROC @ID = null, @CATEGORIA = {0}, @NOMBRE = {1}, @COMPRA = {2}, @VENTA = {3}, @HABILITADO = null, @TIPO = 'INSERT' ; "
+                        , unProducto.Categoria.ID, unProducto.Nombre, unProducto.PrecioCompra, unProducto.PrecioVenta);
                     if (1 != db.EscribirPorComando(query))
                     {
                         return false;
                     }
-                }
                 return true;
             }
             catch (System.Data.SqlClient.SqlException)
@@ -34,8 +31,8 @@ namespace ddl_modulo
                 Conexion db = new Conexion();
                 if (!ID_Producto(true, unProducto.ID,"NULL")) //id debe existir
                 {
-                    string query = string.Format("EXEC PRODUCTOPROC @ID={0},@CATEGORIA={1},@NOMBRE={2},@COMPRA = {3} ,@VENTA = {4},@TIPO='UPDATE';"
-                        ,unProducto.ID, unProducto.Categoria.ID, unProducto.Nombre, unProducto.PrecioCompra, unProducto.PrecioVenta);
+                    string query = string.Format("EXEC PRODUCTOPROC @ID = {0},@CATEGORIA = {1},@NOMBRE = {2},@COMPRA ={3}, @VENTA ={4},@HABILITADO = null,@TIPO 'UPDATE';"
+                        , unProducto.ID, unProducto.Categoria.ID, unProducto.Nombre, unProducto.PrecioCompra, unProducto.PrecioVenta);
                     if (1 != db.EscribirPorComando(query))
                     {
                         return false;
@@ -63,7 +60,7 @@ namespace ddl_modulo
                     if (ID_Producto(true, unProducto.ID,"NULL"))
                     {
 
-                        string query = string.Format("EXEC PRODUCTOPROC @ID = {0},@CATEGORIA=NULL,@NOMBRE=NULL,@COMPRA = NULL,@VENTA = NULL,@TIPO = 'DELETE';",unProducto.ID); ///
+                        string query = string.Format("EXEC PRODUCTOPROC @ID = {0},@CATEGORIA=NULL,@NOMBRE=NULL,@COMPRA = NULL,@VENTA = NULL,@HABILITADO = null,@TIPO = 'DELETE';", unProducto.ID); ///
                         if (1 != db.EscribirPorComando(query))
                         {
                             return false;
@@ -74,7 +71,7 @@ namespace ddl_modulo
                 {
                     if (ID_Producto(false,-1, unProducto.Nombre))
                     {
-                        string query = string.Format("EXEC PRODUCTOPROC @ID = NULL,@CATEGORIA={1},@NOMBRE={0},@COMPRA = NULL,@VENTA = NULL,@TIPO = 'DELETE';",unProducto.Nombre, unProducto.Categoria.ID);
+                        string query = string.Format("EXEC PRODUCTOPROC @ID = NULL,@CATEGORIA={1},@NOMBRE={0},@COMPRA = NULL,@VENTA = NULL,@HABILITADO = null,@TIPO = 'DELETE';", unProducto.Nombre, unProducto.Categoria.ID);
                         if (1 != db.EscribirPorComando(query))
                         {
                             return false;
@@ -101,7 +98,7 @@ namespace ddl_modulo
                 string query;
                 if (metodo == true)
                 {
-                    query = string.Format("EXEC PRODUCTOPROC @ID = {0},@CATEGORIA=NULL,@NOMBRE=NULL,@COMPRA = NULL,@VENTA = NULL,@TIPO = 'SELECTONE';", id, null);
+                    query = string.Format("EXEC PRODUCTOPROC @ID = {0},@CATEGORIA=NULL,@NOMBRE=NULL,@COMPRA = NULL,@VENTA = NULL,@HABILITADO = null,@TIPO = 'SELECTONE';", id, null);
                     if (1 != db.EscribirPorComando(query))
                     {
                         return false;
@@ -109,7 +106,7 @@ namespace ddl_modulo
                 }
                 else
                 {
-                    query = string.Format("EXEC PRODUCTOPROC @ID = NULL,@CATEGORIA={0},@NOMBRE={1},@COMPRA = NULL ,@VENTA = NULL,@TIPO = 'SELECTID';", id, nombre);
+                    query = string.Format("EXEC PRODUCTOPROC @ID = NULL,@CATEGORIA={0},@NOMBRE={1},@COMPRA = NULL ,@VENTA = NULL,@HABILITADO = null,@TIPO = 'SELECTID';", id, nombre);
                     if (1 != db.EscribirPorComando(query))
                     {
                         return false;

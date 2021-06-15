@@ -1,4 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Collections.Generic;
 using System;
 using Entidades;
 using bll_modulo;
@@ -18,7 +19,7 @@ namespace Pruebas
             unproducto.ID = 5;
             unstock.Producto = unproducto;
             unstock.Cantidad = 10;
-            Assert.AreEqual(newstock.CargarProductoEnStock(unstock), true);
+            Assert.AreEqual(newstock.CargarProductoEnStock(unstock), false);
 
         }
         [TestMethod]

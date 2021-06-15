@@ -8,14 +8,14 @@ namespace ddl_modulo
 {
     public class DStock
     {
-        List<Stock> stocks;
+        List<Stock> stocks= new List<Stock>();
         DataTable dt = new DataTable();
         Conexion db = new Conexion();
         public bool CargarProductoEnStock(Stock unStock)
         {
             try
             {
-                string query = string.Format("EXEC STOCKPROC @ID=null,@PRODUCTO={0},@CANTIDAD={1},@HABILITADO = null,@TIPO='INSERT';", unStock.Producto.ID, unStock.Cantidad);
+                string query = string.Format("STOCKPROC @ID=null,@PRODUCTO={0},@CANTIDAD={1},@HABILITADO = null,@TIPO='INSERT';", unStock.Producto.ID, unStock.Cantidad);
                 if (1 != db.EscribirPorComando(query))
                 {
                     return false;
@@ -56,7 +56,7 @@ namespace ddl_modulo
             {
                 if (ID_Stock(idProducto))
                 {
-                    string query = string.Format("EXEC STOCKPROC @ID={0},@PRODUCTO=null,@CANTIDAD=null,@HABILITADO = null,@TIPO='DELETE';", idProducto);
+                    string query = string.Format("STOCKPROC @ID={0},@PRODUCTO=null,@CANTIDAD=null,@HABILITADO = null,@TIPO='DELETE';", idProducto);
                     if (1 != db.EscribirPorComando(query))
                     {
                         return false;
@@ -136,15 +136,17 @@ namespace ddl_modulo
                 return false;
             }
         }
-        public Stock cargarObj(object[] obj)
+        public Stock cargarObj(DataRow fila)
         {
-            string query = string.Format("SELECT IDSTOCK, IDPRODUCTO, CANTIDAD" +
+           /* string query = string.Format("SELECT IDSTOCK, IDPRODUCTO, CANTIDAD" +
                         "FROM [dbo].[STOCK] where IDSTOCK = {0}", obj[0]);
-            dt = db.LeerPorComando(query);
+            dt = db.LeerPorComando(query);*/
+
             Stock unStock = new Stock();
-            unStock.ID = int.Parse(dt.Rows[0].ItemArray[0].ToString());
-            unStock.Producto.ID = int.Parse(dt.Rows[0].ItemArray[1].ToString());
-            unStock.Cantidad = int.Parse(dt.Rows[0].ItemArray[2].ToString());
+            unStock.Producto = new Producto();
+            unStock.ID = int.Parse(fila.ItemArray[0].ToString());
+            unStock.Producto.ID = int.Parse(fila.ItemArray[1].ToString());
+            unStock.Cantidad = int.Parse(fila.ItemArray[2].ToString());
             return unStock;
         }
         public List<Stock> ListadoStock()
@@ -153,7 +155,7 @@ namespace ddl_modulo
             dt = db.LeerPorComando(query);
             foreach (DataRow item in dt.Rows)
             {
-                stocks.Add(cargarObj(item.ItemArray));
+                stocks.Add(cargarObj(item));
             }
 
             return stocks;

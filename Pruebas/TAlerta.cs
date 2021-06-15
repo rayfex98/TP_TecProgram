@@ -13,6 +13,9 @@ namespace Pruebas
         {
             Alerta unCat = new Alerta();
             NAlerta Cat = new NAlerta();
+            unCat.Stock = new Stock();
+            unCat.Stock.Producto = new Producto();
+            unCat.UsuarioCreador = new Usuario();
             unCat.Stock.ID = 1;
             unCat.Stock.Producto.ID = 1;
             unCat.UsuarioCreador.ID = 1;

@@ -13,7 +13,7 @@ namespace ddl_modulo
                 Conexion db = new Conexion();
                 if (!ID_Alerta(false, unAlerta.Stock.ID))
                 {
-                    string query = string.Format("EXEC ALERTAPROC @ID = NULL, @STOCK = { 0},@USUARIO = { 1},@MINIMO = { 2},@TIPO = 'INSERT'; ", unAlerta.Stock.ID, unAlerta.UsuarioCreador.ID, unAlerta.CantidadMinima);
+                    string query = string.Format("EXEC ALERTAPROC @ID = NULL, @STOCK = {0},@USUARIO = { 1},@MINIMO = { 2},@TIPO = 'INSERT'; ", unAlerta.Stock.ID, unAlerta.UsuarioCreador.ID, unAlerta.CantidadMinima);
                     if (1 != db.EscribirPorComando(query))
                     {
                         return false;
