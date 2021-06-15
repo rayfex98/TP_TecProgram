@@ -92,7 +92,7 @@ CREATE TABLE [dbo].[alerta](
 	[id_alerta] [int] IDENTITY(1,1) NOT NULL,
 	[id_stock] [int] NOT NULL,
 	[id_persona] [int] NOT NULL,
-	[cantidadminima] [int] NOT NULL,
+	[cantidad_minima] [int] NOT NULL,
 PRIMARY KEY CLUSTERED 
 (
 	[id_alerta] ASC

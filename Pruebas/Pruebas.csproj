@@ -56,7 +56,6 @@
     <Compile Include="TProducto.cs" />
     <Compile Include="TDireccion.cs" />
     <Compile Include="TDetallePENDIENTE.cs" />
-    <Compile Include="TOrdenCompraPENDIENTE.cs" />
     <Compile Include="TProveedor.cs" />
   </ItemGroup>
   <ItemGroup>

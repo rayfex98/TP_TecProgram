@@ -8,7 +8,7 @@ namespace bll_modulo
 {
     public class NProveedor
     {
-        private List<Proveedor> proveedores;
+        private List<Proveedor> proveedores = new List<Proveedor>();
         DProveedor ObjProveedor = new DProveedor();
         //Metodo que carga lista proveedores
 

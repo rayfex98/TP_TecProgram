@@ -8,7 +8,7 @@ namespace ddl_modulo
     {
         Conexion db = new Conexion();
         DataTable dt = new DataTable();
-        public int Nuevo(Direccion unDireccion)
+        public bool Nuevo(Direccion unDireccion)
         {
             try
             {
@@ -16,14 +16,14 @@ namespace ddl_modulo
                     , unDireccion.Altura, unDireccion.Calle, int.Parse(unDireccion.CodigoPostal), unDireccion.Localidad, unDireccion.Provincia);
                 if (1 != db.EscribirPorComando(query))
                 {
-                    return 0;
+                    return false;
                 }
 
-                return 1;
+                return true;
             }
             catch (System.Data.SqlClient.SqlException)
             {
-                return 0;
+                return false;
             }
         }
         public bool Editar(Direccion unDireccion)

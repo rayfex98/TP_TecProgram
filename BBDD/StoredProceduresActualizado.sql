@@ -13,7 +13,7 @@ AS
 				INSERT INTO [dbo].[alerta]
 					   ([id_stock],
 					   [id_persona],
-					   [cantidadminina]) /*Cambiar a minima*/
+					   [cantidad_minima]) /*Cambiar a minima*/
 				VALUES
 					   (@STOCK,
 					   @USUARIO,
@@ -24,7 +24,7 @@ AS
 				SELECT [id_alerta],
 						[id_stock],
 						[id_persona],
-						[cantidadminina] /*Cambiar a minima*/
+						[cantidad_minima] /*Cambiar a minima*/
 				FROM [dbo].[alerta]
 			END
 		IF @TIPO = 'UPDATE'
@@ -45,6 +45,7 @@ AS
 					BEGIN
 						UPDATE [dbo].[alerta]
 						SET	[cantidadminina] = @MINIMO /*Cambiar a minima*/
+						SET	[cantidad_minima] = @MINIMO /*Cambiar a minima*/
 						WHERE [id_alerta] = @ID
 					END
 				

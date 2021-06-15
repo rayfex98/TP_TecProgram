@@ -16,7 +16,7 @@ namespace ddl_modulo
             try
             {
                 DDireccion dir = new DDireccion();
-                if (dir.Nuevo(ObjProveedor.Direccion) == 1)
+                if (dir.Nuevo(ObjProveedor.Direccion))
                 {
                     ObjProveedor.Direccion.ID = dir.RecuperarUltimoID();
                     string query = string.Format("EXEC PROVEEDORPROC @ID=NULL,@DIRECCION={0},@CUIL={1},@RAZONSOCIAL={2},@HABILITADO = {3},@TIPO = 'INSERT';"
