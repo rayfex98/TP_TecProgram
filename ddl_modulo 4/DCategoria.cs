@@ -6,18 +6,15 @@ namespace ddl_modulo
 {
     public class DCategoria
     {
+        Conexion db = new Conexion();
         public bool AgregarCategoria(Categoria unCategoria)
         {
             try {
-                Conexion db = new Conexion();
-                if (!ID_Categoria(false, unCategoria.Nombre))
-                {
                     string query = string.Format("EXEC CATEGORIAPROC @ID = null,@DESCRIPCION = {0},@HABILITADO = null,@TIPO =  'INSERT';", unCategoria.Nombre);
                     if (1 != db.EscribirPorComando(query))
                     {
                         return false;
                     }
-                }
                 return true;
             }
             catch(System.Data.SqlClient.SqlException)
@@ -29,17 +26,13 @@ namespace ddl_modulo
         {
             try
             {
-                Conexion db = new Conexion();
-                if (!ID_Categoria(true, unaCat.ID.ToString()))
-                {
+
                     string query = string.Format("EXEC CATEGORIAPROC @ID = {0},@DESCRIPCION = {1},@HABILITADO = null,@TIPO ='UPDATE';", unaCat.ID.ToString(), unaCat.Nombre);
                     if (1 != db.EscribirPorComando(query))
                     {
                         return false;
                     }
                     return true;
-                }
-                return false;
             }
             catch (System.Data.SqlClient.SqlException)
             {
@@ -54,15 +47,12 @@ namespace ddl_modulo
         {
             try
             {
-                Conexion db = new Conexion();
-                if (ID_Categoria(true, unCat.ID.ToString()))
-                {
+                
                     string query = string.Format("EXEC CATEGORIAPROC @ID = {0},@DESCRIPCION = NULL,@HABILITADO = null,@TIPO = 'DELETE';", unCat.ID);
                     if (1 != db.EscribirPorComando(query))
                     {
                         return false;
-                    }
-                }
+                    }               
                 return true;
             }
             catch (System.Data.SqlClient.SqlException)
@@ -74,43 +64,10 @@ namespace ddl_modulo
                 return false;
             }
         }
-        public bool ID_Categoria(bool metodo,string descripcion) //SI EXISTE RETORNA TRUE
-        {
-            try
-            {
-                Conexion db = new Conexion();
-                string query;
-                if (metodo == true)
-                {
-                    query = string.Format("EXEC CATEGORIAPROC @ID = {0},@DESCRIPCION = NULL,@TIPO = 'SELECTONE';", descripcion);
-                    if (1 != db.EscribirPorComando(query))
-                    {
-                        return false;
-                    }
-                }
-                else
-                {
-                    query = string.Format("EXEC CATEGORIAPROC @ID = NULL,@DESCRIPCION = {0},@TIPO = 'SELECTID';", descripcion);
-                    if (1 != db.EscribirPorComando(query))
-                    {
-                        return false;
-                    }
-                }
-                return true;
-            }
-            catch (System.Data.SqlClient.SqlException)
-            {
-                return false;
-            }
-            catch (System.NullReferenceException)
-            {
-                return false;
-            }
-        }
+       
 
         public DataTable ListadeCategoria()
         {
-            Conexion db = new Conexion();
             return db.LeerPorStoreProcedure("mostrarcategoria");
         }
     }

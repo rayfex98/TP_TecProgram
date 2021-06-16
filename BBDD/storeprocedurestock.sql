@@ -72,3 +72,15 @@ select
 
 select *from dbo.direccion;
 EXEC DIRECCIONPROC @ID=null,@ALTURA=123,@CALLE=estrada,@CP=12,@LOCALIDAD=ezeiza,@PROVINCIA=bsas,@TIPO='INSERT';
+
+ EXEC PRODUCTOPROC @ID = null, @CATEGORIA = 1, @NOMBRE = 'lavarropas', @COMPRA =100, @VENTA =200, @HABILITADO = null, @TIPO = 'INSERT'
+ insert into dbo.PERSONA(IDDIRECCION,DNI,NOMBRE,APELLIDO)values(1,12342332,'marcelo','tevez');
+ insert into dbo.ROL(DESCRIPCIONROL)values('encargado');
+ insert into dbo.USUARIO (IDPERSONA,IDROL,PASSWORD,HABILITADO) values(1,1,'1234',20-10-20);
+ insert into dbo.ALERTA(IDSTOCK,IDPERSONA,CANTIDADMINIMA) values(1,1,100);
+ select *from dbo.ALERTA;
+ select *from dbo.PERSONA ;
+ select *from dbo.USUARIO;
+ select *from dbo.DIRECCION; 
+ select *from dbo.ROL;
+ 

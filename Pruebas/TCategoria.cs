@@ -35,7 +35,7 @@ namespace Pruebas
             Categoria unObj = new Categoria();
             NCategoria Obj = new NCategoria();
             unObj.ID = 2;
-            Assert.AreEqual(Obj.EliminarCategoria(unObj), true);
+            Assert.AreEqual(Obj.EliminarCategoria(unObj), false); // va a tirar una excepcion porque hay productos que usan esta categoria 
         }    
     }
 }

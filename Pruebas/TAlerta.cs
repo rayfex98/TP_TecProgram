@@ -8,43 +8,60 @@ namespace Pruebas
     [TestClass]
     public class TAlerta
     {
+
         [TestMethod]
-        public void _1Insert()
+        public void NuevaAlerta()
         {
-            Alerta unCat = new Alerta();
-            NAlerta Cat = new NAlerta();
-            unCat.Stock = new Stock();
-            unCat.Stock.Producto = new Producto();
-            unCat.UsuarioCreador = new Usuario();
-            unCat.Stock.ID = 1;
-            unCat.Stock.Producto.ID = 1;
-            unCat.UsuarioCreador.ID = 1;
-            Assert.AreEqual(Cat.CrearAlerta(unCat), true);
-            unCat.Stock.ID = 2;
-            unCat.UsuarioCreador.ID = 1;
-            Assert.AreEqual(Cat.CrearAlerta(unCat), true);
-            unCat.Stock.ID = 3;
-            unCat.UsuarioCreador.ID = 2;
-            Assert.AreEqual(Cat.CrearAlerta(unCat), true);
-            Assert.AreEqual(Cat.CrearAlerta(unCat), false); //no vuelve a agregar si tiene el mismo nombre
+            Alerta unaAlerta = new Alerta();
+            NAlerta MetodoAlerta = new NAlerta();
+            unaAlerta.Stock = new Stock();
+            unaAlerta.Stock.Producto = new Producto();
+            unaAlerta.UsuarioCreador = new Usuario();
+            unaAlerta.Stock.ID = 4;
+            unaAlerta.UsuarioCreador.ID = 1;
+            unaAlerta.CantidadMinima = 100;
+            Assert.AreEqual(MetodoAlerta.CrearAlerta(unaAlerta), false);//ya esta creada con este id
+           /* unaAlerta.Stock.ID = 4;
+            unaAlerta.UsuarioCreador.ID = 1;
+            unaAlerta.CantidadMinima = 200;
+            Assert.AreEqual(MetodoAlerta.CrearAlerta(unaAlerta), true);
+            unaAlerta.Stock.ID = 5;
+            unaAlerta.UsuarioCreador.ID = 1;
+            unaAlerta.CantidadMinima = 20;
+            Assert.AreEqual(MetodoAlerta.CrearAlerta(unaAlerta), true);
+            Assert.AreEqual(MetodoAlerta.CrearAlerta(unaAlerta), false); //no vuelve a agregar si tiene el mismo nombre*/
+        }
+
+        [TestMethod]
+        public void EditarAler()
+        {
+            Alerta unaAlerta = new Alerta();
+            NAlerta MetodoAlerta = new NAlerta();
+            unaAlerta.Stock = new Stock();
+            unaAlerta.UsuarioCreador = new Usuario();
+            unaAlerta.UsuarioCreador.ID = 1;
+            unaAlerta.CantidadMinima = 10;
+            unaAlerta.Stock.ID = 1;
+            unaAlerta.ID = 16;
+            Assert.AreEqual(MetodoAlerta.EditarAlerta(unaAlerta), true);// da false pero actua sobre la base de datos hay que revisar esto 
+        }
+ 
+
+        [TestMethod]
+        public void BorrarAlerta()
+        {
+            Alerta unaAlerta = new Alerta();
+            NAlerta MetodoAlerta = new NAlerta();
+            unaAlerta.ID = 2;
+            Assert.AreEqual(MetodoAlerta.EliminarAlerta(unaAlerta), false);// no existe alerta con id 2 
         }
         [TestMethod]
-        public void _2Editar()
+        public void ListarAlertas()
         {
-            Alerta unObj = new Alerta();
-            NAlerta Obj = new NAlerta();
-            unObj.Stock.ID = 1;
-            unObj.UsuarioCreador.ID = 2;
-            unObj.ID = 1;
-            Assert.AreEqual(Obj.EditarAlerta(unObj), true);
+            NAlerta MetodoAlerta = new NAlerta();
+            Assert.IsNotNull(MetodoAlerta.ListarAlerta());
         }
-        [TestMethod]
-        public void _3Borrado()
-        {
-            Alerta unObj = new Alerta();
-            NAlerta Cat = new NAlerta();
-            unObj.ID = 2;
-            Assert.AreEqual(Cat.EliminarAlerta(unObj), true);
-        }
+
+
     }
 }

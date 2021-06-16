@@ -27,28 +27,15 @@ namespace ddl_modulo
         }
         public bool EditarProducto(Producto unProducto)
         {
-            try
+            int idcategoria = unProducto.Categoria.ID;
+            string query = string.Format("PRODUCTOPROC @ID = {0} ,@CATEGORIA = {1} ,@NOMBRE = {2} ,@COMPRA = {3} ,@VENTA = {4} ,@HABILITADO = null ,@TIPO = 'UPDATE' "
+                        ,unProducto.ID, idcategoria, unProducto.Nombre, unProducto.PrecioCompra, unProducto.PrecioVenta);
+            if (1 != db.EscribirPorComando(query))
             {
-                if (!ID_Producto(true, unProducto.ID,"NULL")) //id debe existir
-                {
-                    string query = string.Format("PRODUCTOPROC @ID = {0} ,@CATEGORIA = {1} ,@NOMBRE = {2} ,@COMPRA ={3} ,@VENTA ={4} ,@HABILITADO = null ,@TIPO 'UPDATE';"
-                        , unProducto.ID, unProducto.Categoria.ID, unProducto.Nombre, unProducto.PrecioCompra, unProducto.PrecioVenta);
-                    if (1 != db.EscribirPorComando(query))
-                    {
-                        return false;
-                    }
-                return true;
-                }
-                return false;
+                 return false;
             }
-            catch (System.Data.SqlClient.SqlException)
-            {
-                return false;
-            }
-            catch (System.NullReferenceException)
-            {
-                return false;
-            }
+            return true;               
+          
         }
         public bool EliminarProducto(Producto unProducto)
         {
@@ -56,26 +43,23 @@ namespace ddl_modulo
             {
                 if (unProducto.ID.ToString() != null)
                 {
-                    if (ID_Producto(true, unProducto.ID,"NULL"))
-                    {
+                   
 
                         string query = string.Format("EXEC PRODUCTOPROC @ID = {0},@CATEGORIA=NULL,@NOMBRE=NULL,@COMPRA = NULL,@VENTA = NULL,@HABILITADO = null,@TIPO = 'DELETE';", unProducto.ID); ///
                         if (1 != db.EscribirPorComando(query))
                         {
                             return false;
                         }
-                    }
                 }
                 else
                 {
-                    if (ID_Producto(false,-1, unProducto.Nombre))
-                    {
+                  
                         string query = string.Format("EXEC PRODUCTOPROC @ID = NULL,@CATEGORIA={1},@NOMBRE={0},@COMPRA = NULL,@VENTA = NULL,@HABILITADO = null,@TIPO = 'DELETE';", unProducto.Nombre, unProducto.Categoria.ID);
                         if (1 != db.EscribirPorComando(query))
                         {
                             return false;
                         }
-                    }
+                    
                 }
                 
                 return true;
@@ -89,44 +73,12 @@ namespace ddl_modulo
                 return false;
             }
         }
-        public bool ID_Producto(bool metodo, int id, string nombre)
-        {
-            try
-            {
-                string query;
-                if (metodo == true)
-                {
-                    query = string.Format("PRODUCTOPROC @ID = {0},@CATEGORIA=NULL,@NOMBRE=NULL,@COMPRA = NULL,@VENTA = NULL,@HABILITADO = null,@TIPO = 'SELECTONE';", id, null);
-                    if (1 != db.EscribirPorComando(query))
-                    {
-                        return false;
-                    }
-                }
-                else
-                {
-                    query = string.Format("PRODUCTOPROC @ID = NULL,@CATEGORIA={0},@NOMBRE={1},@COMPRA = NULL ,@VENTA = NULL,@HABILITADO = null,@TIPO = 'SELECTID';", id, nombre);
-                    if (1 != db.EscribirPorComando(query))
-                    {
-                        return false;
-                    }
-                }
-                return true;
-            }
-            catch (System.Data.SqlClient.SqlException)
-            {
-                return false;
-            }
-            catch (System.NullReferenceException)
-            {
-                return false;
-            }
-        }
-
+     
+        //Crear una carga de prodcutos para la base de datos, que estaran dentro de stock 
         public DataTable ListadeProductos()
         {
-                string query = string.Format("EXEC PRODUCTOPROC @ID = null,@CATEGORIA = null,@NOMBRE = =null,@COMPRA =null, @VENTA =null,@HABILITADO = null,@TIPO = 'SELECT';");
-            
-            //busco en tabla
+            string query = string.Format("ListaProductos");
+            dt = db.LeerPorComando(query);
             return dt;
         }
 
