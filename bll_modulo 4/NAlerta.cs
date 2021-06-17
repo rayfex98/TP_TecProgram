@@ -24,5 +24,9 @@ namespace bll_modulo
         {
             return unAlerta.ListadeAlertas();
         }
+        public DataTable ListarAlertasCriticas()
+        {
+            return unAlerta.ListalertasCriticas();
+        }
     }
 }

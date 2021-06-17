@@ -30,17 +30,13 @@ namespace ddl_modulo
         public bool EditarStock(Stock unStock)
         {
             try
-            {
-                if (!ID_Stock(unStock.ID))
-                {
+            {               
                     string query = string.Format("EXEC STOCKPROC @ID = {0},@PRODUCTO = {1} ,@CANTIDAD = null,@HABILITADO =null,@TIPO ='UPDATE';", unStock.ID, unStock.Producto.ID);
                     if (1 != db.EscribirPorComando(query))
                     {
                         return false;
                     }
-                 return true;
-                }
-                return false;
+                 return true;              
             }
             catch (System.Data.SqlClient.SqlException)
             {
@@ -54,15 +50,12 @@ namespace ddl_modulo
         public bool EliminarStock(int idProducto)
         {
             try
-            {
-                if (ID_Stock(idProducto))
-                {
+            {   
                     string query = string.Format("STOCKPROC @ID={0},@PRODUCTO=null,@CANTIDAD=null,@HABILITADO = null,@TIPO='DELETE';", idProducto);
                     if (1 != db.EscribirPorComando(query))
                     {
                         return false;
                     }
-                }
                 return true;
             }
             catch (System.Data.SqlClient.SqlException)
@@ -74,27 +67,7 @@ namespace ddl_modulo
                 return false;
             }
         }
-        public bool ID_Stock(int idStock)
-        {
-            try
-            {
-                string query;
-                query = string.Format("EXEC STOCKPROC @ID={0},@PRODUCTO=NULL,@CANTIDAD=NULL,@TIPO = 'SELECTONE';", idStock);
-                if (1 != db.EscribirPorComando(query))
-                {
-                    return false;
-                }
-                return true;
-            }
-            catch (System.Data.SqlClient.SqlException)
-            {
-                return false;
-            }
-            catch (System.NullReferenceException)
-            {
-                return false;
-            }
-        }
+       
 
 
         public bool AgregarStock(int ID_producto, int cantidad)
@@ -162,6 +135,13 @@ namespace ddl_modulo
             return stocks;
         }
 
+        public DataTable ListarStockVista()
+        {
+            string query = string.Format("vista_stock");
+            dt = db.LeerPorComando(query);
+            //busco en tabla
+            return dt;
+        }
     }
 
 }

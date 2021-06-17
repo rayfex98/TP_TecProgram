@@ -73,5 +73,14 @@ namespace ddl_modulo
             //busco en tabla
             return dt;
         }
+        public DataTable ListalertasCriticas()
+        {
+
+            string query = string.Format("VistaAlertasCriticas");
+            dt = db.LeerPorComando(query);
+            //busco en tabla
+            return dt;
+        }
+
     }
 }

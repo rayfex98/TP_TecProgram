@@ -23,7 +23,7 @@ if object_id('vista_stock') is not null
 
 go
 
-create view vista_stock as 
+create procedure vista_stock as 
 
 select 
 s.IDSTOCK as 'id stock',
@@ -42,11 +42,15 @@ values ('cocina',20-10-20);
 insert into [dbo].[PRODUCTO] (IDCATEGORIA,NOMBRE,PRECIOCOMPRA,PRECIOVENTA,HABILITADO)
 values (4,'cocina ',100,200,20-10-20);
 insert into [dbo].[PRODUCTO] (IDCATEGORIA,NOMBRE,PRECIOCOMPRA,PRECIOVENTA,HABILITADO)
+values (5,'batidora',100,200,20-10-20);
+insert into [dbo].[PRODUCTO] (IDCATEGORIA,NOMBRE,PRECIOCOMPRA,PRECIOVENTA,HABILITADO)
 values (1,'licuadora ',100,200,20-10-20);
 insert into [dbo].[PRODUCTO] (IDCATEGORIA,NOMBRE,PRECIOCOMPRA,PRECIOVENTA,HABILITADO)
 values (3,'corta cesped',100,200,20-10-10);
 insert into [dbo].[STOCK] (IDPRODUCTO,CANTIDAD,HABILITADO)
 values(4,100,10-10-20) ;
+insert into [dbo].[STOCK] (IDPRODUCTO,CANTIDAD,HABILITADO)
+values(16,100,10-10-20) ;
 
 SELECT s.IDPRODUCTO, s.IDSTOCK, s.CANTIDAD,p.NOMBRE,p.PRECIOCOMPRA,p.PRECIOVENTA
 FROM [dbo].[STOCK] as s 
@@ -57,21 +61,12 @@ on s.IDPRODUCTO = p.IDPRODUCTO;
 
 exec restarstock @ID = 4 , @cantidad= 1;
 exec sumarstock @ID = 2 , @cantidad= 20;
-select *from vista_stock;
-
-create view vista_alerta as 
-
-select 
-	a.IDALERTA as 'id alerta',
-	a.IDSTOCK as 'id stock'
-	from dbo.alerta  as a
-	inner join dbo.stock as s
-	on a.idstock = s.idstock;
-
-	select *from vista_alerta;
+exec vista_stock;
 
 select *from dbo.direccion;
 EXEC DIRECCIONPROC @ID=null,@ALTURA=123,@CALLE=estrada,@CP=12,@LOCALIDAD=ezeiza,@PROVINCIA=bsas,@TIPO='INSERT';
+EXEC DIRECCIONPROC @ID=null,@ALTURA=123,@CALLE=lasheras,@CP=122,@LOCALIDAD=ezeiza,@PROVINCIA=bsas,@TIPO='INSERT';
+EXEC DIRECCIONPROC @ID=null,@ALTURA=234,@CALLE=paraguay,@CP=231,@LOCALIDAD=cañuelas,@PROVINCIA=bsas,@TIPO='INSERT';
 
  EXEC PRODUCTOPROC @ID = null, @CATEGORIA = 1, @NOMBRE = 'lavarropas', @COMPRA =100, @VENTA =200, @HABILITADO = null, @TIPO = 'INSERT'
  insert into dbo.PERSONA(IDDIRECCION,DNI,NOMBRE,APELLIDO)values(1,12342332,'marcelo','tevez');
@@ -83,4 +78,115 @@ EXEC DIRECCIONPROC @ID=null,@ALTURA=123,@CALLE=estrada,@CP=12,@LOCALIDAD=ezeiza,
  select *from dbo.USUARIO;
  select *from dbo.DIRECCION; 
  select *from dbo.ROL;
+
+
+ if object_id('AlertasList') is not null
+  drop procedure AlertasList;
+
+go
+
+ create procedure AlertasList  as
+
+ select 
+ A.IDALERTA as 'id alerta',
+ S.IDSTOCK as 'id stock', 
+ S.IDPRODUCTO as 'id producto',
+ a.IDPERSONA as 'id usuario',
+ A.CANTIDADMINIMA as  'cantidad minima',
+ S.CANTIDAD as 'cantidad stock'
+ from dbo.ALERTA as A
+ inner join dbo.STOCK as S 
+ on A.IDSTOCK = S.IDSTOCK;
+
+
+ if object_id('VistaAlertasCriticas') is not null
+  drop procedure VistaAlertasCriticas;
+
+go
+ create procedure VistaAlertasCriticas as 
+
+ select 
+  A.IDALERTA as 'id alerta',
+ S.IDSTOCK as 'id stock', 
+ S.IDPRODUCTO as 'id producto',
+ a.IDPERSONA as 'id usuario',
+ A.CANTIDADMINIMA as  'cantidad minima',
+ S.CANTIDAD as 'cantidad stock'
+
+ from dbo.ALERTA as A
+ inner join dbo.STOCK as S 
+ on A.IDSTOCK = S.IDSTOCK
+ where S.CANTIDAD <= a.CANTIDADMINIMA
+
+
+
+ exec AlertasList;
+ exec VistaAlertasCriticas;
  
+ create procedure ListaProductos as 
+
+ select 
+ P.NOMBRE as 'nombre',
+ C.DESCRIPCION as 'categoria',
+ P.IDPRODUCTO as 'id producto'
+ from dbo.PRODUCTO as P
+ inner join dbo.CATEGORIA as C 
+ on P.IDCATEGORIA = C.IDCATEGORIA;
+
+ exec ListaProductos;
+
+ select *from dbo.ORDEN;
+ select *from dbo.ORDENCOMPRA;
+ select *from dbo.PROVEEDOR;
+ select *from dbo.DIRECCION;
+
+
+
+  if object_id('ListaProveedores') is not null
+  drop procedure ListaProveedores;
+
+ create procedure ListaProveedores as 
+
+ select 
+ P.CUIL as 'cuil',
+ P.IDPROVEEDOR as 'id proveedor',
+ P.RAZONSOCIAL as 'razon social',
+ D.LOCALIDAD +' '+ D.PROVINCIA as 'Localidad y provincia',
+ D.IDDIRECCION as 'id direccion'
+
+
+ from dbo.PROVEEDOR as P 
+ inner join dbo.DIRECCION as D
+ on P.IDDIRECCION = D.IDDIRECCION;
+
+ exec ListaProveedores;
+ select *from dbo.direccion;
+ insert into dbo.PROVEEDOR(IDDIRECCION,CUIL,RAZONSOCIAL) values(2,20302010222,'loma negra');
+
+ insert into dbo.ORDEN(IDPERSONA,HABILITADO) values (1,20-10-10);
+ insert into dbo.ORDENCOMPRA(IDORDEN,IDPERSONA,IDPROVEEDOR) values ()
+ EXEC PROVEEDORPROC @ID=NULL,@DIRECCION=3,@CUIL=3097654123,@RAZONSOCIAL=LaFabrica,@HABILITADO = null,@TIPO = 'INSERT';
+  EXEC PROVEEDORPROC @ID=2,@DIRECCION=null,@CUIL=null,@RAZONSOCIAL=null,@HABILITADO = null,@TIPO = 'DELETE';
+  select *from ORDEN;
+  select *from DETALLEORDEN; 
+  select *from ORDENCOMPRA;
+
+
+
+ if object_id('OrdenCompraVista') is not null
+ drop procedure OrdenCompraVista;
+ create procedure OrdenCompraVista as 
+
+ select D.CANTIDAD as 'cantidad',
+ D.IDPRODUCTO as 'id producto',
+ O.IDORDEN as 'id orden '
+
+from dbo.ORDENCOMPRA as O
+inner join dbo.DETALLEORDEN AS D
+on D.IDORDEN = O.IDORDEN
+where D.IDORDEN = O.IDORDEN; 
+
+EXEC DETALLEPROC @ID = 3,@ORDEN=1,@PRODUCTO=null,@CANTIDAD=null,@TIPO = 'DELETE';
+exec  OrdenCompraVista;
+select *from dbo.DIRECCION;
+EXEC DIRECCIONPROC @ID=4,@ALTURA=NULL,@CALLE=NULL,@CP=NULL,@LOCALIDAD=NULL,@PROVINCIA=NULL,@TIPO = 'DELETE';

@@ -29,15 +29,16 @@ namespace ddl_modulo
         }
         public bool Nuevo(Proveedor ObjProveedor)
         {
+
             try
             {
-                string query = string.Format("EXEC PROVEEDORPROC @ID=NULL,@DIRECCION={0},@CUIL={1},@RAZONSOCIAL={2},@HABILITADO = {3},@TIPO = 'INSERT';"
-                        , ObjProveedor.Direccion.ID, ObjProveedor.CUIL, ObjProveedor.RazonSocial, DateTime.Now);
+                string query = string.Format("EXEC PROVEEDORPROC @ID=NULL,@DIRECCION={0},@CUIL={1},@RAZONSOCIAL={2},@HABILITADO = null,@TIPO = 'INSERT';"
+                        , ObjProveedor.Direccion.ID, ObjProveedor.CUIL, ObjProveedor.RazonSocial);
                 if (1 != db.EscribirPorComando(query))
                 {
                     return false;
                 }
-                return true;
+            return true;
             }
             catch (System.Data.SqlClient.SqlException)
             {
@@ -49,12 +50,12 @@ namespace ddl_modulo
             try
             {
                 string query = string.Format("EXEC PROVEEDORPROC @ID={0},@DIRECCION={1},@CUIL={2},@RAZONSOCIAL={3},@HABILITADO = NULL,@TIPO = 'UPDATE';"
-                            , ObjProveedor.ID, ObjProveedor.Direccion, ObjProveedor.CUIL, ObjProveedor.RazonSocial);
+                            , ObjProveedor.ID, ObjProveedor.Direccion.ID, ObjProveedor.CUIL, ObjProveedor.RazonSocial);
                 if (1 != db.EscribirPorComando(query))
                 {
                     return false;
                 }
-                return true;
+            return true;
             }
             catch (System.Data.SqlClient.SqlException)
             {
@@ -96,6 +97,15 @@ namespace ddl_modulo
             }
 
             return proveedores;
+        }
+
+        public DataTable ListaProveedores()
+        {
+            string query = string.Format("ListaProveedores");
+            dt = db.LeerPorComando(query);
+            //busco en tabla
+            return dt;
+
         }
     }
 }

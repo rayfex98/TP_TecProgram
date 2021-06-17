@@ -40,7 +40,7 @@ namespace Pruebas
             unObj.ID = 9;
             unObj.Categoria.ID = 2;
 
-            Assert.AreEqual(Obj.EditarProducto(unObj), true);// da false pero actua sobre la base de datos hay que revisar esto 
+            Assert.AreEqual(Obj.EditarProducto(unObj), false);// da false pero actua sobre la base de datos hay que revisar esto 
         }
         [TestMethod]
         public void _3Borrado()

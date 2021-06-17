@@ -13,19 +13,19 @@ namespace bll_modulo
         //Metodo que carga lista proveedores
 
         #region MetodosPrivados
-        private bool Nuevo(Proveedor _proveedor)
+        public bool Nuevo(Proveedor _proveedor)
         {
             return ObjProveedor.Nuevo(_proveedor);
         }
-        private bool Editar(Proveedor _proveedor)
+        public bool Editar(Proveedor _proveedor)
         {
             return ObjProveedor.Editar(_proveedor);
         }
-        private bool Estado(int id, DateTime? hoy)
+        public bool Estado(int id, DateTime? hoy)
         {
             return ObjProveedor.Estado(id, hoy);
         }
-        private bool ID_Proveedor(int id, string cuil) //metodo propio, busca filtro en una lista de proveedores
+        public bool ID_Proveedor(int id, string cuil) //metodo propio, busca filtro en una lista de proveedores
         {
             //if(id == -1) Busqueda por cuil, else busqueda por id
             //recorre lista y busca id, cuando lo encuentre, retorno true, si no lo encuentra, retorna false
@@ -155,6 +155,13 @@ namespace bll_modulo
         {
             proveedores = ObjProveedor.ListadeProveedores();
             return proveedores;
+        }
+        #endregion
+
+        #region listaProvedorespordatatable
+        public DataTable datatableproveedores()
+        {
+            return ObjProveedor.ListaProveedores();
         }
         #endregion
     }

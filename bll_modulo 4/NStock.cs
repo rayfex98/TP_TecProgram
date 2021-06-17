@@ -75,8 +75,11 @@ namespace bll_modulo
             }
         }
         #endregion
-
-
-
+        #region ListarStockVista
+        public DataTable ListarStockVista()
+        {
+            return unStock.ListarStockVista();
+        }
+        #endregion
     }
 }

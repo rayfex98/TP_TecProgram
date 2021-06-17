@@ -17,9 +17,9 @@ namespace bll_modulo
         {
             return unDetalleOrden.Editar(_unDetalleOrden, _idOrden);
         }
-        public bool Eliminar(DetalleOrden _unDetalleOrden)
+        public bool Eliminar(DetalleOrden _unDetalleOrden , int idorden)
         {
-            return unDetalleOrden.Eliminar(_unDetalleOrden);
+            return unDetalleOrden.Eliminar(_unDetalleOrden, idorden);
         }
         public bool EliminarPorOrden(DetalleOrden _unDetalleOrden)
         {

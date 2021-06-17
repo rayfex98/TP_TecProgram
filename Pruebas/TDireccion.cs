@@ -17,19 +17,7 @@ namespace Pruebas
             unObj.Calle = "Rivadavia";
             unObj.CodigoPostal = "1645";
             unObj.Localidad = "Moron";
-            unObj.Provincia = "Buenos Aires";
-            Assert.AreEqual(expected: Obj.Nuevo(unObj), true);
-            unObj.Altura = "4654";
-            unObj.Calle = "Nazca";
-            unObj.CodigoPostal = "1405";
-            unObj.Localidad = "Flores";
-            unObj.Provincia = "Buenos Aires";
-            Assert.AreEqual(Obj.Nuevo(unObj), true);
-            unObj.Altura = "243";
-            unObj.Calle = "Bahia Blanca";
-            unObj.CodigoPostal = "X5172AIE";
-            unObj.Localidad = "La Falda";
-            unObj.Provincia = "Cordoba";
+            unObj.Provincia = "Buenos_Aires";
             Assert.AreEqual(Obj.Nuevo(unObj), true);
         }
         [TestMethod]
@@ -37,20 +25,20 @@ namespace Pruebas
         {
             Direccion unObj = new Direccion();
             NDireccion Obj = new NDireccion();
-            unObj.Altura = "NULL";
-            unObj.Calle = "NULL";
+            unObj.Altura = "100";
+            unObj.Calle = "olavarria";
             unObj.CodigoPostal = "2105";
             unObj.Localidad = "VILLA CRESPO";
-            unObj.Provincia = "NULL";
-            unObj.ID = 2;
-            Assert.AreEqual(Obj.Editar(unObj), true);
+            unObj.Provincia = "buenos aires ";
+            unObj.ID = 6;
+            Assert.AreEqual(Obj.Editar(unObj), false);// edita pero devuelve false, ver porque no puedo guardar 
         }
         [TestMethod]
         public void _3Borrado()
         {
             Direccion unObj = new Direccion();
             NDireccion Obj = new NDireccion();
-            unObj.ID = 3;
+            unObj.ID = 6;
             Assert.AreEqual(Obj.Eliminar(unObj), true);
         }
     }

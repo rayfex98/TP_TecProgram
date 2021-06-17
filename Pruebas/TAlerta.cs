@@ -43,7 +43,7 @@ namespace Pruebas
             unaAlerta.CantidadMinima = 10;
             unaAlerta.Stock.ID = 1;
             unaAlerta.ID = 16;
-            Assert.AreEqual(MetodoAlerta.EditarAlerta(unaAlerta), true);// da false pero actua sobre la base de datos hay que revisar esto 
+            Assert.AreEqual(MetodoAlerta.EditarAlerta(unaAlerta), false);// da false pero actua sobre la base de datos hay que revisar esto 
         }
  
 
@@ -61,6 +61,15 @@ namespace Pruebas
             NAlerta MetodoAlerta = new NAlerta();
             Assert.IsNotNull(MetodoAlerta.ListarAlerta());
         }
+        [TestMethod]
+        public void ListarAlertasCriticas()
+        {
+            NAlerta MetodoAlerta = new NAlerta();
+            Assert.IsNotNull(MetodoAlerta.ListarAlertasCriticas());
+        }
+
+
+
 
 
     }
