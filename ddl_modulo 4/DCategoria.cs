@@ -46,8 +46,7 @@ namespace ddl_modulo
         public bool EliminarCategoria(Categoria unCat)
         {
             try
-            {
-                
+            {           
                     string query = string.Format("EXEC CATEGORIAPROC @ID = {0},@DESCRIPCION = NULL,@HABILITADO = null,@TIPO = 'DELETE';", unCat.ID);
                     if (1 != db.EscribirPorComando(query))
                     {
@@ -68,7 +67,7 @@ namespace ddl_modulo
 
         public DataTable ListadeCategoria()
         {
-            return db.LeerPorStoreProcedure("mostrarcategoria");
+            return db.LeerPorStoreProcedure("ListaCategorias");
         }
     }
 }

@@ -42,9 +42,7 @@ namespace ddl_modulo
             try
             {
                 if (unProducto.ID.ToString() != null)
-                {
-                   
-
+                {                  
                         string query = string.Format("EXEC PRODUCTOPROC @ID = {0},@CATEGORIA=NULL,@NOMBRE=NULL,@COMPRA = NULL,@VENTA = NULL,@HABILITADO = null,@TIPO = 'DELETE';", unProducto.ID); ///
                         if (1 != db.EscribirPorComando(query))
                         {
@@ -77,7 +75,7 @@ namespace ddl_modulo
         //Crear una carga de prodcutos para la base de datos, que estaran dentro de stock 
         public DataTable ListadeProductos()
         {
-            string query = string.Format("ListaProductos");
+            string query = string.Format("ListaProductosHabilitados");
             dt = db.LeerPorComando(query);
             return dt;
         }

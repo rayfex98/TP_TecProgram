@@ -8,12 +8,13 @@ namespace ddl_modulo
     public class DOrdenCompra
     {
         Conexion db = new Conexion();
+        DataTable dt = new DataTable();
         public bool NuevoOrden(OrdenDeCompra unOrdenCompra)
         {
             try
             {
                 unOrdenCompra.FechaAprobacion = DateTime.Now;
-                string query = string.Format("EXEC ORDENCOMPRAPROC @ID=NULL,@PROVEEDOR={0},@USUARIO={1},@FECHA={2},@TIPO = 'INSERT';"
+                string query = string.Format("EXEC ORDENCOMPRAPROC @ID=NULL,@PROVEEDOR={0},@USUARIO={1},@FECHA={2} cast(@FECHA as datetime),@TIPO = 'INSERT';"
                 , unOrdenCompra.Proveedor.ID, unOrdenCompra.UsuarioAprobador.ID, unOrdenCompra.FechaAprobacion);
                 if (1 != db.EscribirPorComando(query))
                 {
@@ -53,8 +54,6 @@ namespace ddl_modulo
         {
             try
             {
-
-
                 string query = string.Format("EXEC ORDENCOMPRAPROC @ID={0},@PROVEEDOR=NULL,@USUARIO=NULL,@FECHA=NULL,@TIPO = 'DELETE';", idOrden);
                 if (1 != db.EscribirPorComando(query))
                 {
@@ -73,20 +72,17 @@ namespace ddl_modulo
         }
      
         public DataTable ListadeOrdenCompra()
-        {
-            DataTable dt = new DataTable();
-            //busco en tabla
+        {       
+            string query = string.Format("OrdenCompraVista");
+            dt = db.LeerPorComando(query);
             return dt;
-        }
-        public bool EstaAprobada(Usuario UsuarioAprovador)
-        {
-            return true;
         }
         public DataTable OrdenPendiente()
-        {
-            DataTable dt = new DataTable();
-            //busco en tabla
+        {          
+            string query = string.Format("OrdenCompraPendientes");
+            dt = db.LeerPorComando(query);
             return dt;
+
         }
     }
 }

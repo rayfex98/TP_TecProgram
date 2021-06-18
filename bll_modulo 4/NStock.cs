@@ -9,7 +9,6 @@ namespace bll_modulo
     public class NStock
     {
         DStock unStock = new DStock();
-        private List<Stock> stocks;
 
         #region NuevoStock
         public bool CargarProductoEnStock(Stock _Stock)
@@ -29,26 +28,8 @@ namespace bll_modulo
             return unStock.EliminarStock(_idProducto);
         }
         #endregion
-        #region listarStock
-        public List<Stock> ListaStock(string filtro)
-        {
-            if (string.Compare(filtro, "TODOS") == 0)
-            {
-                foreach (Stock item in stocks)
-                {
-
-                }
-            }
-            return stocks;
-        }
-        #endregion
-        #region CargarLista
-        public List<Stock> CargarLista()
-        {
-            stocks = unStock.ListadoStock();
-            return stocks;
-        }
-        #endregion
+   
+     
         #region AgregarStock
         public bool AgregarStock(int id_producto, int cantidad)
         {

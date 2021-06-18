@@ -20,18 +20,7 @@ namespace Pruebas
             Assert.AreEqual(obj.Nuevo(unObj),true);
         }
         [TestMethod]
-        public void EliminarProveedor()
-        {
-            int id = 2;
-            Assert.AreEqual(obj.EstadoProveedor(id, false), true);//con false doy de baja
-        }
-        [TestMethod]
-        public void AltaProveedor()
-        {
-            int id = 2;
-            Assert.AreEqual(obj.EstadoProveedor(id, true), true);//con true doy de alta
-        }
-        [TestMethod]
+
         public void ModificarProveedor() 
         {
             unObj.Direccion = new Direccion();
@@ -41,15 +30,6 @@ namespace Pruebas
             unObj.CUIL = "20445556667";
             Assert.AreEqual(obj.Editar(unObj), false);// funciona pero tira false 
         }
-        [TestMethod]
-        public void ListarProveedor() //Necesito filtro, string con: "TODOS" / "*CUIT levantado de txtbox*" / "HABILITADOS" / "DESHABILITADOS"
-        {
-            string filtro = "CUIL";
-            string cuil = "20445556668";
-            Assert.IsNotNull(obj.ListarProveedores(filtro, cuil));
-        }
-
-
         [TestMethod]
         public void listarprovedores()
         {

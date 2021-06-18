@@ -12,8 +12,7 @@ namespace ddl_modulo
         public bool CrearAlerta(Alerta unAlerta)
         {
             try
-            {
-           
+            {        
                     string query = string.Format("EXEC ALERTAPROC @ID = NULL, @STOCK = {0},@USUARIO = {1},@MINIMO = {2},@TIPO = 'INSERT' ", unAlerta.Stock.ID, unAlerta.UsuarioCreador.ID, unAlerta.CantidadMinima);
                     if (1 != db.EscribirPorComando(query))
                     {
@@ -31,9 +30,6 @@ namespace ddl_modulo
         {
             int idstock = unAlerta.Stock.ID;
             int idusuario = unAlerta.UsuarioCreador.ID;
-
-
-
             string query = string.Format(" ALERTAPROC @ID = {0}, @STOCK = {1}, @USUARIO = {2}, @MINIMO = {3}, @TIPO = 'UPDATE' ", unAlerta.ID, idstock, idusuario, unAlerta.CantidadMinima);
             if (1 == db.EscribirPorComando(query))
             {
@@ -68,7 +64,7 @@ namespace ddl_modulo
         public DataTable ListadeAlertas()
         {
 
-            string query = string.Format("AlertasList");
+            string query = string.Format("VistaAlertas");
             dt = db.LeerPorComando(query);
             //busco en tabla
             return dt;

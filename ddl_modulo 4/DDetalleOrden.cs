@@ -7,6 +7,7 @@ namespace ddl_modulo
     public class DDetalleOrden
     {
         Conexion db = new Conexion();
+        DataTable dt = new DataTable();
 
         public bool Nuevo(DetalleOrden unDetalleOrden, int idOrden)
         {
@@ -91,8 +92,9 @@ namespace ddl_modulo
         }
         public DataTable ListadeDetalleOrden()
         {
-            DataTable dt = new DataTable();
-            //busco en tabla
+
+                  string query = string.Format("ListaCategorias");
+            dt = db.LeerPorComando(query);
             return dt;
         }
     }

@@ -18,10 +18,7 @@ create procedure sumarstock (@ID INT,
 					END
 				
 
-if object_id('vista_stock') is not null
-  drop view vista_stock;
 
-go
 
 create procedure vista_stock as 
 
@@ -135,12 +132,6 @@ go
 
  exec ListaProductos;
 
- select *from dbo.ORDEN;
- select *from dbo.ORDENCOMPRA;
- select *from dbo.PROVEEDOR;
- select *from dbo.DIRECCION;
-
-
 
   if object_id('ListaProveedores') is not null
   drop procedure ListaProveedores;
@@ -153,8 +144,6 @@ go
  P.RAZONSOCIAL as 'razon social',
  D.LOCALIDAD +' '+ D.PROVINCIA as 'Localidad y provincia',
  D.IDDIRECCION as 'id direccion'
-
-
  from dbo.PROVEEDOR as P 
  inner join dbo.DIRECCION as D
  on P.IDDIRECCION = D.IDDIRECCION;
@@ -164,17 +153,21 @@ go
  insert into dbo.PROVEEDOR(IDDIRECCION,CUIL,RAZONSOCIAL) values(2,20302010222,'loma negra');
 
  insert into dbo.ORDEN(IDPERSONA,HABILITADO) values (1,20-10-10);
- insert into dbo.ORDENCOMPRA(IDORDEN,IDPERSONA,IDPROVEEDOR) values ()
+ insert into dbo.ORDENCOMPRA(IDORDEN,IDPERSONA,IDPROVEEDOR) values (1,1,2);
  EXEC PROVEEDORPROC @ID=NULL,@DIRECCION=3,@CUIL=3097654123,@RAZONSOCIAL=LaFabrica,@HABILITADO = null,@TIPO = 'INSERT';
   EXEC PROVEEDORPROC @ID=2,@DIRECCION=null,@CUIL=null,@RAZONSOCIAL=null,@HABILITADO = null,@TIPO = 'DELETE';
   select *from ORDEN;
   select *from DETALLEORDEN; 
   select *from ORDENCOMPRA;
-
+  select *from PROVEEDOR;
+  cast()
+  EXEC ORDENCOMPRAPROC @ID=NULL,@PROVEEDOR=1,@USUARIO=1,@FECHA= ,@TIPO) = 'INSERT';
 
 
  if object_id('OrdenCompraVista') is not null
  drop procedure OrdenCompraVista;
+
+
  create procedure OrdenCompraVista as 
 
  select D.CANTIDAD as 'cantidad',
@@ -190,3 +183,25 @@ EXEC DETALLEPROC @ID = 3,@ORDEN=1,@PRODUCTO=null,@CANTIDAD=null,@TIPO = 'DELETE'
 exec  OrdenCompraVista;
 select *from dbo.DIRECCION;
 EXEC DIRECCIONPROC @ID=4,@ALTURA=NULL,@CALLE=NULL,@CP=NULL,@LOCALIDAD=NULL,@PROVINCIA=NULL,@TIPO = 'DELETE';
+
+ if object_id('OrdenCompraPendientes') is not null
+  drop procedure OrdenCompraPendientes
+go
+ create procedure OrdenCompraPendientes as 
+
+
+ select 
+ O.IDORDEN as 'id orden ',
+ D.CANTIDAD as 'cantidad',
+ P.NOMBRE as 'producto',
+ V.RAZONSOCIAL as 'razon social'
+ from dbo.ORDENCOMPRA AS O
+ inner join dbo.DETALLEORDEN AS D
+ on  O.IDORDEN =  D.IDORDEN
+ inner join dbo.PRODUCTO as P
+ on D.IDPRODUCTO = P.IDPRODUCTO
+ inner join dbo.PROVEEDOR as V
+ on O.IDPROVEEDOR = V.IDPROVEEDOR
+ where O.FECHAAPROVACION = null
+
+ exec OrdenCompraPendientes;

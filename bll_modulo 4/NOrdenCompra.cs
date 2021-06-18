@@ -24,11 +24,6 @@ namespace bll_modulo
         {
             return unOrdenCompra.ListadeOrdenCompra();
         }
-        public bool EstaAprobadaOrden(Usuario UsuarioAprovador)
-        {
-            //guardar el atributo
-            return unOrdenCompra.EstaAprobada(UsuarioAprovador);
-        }
         public DataTable OrdenPendiente()
         {
             return unOrdenCompra.OrdenPendiente();

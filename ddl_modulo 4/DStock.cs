@@ -109,32 +109,7 @@ namespace ddl_modulo
             {
                 return false;
             }
-        }
-        public Stock cargarObj(DataRow fila)
-        {
-           /* string query = string.Format("SELECT IDSTOCK, IDPRODUCTO, CANTIDAD" +
-                        "FROM [dbo].[STOCK] where IDSTOCK = {0}", obj[0]);
-            dt = db.LeerPorComando(query);*/
-
-            Stock unStock = new Stock();
-            unStock.Producto = new Producto();
-            unStock.ID = int.Parse(fila.ItemArray[0].ToString());
-            unStock.Producto.ID = int.Parse(fila.ItemArray[1].ToString());
-            unStock.Cantidad = int.Parse(fila.ItemArray[2].ToString());
-            return unStock;
-        }
-        public List<Stock> ListadoStock()
-        {
-            string query = string.Format("EXEC STOCKPROC @ID=null,@PRODUCTO=null,@CANTIDAD=null,@HABILITADO = null,@TIPO='SELECT' ;");
-            dt = db.LeerPorComando(query);
-            foreach (DataRow item in dt.Rows)
-            {
-                stocks.Add(cargarObj(item));
-            }
-
-            return stocks;
-        }
-
+        }    
         public DataTable ListarStockVista()
         {
             string query = string.Format("vista_stock");

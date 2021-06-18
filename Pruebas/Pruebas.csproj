@@ -55,8 +55,8 @@
     <Compile Include="TAlerta.cs" />
     <Compile Include="TProducto.cs" />
     <Compile Include="TDireccion.cs" />
-    <Compile Include="TDetallePENDIENTE.cs" />
-    <Compile Include="TOrdenCompraPENDIENTE.cs" />
+    <Compile Include="TDetalle.cs" />
+    <Compile Include="TOrdenCompra.cs" />
     <Compile Include="TProveedor.cs" />
     <Compile Include="TStock.cs" />
   </ItemGroup>

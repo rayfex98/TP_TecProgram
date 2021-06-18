@@ -49,12 +49,6 @@ namespace Pruebas
         }
 
         [TestMethod]
-        public void ListaStock()
-        {
-            Assert.IsNotNull(newstock.CargarLista());
-        }
-
-        [TestMethod]
         public void ListaStockVista()
         {
             Assert.IsNotNull(newstock.ListarStockVista());

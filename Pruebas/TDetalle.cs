@@ -6,7 +6,7 @@ using System;
 namespace Pruebas
 {
     [TestClass]
-    public class TDetallePENDIENTE
+    public class TDetalle
     {
         DetalleOrden detalle = new DetalleOrden();
         NDetalleOrden ndetalle = new NDetalleOrden();
@@ -37,7 +37,14 @@ namespace Pruebas
         {
             int idorden = 1;
             detalle.ID = 3;      
-            Assert.AreEqual(ndetalle.Eliminar(detalle, idorden), true);
+            Assert.AreEqual(ndetalle.Eliminar(detalle, idorden), false);//no existe ese id de orden 
         }
+        [TestMethod]
+        public void ListarDetall()
+        {
+
+            Assert.IsNotNull(ndetalle.ListarDetalleOrden());
+        }
+
     }
 }
