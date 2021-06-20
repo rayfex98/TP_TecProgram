@@ -15,8 +15,8 @@ namespace PruebasUnitarias
         {
             unObj.Direccion = new Direccion();
             unObj.Direccion.ID = 2;
-            unObj.RazonSocial = "Falabela";
-            unObj.CUIL = "23414213213";
+            unObj.RazonSocial = "roma";
+            unObj.CUIL = "2323213213";
             Assert.AreEqual(obj.Nuevo(unObj), true);
         }
         [TestMethod]
@@ -25,15 +25,22 @@ namespace PruebasUnitarias
         {
             unObj.Direccion = new Direccion();
             unObj.ID = 3;
-            unObj.Direccion.ID = 3;
-            unObj.RazonSocial = "Electrolux";
-            unObj.CUIL = "20445556667";
+            unObj.Direccion.ID = 15;
+            unObj.RazonSocial = "aveces";
+            unObj.CUIL = "20443556667";
             Assert.AreEqual(obj.Editar(unObj), false);// funciona pero tira false 
         }
         [TestMethod]
         public void ListarProvedores()
         {
-            Assert.IsNotNull(obj.DataTableProveedores());
+            Assert.IsNotNull(obj.listarproveedores());
+
+        }
+        [TestMethod]
+        public void ListarProvedoresPorProvincia()
+        {
+            string provincia = "b";
+            Assert.IsNotNull(obj.ListarProveedoresPorProvincia(provincia));
 
         }
     }

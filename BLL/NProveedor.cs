@@ -45,10 +45,16 @@ namespace BLL
         #endregion
 
         #region listaProvedorespordatatable
-        public DataTable DataTableProveedores()
+        public DataTable listarproveedores()
         {
             return ObjProveedor.ListaProveedores();
         }
         #endregion
+
+
+        public DataTable ListarProveedoresPorProvincia(string provincia)
+        {
+            return ObjProveedor.ListaProveedoresPorProvincia(provincia);
+        }
     }
 }

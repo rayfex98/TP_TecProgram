@@ -12,9 +12,9 @@ namespace Pruebas
         {
             Direccion unObj = new Direccion();
             NDireccion Obj = new NDireccion();
-            unObj.Altura = "310";
-            unObj.Calle = "Rivadavia";
-            unObj.CodigoPostal = "1645";
+            unObj.Altura = "10";
+            unObj.Calle = "Rvadavia";
+            unObj.CodigoPostal = "145";
             unObj.Localidad = "Moron";
             unObj.Provincia = "Buenos_Aires";
             Assert.AreEqual(Obj.Nuevo(unObj), true);
@@ -27,9 +27,9 @@ namespace Pruebas
             unObj.Altura = "100";
             unObj.Calle = "olavarria";
             unObj.CodigoPostal = "2105";
-            unObj.Localidad = "VILLA CRESPO";
-            unObj.Provincia = "buenos aires ";
-            unObj.ID = 6;
+            unObj.Localidad = "VILLA_CRESPO";
+            unObj.Provincia = "buenos_aires ";
+            unObj.ID = 8;
             Assert.AreEqual(Obj.Editar(unObj), false);// edita pero devuelve false, ver porque no puedo guardar 
         }
         [TestMethod]
@@ -37,7 +37,7 @@ namespace Pruebas
         {
             Direccion unObj = new Direccion();
             NDireccion Obj = new NDireccion();
-            unObj.ID = 7;
+            unObj.ID = 8;
             Assert.AreEqual(Obj.Eliminar(unObj), true);
         }
     }

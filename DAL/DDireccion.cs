@@ -10,21 +10,15 @@ namespace DAL
         readonly Conexion db = new Conexion();
         public bool Nuevo(Direccion unDireccion)
         {
-            try
-            {
 
                 string query = string.Format("EXEC DIRECCIONPROC @ID=NULL,@ALTURA={0},@CALLE={1},@CP={2},@LOCALIDAD={3},@PROVINCIA={4},@TIPO = 'INSERT';"
-                    , unDireccion.Altura.ToString(), unDireccion.Calle, unDireccion.CodigoPostal.ToString(), unDireccion.Localidad, unDireccion.Provincia);
+                    , unDireccion.Altura, unDireccion.Calle, unDireccion.CodigoPostal, unDireccion.Localidad, unDireccion.Provincia);
                 if (1 != db.EscribirPorComando(query))
                 {
                     return false;
                 }
-                return true;
-            }
-            catch (System.Data.SqlClient.SqlException)
-            {
-                return false;
-            }
+            return true;
+            
         }
         public bool Editar(Direccion unDireccion)
         {

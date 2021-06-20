@@ -12,7 +12,7 @@ namespace DAL
             {
                 Conexion db = new Conexion();
                 unOrden.Fecha = DateTime.Now;
-                string query = string.Format("EXEC CATEGORIAPROC @ID = NULL,@USUARIO={0},@FECHA={1},@TIPO = 'INSERT';", unOrden.UsuarioCreador.ID, unOrden.Fecha);
+                string query = string.Format("EXEC ORDENPROD @ID = NULL,@USUARIO={0},@FECHA={1},@TIPO = 'INSERT';", unOrden.UsuarioCreador.ID, unOrden.Fecha);
                 if (1 != db.EscribirPorComando(query))
                 {
                     return false;

@@ -12,6 +12,7 @@ BEGIN
 	WHERE IDPRODUCTO= @ID				
 	
 END
+--store procedure restar stock
 if object_id('restarstock') is not null
   drop procedure restarstock;
 
@@ -26,7 +27,7 @@ BEGIN
 	WHERE IDPRODUCTO= @ID						
 END
 
-
+--store procedure lista de stock
 
  if object_id('vista_stock') is not null
   drop procedure vista_stock;
@@ -44,11 +45,7 @@ from [dbo].[stock] as s
 inner join [dbo].[PRODUCTO] as p
 on s.IDPRODUCTO = p.IDPRODUCTO;
 
---exec vista_stock;
-
-
-
---store procedure de alertas 
+--store procedure de alertas criticas 
  if object_id('VistaAlertasCriticas') is not null
   drop procedure VistaAlertasCriticas;
 
@@ -74,7 +71,7 @@ go
  on S.IDPRODUCTO = B.IDPRODUCTO
  where S.CANTIDAD <= a.CANTIDADMINIMA
 
- --exec VistaAlertasCriticas;
+ --store procedure de alertas 
 
  if object_id('VistaAlertas') is not null
   drop procedure VistaAlertas;
@@ -100,10 +97,6 @@ go
  inner join dbo.PRODUCTO as B
  on S.IDPRODUCTO = B.IDPRODUCTO
  
- --exec VistaAlertas;
-
-
-
 
  --store procedure de productos 
   if object_id('ListaProductosHabilitados') is not null
@@ -120,7 +113,7 @@ go
  on P.IDCATEGORIA = C.IDCATEGORIA
  where P.HABILITADO is not null;
 
- --exec ListaProductosHabilitados;
+
  --store procedures de proveedor 
   if object_id('ListaProveedores') is not null
   drop procedure ListaProveedores;
@@ -132,16 +125,49 @@ go
  P.IDPROVEEDOR as 'id proveedor',
  P.RAZONSOCIAL as 'razon social',
  D.LOCALIDAD +' '+ D.PROVINCIA as 'Localidad y provincia',
- D.IDDIRECCION as 'id direccion'
+ D.IDDIRECCION as 'id direccion',
+ P.HABILITADO as 'habilitado'
  from dbo.PROVEEDOR as P 
  inner join dbo.DIRECCION as D
  on P.IDDIRECCION = D.IDDIRECCION;
 
- --exec ListaProveedores;
+ --store procedures de proveedor habilitados
+  if object_id('ListaProveedoresHabilitados') is not null
+  drop procedure ListaProveedoresHabilitados;
 
- 
- 
- --store procedures de orden de compra 
+ create procedure ListaProveedoresHabilitados as 
+
+ select 
+ P.CUIL as 'cuil',
+ P.IDPROVEEDOR as 'id proveedor',
+ P.RAZONSOCIAL as 'razon social',
+ D.LOCALIDAD +' '+ D.PROVINCIA as 'Localidad y provincia',
+ D.IDDIRECCION as 'id direccion',
+ P.HABILITADO as 'habilitado'
+ from dbo.PROVEEDOR as P 
+ inner join dbo.DIRECCION as D
+ on P.IDDIRECCION = D.IDDIRECCION
+ where P.HABILITADO is not null;
+
+  --store procedures de Buscar proveedor por provincia 
+  if object_id('BuscarProveedorProvincia') is not null
+  drop procedure BuscarProveedorProvincia;
+
+ create procedure BuscarProveedorProvincia(@provincia VARCHAR(50)) as 
+
+ select 
+ P.CUIL as 'cuil',
+ P.IDPROVEEDOR as 'id proveedor',
+ P.RAZONSOCIAL as 'razon social',
+ D.PROVINCIA as  'provincia',
+ D.IDDIRECCION as 'id direccion'
+ from dbo.PROVEEDOR as P 
+ inner join dbo.DIRECCION as D
+ on P.IDDIRECCION = D.IDDIRECCION
+ where  P.HABILITADO is not null
+ and D.PROVINCIA like  @provincia + '%';
+
+ --store procedures de orden de compra lista orden compra 
   if object_id('OrdenCompraVista') is not null
  drop procedure OrdenCompraVista;
 
@@ -149,7 +175,7 @@ go
  create procedure OrdenCompraVista as 
 
 
- select 
+  select DISTINCT
  O.IDORDEN as 'id orden ',
  D.CANTIDAD as 'cantidad',
  P.NOMBRE as 'producto',
@@ -163,11 +189,40 @@ go
  on D.IDPRODUCTO = P.IDPRODUCTO
  inner join dbo.PROVEEDOR as V
  on O.IDPROVEEDOR = V.IDPROVEEDOR
+where O.FECHAAPROVACION is not null
+
+--store procedures para sumar el precio de la compra
+
+ if object_id('sumartotalorden') is not null
+ drop procedure sumartotalorden;
+
+create procedure sumartotalorden(@orden int) as 
+
+select D.CANTIDAD as 'cantidad',
+P.PRECIOVENTA as 'precio venta'
+
+from DETALLEORDEN as D
+inner join PRODUCTO as P
+on D.IDPRODUCTO = P.IDPRODUCTO
+where d.IDORDEN = @orden;
 
 
+--store procedures para quitar y sumar productos de stock (deposito)
+if object_id('quitardestock') is not null
+ drop procedure quitardestock;
 
---exec OrdenCompraVista;
- 
+
+create procedure quitardestock(@orden int) as 
+
+select 
+D.CANTIDAD as 'cantidad',
+P.IDPRODUCTO as 'id producto'
+
+from DETALLEORDEN as D
+inner join PRODUCTO as P
+on D.IDPRODUCTO = P.IDPRODUCTO
+where d.IDORDEN = @orden;
+
  -- Crea el store procedure para ver las ordenes de compra pendiente 
  if object_id('OrdenCompraPendientes') is not null
   drop procedure OrdenCompraPendientes
@@ -177,23 +232,12 @@ go
 
  select 
  O.IDORDEN as 'id orden ',
- D.CANTIDAD as 'cantidad',
- P.NOMBRE as 'producto',
- V.RAZONSOCIAL as 'razon social'
+ O.FECHAAPROVACION as 'fecha aprobacion'
+
  from dbo.ORDENCOMPRA AS O
- inner join dbo.DETALLEORDEN AS D
- on  O.IDORDEN =  D.IDORDEN
- inner join dbo.PRODUCTO as P
- on D.IDPRODUCTO = P.IDPRODUCTO
- inner join dbo.PROVEEDOR as V
- on O.IDPROVEEDOR = V.IDPROVEEDOR
- where O.FECHAAPROVACION = null
+where O.FECHAAPROVACION is null;
 
-
---exec OrdenCompraPendientes; 
-
-
- --store procedure categoria 
+ --store procedure categoria muestra todas las categorias 
   if object_id('ListaCategorias') is not null
   drop procedure ListaCategorias
 go
@@ -207,7 +251,19 @@ go
  from dbo.CATEGORIA as c
  where c.HABILITADO is not null
 
- --exec ListaCategorias;
+--store procedure categoria muestra categorias por descripcion 
 
+ if object_id('ListaCategoriasCondicion') is not null
+  drop procedure ListaCategoriasCondicion
+go
 
+ create procedure ListaCategoriasCondicion(@descripcion VARCHAR(30)) as 
 
+ select 
+ c.DESCRIPCION as 'descripcion',
+ c.IDCATEGORIA as 'id categoria'
+
+ from dbo.CATEGORIA as c
+ where c.HABILITADO is not null
+ and
+ c.DESCRIPCION like @descripcion + '%';

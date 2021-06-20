@@ -13,12 +13,18 @@ namespace PruebasUnitarias
         [TestMethod]
         public void _1Insert()
         {
-            _unOrdencompra.ID = 1;
+            _unOrdencompra.ID = 3;
             _unOrdencompra.Proveedor = new Proveedor();
-            _unOrdencompra.Proveedor.ID = 1;
+            _unOrdencompra.Proveedor.ID = 3;
             _unOrdencompra.UsuarioAprobador = new Usuario();
             _unOrdencompra.UsuarioAprobador.ID = 1;
             Assert.AreEqual(NordenCompra.NuevoOrden(_unOrdencompra), true);
+        }
+        [TestMethod]
+        public void aprobarorden()
+        {
+            _unOrdencompra.ID = 1;         
+            Assert.AreEqual(NordenCompra.aprobarorden(_unOrdencompra), true);
         }
 
         [TestMethod]
@@ -30,6 +36,12 @@ namespace PruebasUnitarias
         public void ListarOrdenes()
         {
             Assert.IsNotNull(NordenCompra.ListarOrdenCompra());
+        }
+        [TestMethod]
+        public void pruebaSuma()
+        {
+            _unOrdencompra.ID = 1;
+            Assert.AreEqual(NordenCompra.CalcularTotalOrden(_unOrdencompra),18000);
         }
     }
 }

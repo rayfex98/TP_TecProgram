@@ -12,9 +12,6 @@ namespace DAL
         DataTable dt = new DataTable();
         public bool Nuevo(Proveedor ObjProveedor)
         {
-
-            try
-            {
                 string query = string.Format("EXEC PROVEEDORPROC @ID=NULL,@DIRECCION={0},@CUIL={1},@RAZONSOCIAL={2},@HABILITADO = null,@TIPO = 'INSERT';"
                         , ObjProveedor.Direccion.ID, ObjProveedor.CUIL, ObjProveedor.RazonSocial);
                 if (1 != db.EscribirPorComando(query))
@@ -22,11 +19,6 @@ namespace DAL
                     return false;
                 }
                 return true;
-            }
-            catch (System.Data.SqlClient.SqlException)
-            {
-                return false;
-            }
         }
         public bool Editar(Proveedor ObjProveedor)
         {
@@ -79,5 +71,14 @@ namespace DAL
             return dt;
 
         }
+        public DataTable ListaProveedoresPorProvincia(string Provincia)
+        {
+            string query = string.Format("exec BuscarProveedorProvincia @provincia= {0};",Provincia);
+            dt = db.LeerPorComando(query);
+            return dt;
+
+        }
+
+
     }
 }

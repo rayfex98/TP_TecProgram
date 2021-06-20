@@ -16,10 +16,10 @@ namespace PruebasUnitarias
             unaAlerta.Stock = new Stock();
             unaAlerta.Stock.Producto = new Producto();
             unaAlerta.UsuarioCreador = new Usuario();
-            unaAlerta.Stock.ID = 4;
+            unaAlerta.Stock.ID = 31;
             unaAlerta.UsuarioCreador.ID = 1;
             unaAlerta.CantidadMinima = 100;
-            Assert.AreEqual(MetodoAlerta.CrearAlerta(unaAlerta), false);//ya esta creada con este id
+            Assert.AreEqual(MetodoAlerta.CrearAlerta(unaAlerta), true);//ya esta creada con este id
             /* unaAlerta.Stock.ID = 4;
              unaAlerta.UsuarioCreador.ID = 1;
              unaAlerta.CantidadMinima = 200;
@@ -51,7 +51,7 @@ namespace PruebasUnitarias
         {
             Alerta unaAlerta = new Alerta();
             NAlerta MetodoAlerta = new NAlerta();
-            unaAlerta.ID = 2;
+            unaAlerta.ID = 21;
             Assert.AreEqual(MetodoAlerta.EliminarAlerta(unaAlerta), false);// no existe alerta con id 2 
         }
         [TestMethod]

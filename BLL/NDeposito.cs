@@ -15,5 +15,13 @@ namespace BLL
         {
             return unDeposito.ListadeDeposito(idproducto);
         }
+        public bool QuitarDeDeposito(OrdenDeCompra _unOrdenCompra)
+        {
+           return unDeposito.QuitarDeDeposito(_unOrdenCompra);
+        }
+        public bool agregaradeposito(OrdenDeCompra _unOrdenCompra)
+        {
+            return unDeposito.AgregarAdeposito(_unOrdenCompra);
+        }
     }
 }

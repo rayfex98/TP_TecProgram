@@ -13,12 +13,10 @@ namespace BLL
 
         public bool AgregarCategoria(Categoria _unCategoria)
         {
-            _unCategoria.Nombre = _unCategoria.Nombre.ToUpper();
             return unCategoria.AgregarCategoria(_unCategoria);
         }
         public bool EditarCategoria(Categoria _unCategoria)
         {
-            if (_unCategoria.Nombre != "") _unCategoria.Nombre = _unCategoria.Nombre.ToUpper();
             return unCategoria.EditarCategoria(_unCategoria);
         }
         public bool EliminarCategoria(Categoria _unCategoria)
@@ -28,6 +26,10 @@ namespace BLL
         public DataTable ListarCategoria() //nuevo metodo devuelve tabla de categorias
         {
             return unCategoria.ListadeCategoria();
+        }
+        public DataTable ListadeCategoriaPorCategoria(string descripcion )
+        {
+            return unCategoria.ListadeCategoriaPorCategoria(descripcion);
         }
     }
 }

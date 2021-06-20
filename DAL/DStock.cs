@@ -9,7 +9,7 @@ namespace DAL
     public class DStock
     {
         DataTable dt = new DataTable();
-        readonly Conexion db = new Conexion();
+        Conexion db = new Conexion();
         public bool CargarProductoEnStock(Stock unStock)
         {
             try

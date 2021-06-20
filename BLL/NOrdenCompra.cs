@@ -31,5 +31,15 @@ namespace BLL
         {
             return unOrdenCompra.OrdenPendiente();
         }
+        public bool aprobarorden(OrdenDeCompra _unOrdenCompra)
+        {
+            return unOrdenCompra.AprobarOrden(_unOrdenCompra);
+        }
+        public float CalcularTotalOrden(OrdenDeCompra _unOrdenCompra)
+        {
+            float total;          
+            total=  unOrdenCompra.calculartotal(_unOrdenCompra);
+            return total;
+        }
     }
 }
