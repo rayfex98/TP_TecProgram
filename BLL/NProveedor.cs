@@ -18,9 +18,9 @@ namespace BLL
         {
             return ObjProveedor.Editar(_proveedor);
         }
-        public bool Estado(int id, DateTime? hoy)
+        public bool habilitar(Proveedor unproveedor)
         {
-            return ObjProveedor.Estado(id, hoy);
+            return ObjProveedor.habilitar(unproveedor);
         }
 
 
@@ -50,6 +50,10 @@ namespace BLL
             return ObjProveedor.ListaProveedores();
         }
         #endregion
+        public DataTable listarproveedoreshabilitados()
+        {
+            return ObjProveedor.ListaProveedoreshabilitados();
+        }
 
 
         public DataTable ListarProveedoresPorProvincia(string provincia)

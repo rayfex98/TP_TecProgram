@@ -43,7 +43,9 @@ s.HABILITADO as 'habilitado'
 
 from [dbo].[stock] as s
 inner join [dbo].[PRODUCTO] as p
-on s.IDPRODUCTO = p.IDPRODUCTO;
+on s.IDPRODUCTO = p.IDPRODUCTO
+where s.HABILITADO is not null;
+
 
 --store procedure de alertas criticas 
  if object_id('VistaAlertasCriticas') is not null
@@ -131,6 +133,7 @@ go
  inner join dbo.DIRECCION as D
  on P.IDDIRECCION = D.IDDIRECCION;
 
+
  --store procedures de proveedor habilitados
   if object_id('ListaProveedoresHabilitados') is not null
   drop procedure ListaProveedoresHabilitados;
@@ -148,6 +151,7 @@ go
  inner join dbo.DIRECCION as D
  on P.IDDIRECCION = D.IDDIRECCION
  where P.HABILITADO is not null;
+
 
   --store procedures de Buscar proveedor por provincia 
   if object_id('BuscarProveedorProvincia') is not null
@@ -267,3 +271,33 @@ go
  where c.HABILITADO is not null
  and
  c.DESCRIPCION like @descripcion + '%';
+
+ -- store procedure de detalle lista los detalles de una orden 
+if object_id('listadetalle') is not null
+drop procedure listadetalle
+go
+ create procedure listadetalle(@idorden int) as 
+
+ select 
+ D.CANTIDAD as 'cantidad',
+ P.NOMBRE as 'producto'
+ from dbo.DETALLEORDEN as D
+ inner join dbo.PRODUCTO as P 
+ on D.IDPRODUCTO = P.IDPRODUCTO
+ where D.IDORDEN = @idorden;
+
+ --store procedure para direccion devuelve lista de direcciones 
+ if object_id('listadirecion') is not null
+drop procedure listadirecion
+go
+ create procedure listadirecion as 
+ 
+ select 
+ ALTURA as 'altura',
+ CALLE as 'calle',
+ CODIGOPOSTAL as 'codigo postal',
+ LOCALIDAD as 'localidad',
+ PROVINCIA as 'provincia'
+ --IDDIRECCION as 'iddireccion'
+
+ from dbo.DIRECCION;

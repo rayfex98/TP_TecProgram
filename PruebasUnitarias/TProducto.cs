@@ -10,7 +10,7 @@ namespace PruebasUnitarias
         Producto unObj = new Producto();
         NProducto Obj = new NProducto();
         [TestMethod]
-        public void _1Insert()
+        public void _1Insert()// ingresa un producto, la idea de pasarle un id de categoria es porque queremos un desplegable con la lista de categorias habilitadas (ver metodos categoria)
         {
             unObj.Categoria = new Categoria();
             unObj.Nombre = "pez";
@@ -20,7 +20,7 @@ namespace PruebasUnitarias
             Assert.AreEqual(Obj.NuevoProducto(unObj), true);
         }
         [TestMethod]
-        public void _2Editar()
+        public void _2Editar()// deja editar un producto, este metodo se usaria mas que nada para editar precios 
         {
             unObj.Categoria = new Categoria();
             unObj.Nombre = "pancho";
@@ -38,7 +38,7 @@ namespace PruebasUnitarias
             Assert.AreEqual(Obj.EliminarProducto(unObj), false); // es false porque el id de ese producto esta asociado a otra tabla
         }
         [TestMethod]
-        public void ListaProductos()
+        public void ListaProductos()// devuelve una lista de los productos que estan habilitados 
         {
             NProducto Obj = new NProducto();
             Assert.IsNotNull(Obj.ListarProductos());

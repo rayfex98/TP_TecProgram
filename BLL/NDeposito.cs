@@ -11,9 +11,9 @@ namespace BLL
     {
         DDeposito unDeposito = new DDeposito();
 
-        public DataTable ListarDeposito(int idproducto)
+        public DataTable ListarDeposito()
         {
-            return unDeposito.ListadeDeposito(idproducto);
+            return unDeposito.ListadeDeposito();
         }
         public bool QuitarDeDeposito(OrdenDeCompra _unOrdenCompra)
         {

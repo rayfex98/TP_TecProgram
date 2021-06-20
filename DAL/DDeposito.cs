@@ -11,7 +11,7 @@ namespace DAL
         DStock unstock = new DStock();
         DataTable dt = new DataTable();
         readonly Conexion db = new Conexion();
-        public DataTable ListadeDeposito(int idproducto)
+        public DataTable ListadeDeposito()// muestra 
         {
             string query = string.Format("vista_stock");
             dt = db.LeerPorComando(query);

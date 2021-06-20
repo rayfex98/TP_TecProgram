@@ -41,11 +41,11 @@ namespace DAL
                 return false;
             }
         }
-        public bool Estado(int id, DateTime? hoy)
+        public bool habilitar(Proveedor unproveedor)
         {
             try
             {
-                string query = string.Format("EXEC PROVEEDORPROC @ID={0},@DIRECCION=NULL,@CUIL=NULL,@RAZONSOCIAL=NULL,@HABILITADO = {1},@TIPO = 'ESTADO';", id, hoy);
+                string query = string.Format("EXEC PROVEEDORPROC @ID={0},@DIRECCION=NULL,@CUIL=NULL,@RAZONSOCIAL=NULL,@HABILITADO = null,@TIPO = 'HABILITAR';", unproveedor.ID);
                 if (1 != db.EscribirPorComando(query))
                 {
                     return false;
@@ -75,6 +75,14 @@ namespace DAL
         {
             string query = string.Format("exec BuscarProveedorProvincia @provincia= {0};",Provincia);
             dt = db.LeerPorComando(query);
+            return dt;
+
+        }
+        public DataTable ListaProveedoreshabilitados()
+        {
+            string query = string.Format("ListaProveedoresHabilitados");
+            dt = db.LeerPorComando(query);
+            //busco en tabla
             return dt;
 
         }
