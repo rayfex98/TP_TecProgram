@@ -1,6 +1,6 @@
 ﻿using DAL;
 using Entidades;
-using System;
+using Excepciones;
 using System.Data;
 
 namespace BLL
@@ -9,21 +9,67 @@ namespace BLL
     {
         DDireccion unDireccion = new DDireccion();
 
+        private Direccion Estandarizar(Direccion _unDireccion)
+        {
+            _unDireccion.Calle.ToLower();
+            _unDireccion.Altura.ToLower();
+            _unDireccion.CodigoPostal.ToLower();
+            _unDireccion.Localidad.ToLower();
+            _unDireccion.Provincia.ToLower();
+            return _unDireccion;
+        }
         public bool Nuevo(Direccion _unDireccion)
         {
-            return unDireccion.Nuevo(_unDireccion);
+            if (string.IsNullOrEmpty(_unDireccion.Calle) || string.IsNullOrEmpty(_unDireccion.Altura) || string.IsNullOrEmpty(_unDireccion.Localidad))
+            {
+                throw new ExcepcionDeDatos();
+            }
+            if (string.IsNullOrEmpty(_unDireccion.CodigoPostal) || string.IsNullOrEmpty(_unDireccion.Provincia))
+            {
+                throw new ExcepcionDeDatos();
+            }
+            _unDireccion = Estandarizar(_unDireccion);
+
+            if (unDireccion.Nuevo(_unDireccion))
+            {
+                return true;
+            }
+            throw new FallaEnInsercion();
         }
+
         public bool Editar(Direccion _unDireccion)
         {
-            return unDireccion.Editar(_unDireccion);
+            _unDireccion = Estandarizar(_unDireccion);
+            if (_unDireccion.ID < 0)
+            {
+                throw new ExcepcionDeDatos();
+            }
+            if (unDireccion.Editar(_unDireccion))
+            {
+                return true;
+            }
+            throw new FallaEnEdicion();
         }
         public bool Eliminar(int _unDireccion)
         {
-            return unDireccion.Eliminar(_unDireccion);
+            if (_unDireccion < 0)
+            {
+                throw new ExcepcionDeDatos();
+            }
+            if (unDireccion.Eliminar(_unDireccion))
+            {
+                return true;
+            }
+            throw new FallaEnEliminacion();
         }
         public DataTable ListaDireccion()
         {
-            return unDireccion.ListaDirecion();
+            DataTable dt = unDireccion.ListaDirecion();
+            if (dt.Rows.Count == 0)
+            {
+                throw new NoEncontrado();
+            }
+            return dt;
         }
     }
 }

@@ -10,6 +10,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Excepciones\Excepciones.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Reference Include="Entidades">
       <HintPath>..\Entidades.dll</HintPath>
     </Reference>

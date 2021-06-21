@@ -1,5 +1,5 @@
 ﻿using Entidades;
-using System.Data;
+using Excepciones;
 using DAL;
 
 namespace BLL
@@ -10,15 +10,31 @@ namespace BLL
 
         public bool Nuevo(Orden _unOrden)
         {
-            return unOrden.Nuevo(_unOrden);
+            if(_unOrden.UsuarioCreador.ID < 0)
+            {
+                throw new ExcepcionDeDatos();
+            }
+            if (unOrden.Nuevo(_unOrden))
+            {
+                return true;
+            }
+            throw new FallaEnInsercion();
         }
         public bool Editar(Orden _unOrden)
         {
-            return unOrden.Editar(_unOrden);
+            if (unOrden.Editar(_unOrden))
+            {
+                return true;
+            }
+            throw new FallaEnEdicion();
         }
         public bool Eliminar(int _idOrden)
         {
-            return unOrden.Eliminar(_idOrden);
+            if (unOrden.Eliminar(_idOrden))
+            {
+                return true;
+            }
+            throw new FallaEnEliminacion();
         }
     }
 }

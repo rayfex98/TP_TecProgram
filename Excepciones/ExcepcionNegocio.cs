@@ -1,8 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Text;
 
-namespace ExcepcionesControladas
+namespace Excepciones
 {
-    public class ExcepcionControlada : Exception
+    public class ExcepcionNegocio : Exception
     {
         private string _descripcion;
 
@@ -11,5 +13,6 @@ namespace ExcepcionesControladas
             get { return _descripcion; }
             set { _descripcion = value; }
         }
+
     }
 }

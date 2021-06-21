@@ -47,6 +47,26 @@ namespace DAL
                 return false;
             }
         }
+        public bool HabilitarCategoria(int id)
+        {
+            try
+            {
+                string query = string.Format("EXEC CATEGORIAPROC @ID = {0},@DESCRIPCION = null,@HABILITADO = null,@TIPO ='ESTADO';", id);
+                if (1 != db.EscribirPorComando(query))
+                {
+                    return false;
+                }
+                return true;
+            }
+            catch (System.Data.SqlClient.SqlException)
+            {
+                return false;
+            }
+            catch (System.NullReferenceException)
+            {
+                return false;
+            }
+        }
         public bool EliminarCategoria(int id)
         {
             try

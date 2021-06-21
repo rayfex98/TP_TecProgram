@@ -73,7 +73,7 @@
 	values	(1,12342332,'marcelo','tevez'),
 			(2,32321412,'roberto','velez'),
 			(3,53342332,'lucas','sanchez'),
-			(6,12342332,'cristian','lugano'),
+			(6,12345621,'cristian','lugano'),
 			(4,21345789,'marcelo','tevez'),
 			(7,45612378,'facundo','guillot')
 	

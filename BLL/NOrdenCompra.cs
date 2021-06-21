@@ -1,6 +1,7 @@
 ﻿using DAL;
 using Entidades;
 using System.Data;
+using Excepciones;
 
 namespace BLL
 {
@@ -10,15 +11,39 @@ namespace BLL
 
         public bool NuevoOrden(OrdenDeCompra _unOrdenCompra)
         {
-            return unOrdenCompra.NuevoOrden(_unOrdenCompra);
+            if (_unOrdenCompra.Proveedor.ID < 0 || _unOrdenCompra.UsuarioCreador.ID < 0)
+            {
+                throw new ExcepcionDeDatos();
+            }
+            if (unOrdenCompra.NuevoOrden(_unOrdenCompra))
+            {
+                return true;
+            }
+            throw new FallaEnInsercion();
         }
         public bool EditarOrden(OrdenDeCompra _unOrdenCompra)
         {
-            return unOrdenCompra.EditarOrden(_unOrdenCompra);
+            if(_unOrdenCompra.ID < 0)
+            {
+                throw new ExcepcionDeDatos();
+            }
+            if (unOrdenCompra.EditarOrden(_unOrdenCompra))
+            {
+                return true;
+            }
+            throw new FallaEnEdicion();
         }
         public bool EliminarOrden(int _idOrden)
         {
-            return unOrdenCompra.EliminarOrden(_idOrden);
+            if (_idOrden < 0)
+            {
+                throw new ExcepcionDeDatos();
+            }
+            if (unOrdenCompra.EliminarOrden(_idOrden))
+            {
+                return true;
+            }
+            throw new FallaEnEliminacion();
         }
         public DataTable ListarOrdenCompra()
         {
@@ -30,7 +55,15 @@ namespace BLL
         }
         public bool AprobarOrden(OrdenDeCompra _unOrdenCompra)
         {
-            return unOrdenCompra.AprobarOrden(_unOrdenCompra);
+            if (_unOrdenCompra.ID < 0)
+            {
+                throw new ExcepcionDeDatos();
+            }
+            if (unOrdenCompra.AprobarOrden(_unOrdenCompra))
+            {
+                return true;
+            }
+            throw new FallaEnEdicion();
         }
         public float CalcularTotalOrden(OrdenDeCompra _unOrdenCompra)
         {

@@ -1,6 +1,6 @@
 ﻿using DAL;
 using Entidades;
-using System;
+using Excepciones;
 using System.Data;
 
 namespace BLL
@@ -11,23 +11,47 @@ namespace BLL
 
         public bool CrearAlerta(Alerta _unAlerta)
         {
-            return unAlerta.CrearAlerta(_unAlerta);
+            if ((_unAlerta.CantidadMinima < 0) || (_unAlerta.Stock.ID < 0) || (_unAlerta.UsuarioCreador.ID < 0)) throw new ExcepcionDeDatos();
+            if (unAlerta.CrearAlerta(_unAlerta))
+            {
+                return true;
+            }
+            throw new FallaEnInsercion();
         }
         public bool EditarAlerta(Alerta _unAlerta)
         {
-            return unAlerta.EditarAlerta(_unAlerta);
+            if (unAlerta.EditarAlerta(_unAlerta))
+            {
+                return true;
+            }
+            throw new FallaEnEdicion();
         }
         public bool EliminarAlerta(int idAlerta)
         {
-            return unAlerta.EliminarAlerta(idAlerta);
+            if(idAlerta < 0) throw new ExcepcionDeDatos();
+            if (unAlerta.EliminarAlerta(idAlerta))
+            {
+                return true;
+            }
+            throw new FallaEnEliminacion();
         }
         public DataTable ListarAlerta()
         {
-            return unAlerta.ListadeAlertas();
+            DataTable dt = unAlerta.ListadeAlertas();
+            if (dt.Rows.Count == 0)
+            {
+                throw new NoEncontrado();
+            }
+            return dt;
         }
         public DataTable ListarAlertasCriticas()
         {
-            return unAlerta.ListalertasCriticas();
+            DataTable dt = unAlerta.ListalertasCriticas();
+            if (dt.Rows.Count == 0)
+            {
+                throw new NoEncontrado();
+            }
+            return dt;
         }
     }
 }

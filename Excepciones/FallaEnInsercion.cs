@@ -2,7 +2,11 @@
 
 namespace Excepciones
 {
-    public class FallaEnInsercion
+    public class FallaEnInsercion : ExcepcionNegocio
     {
+        public FallaEnInsercion()
+        {
+            this.Descripcion = "Error: No se pudo ingresar el nuevo registro";
+        }
     }
 }

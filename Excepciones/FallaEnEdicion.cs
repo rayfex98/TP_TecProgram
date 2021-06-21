@@ -1,10 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Excepciones
 {
-    class FallaEnEdicion
+    public class FallaEnEdicion : ExcepcionNegocio
     {
+        public FallaEnEdicion()
+        {
+            this.Descripcion = "Error: No se pudo editar el registro";
+        }
     }
 }

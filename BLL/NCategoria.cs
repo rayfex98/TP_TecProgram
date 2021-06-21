@@ -1,6 +1,6 @@
 ﻿using DAL;
 using Entidades;
-using System;
+using Excepciones;
 using System.Data;
 
 namespace BLL
@@ -11,26 +11,71 @@ namespace BLL
 
         public bool AgregarCategoria(string nombre)
         {
+            if (string.IsNullOrEmpty(nombre))
+            {
+                throw new ExcepcionDeDatos();
+            }
             nombre = nombre.ToUpper();
-            return unCategoria.AgregarCategoria(nombre);
+            if (unCategoria.AgregarCategoria(nombre)) 
+            {
+                return true;
+            } 
+            throw new FallaEnInsercion();
         }
         public bool EditarCategoria(Categoria _unCategoria)
         {
-            if (_unCategoria.Nombre != "") _unCategoria.Nombre = _unCategoria.Nombre.ToUpper();
-            return unCategoria.EditarCategoria(_unCategoria);
+            if (string.IsNullOrEmpty(_unCategoria.Nombre))
+            {
+                throw new ExcepcionDeDatos();
+            } 
+            _unCategoria.Nombre = _unCategoria.Nombre.ToUpper();
+            if (unCategoria.EditarCategoria(_unCategoria))
+            {
+                return true;
+            }
+            throw new FallaEnEdicion();
         }
         public bool EliminarCategoria(int _unCategoria)
         {
-            return unCategoria.EliminarCategoria(_unCategoria);
+            if (_unCategoria < 0)
+            {
+                throw new ExcepcionDeDatos();
+            }
+            if (unCategoria.EliminarCategoria(_unCategoria))
+            {
+                return true;
+            }
+            throw new FallaEnEliminacion();
+        }
+        public bool HabilitarCategoria(int _unCategoria)
+        {
+            if (_unCategoria < 0)
+            {
+                throw new ExcepcionDeDatos();
+            }
+            if (unCategoria.HabilitarCategoria(_unCategoria))
+            {
+                return true;
+            }
+            throw new FallaEnEdicion();
         }
         public DataTable ListarCategoria()
         {
-            return unCategoria.ListadeCategoria();
+            DataTable dt = unCategoria.ListadeCategoria();
+            if(dt.Rows.Count == 0)
+            {
+                throw new NoEncontrado();
+            }
+            return dt;
         }
         public DataTable ListadeCategoriaPorCategoria(string descripcion)
         {
-            
-            return unCategoria.ListadeCategoriaPorCategoria(descripcion);
+            DataTable dt = unCategoria.ListadeCategoriaPorCategoria(descripcion);
+            if (dt.Rows.Count == 0)
+            {
+                throw new NoEncontrado();
+            }
+            return dt;
         }
     }
 }
