@@ -35,28 +35,14 @@ namespace BLL
         #region AgregarStock
         public bool AgregarStock(int id_producto, int cantidad)
         {
-            if (unStock.AgregarStock(id_producto, cantidad))
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
+            return unStock.AgregarStock(id_producto, cantidad);
         }
         #endregion
       
         #region RestarStock
         public bool RestarStock(int id_producto, int cantidad)
         {
-            if (unStock.RestarStock(id_producto, cantidad))
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
+            return unStock.RestarStock(id_producto, cantidad);
         }
         #endregion
        

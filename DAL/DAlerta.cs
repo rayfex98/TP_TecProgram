@@ -1,8 +1,6 @@
 ﻿using Entidades;
 using System;
-using System.Collections.Generic;
 using System.Data;
-using System.Text;
 
 namespace DAL
 {
@@ -67,7 +65,6 @@ namespace DAL
 
             string query = string.Format("VistaAlertas");
             dt = db.LeerPorComando(query);
-            //busco en tabla
             return dt;
         }
         public DataTable ListalertasCriticas()
@@ -75,7 +72,6 @@ namespace DAL
 
             string query = string.Format("VistaAlertasCriticas");
             dt = db.LeerPorComando(query);
-            //busco en tabla
             return dt;
         }
 

@@ -92,10 +92,9 @@ namespace DAL
                 return false;
             }
         }
-        public DataTable ListadeDetalleOrden()
+        public DataTable ListadeDetalleOrden(int idorden)
         {
-
-            string query = string.Format("ListaCategorias");
+            string query = string.Format("listadetalle @idorden = {0}", idorden);
             dt = db.LeerPorComando(query);
             return dt;
         }

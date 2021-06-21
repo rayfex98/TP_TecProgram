@@ -9,6 +9,8 @@ namespace DAL
     public class DCategoria
     {
         readonly Conexion db = new Conexion();
+        DataTable dt = new DataTable();
+
         public bool AgregarCategoria(Categoria unCategoria)
         {
             try
@@ -70,7 +72,16 @@ namespace DAL
 
         public DataTable ListadeCategoria()
         {
-            return db.LeerPorStoreProcedure("ListaCategorias");
+            string query = string.Format("ListaCategorias");
+            dt = db.LeerPorComando(query);
+            return dt;
+        }
+
+        public DataTable ListadeCategoriaPorCategoria(string descripcion)
+        {
+            string query = string.Format("Exec ListaCategoriasCondicion @descripcion = {0}", descripcion);
+            dt = db.LeerPorComando(query);
+            return dt;
         }
     }
 }

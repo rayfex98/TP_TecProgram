@@ -74,7 +74,6 @@ namespace DAL
             }
         }
 
-        //Crear una carga de prodcutos para la base de datos, que estaran dentro de stock 
         public DataTable ListadeProductos()
         {
             string query = string.Format("ListaProductosHabilitados");

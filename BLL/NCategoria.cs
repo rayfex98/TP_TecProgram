@@ -1,9 +1,7 @@
 ﻿using DAL;
 using Entidades;
 using System;
-using System.Collections.Generic;
 using System.Data;
-using System.Text;
 
 namespace BLL
 {
@@ -25,9 +23,14 @@ namespace BLL
         {
             return unCategoria.EliminarCategoria(_unCategoria);
         }
-        public DataTable ListarCategoria() //nuevo metodo devuelve tabla de categorias
+        public DataTable ListarCategoria()
         {
             return unCategoria.ListadeCategoria();
+        }
+        public DataTable ListadeCategoriaPorCategoria(string descripcion)
+        {
+            
+            return unCategoria.ListadeCategoriaPorCategoria(descripcion);
         }
     }
 }

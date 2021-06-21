@@ -49,11 +49,39 @@ namespace DAL
                 return false;
             }
         }
-        public bool Estado(int id, DateTime? hoy)
+        public bool Estado(int id, bool opcion)
         {
             try
             {
-                string query = string.Format("EXEC PROVEEDORPROC @ID={0},@DIRECCION=NULL,@CUIL=NULL,@RAZONSOCIAL=NULL,@HABILITADO = {1},@TIPO = 'ESTADO';", id, hoy);
+                string query;
+                if (opcion)
+                {
+                    query = string.Format("EXEC PROVEEDORPROC @ID={0},@DIRECCION=NULL,@CUIL=NULL,@RAZONSOCIAL=NULL,@HABILITADO = NULL,@TIPO = 'HABILITAR';", id);
+                }
+                else
+                {
+                    query = string.Format("EXEC PROVEEDORPROC @ID={0},@DIRECCION=NULL,@CUIL=NULL,@RAZONSOCIAL=NULL,@HABILITADO = NULL,@TIPO = 'DESHABILITAR';", id);
+                }
+                if (1 != db.EscribirPorComando(query))
+                {
+                    return false;
+                }
+                return true;
+            }
+            catch (System.Data.SqlClient.SqlException)
+            {
+                return false;
+            }
+            catch (System.NullReferenceException)
+            {
+                return false;
+            }
+        }
+        public bool Deshabilitar(int id)
+        {
+            try
+            {
+                string query = string.Format("EXEC PROVEEDORPROC @ID={0},@DIRECCION=NULL,@CUIL=NULL,@RAZONSOCIAL=NULL,@HABILITADO = null,@TIPO = 'HABILITAR';", id);
                 if (1 != db.EscribirPorComando(query))
                 {
                     return false;
@@ -70,14 +98,23 @@ namespace DAL
             }
         }
 
-
         public DataTable ListaProveedores()
         {
             string query = string.Format("ListaProveedores");
             dt = db.LeerPorComando(query);
-            //busco en tabla
             return dt;
-
+        }
+        public DataTable ListaProveedoresPorProvincia(string Provincia)
+        {
+            string query = string.Format("exec BuscarProveedorProvincia @provincia= {0};", Provincia);
+            dt = db.LeerPorComando(query);
+            return dt;
+        }
+        public DataTable ListaProveedoresHabilitados()
+        {
+            string query = string.Format("ListaProveedoresHabilitados");
+            dt = db.LeerPorComando(query);
+            return dt;
         }
     }
 }

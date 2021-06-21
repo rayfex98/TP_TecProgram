@@ -1,9 +1,7 @@
 ﻿using DAL;
 using Entidades;
 using System;
-using System.Collections.Generic;
 using System.Data;
-using System.Text;
 
 namespace BLL
 {
@@ -27,9 +25,9 @@ namespace BLL
         {
             return unDetalleOrden.EliminarPorOrden(_unDetalleOrden);
         }
-        public DataTable ListarDetalleOrden()
+        public DataTable ListarDetalleOrden(int idorden)
         {
-            return unDetalleOrden.ListadeDetalleOrden();
+            return unDetalleOrden.ListadeDetalleOrden(idorden);
         }
     }
 }

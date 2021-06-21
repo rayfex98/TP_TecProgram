@@ -8,7 +8,6 @@ namespace BLL
     public class NProveedor
     {
         DProveedor ObjProveedor = new DProveedor();
-        //Metodo que carga lista proveedores
 
         public bool Nuevo(Proveedor _proveedor)
         {
@@ -18,13 +17,14 @@ namespace BLL
         {
             return ObjProveedor.Editar(_proveedor);
         }
-        public bool Estado(int id, DateTime? hoy)
+        public bool Habilitar(int id)
         {
-            return ObjProveedor.Estado(id, hoy);
+            return ObjProveedor.Estado(id,true);
         }
-
-
-
+        public bool Deshabilitar(int id)
+        {
+            return ObjProveedor.Estado(id,false);
+        }
 
         #region Modificar
         /// <summary>
@@ -44,11 +44,21 @@ namespace BLL
         }
         #endregion
 
-        #region listaProvedorespordatatable
+        #region listaProvedores
         public DataTable DataTableProveedores()
         {
             return ObjProveedor.ListaProveedores();
         }
         #endregion
+        
+        public DataTable ListarProveedoresHabilitados()
+        {
+            return ObjProveedor.ListaProveedoresHabilitados();
+        }
+
+        public DataTable ListarProveedoresPorProvincia(string provincia)
+        {
+            return ObjProveedor.ListaProveedoresPorProvincia(provincia);
+        }
     }
 }

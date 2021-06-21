@@ -85,5 +85,28 @@ namespace DAL
             return dt;
 
         }
+        public bool AprobarOrden(OrdenDeCompra unOrdenCompra)
+        {
+            try
+            {
+                string query = string.Format("EXEC ORDENCOMPRAPROC @ID={0},@PROVEEDOR=null,@USUARIO=null,@FECHA=null,@TIPO = 'APROBAR';"
+                , unOrdenCompra.ID);
+                if (1 != db.EscribirPorComando(query))
+                {
+                    return false;
+                }
+                return true;
+            }
+            catch (System.Data.SqlClient.SqlException)
+            {
+                return false;
+            }
+        }
+        public DataTable CalcularTotal(OrdenDeCompra _unOrdenCompra)
+        {
+            string query = string.Format("exec sumartotalorden @orden= {0};", _unOrdenCompra.ID);
+            dt = db.LeerPorComando(query);
+            return dt;
+        }
     }
 }

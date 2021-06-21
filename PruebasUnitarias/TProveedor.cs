@@ -8,32 +8,54 @@ namespace PruebasUnitarias
     public class TProveedor
     {
         
-        NProveedor obj = new NProveedor();//metodos de negocio
-        Proveedor unObj = new Proveedor();//clase entidad
+        NProveedor obj = new NProveedor();
+        Proveedor unObj = new Proveedor();
         [TestMethod]
-        public void AgregarProveedor() //Necesito proveedor sin ID, retorno true si pudo cargar o false si no(ya se encuentra cuil en tabla o hubo un error en los parametros)
+        public void AgregarProveedor() //Ingresa un proveedor nuevo, la idea es utilizar una lista de direcciones seteadas ver metodo lista en direccion 
         {
             unObj.Direccion = new Direccion();
-            unObj.Direccion.ID = 3;
-            unObj.RazonSocial = "La_Fabrica";
-            unObj.CUIL = "3097654123";
+            unObj.Direccion.ID = 2;
+            unObj.RazonSocial = "roma";
+            unObj.CUIL = "2323213213";
             Assert.AreEqual(obj.Nuevo(unObj), true);
         }
         [TestMethod]
 
-        public void ModificarProveedor()
+        public void ModificarProveedor()//modifica un proveedor que se selecciona por su id 
         {
             unObj.Direccion = new Direccion();
             unObj.ID = 3;
-            unObj.Direccion.ID = 3;
-            unObj.RazonSocial = "Electrolux";
-            unObj.CUIL = "20445556667";
+            unObj.Direccion.ID = 15;
+            unObj.RazonSocial = "aveces";
+            unObj.CUIL = "20443556667";
             Assert.AreEqual(obj.Editar(unObj), false);// funciona pero tira false 
         }
         [TestMethod]
-        public void ListarProvedores()
+        public void ListarProvedores()//devuelve la lista de proveedores completa
         {
-            Assert.IsNotNull(obj.DataTableProveedores());
+            Assert.IsNotNull(obj.listarproveedores());
+
+        }
+        [TestMethod]
+        public void ListarProvedoreshabilitados()//devuelve la lista de proveedores habilitados 
+        {
+            Assert.IsNotNull(obj.listarproveedoreshabilitados());
+
+        }
+
+        [TestMethod]
+        public void habilitarproveedor()// funcion para habilitar proveedor, se le pasa el id del proveedor que se quiere habilitar
+        {
+            unObj.ID = 3;
+            Assert.AreEqual(obj.habilitar(unObj), true);
+
+        }
+
+        [TestMethod]
+        public void ListarProvedoresPorProvincia()//Lista proveedores por provincia que se ingrese que se pasa por string 
+        {
+            string provincia = "b";
+            Assert.IsNotNull(obj.ListarProveedoresPorProvincia(provincia));
 
         }
     }

@@ -1,11 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using Entidades;
+using DAL;
+using System.Data;
 
 namespace BLL
 {
-    class NPersona
+    public class NPersona
     {
-
+        DPersona unPersona = new DPersona();
+        public bool Nuevo(Persona _unPersona)
+        {
+            return unPersona.Nuevo(_unPersona);
+        }
     }
 }

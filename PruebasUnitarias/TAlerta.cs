@@ -9,30 +9,21 @@ namespace PruebasUnitarias
     {
 
         [TestMethod]
-        public void NuevaAlerta()
+        public void NuevaAlerta()// crea una alerta nueva necesita un id de producto y una cantidad // y un usuario que la cree 
         {
             Alerta unaAlerta = new Alerta();
             NAlerta MetodoAlerta = new NAlerta();
             unaAlerta.Stock = new Stock();
             unaAlerta.Stock.Producto = new Producto();
             unaAlerta.UsuarioCreador = new Usuario();
-            unaAlerta.Stock.ID = 4;
+            unaAlerta.Stock.ID = 31;
             unaAlerta.UsuarioCreador.ID = 1;
             unaAlerta.CantidadMinima = 100;
-            Assert.AreEqual(MetodoAlerta.CrearAlerta(unaAlerta), false);//ya esta creada con este id
-            /* unaAlerta.Stock.ID = 4;
-             unaAlerta.UsuarioCreador.ID = 1;
-             unaAlerta.CantidadMinima = 200;
-             Assert.AreEqual(MetodoAlerta.CrearAlerta(unaAlerta), true);
-             unaAlerta.Stock.ID = 5;
-             unaAlerta.UsuarioCreador.ID = 1;
-             unaAlerta.CantidadMinima = 20;
-             Assert.AreEqual(MetodoAlerta.CrearAlerta(unaAlerta), true);
-             Assert.AreEqual(MetodoAlerta.CrearAlerta(unaAlerta), false); //no vuelve a agregar si tiene el mismo nombre*/
+            Assert.AreEqual(MetodoAlerta.CrearAlerta(unaAlerta), true);//ya esta creada con este id
         }
 
         [TestMethod]
-        public void EditarAler()
+        public void EditarAler()// edita una alerta ya existente, y se renueva el usuario que la cambio 
         {
             Alerta unaAlerta = new Alerta();
             NAlerta MetodoAlerta = new NAlerta();
@@ -47,21 +38,21 @@ namespace PruebasUnitarias
 
 
         [TestMethod]
-        public void BorrarAlerta()
+        public void BorrarAlerta()// elimina una alerta // no es borrado logico 
         {
             Alerta unaAlerta = new Alerta();
             NAlerta MetodoAlerta = new NAlerta();
-            unaAlerta.ID = 2;
+            unaAlerta.ID = 21;
             Assert.AreEqual(MetodoAlerta.EliminarAlerta(unaAlerta), false);// no existe alerta con id 2 
         }
         [TestMethod]
-        public void ListarAlertas()
+        public void ListarAlertas()// lista todas las alertas 
         {
             NAlerta MetodoAlerta = new NAlerta();
             Assert.IsNotNull(MetodoAlerta.ListarAlerta());
         }
         [TestMethod]
-        public void ListarAlertasCriticas()
+        public void ListarAlertasCriticas()// lista alertas que se encuentren por debajo de la cantidad minimas de producto 
         {
             NAlerta MetodoAlerta = new NAlerta();
             Assert.IsNotNull(MetodoAlerta.ListarAlertasCriticas());

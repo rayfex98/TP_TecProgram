@@ -1,12 +1,11 @@
 ﻿using Entidades;
-using System;
-using System.Collections.Generic;
-using System.Text;
+using System.Data;
 
 namespace DAL
 {
     public class DDireccion
     {
+        DataTable dt = new DataTable();
         readonly Conexion db = new Conexion();
         public bool Nuevo(Direccion unDireccion)
         {
@@ -66,6 +65,12 @@ namespace DAL
             {
                 return false;
             }
+        }
+        public DataTable ListaDirecion()
+        {
+            string query = string.Format("listadirecion");
+            dt = db.LeerPorComando(query);
+            return dt;
         }
     }
 }

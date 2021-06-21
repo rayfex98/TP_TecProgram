@@ -1,8 +1,7 @@
 ﻿using DAL;
 using Entidades;
 using System;
-using System.Collections.Generic;
-using System.Text;
+using System.Data;
 
 namespace BLL
 {
@@ -21,6 +20,10 @@ namespace BLL
         public bool Eliminar(Direccion _unDireccion)
         {
             return unDireccion.Eliminar(_unDireccion);
+        }
+        public DataTable ListaDireccion()
+        {
+            return unDireccion.ListaDirecion();
         }
     }
 }

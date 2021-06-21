@@ -271,8 +271,8 @@ go
  on O.IDPROVEEDOR = V.IDPROVEEDOR
  where O.FECHAAPROVACION = null
 
- --exec OrdenCompraPendientes; 
 
+--exec OrdenCompraPendientes; 
 
 
  --store procedure categoria 
@@ -289,6 +289,7 @@ go
  from dbo.CATEGORIA as c
  where c.HABILITADO is not null
 
- exec ListaCategorias;
+ --exec ListaCategorias;
 
- select *from dbo.CATEGORIA;
+
+

@@ -1,9 +1,6 @@
 ﻿using DAL;
 using Entidades;
-using System;
-using System.Collections.Generic;
 using System.Data;
-using System.Text;
 
 namespace BLL
 {
@@ -30,6 +27,24 @@ namespace BLL
         public DataTable OrdenPendiente()
         {
             return unOrdenCompra.OrdenPendiente();
+        }
+        public bool AprobarOrden(OrdenDeCompra _unOrdenCompra)
+        {
+            return unOrdenCompra.AprobarOrden(_unOrdenCompra);
+        }
+        public float CalcularTotalOrden(OrdenDeCompra _unOrdenCompra)
+        {
+            float total = 0;
+            int cantidad;
+            float precio;
+            DataTable Totales = unOrdenCompra.CalcularTotal(_unOrdenCompra);
+            foreach (DataRow item in Totales.Rows)
+            {
+                cantidad = int.Parse(item.ItemArray[0].ToString());
+                precio = float.Parse(item.ItemArray[1].ToString());
+                total += cantidad * precio;
+            }
+            return total;
         }
     }
 }

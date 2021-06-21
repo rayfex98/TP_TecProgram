@@ -7,34 +7,44 @@ namespace PruebasUnitarias
     [TestClass]
     public class TCategoria
     {
+        Categoria unObj = new Categoria();
+        NCategoria Obj = new NCategoria();
         [TestMethod]
-        public void _1Insert()
+        public void _1Insert()//ingresa una categoria /no debe estar repetida 
         {
-            Categoria unObj = new Categoria();
-            NCategoria Obj = new NCategoria();
-            unObj.Nombre = "cereal";
-            Assert.AreEqual(Obj.AgregarCategoria(unObj), false);
-            unObj.Nombre = "hogar";
-            Assert.AreEqual(Obj.AgregarCategoria(unObj), false);
-            unObj.Nombre = "vinos";
-            Assert.AreEqual(Obj.AgregarCategoria(unObj), false);
+
+            unObj.Nombre = "celulares";
+            Assert.AreEqual(Obj.AgregarCategoria(unObj), true);
+            unObj.Nombre = "perros";
+            Assert.AreEqual(Obj.AgregarCategoria(unObj), true);
+            unObj.Nombre = "ninjas";
+            Assert.AreEqual(Obj.AgregarCategoria(unObj), true);
         }
         [TestMethod]
-        public void _2Editar()
+        public void _2Editar()//edita una categoria utilizando el id para buscarla 
         {
-            Categoria unObj = new Categoria();
-            NCategoria Obj = new NCategoria();
+
             unObj.Nombre = "electro";
             unObj.ID = 5;
             Assert.AreEqual(Obj.EditarCategoria(unObj), true);
         }
         [TestMethod]
-        public void _3Borrado() //FACU: deberia utilizar borrado logico en vez de fisico
+        public void _3Borrado() // desbahilita la categoria 
         {
-            Categoria unObj = new Categoria();
-            NCategoria Obj = new NCategoria();
-            unObj.ID = 2;
-            Assert.AreEqual(Obj.EliminarCategoria(unObj), false); // va a tirar una excepcion porque hay productos que usan esta categoria 
+            unObj.ID = 3;
+            Assert.AreEqual(Obj.EliminarCategoria(unObj), true);
         }
+        [TestMethod]
+        public void Listado()//lista las categorias habilitadas 
+        {
+            Assert.IsNotNull(Obj.ListarCategoria());
+        }
+        [TestMethod]
+        public void ListadoPorCategoria()//lista por descripcion / se puede utilizar para cuando ingresa un producto 
+        {
+            string Nombre = "d";
+            Assert.IsNotNull(Obj.ListadeCategoriaPorCategoria(Nombre));
+        }
+
     }
 }

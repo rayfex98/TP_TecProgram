@@ -67,8 +67,6 @@ namespace DAL
             }
         }
 
-
-
         public bool AgregarStock(int ID_producto, int cantidad)
         {
             try
@@ -89,6 +87,7 @@ namespace DAL
                 return false;
             }
         }
+
         public bool RestarStock(int ID_producto, int cantidad)
         {
             try
@@ -113,7 +112,6 @@ namespace DAL
         {
             string query = string.Format("vista_stock");
             dt = db.LeerPorComando(query);
-            //busco en tabla
             return dt;
         }
     }
