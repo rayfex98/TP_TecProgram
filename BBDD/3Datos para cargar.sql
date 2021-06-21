@@ -74,8 +74,8 @@
 			(2,32321412,'roberto','velez'),
 			(3,53342332,'lucas','sanchez'),
 			(6,12342332,'cristian','lugano'),
-			(4,12342332,'marcelo','tevez'),
-			(7,12342332,'facundo','guillot')
+			(4,21345789,'marcelo','tevez'),
+			(7,45612378,'facundo','guillot')
 	
 --cargo rol
 	go
@@ -85,27 +85,27 @@
 	go
 --cargo usuario
 	 go
-	 insert into dbo.USUARIO (id_persona,id_rol,password,deshabilitado) 
-	 values	 (1,1,'1234',20-10-20),
-			 (2,2,'1234',20-10-20),
-			 (3,1,'1234',20-10-20),
-			 (4,1,'1234',20-10-20)
+	 insert into dbo.USUARIO (id_persona,id_rol,password,legajo,deshabilitado) 
+	 values	 (1,1,'1234',1,20-10-20),
+			 (2,2,'1234',2,20-10-20),
+			 (3,1,'1234',3,20-10-20),
+			 (4,1,'1234',4,20-10-20)
 	 go
  -- cargo alerta 
 	 go
 	 insert into dbo.ALERTA(id_stock,id_persona,cantidad_minima) 
 	 values		(2,1,100),
 				(3,3,100),
-				(4,4,100),
-				(6,3,100),
+				(4,2,100),
+				(2,3,100),
 				(3,1,100)
 	 go
 --carga proveedor 
 	 go
 	 insert into dbo.PROVEEDOR(id_direccion,cuil,razonsocial) 
 	 values		(2,20302010222,'loma negra'),
-				(4,3222010222,'molinos cañuelas'),
-				(6,20302010222,'coto'),
+				(4,32220102224,'molinos cañuelas'),
+				(6,20364587586,'coto'),
 				(1,21321411212,'dia'),
 				(5,30010242122,'sinteplast')
 	 go
