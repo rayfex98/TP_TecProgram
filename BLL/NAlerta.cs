@@ -17,9 +17,9 @@ namespace BLL
         {
             return unAlerta.EditarAlerta(_unAlerta);
         }
-        public bool EliminarAlerta(Alerta _unAlerta)
+        public bool EliminarAlerta(int idAlerta)
         {
-            return unAlerta.EliminarAlerta(_unAlerta);
+            return unAlerta.EliminarAlerta(idAlerta);
         }
         public DataTable ListarAlerta()
         {

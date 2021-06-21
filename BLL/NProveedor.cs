@@ -45,7 +45,7 @@ namespace BLL
         #endregion
 
         #region listaProvedores
-        public DataTable DataTableProveedores()
+        public DataTable ListaProveedoresTodos()
         {
             return ObjProveedor.ListaProveedores();
         }

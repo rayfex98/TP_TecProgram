@@ -15,7 +15,6 @@ namespace DAL
         {
             string query = string.Format("vista_stock");
             dt = db.LeerPorComando(query);
-            //busco en tabla
             return dt;
         }
         public bool QuitarDeDeposito(OrdenDeCompra _unOrdenCompra)
@@ -36,7 +35,7 @@ namespace DAL
             }
             return true;
         }
-        public bool AgregarAdeposito(OrdenDeCompra _unOrdenCompra)
+        public bool AgregarADeposito(OrdenDeCompra _unOrdenCompra)
         {
             int idproducto;
             int cantidad;

@@ -19,9 +19,9 @@ namespace BLL
         {
             return unDeposito.QuitarDeDeposito(_unOrdenCompra);
         }
-        public bool agregaradeposito(OrdenDeCompra _unOrdenCompra)
+        public bool AgregarADeposito(OrdenDeCompra _unOrdenCompra)
         {
-            return unDeposito.AgregarAdeposito(_unOrdenCompra);
+            return unDeposito.AgregarADeposito(_unOrdenCompra);
         }
     }
 }

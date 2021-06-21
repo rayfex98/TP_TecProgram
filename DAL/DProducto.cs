@@ -14,7 +14,7 @@ namespace DAL
         {
             try
             {
-                string query = string.Format(" EXEC PRODUCTOPROC @ID = null, @CATEGORIA = {0}, @NOMBRE = {1}, @COMPRA = {2}, @VENTA = {3}, @HABILITADO = null, @TIPO = 'INSERT' ; "
+                string query = string.Format(" EXEC PRODUCTOPROC @ID = NULL, @CATEGORIA = {0}, @NOMBRE = {1}, @COMPRA = {2}, @VENTA = {3}, @HABILITADO = NULL, @TIPO = 'INSERT' ; "
                     , unProducto.Categoria.ID, unProducto.Nombre, unProducto.PrecioCompra, unProducto.PrecioVenta);
                 if (1 != db.EscribirPorComando(query))
                 {
@@ -30,7 +30,7 @@ namespace DAL
         public bool EditarProducto(Producto unProducto)
         {
             int idcategoria = unProducto.Categoria.ID;
-            string query = string.Format("PRODUCTOPROC @ID = {0} ,@CATEGORIA = {1} ,@NOMBRE = {2} ,@COMPRA = {3} ,@VENTA = {4} ,@HABILITADO = null ,@TIPO = 'UPDATE' "
+            string query = string.Format("PRODUCTOPROC @ID = {0} ,@CATEGORIA = {1} ,@NOMBRE = {2} ,@COMPRA = {3} ,@VENTA = {4} ,@HABILITADO = NULL ,@TIPO = 'UPDATE' "
                         , unProducto.ID, idcategoria, unProducto.Nombre, unProducto.PrecioCompra, unProducto.PrecioVenta);
             if (1 != db.EscribirPorComando(query))
             {
@@ -39,29 +39,15 @@ namespace DAL
             return true;
 
         }
-        public bool EliminarProducto(Producto unProducto)
+        public bool EliminarProducto(int unProducto)
         {
             try
             {
-                if (unProducto.ID.ToString() != null)
+                string query = string.Format("EXEC PRODUCTOPROC @ID = {0},@CATEGORIA=NULL,@NOMBRE=NULL,@COMPRA = NULL,@VENTA = NULL,@HABILITADO = NULL,@TIPO = 'DELETE';", unProducto); ///
+                if (1 != db.EscribirPorComando(query))
                 {
-                    string query = string.Format("EXEC PRODUCTOPROC @ID = {0},@CATEGORIA=NULL,@NOMBRE=NULL,@COMPRA = NULL,@VENTA = NULL,@HABILITADO = null,@TIPO = 'DELETE';", unProducto.ID); ///
-                    if (1 != db.EscribirPorComando(query))
-                    {
-                        return false;
-                    }
+                    return false;
                 }
-                else
-                {
-
-                    string query = string.Format("EXEC PRODUCTOPROC @ID = NULL,@CATEGORIA={1},@NOMBRE={0},@COMPRA = NULL,@VENTA = NULL,@HABILITADO = null,@TIPO = 'DELETE';", unProducto.Nombre, unProducto.Categoria.ID);
-                    if (1 != db.EscribirPorComando(query))
-                    {
-                        return false;
-                    }
-
-                }
-
                 return true;
             }
             catch (System.Data.SqlClient.SqlException)

@@ -17,7 +17,7 @@ namespace BLL
         {
             return unDireccion.Editar(_unDireccion);
         }
-        public bool Eliminar(Direccion _unDireccion)
+        public bool Eliminar(int _unDireccion)
         {
             return unDireccion.Eliminar(_unDireccion);
         }

@@ -77,27 +77,6 @@ namespace DAL
                 return false;
             }
         }
-        public bool Deshabilitar(int id)
-        {
-            try
-            {
-                string query = string.Format("EXEC PROVEEDORPROC @ID={0},@DIRECCION=NULL,@CUIL=NULL,@RAZONSOCIAL=NULL,@HABILITADO = null,@TIPO = 'HABILITAR';", id);
-                if (1 != db.EscribirPorComando(query))
-                {
-                    return false;
-                }
-                return true;
-            }
-            catch (System.Data.SqlClient.SqlException)
-            {
-                return false;
-            }
-            catch (System.NullReferenceException)
-            {
-                return false;
-            }
-        }
-
         public DataTable ListaProveedores()
         {
             string query = string.Format("ListaProveedores");

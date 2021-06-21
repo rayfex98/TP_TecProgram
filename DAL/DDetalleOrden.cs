@@ -50,11 +50,11 @@ namespace DAL
                 return false;
             }
         }
-        public bool Eliminar(DetalleOrden unDetalle, int idorden)
+        public bool Eliminar(int idDetalle, int idOrden)
         {
             try
             {
-                string query = string.Format("EXEC DETALLEPROC @ID = {0},@ORDEN={1},@PRODUCTO=NULL,@CANTIDAD=NULL,@TIPO = 'DELETE';", unDetalle.ID, idorden);
+                string query = string.Format("EXEC DETALLEPROC @ID = {0},@ORDEN={1},@PRODUCTO=NULL,@CANTIDAD=NULL,@TIPO = 'DELETE';", idDetalle, idOrden);
                 if (1 != db.EscribirPorComando(query))
                 {
                     return false;
@@ -70,12 +70,12 @@ namespace DAL
                 return false;
             }
         }
-        public bool EliminarPorOrden(DetalleOrden unDetalle)
+        public bool EliminarPorOrden(int id)
         {
             try
             {
 
-                string query = string.Format("EXEC DETALLEPROC @ID = {0},@ORDEN=null,@PRODUCTO=NULL,@CANTIDAD=NULL,@TIPO = 'DELETE';", unDetalle.ID);
+                string query = string.Format("EXEC DETALLEPROC @ID = NULL,@ORDEN={0},@PRODUCTO=NULL,@CANTIDAD=NULL,@TIPO = 'DELETE';", id);
                 if (1 != db.EscribirPorComando(query))
                 {
                     return false;
@@ -92,9 +92,9 @@ namespace DAL
                 return false;
             }
         }
-        public DataTable ListadeDetalleOrden(int idorden)
+        public DataTable ListadeDetalleOrden(int idOrden)
         {
-            string query = string.Format("listadetalle @idorden = {0}", idorden);
+            string query = string.Format("listadetalle @idorden = {0}", idOrden);
             dt = db.LeerPorComando(query);
             return dt;
         }

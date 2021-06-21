@@ -1,6 +1,6 @@
 --sobre cargas de tablas
 
---Datos Tabla Direccion
+--cargo direccion
 	USE [dbTecProg]
 	GO
 
@@ -31,18 +31,20 @@
 --cargo producto
 	go
 	insert into [dbo].[PRODUCTO] (id_categoria,nombre,precio_compra,precio_venta)
-	values	(1,'cocina ',200,400),
-			(2,'corta cesped',400,800),
-			(3,'martillo ',100,200),
-			(4,'batidora',100,150),
-			(5,'ropero',400,800),
-			(6,'computadora',400,800),
+	values	(1,'cocina ',2000,4000),
+			(2,'corta cesped',1400,8000),
+			(3,'martillo ',200,600),
+			(4,'batidora',1000,3500),
+			(5,'ropero',1400,5800),
+			(6,'computadora',10000,3000),
 			(7,'lampara',400,800),
-			(8,'camisa',400,800)
+			(8,'camisa',400,800),
+			(6,'dvd',2000,5000),
+			(8,'short',150,600)
 	go
 --cargo stock
 	go
-	insert into [dbo].[STOCK] (id_producto,CANTIDAD,HABILITADO) 
+	insert into [dbo].[STOCK] (id_producto,cantidad,habilitado) 
 	values	(1,20,10-10-20),
 			(2,50,10-10-20),
 			(3,100,10-10-20),
@@ -120,10 +122,17 @@
 	 insert into dbo.orden_compra (id_orden,id_persona,id_proveedor) 
 	 values		(1,1,5),
 				(2,3,1),
-				(3,4,2)
+				(3,4,2),
+				(4,1,1)
 	 go
 --carga detalle 
 	 GO
 	 insert into dbo.detalle_orden (id_orden,id_producto,cantidad)
-	 values (1,2,30),(5,2,30),(3,2,30),(1,4,30)
+	 values	 (1,2,30),
+			 (4,2,30),
+			 (2,2,30),
+			 (2,1,30),
+			 (2,3,30),
+			 (3,2,30),
+			 (1,4,30)
 	 GO

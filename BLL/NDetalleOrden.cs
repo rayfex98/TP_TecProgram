@@ -17,17 +17,17 @@ namespace BLL
         {
             return unDetalleOrden.Editar(_unDetalleOrden, _idOrden);
         }
-        public bool Eliminar(DetalleOrden _unDetalleOrden, int idorden)
+        public bool Eliminar(int _idDetalleOrden, int _idorden)
         {
-            return unDetalleOrden.Eliminar(_unDetalleOrden, idorden);
+            return unDetalleOrden.Eliminar(_idDetalleOrden, _idorden);
         }
-        public bool EliminarPorOrden(DetalleOrden _unDetalleOrden)
+        public bool EliminarPorOrden(int _unOrden)
         {
-            return unDetalleOrden.EliminarPorOrden(_unDetalleOrden);
+            return unDetalleOrden.EliminarPorOrden(_unOrden);
         }
-        public DataTable ListarDetalleOrden(int idorden)
+        public DataTable ListarDetalleOrden(int _idOrden)
         {
-            return unDetalleOrden.ListadeDetalleOrden(idorden);
+            return unDetalleOrden.ListadeDetalleOrden(_idOrden);
         }
     }
 }

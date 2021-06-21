@@ -71,7 +71,7 @@ namespace PruebasUnitarias
         {
             OrdenDeCompra unaorden = new OrdenDeCompra();
             unaorden.ID = 2;
-            Assert.AreEqual(undeposito.agregaradeposito(unaorden), true);
+            Assert.AreEqual(undeposito.AgregarADeposito(unaorden), true);
         }
         [TestMethod]
         //devuelve una lista de los productos dentro de deposito que esten habilitados 

@@ -9,17 +9,17 @@ namespace BLL
     {
         DCategoria unCategoria = new DCategoria();
 
-        public bool AgregarCategoria(Categoria _unCategoria)
+        public bool AgregarCategoria(string nombre)
         {
-            _unCategoria.Nombre = _unCategoria.Nombre.ToUpper();
-            return unCategoria.AgregarCategoria(_unCategoria);
+            nombre = nombre.ToUpper();
+            return unCategoria.AgregarCategoria(nombre);
         }
         public bool EditarCategoria(Categoria _unCategoria)
         {
             if (_unCategoria.Nombre != "") _unCategoria.Nombre = _unCategoria.Nombre.ToUpper();
             return unCategoria.EditarCategoria(_unCategoria);
         }
-        public bool EliminarCategoria(Categoria _unCategoria)
+        public bool EliminarCategoria(int _unCategoria)
         {
             return unCategoria.EliminarCategoria(_unCategoria);
         }

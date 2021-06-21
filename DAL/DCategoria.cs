@@ -11,11 +11,11 @@ namespace DAL
         readonly Conexion db = new Conexion();
         DataTable dt = new DataTable();
 
-        public bool AgregarCategoria(Categoria unCategoria)
+        public bool AgregarCategoria(string nombre)
         {
             try
             {
-                string query = string.Format("EXEC CATEGORIAPROC @ID = null,@DESCRIPCION = {0},@HABILITADO = null,@TIPO =  'INSERT';", unCategoria.Nombre);
+                string query = string.Format("EXEC CATEGORIAPROC @ID = null,@DESCRIPCION = {0},@HABILITADO = null,@TIPO =  'INSERT';", nombre);
                 if (1 != db.EscribirPorComando(query))
                 {
                     return false;
@@ -31,7 +31,6 @@ namespace DAL
         {
             try
             {
-
                 string query = string.Format("EXEC CATEGORIAPROC @ID = {0},@DESCRIPCION = {1},@HABILITADO = null,@TIPO ='UPDATE';", unaCat.ID.ToString(), unaCat.Nombre);
                 if (1 != db.EscribirPorComando(query))
                 {
@@ -48,11 +47,11 @@ namespace DAL
                 return false;
             }
         }
-        public bool EliminarCategoria(Categoria unCat)
+        public bool EliminarCategoria(int id)
         {
             try
             {
-                string query = string.Format("EXEC CATEGORIAPROC @ID = {0},@DESCRIPCION = NULL,@HABILITADO = null,@TIPO = 'DELETE';", unCat.ID);
+                string query = string.Format("EXEC CATEGORIAPROC @ID = {0},@DESCRIPCION = NULL,@HABILITADO = null,@TIPO = 'DELETE';", id);
                 if (1 != db.EscribirPorComando(query))
                 {
                     return false;

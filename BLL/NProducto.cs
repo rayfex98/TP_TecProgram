@@ -19,7 +19,7 @@ namespace BLL
         {
             return unProducto.EditarProducto(_producto);
         }
-        public bool EliminarProducto(Producto _idProducto)
+        public bool EliminarProducto(int _idProducto)
         {
             return unProducto.EliminarProducto(_idProducto);
         }

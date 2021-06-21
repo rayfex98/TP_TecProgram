@@ -40,10 +40,9 @@ namespace PruebasUnitarias
         [TestMethod]
         public void BorrarAlerta()// elimina una alerta // no es borrado logico 
         {
-            Alerta unaAlerta = new Alerta();
             NAlerta MetodoAlerta = new NAlerta();
-            unaAlerta.ID = 21;
-            Assert.AreEqual(MetodoAlerta.EliminarAlerta(unaAlerta), false);// no existe alerta con id 2 
+            int id = 2;
+            Assert.AreEqual(MetodoAlerta.EliminarAlerta(id), false);// no existe alerta con id 2 
         }
         [TestMethod]
         public void ListarAlertas()// lista todas las alertas 

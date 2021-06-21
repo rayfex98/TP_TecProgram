@@ -46,11 +46,11 @@ namespace DAL
                 return false;
             }
         }
-        public bool Eliminar(Direccion unDireccion)
+        public bool Eliminar(int unDireccion)
         {
             try
             {
-                string query = string.Format("EXEC DIRECCIONPROC @ID={0},@ALTURA=NULL,@CALLE=NULL,@CP=NULL,@LOCALIDAD=NULL,@PROVINCIA=NULL,@TIPO = 'DELETE';", unDireccion.ID);
+                string query = string.Format("EXEC DIRECCIONPROC @ID={0},@ALTURA=NULL,@CALLE=NULL,@CP=NULL,@LOCALIDAD=NULL,@PROVINCIA=NULL,@TIPO = 'DELETE';", unDireccion);
                 if (1 != db.EscribirPorComando(query))
                 {
                     return false;
