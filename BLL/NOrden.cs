@@ -20,9 +20,5 @@ namespace BLL
         {
             return unOrden.Eliminar(_idOrden);
         }
-        public DataTable ListarOrden()
-        {
-            return unOrden.ListadeOrden();
-        }
     }
 }
