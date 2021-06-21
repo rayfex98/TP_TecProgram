@@ -28,6 +28,15 @@ namespace BLL
             }
             throw new FallaEnEdicion();
         }
+        public bool Deshabilitar(int idOrden)
+        {
+            if (unOrden.Deshabilitar(idOrden))
+            {
+                return true;
+            }
+            throw new FallaEnEdicion();
+        }
+
         public bool Eliminar(int _idOrden)
         {
             if (unOrden.Eliminar(_idOrden))

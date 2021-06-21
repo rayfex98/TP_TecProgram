@@ -229,15 +229,29 @@ CREATE PROCEDURE ORDENPROC	(@ID INT,
 							@USUARIO INT,
 							@TIPO NVARCHAR(10))
 AS
+
+
 	BEGIN
 		IF @TIPO = 'INSERT'
-			BEGIN		
+			BEGIN	
+			set @FECHA = GETUTCDATE()
 			INSERT INTO [dbo].[ORDEN]
 					   (id_persona,
 					   fecha)
 				VALUES
 					   (@USUARIO,
 					   @FECHA)
+			END
+		IF @TIPO = 'DESHABILITA'
+			BEGIN
+				IF (@USUARIO IS NOT NULL)			
+					BEGIN
+						SET @FECHA = NULL
+						SET	@USUARIO = NULL	
+						UPDATE [dbo].[ORDEN]
+						SET	fecha = @FECHA
+						WHERE id = @ID
+					END
 			END
 		IF @TIPO = 'UPDATE'
 			BEGIN
