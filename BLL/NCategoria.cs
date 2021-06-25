@@ -1,9 +1,7 @@
 ﻿using DAL;
 using Entidades;
-using System;
-using System.Collections.Generic;
+using Excepciones;
 using System.Data;
-using System.Text;
 
 namespace BLL
 {
@@ -11,25 +9,73 @@ namespace BLL
     {
         DCategoria unCategoria = new DCategoria();
 
-        public bool AgregarCategoria(Categoria _unCategoria)
+        public bool AgregarCategoria(string nombre)
         {
-            return unCategoria.AgregarCategoria(_unCategoria);
+            if (string.IsNullOrEmpty(nombre))
+            {
+                throw new ExcepcionDeDatos();
+            }
+            nombre = nombre.ToUpper();
+            if (unCategoria.AgregarCategoria(nombre)) 
+            {
+                return true;
+            } 
+            throw new FallaEnInsercion();
         }
         public bool EditarCategoria(Categoria _unCategoria)
         {
-            return unCategoria.EditarCategoria(_unCategoria);
+            if (string.IsNullOrEmpty(_unCategoria.Nombre))
+            {
+                throw new ExcepcionDeDatos();
+            } 
+            _unCategoria.Nombre = _unCategoria.Nombre.ToUpper();
+            if (unCategoria.EditarCategoria(_unCategoria))
+            {
+                return true;
+            }
+            throw new FallaEnEdicion();
         }
-        public bool EliminarCategoria(Categoria _unCategoria)
+        public bool EliminarCategoria(int _unCategoria)
         {
-            return unCategoria.EliminarCategoria(_unCategoria);
+            if (_unCategoria < 0)
+            {
+                throw new ExcepcionDeDatos();
+            }
+            if (unCategoria.EliminarCategoria(_unCategoria))
+            {
+                return true;
+            }
+            throw new FallaEnEliminacion();
         }
-        public DataTable ListarCategoria() //nuevo metodo devuelve tabla de categorias
+        public bool HabilitarCategoria(int _unCategoria)
         {
-            return unCategoria.ListadeCategoria();
+            if (_unCategoria < 0)
+            {
+                throw new ExcepcionDeDatos();
+            }
+            if (unCategoria.HabilitarCategoria(_unCategoria))
+            {
+                return true;
+            }
+            throw new FallaEnEdicion();
         }
-        public DataTable ListadeCategoriaPorCategoria(string descripcion )
+        public DataTable ListarCategoria()
         {
-            return unCategoria.ListadeCategoriaPorCategoria(descripcion);
+            DataTable dt = unCategoria.ListadeCategoria();
+            if(dt.Rows.Count == 0)
+            {
+                throw new NoEncontrado();
+            }
+            return dt;
+        }
+        public DataTable ListadeCategoriaPorCategoria(string descripcion)
+        {
+            DataTable dt = unCategoria.ListadeCategoriaPorCategoria(descripcion);
+            if (dt.Rows.Count == 0)
+            {
+                throw new NoEncontrado();
+            }
+            return dt;
         }
     }
 }

@@ -34,13 +34,13 @@ namespace Pruebas
         [TestMethod]
         public void _3Borrado()// no es un borrado logico, borra una direccion por su id 
         {
-            unObj.ID = 8;
-            Assert.AreEqual(Obj.Eliminar(unObj), true);
+            int id = 8;
+            Assert.AreEqual(Obj.Eliminar(id), true);
         }
         [TestMethod]
         public void listadireccion()//lista todas las direcciones // utilizar para hacer un desplegable en el ingreso de nuevo proveedor 
         {
-            Assert.IsNotNull(Obj.listadireccion());
+            Assert.IsNotNull(Obj.ListaDireccion());
         }
     }
 }

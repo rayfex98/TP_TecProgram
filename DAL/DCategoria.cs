@@ -11,11 +11,11 @@ namespace DAL
         readonly Conexion db = new Conexion();
         DataTable dt = new DataTable();
 
-        public bool AgregarCategoria(Categoria unCategoria)
+        public bool AgregarCategoria(string nombre)
         {
             try
             {
-                string query = string.Format("EXEC CATEGORIAPROC @ID = null,@DESCRIPCION = {0},@HABILITADO = null,@TIPO =  'INSERT';", unCategoria.Nombre);
+                string query = string.Format("EXEC CATEGORIAPROC @ID = null,@DESCRIPCION = {0},@HABILITADO = null,@TIPO =  'INSERT';", nombre);
                 if (1 != db.EscribirPorComando(query))
                 {
                     return false;
@@ -31,7 +31,6 @@ namespace DAL
         {
             try
             {
-
                 string query = string.Format("EXEC CATEGORIAPROC @ID = {0},@DESCRIPCION = {1},@HABILITADO = null,@TIPO ='UPDATE';", unaCat.ID.ToString(), unaCat.Nombre);
                 if (1 != db.EscribirPorComando(query))
                 {
@@ -48,11 +47,31 @@ namespace DAL
                 return false;
             }
         }
-        public bool EliminarCategoria(Categoria unCat)
+        public bool HabilitarCategoria(int id)
         {
             try
             {
-                string query = string.Format("EXEC CATEGORIAPROC @ID = {0},@DESCRIPCION = NULL,@HABILITADO = null,@TIPO = 'DELETE';", unCat.ID);
+                string query = string.Format("EXEC CATEGORIAPROC @ID = {0},@DESCRIPCION = null,@HABILITADO = null,@TIPO ='ESTADO';", id);
+                if (1 != db.EscribirPorComando(query))
+                {
+                    return false;
+                }
+                return true;
+            }
+            catch (System.Data.SqlClient.SqlException)
+            {
+                return false;
+            }
+            catch (System.NullReferenceException)
+            {
+                return false;
+            }
+        }
+        public bool EliminarCategoria(int id)
+        {
+            try
+            {
+                string query = string.Format("EXEC CATEGORIAPROC @ID = {0},@DESCRIPCION = NULL,@HABILITADO = null,@TIPO = 'DELETE';", id);
                 if (1 != db.EscribirPorComando(query))
                 {
                     return false;
@@ -77,14 +96,11 @@ namespace DAL
             return dt;
         }
 
-        public DataTable ListadeCategoriaPorCategoria(string descripcion )
+        public DataTable ListadeCategoriaPorCategoria(string descripcion)
         {
-            string query = string.Format("Exec ListaCategoriasCondicion @descripcion = {0}",descripcion);
+            string query = string.Format("Exec ListaCategoriasCondicion @descripcion = {0}", descripcion);
             dt = db.LeerPorComando(query);
             return dt;
         }
-
-
-
     }
 }

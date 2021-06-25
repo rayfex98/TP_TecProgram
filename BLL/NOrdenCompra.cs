@@ -1,9 +1,7 @@
 ﻿using DAL;
 using Entidades;
-using System;
-using System.Collections.Generic;
 using System.Data;
-using System.Text;
+using Excepciones;
 
 namespace BLL
 {
@@ -13,15 +11,39 @@ namespace BLL
 
         public bool NuevoOrden(OrdenDeCompra _unOrdenCompra)
         {
-            return unOrdenCompra.NuevoOrden(_unOrdenCompra);
+            if (_unOrdenCompra.Proveedor.ID < 0 || _unOrdenCompra.UsuarioCreador.ID < 0)
+            {
+                throw new ExcepcionDeDatos();
+            }
+            if (unOrdenCompra.NuevoOrden(_unOrdenCompra))
+            {
+                return true;
+            }
+            throw new FallaEnInsercion();
         }
         public bool EditarOrden(OrdenDeCompra _unOrdenCompra)
         {
-            return unOrdenCompra.EditarOrden(_unOrdenCompra);
+            if(_unOrdenCompra.ID < 0)
+            {
+                throw new ExcepcionDeDatos();
+            }
+            if (unOrdenCompra.EditarOrden(_unOrdenCompra))
+            {
+                return true;
+            }
+            throw new FallaEnEdicion();
         }
         public bool EliminarOrden(int _idOrden)
         {
-            return unOrdenCompra.EliminarOrden(_idOrden);
+            if (_idOrden < 0)
+            {
+                throw new ExcepcionDeDatos();
+            }
+            if (unOrdenCompra.EliminarOrden(_idOrden))
+            {
+                return true;
+            }
+            throw new FallaEnEliminacion();
         }
         public DataTable ListarOrdenCompra()
         {
@@ -31,14 +53,34 @@ namespace BLL
         {
             return unOrdenCompra.OrdenPendiente();
         }
-        public bool aprobarorden(OrdenDeCompra _unOrdenCompra)
+        public DataTable OrdenCompraBuscarProducto(string nombre)
         {
-            return unOrdenCompra.AprobarOrden(_unOrdenCompra);
+            return unOrdenCompra.OrdenCompraBuscarProducto(nombre);
         }
-        public float CalcularTotalOrden(OrdenDeCompra _unOrdenCompra)
+            public bool AprobarOrden(OrdenDeCompra _unOrdenCompra)
         {
-            float total;          
-            total=  unOrdenCompra.calculartotal(_unOrdenCompra);
+            if (_unOrdenCompra.ID < 0)
+            {
+                throw new ExcepcionDeDatos();
+            }
+            if (unOrdenCompra.AprobarOrden(_unOrdenCompra))
+            {
+                return true;
+            }
+            throw new FallaEnEdicion();
+        }
+        public float CalcularTotalOrden(int id)
+        {
+            float total = 0;
+            int cantidad;
+            float precio;
+            DataTable Totales = unOrdenCompra.CalcularTotal(id);
+            foreach (DataRow item in Totales.Rows)
+            {
+                cantidad = int.Parse(item.ItemArray[0].ToString());
+                precio = float.Parse(item.ItemArray[1].ToString());
+                total += cantidad * precio;
+            }
             return total;
         }
     }

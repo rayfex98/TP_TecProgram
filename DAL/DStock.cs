@@ -9,7 +9,7 @@ namespace DAL
     public class DStock
     {
         DataTable dt = new DataTable();
-        Conexion db = new Conexion();
+        readonly Conexion db = new Conexion();
         public bool CargarProductoEnStock(Stock unStock)
         {
             try
@@ -50,7 +50,7 @@ namespace DAL
         {
             try
             {
-                string query = string.Format("EXEC STOCKPROC @ID={0},@PRODUCTO=null,@CANTIDAD=null,@HABILITADO = null,@TIPO='DELETE';", idProducto);
+                string query = string.Format("STOCKPROC @ID={0},@PRODUCTO=null,@CANTIDAD=null,@HABILITADO = null,@TIPO='DELETE';", idProducto);
                 if (1 != db.EscribirPorComando(query))
                 {
                     return false;
@@ -66,6 +66,7 @@ namespace DAL
                 return false;
             }
         }
+
         public bool AgregarStock(int ID_producto, int cantidad)
         {
             try
@@ -86,6 +87,7 @@ namespace DAL
                 return false;
             }
         }
+
         public bool RestarStock(int ID_producto, int cantidad)
         {
             try
@@ -110,7 +112,6 @@ namespace DAL
         {
             string query = string.Format("vista_stock");
             dt = db.LeerPorComando(query);
-            //busco en tabla
             return dt;
         }
     }

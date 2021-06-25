@@ -6,7 +6,7 @@
 /****** START ******/
 USE [master]
 GO
-/****** Object:  Database [dbTecProg]    Script Date: 9/6/2021 22:40:46 ******/
+/****** Object:  Database [dbTecProg]    Script Date: 20/6/2021 20:51:00 ******/
 CREATE DATABASE [dbTecProg]
  CONTAINMENT = NONE
  ON  PRIMARY 

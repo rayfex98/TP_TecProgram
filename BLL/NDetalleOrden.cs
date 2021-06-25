@@ -1,9 +1,7 @@
 ﻿using DAL;
 using Entidades;
-using System;
-using System.Collections.Generic;
+using Excepciones;
 using System.Data;
-using System.Text;
 
 namespace BLL
 {
@@ -13,23 +11,60 @@ namespace BLL
 
         public bool Nuevo(DetalleOrden _unDetalleOrden, int _idOrden)
         {
-            return unDetalleOrden.Nuevo(_unDetalleOrden, _idOrden);
+            if(_idOrden < 0 || _unDetalleOrden.Cantidad < 0 || _unDetalleOrden.Producto.ID < 0)
+            {
+                throw new ExcepcionDeDatos();
+            }
+            if (unDetalleOrden.Nuevo(_unDetalleOrden, _idOrden))
+            {
+                return true;
+            }
+            throw new FallaEnInsercion();
         }
         public bool Editar(DetalleOrden _unDetalleOrden, int _idOrden)
         {
-            return unDetalleOrden.Editar(_unDetalleOrden, _idOrden);
+            if (_idOrden < 0)
+            {
+                throw new ExcepcionDeDatos();
+            }
+            if (unDetalleOrden.Editar(_unDetalleOrden, _idOrden))
+            {
+                return true;
+            }
+            throw new FallaEnEdicion();
         }
-        public bool Eliminar(DetalleOrden _unDetalleOrden, int idorden)
+        public bool Eliminar(int _idDetalleOrden, int _idOrden)
         {
-            return unDetalleOrden.Eliminar(_unDetalleOrden, idorden);
+            if (_idOrden < 0)
+            {
+                throw new ExcepcionDeDatos();
+            }
+            if (unDetalleOrden.Eliminar(_idDetalleOrden, _idOrden))
+            {
+                return true;
+            }
+            throw new FallaEnEliminacion();
         }
-        public bool EliminarPorOrden(DetalleOrden _unDetalleOrden)
+        public bool EliminarPorOrden(int _idOrden)
         {
-            return unDetalleOrden.EliminarPorOrden(_unDetalleOrden);
+            if (_idOrden < 0)
+            {
+                throw new ExcepcionDeDatos();
+            }
+            if (unDetalleOrden.EliminarPorOrden(_idOrden))
+            {
+                return true;
+            }
+            throw new FallaEnEliminacion();
         }
-        public DataTable ListarDetalleOrden(int idorden)
+        public DataTable ListarDetalleOrden(int _idOrden)
         {
-            return unDetalleOrden.ListadeDetalleOrden(idorden);
+            DataTable dt = unDetalleOrden.ListadeDetalleOrden(_idOrden);
+            if (dt.Rows.Count == 0)
+            {
+                throw new NoEncontrado();
+            }
+            return dt;
         }
     }
 }

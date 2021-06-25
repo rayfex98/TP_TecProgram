@@ -8,22 +8,29 @@ namespace DAL
 {
     public class DProducto
     {
-        Conexion db = new Conexion();
+        readonly Conexion db = new Conexion();
         DataTable dt = new DataTable();
         public bool NuevoProducto(Producto unProducto)
         {
-                string query = string.Format(" EXEC PRODUCTOPROC @ID = null, @CATEGORIA = {0}, @NOMBRE = {1}, @COMPRA = {2}, @VENTA = {3}, @HABILITADO = null, @TIPO = 'INSERT' ; "
+            try
+            {
+                string query = string.Format(" EXEC PRODUCTOPROC @ID = NULL, @CATEGORIA = {0}, @NOMBRE = {1}, @COMPRA = {2}, @VENTA = {3}, @HABILITADO = NULL, @TIPO = 'INSERT' ; "
                     , unProducto.Categoria.ID, unProducto.Nombre, unProducto.PrecioCompra, unProducto.PrecioVenta);
                 if (1 != db.EscribirPorComando(query))
                 {
                     return false;
                 }
-                return true;          
+                return true;
+            }
+            catch (System.Data.SqlClient.SqlException)
+            {
+                return false;
+            }
         }
         public bool EditarProducto(Producto unProducto)
         {
             int idcategoria = unProducto.Categoria.ID;
-            string query = string.Format("PRODUCTOPROC @ID = {0} ,@CATEGORIA = {1} ,@NOMBRE = {2} ,@COMPRA = {3} ,@VENTA = {4} ,@HABILITADO = null ,@TIPO = 'UPDATE' "
+            string query = string.Format("PRODUCTOPROC @ID = {0} ,@CATEGORIA = {1} ,@NOMBRE = {2} ,@COMPRA = {3} ,@VENTA = {4} ,@HABILITADO = NULL ,@TIPO = 'UPDATE' "
                         , unProducto.ID, idcategoria, unProducto.Nombre, unProducto.PrecioCompra, unProducto.PrecioVenta);
             if (1 != db.EscribirPorComando(query))
             {
@@ -32,17 +39,17 @@ namespace DAL
             return true;
 
         }
-        public bool EliminarProducto(Producto unProducto)
+        public bool EliminarProducto(int unProducto)
         {
             try
             {
-               string query = string.Format("EXEC PRODUCTOPROC @ID = {0},@CATEGORIA=NULL,@NOMBRE=NULL,@COMPRA = NULL,@VENTA = NULL,@HABILITADO = null,@TIPO = 'DELETE';", unProducto.ID); ///
-               if (1 != db.EscribirPorComando(query))
-               {
-                   return false;
-               }
-             return true;
-       }
+                string query = string.Format("EXEC PRODUCTOPROC @ID = {0},@CATEGORIA=NULL,@NOMBRE=NULL,@COMPRA = NULL,@VENTA = NULL,@HABILITADO = NULL,@TIPO = 'DELETE';", unProducto); ///
+                if (1 != db.EscribirPorComando(query))
+                {
+                    return false;
+                }
+                return true;
+            }
             catch (System.Data.SqlClient.SqlException)
             {
                 return false;
@@ -53,10 +60,21 @@ namespace DAL
             }
         }
 
-        //Crear una carga de prodcutos para la base de datos, que estaran dentro de stock 
         public DataTable ListadeProductos()
         {
             string query = string.Format("ListaProductosHabilitados");
+            dt = db.LeerPorComando(query);
+            return dt;
+        }
+        public DataTable BuscarProdcutoNombre(string nombre)
+        {
+            string query = string.Format("exec BuscarProductoNombre @nombre = {0}",nombre);
+            dt = db.LeerPorComando(query);
+            return dt;
+        }
+        public DataTable BuscarProdcutoCategoria(string nombre)
+        {
+            string query = string.Format("exec BuscarProductoCategoria @nombre = {0}", nombre);
             dt = db.LeerPorComando(query);
             return dt;
         }

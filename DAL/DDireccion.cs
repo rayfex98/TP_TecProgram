@@ -1,7 +1,4 @@
 ﻿using Entidades;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Data;
 
 namespace DAL
@@ -9,18 +6,24 @@ namespace DAL
     public class DDireccion
     {
         DataTable dt = new DataTable();
-        Conexion db = new Conexion();
+        readonly Conexion db = new Conexion();
         public bool Nuevo(Direccion unDireccion)
         {
+            try
+            {
 
                 string query = string.Format("EXEC DIRECCIONPROC @ID=NULL,@ALTURA={0},@CALLE={1},@CP={2},@LOCALIDAD={3},@PROVINCIA={4},@TIPO = 'INSERT';"
-                    , unDireccion.Altura, unDireccion.Calle, unDireccion.CodigoPostal, unDireccion.Localidad, unDireccion.Provincia);
+                    , unDireccion.Altura.ToString(), unDireccion.Calle, unDireccion.CodigoPostal.ToString(), unDireccion.Localidad, unDireccion.Provincia);
                 if (1 != db.EscribirPorComando(query))
                 {
                     return false;
                 }
-            return true;
-            
+                return true;
+            }
+            catch (System.Data.SqlClient.SqlException)
+            {
+                return false;
+            }
         }
         public bool Editar(Direccion unDireccion)
         {
@@ -43,11 +46,11 @@ namespace DAL
                 return false;
             }
         }
-        public bool Eliminar(Direccion unDireccion)
+        public bool Eliminar(int unDireccion)
         {
             try
             {
-                string query = string.Format("EXEC DIRECCIONPROC @ID={0},@ALTURA=NULL,@CALLE=NULL,@CP=NULL,@LOCALIDAD=NULL,@PROVINCIA=NULL,@TIPO = 'DELETE';", unDireccion.ID);
+                string query = string.Format("EXEC DIRECCIONPROC @ID={0},@ALTURA=NULL,@CALLE=NULL,@CP=NULL,@LOCALIDAD=NULL,@PROVINCIA=NULL,@TIPO = 'DELETE';", unDireccion);
                 if (1 != db.EscribirPorComando(query))
                 {
                     return false;
@@ -63,13 +66,11 @@ namespace DAL
                 return false;
             }
         }
-        public DataTable listadirecion()
+        public DataTable ListaDirecion()
         {
             string query = string.Format("listadirecion");
             dt = db.LeerPorComando(query);
-            //busco en tabla
             return dt;
         }
-
     }
 }

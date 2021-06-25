@@ -14,9 +14,9 @@ namespace DAL
         {
             try
             {
-
-                string query = string.Format("EXEC ORDENCOMPRAPROC @ID={0},@PROVEEDOR={1},@USUARIO={2},@FECHA=null,@TIPO = 'INSERT';"
-                , unOrdenCompra.ID,unOrdenCompra.Proveedor.ID, unOrdenCompra.UsuarioAprobador.ID);
+                unOrdenCompra.FechaAprobacion = DateTime.Now;
+                string query = string.Format("EXEC ORDENCOMPRAPROC @ID=NULL,@PROVEEDOR={0},@USUARIO={1},@FECHA={2} cast(@FECHA as datetime),@TIPO = 'INSERT';"
+                , unOrdenCompra.Proveedor.ID, unOrdenCompra.UsuarioAprobador.ID, unOrdenCompra.FechaAprobacion);
                 if (1 != db.EscribirPorComando(query))
                 {
                     return false;
@@ -85,6 +85,13 @@ namespace DAL
             return dt;
 
         }
+        public DataTable OrdenCompraBuscarProducto(string nombre)
+        {
+            string query = string.Format("OrdenCompraBuscarProducto @nombre= {0}",nombre);
+            dt = db.LeerPorComando(query);
+            return dt;
+
+        }
         public bool AprobarOrden(OrdenDeCompra unOrdenCompra)
         {
             try
@@ -102,23 +109,11 @@ namespace DAL
                 return false;
             }
         }
-        public float calculartotal(OrdenDeCompra _unOrdenCompra)
+        public DataTable CalcularTotal(int id)
         {
-            float total=0;
-            int cantidad;
-            float precio;
-            float multiplica;
-            string query = string.Format("exec sumartotalorden @orden= {0};",_unOrdenCompra.ID);
+            string query = string.Format("exec sumartotalorden @orden= {0};", id);
             dt = db.LeerPorComando(query);
-            foreach (DataRow item in dt.Rows )
-            {
-                cantidad = int.Parse(item.ItemArray[0].ToString());
-                precio = float.Parse(item.ItemArray[1].ToString());
-                multiplica = cantidad * precio;
-                total = total + multiplica;
-            }
-
-            return total;
-        }       
+            return dt;
+        }
     }
 }

@@ -1,6 +1,6 @@
 ﻿using DAL;
 using Entidades;
-using System;
+using Excepciones;
 using System.Data;
 
 namespace BLL
@@ -8,57 +8,96 @@ namespace BLL
     public class NProveedor
     {
         DProveedor ObjProveedor = new DProveedor();
-        //Metodo que carga lista proveedores
+
+        private Proveedor Estandarizar(Proveedor obj)
+        {
+            obj.CUIL.ToLower();
+            obj.RazonSocial.ToLower();
+            return obj;
+        }
 
         public bool Nuevo(Proveedor _proveedor)
         {
-            return ObjProveedor.Nuevo(_proveedor);
+            if (_proveedor.Direccion.ID < 0 || string.IsNullOrEmpty(_proveedor.CUIL) || string.IsNullOrEmpty(_proveedor.RazonSocial))
+            {
+                throw new ExcepcionDeDatos();
+            }
+            _proveedor = Estandarizar(_proveedor);
+            if (ObjProveedor.Nuevo(_proveedor))
+            {
+                return true;
+            }
+            throw new FallaEnInsercion();
         }
         public bool Editar(Proveedor _proveedor)
         {
-            return ObjProveedor.Editar(_proveedor);
-        }
-        public bool habilitar(Proveedor unproveedor)
-        {
-            return ObjProveedor.habilitar(unproveedor);
-        }
-
-
-
-
-        #region Modificar
-        /// <summary>
-        /// Update, necesito una direccion o su id. Tambien CUIL string(13) y razon social string(30)
-        /// </summary>
-        /// <returns></returns>
-        public bool ModificarProveedor(int id, Proveedor obj)
-        {
-            if (id < 0) return false; //llamar a listar. Ver si ID se encuentra y CUIL no se encuentran en lista de productos
-            //ver si agrego o no la direccion a la bbdd antes de modificarla
-            if (Editar(obj))
+            if (_proveedor.ID < 0)
             {
-                //modificar en lista
+                throw new ExcepcionDeDatos();
+            }
+            _proveedor = Estandarizar(_proveedor);
+            if (ObjProveedor.Editar(_proveedor))
+            {
                 return true;
             }
-            return false;
+            throw new FallaEnEdicion();
+        }
+        public bool Habilitar(int id)
+        {
+            if (id < 0)
+            {
+                throw new ExcepcionDeDatos();
+            }
+            if (ObjProveedor.Estado(id, true))
+            {
+                return true;
+            }
+            throw new FallaEnEdicion();
+        }
+        public bool Deshabilitar(int id)
+        {
+            if(id < 0)
+            {
+                throw new ExcepcionDeDatos();
+            }
+            if (ObjProveedor.Estado(id, false))
+            {
+                return true;
+            }
+            throw new FallaEnEdicion();
+        }
+
+        
+        #region listaProvedores
+        public DataTable ListaProveedoresTodos()
+        {
+            DataTable dt = ObjProveedor.ListaProveedores();
+            if (dt.Rows.Count == 0)
+            {
+                throw new NoEncontrado();
+            }
+            return dt;
         }
         #endregion
-
-        #region listaProvedorespordatatable
-        public DataTable listarproveedores()
+        
+        public DataTable ListarProveedoresHabilitados()
         {
-            return ObjProveedor.ListaProveedores();
+            DataTable dt = ObjProveedor.ListaProveedoresHabilitados();
+            if (dt.Rows.Count == 0)
+            {
+                throw new NoEncontrado();
+            }
+            return dt;
         }
-        #endregion
-        public DataTable listarproveedoreshabilitados()
-        {
-            return ObjProveedor.ListaProveedoreshabilitados();
-        }
-
 
         public DataTable ListarProveedoresPorProvincia(string provincia)
         {
-            return ObjProveedor.ListaProveedoresPorProvincia(provincia);
+            DataTable dt = ObjProveedor.ListaProveedoresPorProvincia(provincia);
+            if (dt.Rows.Count == 0)
+            {
+                throw new NoEncontrado();
+            }
+            return dt;
         }
     }
 }

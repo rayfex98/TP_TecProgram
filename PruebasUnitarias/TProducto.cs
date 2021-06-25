@@ -34,14 +34,21 @@ namespace PruebasUnitarias
         [TestMethod]
         public void _3Borrado()
         {
-            unObj.ID = 37;
-            Assert.AreEqual(Obj.EliminarProducto(unObj), false); // es false porque el id de ese producto esta asociado a otra tabla
+            int id = 3;
+            Assert.AreEqual(Obj.EliminarProducto(id), false); // es false porque el id de ese producto esta asociado a otra tabla
         }
         [TestMethod]
         public void ListaProductos()// devuelve una lista de los productos que estan habilitados 
         {
             NProducto Obj = new NProducto();
             Assert.IsNotNull(Obj.ListarProductos());
+        }
+        [TestMethod]
+        public void BuscarProducto()// devuelve una lista de los productos que estan habilitados 
+        {
+            string nombre = "c";
+            NProducto Obj = new NProducto();
+            Assert.IsNotNull(Obj.BuscarProducto(nombre));
         }
     }
 }

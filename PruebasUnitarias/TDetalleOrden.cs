@@ -35,8 +35,8 @@ namespace PruebasUnitarias
         public void _3Borrado()// esta funcion borra un detalle de una orden/ no es un borrado logico 
         {
             int idorden = 1;
-            detalle.ID = 9;
-            Assert.AreEqual(ndetalle.Eliminar(detalle, idorden), true);
+            int idDetalle = 2;
+            Assert.AreEqual(ndetalle.Eliminar(idDetalle, idorden), true);
         }
         [TestMethod]
         public void ListarDetall()// lista todos los detalles 

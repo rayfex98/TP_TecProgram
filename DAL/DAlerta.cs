@@ -1,8 +1,6 @@
 ﻿using Entidades;
 using System;
-using System.Collections.Generic;
 using System.Data;
-using System.Text;
 
 namespace DAL
 {
@@ -29,9 +27,7 @@ namespace DAL
         }
         public bool EditarAlerta(Alerta unAlerta)
         {
-            int idstock = unAlerta.Stock.ID;
-            int idusuario = unAlerta.UsuarioCreador.ID;
-            string query = string.Format(" ALERTAPROC @ID = {0}, @STOCK = {1}, @USUARIO = {2}, @MINIMO = {3}, @TIPO = 'UPDATE' ", unAlerta.ID, idstock, idusuario, unAlerta.CantidadMinima);
+            string query = string.Format(" ALERTAPROC @ID = {0}, @STOCK = {1}, @USUARIO = {2}, @MINIMO = {3}, @TIPO = 'UPDATE' ", unAlerta.ID, unAlerta.Stock.ID, unAlerta.UsuarioCreador.ID, unAlerta.CantidadMinima);
             if (1 == db.EscribirPorComando(query))
             {
                 return true;
@@ -39,12 +35,11 @@ namespace DAL
             return false;
 
         }
-        public bool EliminarAlerta(Alerta unAlerta)
+        public bool EliminarAlerta(int unAlerta)
         {
             try
             {
-
-                string query = string.Format("ALERTAPROC @ID = {0},@STOCK = null,@USUARIO = null,@MINIMO = null ,@TIPO = 'DELETE';", unAlerta.ID);
+                string query = string.Format("ALERTAPROC @ID = {0},@STOCK = null,@USUARIO = null,@MINIMO = null ,@TIPO = 'DELETE';", unAlerta);
                 if (1 != db.EscribirPorComando(query))
                 {
                     return false;
@@ -64,20 +59,29 @@ namespace DAL
 
         public DataTable ListadeAlertas()
         {
-
             string query = string.Format("VistaAlertas");
             dt = db.LeerPorComando(query);
-            //busco en tabla
             return dt;
         }
         public DataTable ListalertasCriticas()
         {
-
             string query = string.Format("VistaAlertasCriticas");
             dt = db.LeerPorComando(query);
-            //busco en tabla
             return dt;
         }
+        public DataTable BuscarAlertaNombre(string nombre)
+        {
+            string query = string.Format("exec AlertaNombre @nombre = {0}", nombre);
+            dt = db.LeerPorComando(query);
+            return dt;
+        }
+        public DataTable BuscarAlertaCategoria(string nombre)
+        {
+            string query = string.Format("exec AlertaCategoria @nombre = {0}", nombre);
+            dt = db.LeerPorComando(query);
+            return dt;
+        }
+
 
     }
 }

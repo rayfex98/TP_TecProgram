@@ -2,15 +2,17 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Entidades
+namespace Excepciones
 {
-    public class Permiso : EntidadPersistible
+    public class ExcepcionNegocio : Exception
     {
         private string _descripcion;
+
         public string Descripcion
         {
             get { return _descripcion; }
             set { _descripcion = value; }
         }
+
     }
 }

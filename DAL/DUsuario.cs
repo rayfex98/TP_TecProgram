@@ -70,7 +70,6 @@ namespace DAL
         {
             string query = string.Format("VistaUsuarios");
             dt = db.LeerPorComando(query);
-            //busco en tabla
             return dt;
         }
     }

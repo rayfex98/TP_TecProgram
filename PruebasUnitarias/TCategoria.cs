@@ -12,13 +12,13 @@ namespace PruebasUnitarias
         [TestMethod]
         public void _1Insert()//ingresa una categoria /no debe estar repetida 
         {
-
-            unObj.Nombre = "celulares";
-            Assert.AreEqual(Obj.AgregarCategoria(unObj), true);
-            unObj.Nombre = "perros";
-            Assert.AreEqual(Obj.AgregarCategoria(unObj), true);
-            unObj.Nombre = "ninjas";
-            Assert.AreEqual(Obj.AgregarCategoria(unObj), true);
+            string nombre;
+            nombre = "celulares";
+            Assert.AreEqual(Obj.AgregarCategoria(nombre), true);
+            unObj.Nombre = "mascotas";
+            Assert.AreEqual(Obj.AgregarCategoria(nombre), true);
+            unObj.Nombre = "cereales";
+            Assert.AreEqual(Obj.AgregarCategoria(nombre), true);
         }
         [TestMethod]
         public void _2Editar()//edita una categoria utilizando el id para buscarla 
@@ -31,8 +31,8 @@ namespace PruebasUnitarias
         [TestMethod]
         public void _3Borrado() // desbahilita la categoria 
         {
-            unObj.ID = 3;
-            Assert.AreEqual(Obj.EliminarCategoria(unObj), true);
+            int id = 3;
+            Assert.AreEqual(Obj.EliminarCategoria(id), true);
         }
         [TestMethod]
         public void Listado()//lista las categorias habilitadas 

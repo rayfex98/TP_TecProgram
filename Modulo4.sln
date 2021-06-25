@@ -3,15 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31205.134
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BLL", "BLL\BLL.csproj", "{3D23A0E7-BB0B-4FB7-808A-50868B54BB36}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BLL", "BLL\BLL.csproj", "{3D23A0E7-BB0B-4FB7-808A-50868B54BB36}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DAL", "DAL\DAL.csproj", "{007DB369-1789-4896-A98A-FAE9E523ED72}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DAL", "DAL\DAL.csproj", "{007DB369-1789-4896-A98A-FAE9E523ED72}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PruebasUnitarias", "PruebasUnitarias\PruebasUnitarias.csproj", "{BF698724-6FFD-48F9-8431-26C68775953D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PruebasUnitarias", "PruebasUnitarias\PruebasUnitarias.csproj", "{BF698724-6FFD-48F9-8431-26C68775953D}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Excepciones", "Excepciones\Excepciones.csproj", "{7408D0B7-52AE-4B6A-913B-05107F052B5D}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "pantallas", "pantallas\pantallas.csproj", "{231E0D79-16B1-472B-9F32-23C432A811B1}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Excepciones", "Excepciones\Excepciones.csproj", "{7408D0B7-52AE-4B6A-913B-05107F052B5D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -35,10 +33,6 @@ Global
 		{7408D0B7-52AE-4B6A-913B-05107F052B5D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7408D0B7-52AE-4B6A-913B-05107F052B5D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7408D0B7-52AE-4B6A-913B-05107F052B5D}.Release|Any CPU.Build.0 = Release|Any CPU
-		{231E0D79-16B1-472B-9F32-23C432A811B1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{231E0D79-16B1-472B-9F32-23C432A811B1}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{231E0D79-16B1-472B-9F32-23C432A811B1}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{231E0D79-16B1-472B-9F32-23C432A811B1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

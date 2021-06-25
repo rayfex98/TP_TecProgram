@@ -24,7 +24,7 @@ namespace PruebasUnitarias
         public void aprobarorden()// metodo para aprobar orden de compra, se puede enlazar con ordenes pendientes para que tenga mas sentido 
         {
             _unOrdencompra.ID = 1;         
-            Assert.AreEqual(NordenCompra.aprobarorden(_unOrdencompra), true);
+            Assert.AreEqual(NordenCompra.AprobarOrden(_unOrdencompra), true);
         }
 
         [TestMethod]

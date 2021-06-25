@@ -33,21 +33,27 @@ namespace PruebasUnitarias
         [TestMethod]
         public void ListarProvedores()//devuelve la lista de proveedores completa
         {
-            Assert.IsNotNull(obj.listarproveedores());
+            Assert.IsNotNull(obj.ListaProveedoresTodos());
 
         }
         [TestMethod]
         public void ListarProvedoreshabilitados()//devuelve la lista de proveedores habilitados 
         {
-            Assert.IsNotNull(obj.listarproveedoreshabilitados());
+            Assert.IsNotNull(obj.ListarProveedoresHabilitados());
 
         }
 
         [TestMethod]
-        public void habilitarproveedor()// funcion para habilitar proveedor, se le pasa el id del proveedor que se quiere habilitar
+        public void HabilitarProveedor()// funcion para habilitar proveedor, se le pasa el id del proveedor que se quiere habilitar
         {
-            unObj.ID = 3;
-            Assert.AreEqual(obj.habilitar(unObj), true);
+            int id = 3;
+            Assert.AreEqual(obj.Habilitar(id), true);
+
+        }
+        public void DeshabilitarProveedor()// funcion para habilitar proveedor, se le pasa el id del proveedor que se quiere habilitar
+        {
+            int id = 3;
+            Assert.AreEqual(obj.Deshabilitar(id), true);
 
         }
 
