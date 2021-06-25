@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Data.SqlClient;
 using System.Text;
 
 namespace DAL
@@ -120,6 +121,27 @@ namespace DAL
         {
             string query = string.Format("exec sumartotalorden @orden= {0};", _unOrdenCompra.ID);
             dt = db.LeerPorComando(query);
+            return dt;
+        }
+        public DataTable ListaPorProducto(string nombre)
+        {
+            SqlParameter[] parametros =
+            {
+                new SqlParameter("@producto",SqlDbType.NVarChar)
+
+            };
+            parametros[0].Value = nombre;
+            dt = db.LeerPorStoreProcedure("leer_compra_por_producto", parametros);
+            return dt;
+        }
+        public DataTable ListaPorProveedor(string nombre)
+        {
+            SqlParameter[] parametros =
+            {
+                new SqlParameter("@proveedor",SqlDbType.NVarChar)
+            };
+            parametros[0].Value = nombre;
+            dt = db.LeerPorStoreProcedure("leer_compra_por_proveedor", parametros);
             return dt;
         }
     }

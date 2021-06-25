@@ -68,25 +68,24 @@ namespace DAL
             return dt;
         }
 
-        public DataTable ListaPorCategoria(int id)
+        public DataTable ListaPorCategoria(string nombre)
         {
             SqlParameter[] parametros =
             {
-                new SqlParameter("@categoria",SqlDbType.VarChar)
-
+                new SqlParameter("@categoria",SqlDbType.NVarChar)
             };
-
-            parametros[0].Value = id;
-
-            DataTable objDataTable = db.LeerPorStoreProcedure("leer_producto_por_categoria", parametros);
-            if ((int)objDataTable.Rows[0]["categoria"] == id)
+            parametros[0].Value = nombre;
+            dt = db.LeerPorStoreProcedure("leer_producto_por_categoria", parametros);
+            return dt;
+        }
+        public DataTable ListaPorNombre(string nombre)
+        {
+            SqlParameter[] parametros =
             {
-                return objDataTable;
-            }
-            else
-            {
-                return null;
-            }
+                new SqlParameter("@nombre",SqlDbType.NVarChar)
+            };
+            parametros[0].Value = nombre;
+            dt = db.LeerPorStoreProcedure("leer_producto_por_nombre", parametros);
             return dt;
         }
     }

@@ -8,6 +8,7 @@ namespace BLL
     public class NProducto
     {
         DProducto unProducto = new DProducto();
+        DataTable dt = new DataTable();
 
         /// <summary>
         /// Carga nuevo producto
@@ -65,7 +66,24 @@ namespace BLL
         /// <returns>DataTable o Excepcion "NoEncontrado"</returns>
         public DataTable ListarProductos()
         {
-            DataTable dt = unProducto.ListadeProductos();
+            dt = unProducto.ListadeProductos();
+            if (dt.Rows.Count == 0)
+            {
+                throw new NoEncontrado();
+            }
+            return dt;
+        }
+        /// <summary>
+        /// Llena DT con productos de X categoria
+        /// </summary>
+        /// <returns>DataTable o Excepcion "NoEncontrado"</returns>
+        public DataTable ListarPorCategoria(string nombre)
+        {
+            if (string.IsNullOrEmpty(nombre))
+            {
+                throw new ExcepcionDeDatos();
+            }
+            dt = unProducto.ListaPorCategoria(nombre);
             if (dt.Rows.Count == 0)
             {
                 throw new NoEncontrado();
@@ -76,9 +94,13 @@ namespace BLL
         /// Llena DT con productos habilitados
         /// </summary>
         /// <returns>DataTable o Excepcion "NoEncontrado"</returns>
-        public DataTable ListarPorCategoria(int idCategoria)
+        public DataTable ListarPorNombre(string nombre)
         {
-            DataTable dt = unProducto.ListaPorCategoria(idCategoria);
+            if (string.IsNullOrEmpty(nombre))
+            {
+                throw new ExcepcionDeDatos();
+            }
+            dt = unProducto.ListaPorNombre(nombre);
             if (dt.Rows.Count == 0)
             {
                 throw new NoEncontrado();

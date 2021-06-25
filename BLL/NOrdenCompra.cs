@@ -8,6 +8,7 @@ namespace BLL
     public class NOrdenCompra
     {
         DOrdenCompra unOrdenCompra = new DOrdenCompra();
+        DataTable dt = new DataTable();
         /// <summary>
         /// Carga de la orden de compra en bbdd,
         /// Requiero id_proveedor, id_usuarioCreador
@@ -52,11 +53,21 @@ namespace BLL
         }
         public DataTable ListarOrdenCompra()
         {
-            return unOrdenCompra.ListadeOrdenCompra();
+            dt = unOrdenCompra.ListadeOrdenCompra();
+            if (dt.Rows.Count == 0)
+            {
+                throw new NoEncontrado();
+            }
+            return dt;
         }
         public DataTable OrdenPendiente()
         {
-            return unOrdenCompra.OrdenPendiente();
+            dt = unOrdenCompra.OrdenPendiente();
+            if (dt.Rows.Count == 0)
+            {
+                throw new NoEncontrado();
+            }
+            return dt;
         }
         public bool AprobarOrden(int id_orden)
         {
@@ -83,6 +94,32 @@ namespace BLL
                 total += cantidad * precio;
             }
             return total;
+        }
+        public DataTable ListarPorProducto(string nombre)
+        {
+            if (string.IsNullOrEmpty(nombre))
+            {
+                throw new ExcepcionDeDatos();
+            }
+            dt = unOrdenCompra.ListaPorProducto(nombre);
+            if(dt.Rows.Count == 0)
+            {
+                throw new NoEncontrado();
+            }
+            return dt;
+        }
+        public DataTable ListarPorProveedor(string nombre)
+        {
+            if (string.IsNullOrEmpty(nombre))
+            {
+                throw new ExcepcionDeDatos();
+            }
+            dt = unOrdenCompra.ListaPorProveedor(nombre);
+            if (dt.Rows.Count == 0)
+            {
+                throw new NoEncontrado();
+            }
+            return dt;
         }
     }
 }
