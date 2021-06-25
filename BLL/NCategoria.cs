@@ -74,7 +74,7 @@ namespace BLL
             }
             return dt;
         }
-        public DataTable ListadeCategoriaPorCategoria(string descripcion)
+        public  DataTable ListadeCategoriaPorCategoria(string descripcion)//ver si queda en desuso
         {
             DataTable dt = unCategoria.ListadeCategoriaPorCategoria(descripcion);
             if (dt.Rows.Count == 0)

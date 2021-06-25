@@ -64,7 +64,7 @@ namespace BLL
         /// Llena DT con productos habilitados
         /// </summary>
         /// <returns>DataTable o Excepcion "NoEncontrado"</returns>
-        public DataTable ListarProductos()
+        public DataTable RecuperarProductos()
         {
             dt = unProducto.ListadeProductos();
             if (dt.Rows.Count == 0)
@@ -77,7 +77,7 @@ namespace BLL
         /// Llena DT con productos de X categoria
         /// </summary>
         /// <returns>DataTable o Excepcion "NoEncontrado"</returns>
-        public DataTable ListarPorCategoria(string nombre)
+        public DataTable RecuperarProductoCategoria(string nombre)
         {
             if (string.IsNullOrEmpty(nombre))
             {
@@ -94,7 +94,7 @@ namespace BLL
         /// Llena DT con productos habilitados
         /// </summary>
         /// <returns>DataTable o Excepcion "NoEncontrado"</returns>
-        public DataTable ListarPorNombre(string nombre)
+        public DataTable RecuperarProductoNombre(string nombre)
         {
             if (string.IsNullOrEmpty(nombre))
             {

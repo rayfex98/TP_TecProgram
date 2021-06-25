@@ -73,7 +73,7 @@ namespace BLL
         }
 
         #region listaProvedores
-        public DataTable ListaProveedoresTodos()
+        public DataTable RecuperarTodosLosProveedores()
         {
             DataTable dt = ObjProveedor.ListaProveedores();
             if (dt.Rows.Count == 0)
@@ -84,7 +84,7 @@ namespace BLL
         }
         #endregion
         
-        public DataTable ListarProveedoresHabilitados()
+        public DataTable RecuperarProveedoresHabilitados()
         {
             DataTable dt = ObjProveedor.ListaProveedoresHabilitados();
             if (dt.Rows.Count == 0)
@@ -94,7 +94,7 @@ namespace BLL
             return dt;
         }
 
-        public DataTable ListarProveedoresPorProvincia(string provincia)
+        public DataTable RecuperarProveedoresPorProvincia(string provincia)
         {
             DataTable dt = ObjProveedor.ListaProveedoresPorProvincia(provincia);
             if (dt.Rows.Count == 0)

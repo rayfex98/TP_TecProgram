@@ -15,7 +15,7 @@ namespace BLL
         /// </summary>
         /// <param name="_unOrdenCompra"></param>
         /// <returns>True o excepcion "FallaEnInsercion"</returns>
-        public bool NuevoOrden(OrdenDeCompra _unOrdenCompra)
+        public bool NuevaOrden(OrdenDeCompra _unOrdenCompra)
         {
             if (_unOrdenCompra.Proveedor.ID < 0 || _unOrdenCompra.UsuarioCreador.ID < 0)
             {
@@ -51,7 +51,7 @@ namespace BLL
             }
             throw new FallaEnEliminacion();
         }
-        public DataTable ListarOrdenCompra()
+        public DataTable RecuperarOrdenCompra()
         {
             dt = unOrdenCompra.ListadeOrdenCompra();
             if (dt.Rows.Count == 0)
@@ -60,7 +60,7 @@ namespace BLL
             }
             return dt;
         }
-        public DataTable OrdenPendiente()
+        public DataTable RecuperarOrdenPendiente()
         {
             dt = unOrdenCompra.OrdenPendiente();
             if (dt.Rows.Count == 0)
@@ -69,24 +69,24 @@ namespace BLL
             }
             return dt;
         }
-        public bool AprobarOrden(int id_orden)
+        public bool AprobarOrden(int id_orden, int id_usuario)
         {
             if (id_orden < 0)
             {
                 throw new ExcepcionDeDatos();
             }
-            if (unOrdenCompra.AprobarOrden(id_orden))
+            if (unOrdenCompra.AprobarOrden(id_orden, id_usuario))
             {
                 return true;
             }
             throw new FallaEnEdicion();
         }
-        public float CalcularTotalOrden(OrdenDeCompra _unOrdenCompra)
+        public float RecuperarTotalOrden(int idOrden)
         {
             float total = 0;
             int cantidad;
             float precio;
-            DataTable Totales = unOrdenCompra.CalcularTotal(_unOrdenCompra);
+            DataTable Totales = unOrdenCompra.CalcularTotal(idOrden);
             foreach (DataRow item in Totales.Rows)
             {
                 cantidad = int.Parse(item.ItemArray[0].ToString());
@@ -95,7 +95,7 @@ namespace BLL
             }
             return total;
         }
-        public DataTable ListarPorProducto(string nombre)
+        public DataTable RecuperarPorProducto(string nombre)
         {
             if (string.IsNullOrEmpty(nombre))
             {
@@ -108,13 +108,13 @@ namespace BLL
             }
             return dt;
         }
-        public DataTable ListarPorProveedor(string nombre)
+        public DataTable RecuperarPorProveedor(string razonSocial)
         {
-            if (string.IsNullOrEmpty(nombre))
+            if (string.IsNullOrEmpty(razonSocial))
             {
                 throw new ExcepcionDeDatos();
             }
-            dt = unOrdenCompra.ListaPorProveedor(nombre);
+            dt = unOrdenCompra.ListaPorProveedor(razonSocial);
             if (dt.Rows.Count == 0)
             {
                 throw new NoEncontrado();

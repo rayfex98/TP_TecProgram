@@ -100,12 +100,12 @@ namespace DAL
             return dt;
 
         }
-        public bool AprobarOrden(int id_orden)
+        public bool AprobarOrden(int id_orden, int id_usuario)
         {
             try
             {
-                string query = string.Format("EXEC ORDENCOMPRAPROC @ID={0},@PROVEEDOR=null,@USUARIO=null,@FECHA=null,@TIPO = 'APROBAR';"
-                , id_orden);
+                string query = string.Format("EXEC ORDENCOMPRAPROC @ID={0},@PROVEEDOR=null,@USUARIO={1},@FECHA=null,@TIPO = 'APROBAR';"
+                , id_orden, id_usuario);
                 if (1 != db.EscribirPorComando(query))
                 {
                     return false;
@@ -117,9 +117,9 @@ namespace DAL
                 return false;
             }
         }
-        public DataTable CalcularTotal(OrdenDeCompra _unOrdenCompra)
+        public DataTable CalcularTotal(int idOrden)
         {
-            string query = string.Format("exec sumartotalorden @orden= {0};", _unOrdenCompra.ID);
+            string query = string.Format("exec sumartotalorden @orden= {0};", idOrden);
             dt = db.LeerPorComando(query);
             return dt;
         }

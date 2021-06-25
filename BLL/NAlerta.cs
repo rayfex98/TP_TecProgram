@@ -40,7 +40,7 @@ namespace BLL
             }
             throw new FallaEnEliminacion();
         }
-        public DataTable ListarAlerta()
+        public DataTable RecuperarAlerta()
         {
             DataTable dt = unAlerta.ListadeAlertas();
             if (dt.Rows.Count == 0)
@@ -49,7 +49,7 @@ namespace BLL
             }
             return dt;
         }
-        public DataTable ListarAlertasCriticas()
+        public DataTable RecuperarAlertasCriticas()
         {
             DataTable dt = unAlerta.ListalertasCriticas();
             if (dt.Rows.Count == 0)
