@@ -8,7 +8,10 @@ namespace BLL
     public class NDeposito
     {
         DDeposito unDeposito = new DDeposito();
-
+        /// <summary>
+        /// Llena DT con stocks
+        /// </summary>
+        /// <returns>DataTable o Excepcion "NoEncontrado"</returns>
         public DataTable ListarDeposito()
         {
             DataTable dt = unDeposito.ListadeDeposito();

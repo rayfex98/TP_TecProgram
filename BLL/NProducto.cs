@@ -42,10 +42,11 @@ namespace BLL
             throw new FallaEnEdicion();
         }
         /// <summary>
-        /// Eliminacion de la bbdd
+        /// Eliminacion de la bbdd,
+        /// Requiero el id del producto
         /// </summary>
         /// <param name="_idProducto">requiero el id a eliminar</param>
-        /// <returns>true si elimino, en otro caso lanza excepcion</returns>
+        /// <returns>true o Excepcion "FallaEnEliminacion"</returns>
         public bool EliminarProducto(int _idProducto)
         {
             if (_idProducto < 0)
@@ -58,6 +59,10 @@ namespace BLL
             }
             throw new FallaEnEliminacion();
         }
+        /// <summary>
+        /// Llena DT con productos habilitados
+        /// </summary>
+        /// <returns>DataTable o Excepcion "NoEncontrado"</returns>
         public DataTable ListarProductos()
         {
             DataTable dt = unProducto.ListadeProductos();

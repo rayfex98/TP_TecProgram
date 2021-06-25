@@ -8,7 +8,12 @@ namespace BLL
     public class NAlerta
     {
         DAlerta unAlerta = new DAlerta();
-
+        /// <summary>
+        /// Carga Alerta en bbdd,
+        /// Requiero id_stock, id_usuario, cantidad minima
+        /// </summary>
+        /// <param name="_unAlerta"></param>
+        /// <returns>True o Excepcion "FallaEnInsercion"</returns>
         public bool CrearAlerta(Alerta _unAlerta)
         {
             if ((_unAlerta.CantidadMinima < 0) || (_unAlerta.Stock.ID < 0) || (_unAlerta.UsuarioCreador.ID < 0)) throw new ExcepcionDeDatos();

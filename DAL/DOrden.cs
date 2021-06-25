@@ -87,5 +87,23 @@ namespace DAL
                 return false;
             }
         }
+        public int UltimaOrden()
+        {
+            try
+            {
+                string query = string.Format("SELECT MAX([ID]) FROM [dbo].[orden]");
+                dt = db.LeerPorComando(query);
+                return int.Parse(dt.Rows[0].ItemArray[0].ToString());
+
+            }
+            catch (System.Data.SqlClient.SqlException)
+            {
+                return -1;
+            }
+            catch (System.NullReferenceException)
+            {
+                return -1;
+            }
+        }
     }
 }

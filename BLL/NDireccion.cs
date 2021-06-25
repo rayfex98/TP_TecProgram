@@ -18,6 +18,12 @@ namespace BLL
             _unDireccion.Provincia.ToLower();
             return _unDireccion;
         }
+        /// <summary>
+        /// Cargo Direccion en bbdd,
+        /// Requiero Calle, Altura, CodigoPostal, Localidad y Provincia
+        /// </summary>
+        /// <param name="_unDireccion"></param>
+        /// <returns>True o Excepcion "FallaEnInsercion"</returns>
         public bool Nuevo(Direccion _unDireccion)
         {
             if (string.IsNullOrEmpty(_unDireccion.Calle) || string.IsNullOrEmpty(_unDireccion.Altura) || string.IsNullOrEmpty(_unDireccion.Localidad))
@@ -62,6 +68,10 @@ namespace BLL
             }
             throw new FallaEnEliminacion();
         }
+        /// <summary>
+        /// Llena DT con Direcciones
+        /// </summary>
+        /// <returns>DataTable o Excepcion "NoEncontrado"</returns>
         public DataTable ListaDireccion()
         {
             DataTable dt = unDireccion.ListaDirecion();

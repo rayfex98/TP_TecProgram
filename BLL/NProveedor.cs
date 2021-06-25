@@ -15,7 +15,12 @@ namespace BLL
             obj.RazonSocial.ToLower();
             return obj;
         }
-
+        /// <summary>
+        /// Carga de nuevo Proveedor en la bbdd,
+        /// Requiero direccion completa, CUIL y razon social
+        /// </summary>
+        /// <param name="_proveedor"></param>
+        /// <returns>True o Excepcion "FallaEnInsercion"</returns>
         public bool Nuevo(Proveedor _proveedor)
         {
             if (_proveedor.Direccion.ID < 0 || string.IsNullOrEmpty(_proveedor.CUIL) || string.IsNullOrEmpty(_proveedor.RazonSocial))
@@ -67,7 +72,6 @@ namespace BLL
             throw new FallaEnEdicion();
         }
 
-        
         #region listaProvedores
         public DataTable ListaProveedoresTodos()
         {

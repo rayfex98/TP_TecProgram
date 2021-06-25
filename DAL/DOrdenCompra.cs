@@ -14,14 +14,28 @@ namespace DAL
         {
             try
             {
-                unOrdenCompra.FechaAprobacion = DateTime.Now;
-                string query = string.Format("EXEC ORDENCOMPRAPROC @ID=NULL,@PROVEEDOR={0},@USUARIO={1},@FECHA={2} cast(@FECHA as datetime),@TIPO = 'INSERT';"
-                , unOrdenCompra.Proveedor.ID, unOrdenCompra.UsuarioAprobador.ID, unOrdenCompra.FechaAprobacion);
-                if (1 != db.EscribirPorComando(query))
+                DOrden ord = new DOrden();
+                Orden nueva = new Orden
                 {
-                    return false;
+                    UsuarioCreador = unOrdenCompra.UsuarioCreador
+                };
+                if (ord.Nuevo(nueva))
+                {
+                    int id_orden = ord.UltimaOrden();
+                    if (id_orden == -1)
+                    {
+                        return false;
+                    }
+                    unOrdenCompra.FechaAprobacion = DateTime.Now;
+                    string query = string.Format("EXEC ORDENCOMPRAPROC @ID={0},@PROVEEDOR={1},@USUARIO=NULL,@FECHA=NULL cast(@FECHA as datetime),@TIPO = 'INSERT';"
+                    , id_orden, unOrdenCompra.Proveedor.ID);
+                    if (1 != db.EscribirPorComando(query))
+                    {
+                        return false;
+                    }
+                    return true;
                 }
-                return true;
+                return false;
             }
             catch (System.Data.SqlClient.SqlException)
             {
@@ -85,12 +99,12 @@ namespace DAL
             return dt;
 
         }
-        public bool AprobarOrden(OrdenDeCompra unOrdenCompra)
+        public bool AprobarOrden(int id_orden)
         {
             try
             {
                 string query = string.Format("EXEC ORDENCOMPRAPROC @ID={0},@PROVEEDOR=null,@USUARIO=null,@FECHA=null,@TIPO = 'APROBAR';"
-                , unOrdenCompra.ID);
+                , id_orden);
                 if (1 != db.EscribirPorComando(query))
                 {
                     return false;

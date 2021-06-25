@@ -12,16 +12,33 @@ namespace DAL
         DataTable dt = new DataTable();
         public bool Nuevo(Proveedor ObjProveedor)
         {
-
             try
             {
-                string query = string.Format("EXEC PROVEEDORPROC @ID=NULL,@DIRECCION={0},@CUIL={1},@RAZONSOCIAL={2},@HABILITADO = null,@TIPO = 'INSERT';"
-                        , ObjProveedor.Direccion.ID, ObjProveedor.CUIL, ObjProveedor.RazonSocial);
-                if (1 != db.EscribirPorComando(query))
+                DDireccion nueva = new DDireccion();
+                Direccion dir = new Direccion 
                 {
-                    return false;
+                    Calle = ObjProveedor.Direccion.Calle,
+                    Altura = ObjProveedor.Direccion.Altura,
+                    Localidad = ObjProveedor.Direccion.Localidad,
+                    CodigoPostal = ObjProveedor.Direccion.CodigoPostal,
+                    Provincia = ObjProveedor.Direccion.Provincia
+                };
+                if (nueva.Nuevo(dir))
+                {
+                    ObjProveedor.Direccion.ID = nueva.UltimaDireccion();
+                    if (ObjProveedor.Direccion.ID == -1)
+                    {
+                        return false;
+                    }
+                    string query = string.Format("EXEC PROVEEDORPROC @ID=NULL,@DIRECCION={0},@CUIL={1},@RAZONSOCIAL={2},@HABILITADO = null,@TIPO = 'INSERT';"
+                        , ObjProveedor.Direccion.ID, ObjProveedor.CUIL, ObjProveedor.RazonSocial);
+                    if (1 != db.EscribirPorComando(query))
+                    {
+                        return false;
+                    }
+                    return true;
                 }
-                return true;
+                return false;
             }
             catch (System.Data.SqlClient.SqlException)
             {

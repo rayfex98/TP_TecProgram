@@ -8,7 +8,12 @@ namespace BLL
     public class NOrdenCompra
     {
         DOrdenCompra unOrdenCompra = new DOrdenCompra();
-
+        /// <summary>
+        /// Carga de la orden de compra en bbdd,
+        /// Requiero id_proveedor, id_usuarioCreador
+        /// </summary>
+        /// <param name="_unOrdenCompra"></param>
+        /// <returns>True o excepcion "FallaEnInsercion"</returns>
         public bool NuevoOrden(OrdenDeCompra _unOrdenCompra)
         {
             if (_unOrdenCompra.Proveedor.ID < 0 || _unOrdenCompra.UsuarioCreador.ID < 0)
@@ -53,13 +58,13 @@ namespace BLL
         {
             return unOrdenCompra.OrdenPendiente();
         }
-        public bool AprobarOrden(OrdenDeCompra _unOrdenCompra)
+        public bool AprobarOrden(int id_orden)
         {
-            if (_unOrdenCompra.ID < 0)
+            if (id_orden < 0)
             {
                 throw new ExcepcionDeDatos();
             }
-            if (unOrdenCompra.AprobarOrden(_unOrdenCompra))
+            if (unOrdenCompra.AprobarOrden(id_orden))
             {
                 return true;
             }

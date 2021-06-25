@@ -9,6 +9,12 @@ namespace BLL
     {
         DCategoria unCategoria = new DCategoria();
 
+        /// <summary>
+        /// Carga categoria en bbdd,
+        /// Requiero descripcion
+        /// </summary>
+        /// <param name="nombre"></param>
+        /// <returns>True o Excepcion "FallaEnInsercion"</returns>
         public bool AgregarCategoria(string nombre)
         {
             if (string.IsNullOrEmpty(nombre))

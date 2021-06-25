@@ -10,10 +10,11 @@ namespace BLL
         readonly DStock unStock = new DStock();
 
         /// <summary>
-        /// Crear nuevo stock de un producto
+        /// Crear nuevo stock de un producto,
+        /// Requiero id_producto y cantidad
         /// </summary>
         /// <param name="_Stock">requiero id del producto y cantidad a setear</param>
-        /// <returns></returns>
+        /// <returns>True o Excepcion "FallaEnInsercion"</returns>
         #region NuevoStock
         public bool CargarProductoEnStock(Stock _Stock)
         {
@@ -60,6 +61,13 @@ namespace BLL
         #endregion
 
         #region AgregarStock
+        /// <summary>
+        /// Reducir cantidad de stock del producto,
+        /// Requiero id_producto y cantidad
+        /// </summary>
+        /// <param name="idProducto"></param>
+        /// <param name="Cantidad">Entero positivo</param>
+        /// <returns>True o Excepcion "FallaEnEdicion"</returns>
         public bool AgregarStock(int idProducto, int Cantidad)
         {
             if (idProducto < 0 || Cantidad < 0)
@@ -73,8 +81,15 @@ namespace BLL
             throw new FallaEnEdicion();
         }
         #endregion
-      
+
         #region RestarStock
+        /// <summary>
+        /// Reducir cantidad de stock del producto,
+        /// Requiero id_producto y cantidad
+        /// </summary>
+        /// <param name="idProducto"></param>
+        /// <param name="Cantidad">Entero positivo</param>
+        /// <returns>True o Excepcion "FallaEnEdicion"</returns>
         public bool RestarStock(int idProducto, int Cantidad)
         {
             if (idProducto < 0 || Cantidad < 0)
@@ -88,8 +103,12 @@ namespace BLL
             throw new FallaEnEdicion();
         }
         #endregion
-       
+
         #region ListarStockVista
+        /// <summary>
+        /// Llena DT con Stock
+        /// </summary>
+        /// <returns>DataTable o Excepcion "NoEncontrado"</returns>
         public DataTable ListarStockVista()
         {
             DataTable dt = unStock.ListarStockVista();

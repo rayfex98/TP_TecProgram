@@ -72,5 +72,23 @@ namespace DAL
             dt = db.LeerPorComando(query);
             return dt;
         }
+        public int UltimaDireccion()
+        {
+            try
+            {
+                string query = string.Format("SELECT MAX([ID]) FROM [dbo].[direccion]");
+                dt = db.LeerPorComando(query);
+                return int.Parse(dt.Rows[0].ItemArray[0].ToString());
+
+            }
+            catch (System.Data.SqlClient.SqlException)
+            {
+                return -1;
+            }
+            catch (System.NullReferenceException)
+            {
+                return -1;
+            }
+        }
     }
 }
