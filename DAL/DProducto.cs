@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Data.SqlClient;
 using System.Text;
 
 namespace DAL
@@ -64,6 +65,28 @@ namespace DAL
         {
             string query = string.Format("ListaProductosHabilitados");
             dt = db.LeerPorComando(query);
+            return dt;
+        }
+
+        public DataTable ListaPorCategoria(int idCategoria)
+        {
+            SqlParameter[] parametros =
+            {
+                new SqlParameter("@categoria",SqlDbType.VarChar)
+
+            };
+
+            parametros[0].Value = idCategoria;
+
+            DataTable objDataTable = db.LeerPorStoreProcedure("leer_producto_por_categoria", parametros);
+            if ((int)objDataTable.Rows[0]["categoria"] == idCategoria)
+            {
+                return objDataTable;
+            }
+            else
+            {
+                return null;
+            }
             return dt;
         }
     }

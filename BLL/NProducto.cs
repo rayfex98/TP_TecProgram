@@ -72,5 +72,18 @@ namespace BLL
             }
             return dt;
         }
+        /// <summary>
+        /// Llena DT con productos habilitados
+        /// </summary>
+        /// <returns>DataTable o Excepcion "NoEncontrado"</returns>
+        public DataTable ListarPorCategoria(string categoria)
+        {
+            DataTable dt = unProducto.ListaPorCategoria(categoria);
+            if (dt.Rows.Count == 0)
+            {
+                throw new NoEncontrado();
+            }
+            return dt;
+        }
     }
 }
