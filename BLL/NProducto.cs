@@ -76,9 +76,9 @@ namespace BLL
         /// Llena DT con productos habilitados
         /// </summary>
         /// <returns>DataTable o Excepcion "NoEncontrado"</returns>
-        public DataTable ListarPorCategoria(string categoria)
+        public DataTable ListarPorCategoria(int idCategoria)
         {
-            DataTable dt = unProducto.ListaPorCategoria(categoria);
+            DataTable dt = unProducto.ListaPorCategoria(idCategoria);
             if (dt.Rows.Count == 0)
             {
                 throw new NoEncontrado();

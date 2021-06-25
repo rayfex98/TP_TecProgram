@@ -68,7 +68,7 @@ namespace DAL
             return dt;
         }
 
-        public DataTable ListaPorCategoria(int idCategoria)
+        public DataTable ListaPorCategoria(int id)
         {
             SqlParameter[] parametros =
             {
@@ -76,10 +76,10 @@ namespace DAL
 
             };
 
-            parametros[0].Value = idCategoria;
+            parametros[0].Value = id;
 
             DataTable objDataTable = db.LeerPorStoreProcedure("leer_producto_por_categoria", parametros);
-            if ((int)objDataTable.Rows[0]["categoria"] == idCategoria)
+            if ((int)objDataTable.Rows[0]["categoria"] == id)
             {
                 return objDataTable;
             }
