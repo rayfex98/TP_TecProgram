@@ -37,7 +37,7 @@ namespace pantallas
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.label1 = new System.Windows.Forms.Label();
             this.cmbProducto = new System.Windows.Forms.ComboBox();
-            this.comboBox2 = new System.Windows.Forms.ComboBox();
+            this.cmbProveedor = new System.Windows.Forms.ComboBox();
             this.label3 = new System.Windows.Forms.Label();
             this.button2 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
@@ -51,6 +51,7 @@ namespace pantallas
             this.button1.TabIndex = 23;
             this.button1.Text = "agregar";
             this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // textBox1
             // 
@@ -94,16 +95,16 @@ namespace pantallas
             this.cmbProducto.Size = new System.Drawing.Size(121, 23);
             this.cmbProducto.TabIndex = 25;
             this.cmbProducto.Text = "productos ";
-            this.Load += new System.EventHandler(this.ordenes_compra_ENC_Load);
+            this.cmbProducto.SelectedIndexChanged += new System.EventHandler(this.cmbProducto_SelectedIndexChanged);
             // 
-            // comboBox2
+            // cmbProveedor
             // 
-            this.comboBox2.FormattingEnabled = true;
-            this.comboBox2.Location = new System.Drawing.Point(70, 369);
-            this.comboBox2.Name = "comboBox2";
-            this.comboBox2.Size = new System.Drawing.Size(121, 23);
-            this.comboBox2.TabIndex = 26;
-            this.comboBox2.Text = "proveedor ";
+            this.cmbProveedor.FormattingEnabled = true;
+            this.cmbProveedor.Location = new System.Drawing.Point(70, 369);
+            this.cmbProveedor.Name = "cmbProveedor";
+            this.cmbProveedor.Size = new System.Drawing.Size(121, 23);
+            this.cmbProveedor.TabIndex = 26;
+            this.cmbProveedor.Text = "proveedor ";
             // 
             // label3
             // 
@@ -122,6 +123,7 @@ namespace pantallas
             this.button2.TabIndex = 28;
             this.button2.Text = "generar orden ";
             this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
             // ordenes_compra_ENC
             // 
@@ -130,7 +132,7 @@ namespace pantallas
             this.ClientSize = new System.Drawing.Size(800, 450);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.label3);
-            this.Controls.Add(this.comboBox2);
+            this.Controls.Add(this.cmbProveedor);
             this.Controls.Add(this.cmbProducto);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.button1);
@@ -139,6 +141,7 @@ namespace pantallas
             this.Controls.Add(this.dataGridView1);
             this.Name = "ordenes_compra_ENC";
             this.Text = "Orden de compra";
+            this.Load += new System.EventHandler(this.ordenes_compra_ENC_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -153,7 +156,7 @@ namespace pantallas
         private System.Windows.Forms.DataGridView dataGridView1;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.ComboBox cmbProducto;
-        private System.Windows.Forms.ComboBox comboBox2;
+        private System.Windows.Forms.ComboBox cmbProveedor;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Button button2;
     }

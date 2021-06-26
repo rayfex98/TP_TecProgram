@@ -13,6 +13,7 @@ namespace pantallas
 {
     public partial class ordenes_compra_ENC : Form
     {
+        List<DetalleOrden> detalles = new List<DetalleOrden>();
         public ordenes_compra_ENC()
         {
             InitializeComponent();
@@ -20,10 +21,32 @@ namespace pantallas
 
         private void ordenes_compra_ENC_Load(object sender, EventArgs e)
         {
-            NProducto productos = new NProducto();
 
-            cmbProducto.DataSource = productos.RecuperarProductos();
-            cmbProducto.DisplayMember ="nombre";
+            NProducto bllProducto = new NProducto();
+            bllProducto.CargarLista();
+            cmbProducto.DataSource = bllProducto.RecuperarProductos();
+            cmbProducto.DisplayMember = "Nombre";
+            cmbProducto.ValueMember = "ID";
+
+            NProveedor bllProveedor = new NProveedor();
+            cmbProveedor.DataSource = bllProveedor.RecuperarProveedoresHabilitados();
+            cmbProveedor.DisplayMember = "RazonSocial";
+            cmbProveedor.ValueMember = "ID";
+        }
+
+        private void cmbProducto_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            //agregar a detalle
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            //generar orden
         }
     }
 }
