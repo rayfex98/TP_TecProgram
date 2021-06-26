@@ -57,7 +57,11 @@ namespace BLL
             }
             throw new FallaEnEliminacion();
         }
-
+        /// <summary>
+        /// columnas : 'cantidad','producto'
+        /// </summary>
+        /// <param name="_idOrden"></param>
+        /// <returns>DataTable o Excepcion "NoEncontrado"</returns>
         public DataTable RecuperarDetalleOrden(int _idOrden)
         {
             DataTable dt = unDetalleOrden.ListadeDetalleOrden(_idOrden);

@@ -44,7 +44,7 @@ namespace BLL
         }
         /// <summary>
         /// Eliminacion de la bbdd,
-        /// Requiero el id del producto
+        /// Requiero el id del producto 
         /// </summary>
         /// <param name="_idProducto">requiero el id a eliminar</param>
         /// <returns>true o Excepcion "FallaEnEliminacion"</returns>
@@ -62,6 +62,7 @@ namespace BLL
         }
         /// <summary>
         /// Llena DT con productos habilitados
+        /// columnas: 'Nombre','Categoria','Stock','Precio de compra','Precio de venta'
         /// </summary>
         /// <returns>DataTable o Excepcion "NoEncontrado"</returns>
         public DataTable RecuperarProductos()
@@ -75,6 +76,7 @@ namespace BLL
         }
         /// <summary>
         /// Llena DT con productos de X categoria
+        /// columnas: 'Nombre','Categoria','Stock','Precio de compra','Precio de venta'
         /// </summary>
         /// <returns>DataTable o Excepcion "NoEncontrado"</returns>
         public DataTable RecuperarProductoCategoria(string nombre)
@@ -92,6 +94,7 @@ namespace BLL
         }
         /// <summary>
         /// Llena DT con productos habilitados
+        /// columnas: 'nombre','categoria','Stock','Precio de compra','Precio de venta'
         /// </summary>
         /// <returns>DataTable o Excepcion "NoEncontrado"</returns>
         public DataTable RecuperarProductoNombre(string nombre)

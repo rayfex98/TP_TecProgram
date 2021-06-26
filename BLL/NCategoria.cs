@@ -65,7 +65,10 @@ namespace BLL
             }
             throw new FallaEnEdicion();
         }
-
+        /// <summary>
+        /// columnas: 'descripcion','id categoria'
+        /// </summary>
+        /// <returns>DataTable o Excepcion "NoEncontrado"</returns>
         public DataTable ListarCategoria()
         {
             DataTable dt = unCategoria.ListadeCategoria();
@@ -75,7 +78,12 @@ namespace BLL
             }
             return dt;
         }
-        public  DataTable ListadeCategoriaPorCategoria(string descripcion)//ver si queda en desuso
+        /// <summary>
+        /// columnas: 'descripcion','id categoria'
+        /// </summary>
+        /// <param name="descripcion"></param>
+        /// <returns>DataTable o Excepcion "NoEncontrado"</returns>
+        public DataTable ListadeCategoriaPorCategoria(string descripcion)
         {
             DataTable dt = unCategoria.ListadeCategoriaPorCategoria(descripcion);
             if (dt.Rows.Count == 0)

@@ -40,6 +40,10 @@ namespace BLL
             }
             throw new FallaEnEliminacion();
         }
+        /// <summary>
+        /// columnas: 'id alerta','Descripcion', 'producto','usuario', 'cantidad minima','cantidad stock'
+        /// </summary>
+        /// <returns>DataTable o Excepcion "NoEncontrado"</returns>
         public DataTable RecuperarAlerta()
         {
             DataTable dt = unAlerta.ListadeAlertas();
@@ -49,6 +53,10 @@ namespace BLL
             }
             return dt;
         }
+        /// <summary>
+        /// columnas: 'id alerta','Descripcion', 'producto','usuario', 'cantidad minima','cantidad stock'
+        /// </summary>
+        /// <returns>DataTable o Excepcion "NoEncontrado"</returns>
         public DataTable RecuperarAlertasCriticas()
         {
             DataTable dt = unAlerta.ListalertasCriticas();

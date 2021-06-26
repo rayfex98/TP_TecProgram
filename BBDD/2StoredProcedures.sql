@@ -110,11 +110,11 @@ if object_id('DIRECCIONPROC') is not null
 go
 
 CREATE PROCEDURE DIRECCIONPROC (@ID INT,
-								@ALTURA VARCHAR(20),
-								@CALLE VARCHAR(50),
-								@CP VARCHAR(50),
-								@LOCALIDAD VARCHAR(50),
-								@PROVINCIA VARCHAR(50),
+								@ALTURA NVARCHAR(20),
+								@CALLE NVARCHAR(50),
+								@CP NVARCHAR(50),
+								@LOCALIDAD NVARCHAR(50),
+								@PROVINCIA NVARCHAR(50),
 								@TIPO NVARCHAR(10) = '')
 AS
 	BEGIN
@@ -288,14 +288,10 @@ AS
 			BEGIN
 				INSERT INTO [dbo].orden_compra
 					   (id_orden,
-					   id_proveedor,
-					   id_persona,
-					   fecha_aprobacion)
+					   id_proveedor)
 				VALUES
 					   (@ID,
-					   @PROVEEDOR,
-					   @USUARIO,
-					   @FECHA)
+					   @PROVEEDOR)
 			END
 		IF @TIPO = 'UPDATE'
 			BEGIN
@@ -315,9 +311,10 @@ AS
 			END
 		IF @TIPO = 'APROBAR'
 			BEGIN
-			set @FECHA = GETUTCDATE()
+			SET @FECHA = GETUTCDATE()
 				UPDATE [dbo].orden_compra
-					set fecha_aprobacion = @FECHA
+					SET fecha_aprobacion = @FECHA,
+						id_proveedor = @USUARIO
 				WHERE id_orden = @ID
 		END
 
@@ -338,8 +335,8 @@ go
 CREATE PROCEDURE PERSONAPROC	(@ID INT,
 						@DIRECCION INT,
 						@DNI INT,
-						@NOMBRE VARCHAR(50),
-						@APELLIDO VARCHAR(50),
+						@NOMBRE NVARCHAR(50),
+						@APELLIDO NVARCHAR(50),
 						@TIPO NVARCHAR(10) = '')
 AS
 	BEGIN
@@ -396,7 +393,7 @@ go
 /*procedimientos de PRODUCTO, EXEC PRODUCTOPROC @ID=INT,@CATEGORIA=INT,@NOMBRE=NVARCHAR50,@COMPRA=FLOAT,@VENTA=FLOAT,@TIPO=NVARCHAR10;*/
 CREATE PROCEDURE PRODUCTOPROC	(@ID INT,
 						@CATEGORIA INT,
-						@NOMBRE NVARCHAR(50),
+						@NOMBRE VARCHAR(50),
 						@VENTA FLOAT,
 						@COMPRA FLOAT,
 						@TIPO NVARCHAR(10) = '')
@@ -459,8 +456,8 @@ EXEC PROVEEDORPROC @ID=INT,@DIRECCION=INT,@CUIL=""VARCHAR13,@RAZONSOCIAL=""VARCH
 go
 CREATE PROCEDURE PROVEEDORPROC	(@ID INT,
 						@DIRECCION INT,
-						@CUIL VARCHAR(13),
-						@RAZONSOCIAL VARCHAR(30) ,
+						@CUIL NVARCHAR(13),
+						@RAZONSOCIAL NVARCHAR(30) ,
 						@HABILITADO DATETIME,
 						@TIPO NVARCHAR(15) = '')
 AS
@@ -647,7 +644,7 @@ GO
 		if object_id('sumarstock') is not null
 			drop procedure sumarstock;
 		go
-		create procedure sumarstock (@ID INT, @cantidad int) as
+		create procedure sumarstock (@ID int, @cantidad int) as
 			BEGIN
 
 				UPDATE [dbo].[stock]
@@ -659,7 +656,7 @@ GO
 		if object_id('restarstock') is not null
 			drop procedure restarstock;
 		go
-		create procedure restarstock (@ID INT,@cantidad int) as
+		create procedure restarstock (@ID int,@cantidad int) as
 			BEGIN
 				UPDATE [dbo].[stock]
 				set cantidad = cantidad - @cantidad
@@ -808,7 +805,7 @@ GO
 if object_id('UltimoProveedor') is not null
 		drop procedure UltimoProveedor;
 		go
-		create procedure UltimoProveedor(@id int) as
+		create procedure UltimoProveedor as
 
 			 select 
 			 P.razonsocial as 'Razon social',
@@ -847,7 +844,7 @@ if object_id('UltimoProveedor') is not null
 		if object_id('BuscarProveedorProvincia') is not null
 		  drop procedure BuscarProveedorProvincia;
 		go
-		create procedure BuscarProveedorProvincia(@provincia VARCHAR(50)) as
+		create procedure BuscarProveedorProvincia(@provincia NVARCHAR(50)) as
 			 select 
 				 P.razonsocial as 'Razon social',
 				 d.id as 'Direccion',
@@ -903,6 +900,27 @@ if object_id('UltimoProveedor') is not null
 				 on O.id_proveedor = V.id_proveedor
 			where O.fecha_aprobacion is not null
 			 and P.NOMBRE like  @nombre + '%';
+
+--store procedures buscar orden de compra por proveedor
+		  if object_id('OrdenCompraBuscarProducto') is not null
+		 drop procedure OrdenCompraBuscarProducto;
+		go
+		 create procedure OrdenCompraBuscarProveedor(@proveedor varchar(30)) as 
+			 select DISTINCT
+				 O.id_orden as 'id orden',
+				 D.CANTIDAD as 'cantidad',
+				 P.NOMBRE as 'producto',
+				 V.RAZONSOCIAL as 'razon social',
+				 O.fecha_aprobacion as 'fecha aprobacion'
+			from dbo.orden_compra AS O
+				 inner join dbo.detalle_orden AS D
+				 on  O.id_orden =  D.id_orden
+				 inner join dbo.PRODUCTO as P
+				 on D.id_producto = P.id_producto
+				 inner join dbo.PROVEEDOR as V
+				 on O.id_proveedor = V.id_proveedor
+			where O.fecha_aprobacion is not null
+			 and V.razonsocial like  @proveedor + '%';
 
  -- Crea el store procedure para ver las ordenes de compra pendiente 
 		 if object_id('OrdenCompraPendientes') is not null
@@ -1002,10 +1020,10 @@ if object_id('UltimoProveedor') is not null
 			where D.id_orden = @idorden;
 
  --store procedure para direccion devuelve lista de direcciones 
-		 if object_id('listadirecion') is not null
-		drop procedure listadirecion
+		 if object_id('listadireccion') is not null
+		drop procedure listadireccion
 		go
-		create procedure listadirecion as 
+		create procedure listadireccion as 
 			select 
 			altura as 'altura',
 			calle as 'calle',

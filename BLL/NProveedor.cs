@@ -8,6 +8,7 @@ namespace BLL
     public class NProveedor
     {
         DProveedor ObjProveedor = new DProveedor();
+        DataTable dt = new DataTable();
 
         private Proveedor Estandarizar(Proveedor obj)
         {
@@ -73,9 +74,13 @@ namespace BLL
         }
 
         #region listaProvedores
+        /// <summary>
+        /// columnas: 'Razon social','Direccion','Provincia','Cuil','Calle','Localidad','Codigo postal','Habilitado'
+        /// </summary>
+        /// <returns>DataTable o Excepcion "NoEncontrado</returns>
         public DataTable RecuperarTodosLosProveedores()
         {
-            DataTable dt = ObjProveedor.ListaProveedores();
+            dt = ObjProveedor.ListaProveedores();
             if (dt.Rows.Count == 0)
             {
                 throw new NoEncontrado();
@@ -83,20 +88,40 @@ namespace BLL
             return dt;
         }
         #endregion
-        
+        /// <summary>
+        /// columnas: 'Razon social','Direccion','Provincia','Cuil','Calle','Localidad','Codigo postal','Habilitado'
+        /// </summary>
+        /// <returns>DataTable o Excepcion "NoEncontrado</returns>
         public DataTable RecuperarProveedoresHabilitados()
         {
-            DataTable dt = ObjProveedor.ListaProveedoresHabilitados();
+            dt = ObjProveedor.ListaProveedoresHabilitados();
             if (dt.Rows.Count == 0)
             {
                 throw new NoEncontrado();
             }
             return dt;
         }
-
+        /// <summary>
+        /// columnas: 'Razon social','Direccion','Provincia','Cuil','Calle','Localidad','Codigo postal','Habilitado'
+        /// </summary>
+        /// <param name="provincia"></param>
+        /// <returns>DataTable o Excepcion "NoEncontrado"</returns>
         public DataTable RecuperarProveedoresPorProvincia(string provincia)
         {
-            DataTable dt = ObjProveedor.ListaProveedoresPorProvincia(provincia);
+            dt = ObjProveedor.ListaProveedoresPorProvincia(provincia);
+            if (dt.Rows.Count == 0)
+            {
+                throw new NoEncontrado();
+            }
+            return dt;
+        }
+        /// <summary>
+        /// columnas: 'Razon social','Direccion','Provincia','Cuil','Calle','Localidad','Codigo postal','Habilitado'
+        /// </summary>
+        /// <returns>DataTable o Excepcion "NoEncontrado</returns>
+        public DataTable UltimoProveedor()
+        {
+            dt = ObjProveedor.UltimoProveedor();
             if (dt.Rows.Count == 0)
             {
                 throw new NoEncontrado();

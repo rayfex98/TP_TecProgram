@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Data.SqlClient;
 using System.Text;
 
 namespace DAL
@@ -15,14 +16,22 @@ namespace DAL
         {
             try
             {
-
-                string query = string.Format("EXEC DETALLEPROC @ID = NULL,@ORDEN={0},@PRODUCTO={1},@CANTIDAD={2},@TIPO = 'INSERT';"
-                    , idOrden, unDetalleOrden.Producto.ID, unDetalleOrden.Cantidad);
-                if (1 != db.EscribirPorComando(query))
+                SqlParameter[] parametros =
                 {
-                    return false;
+                    new SqlParameter("@ORDEN",SqlDbType.Int),
+                    new SqlParameter("@PRODUCTO",SqlDbType.VarChar),
+                    new SqlParameter("@CANTIDAD",SqlDbType.Float),
+                    new SqlParameter("@TIPO",SqlDbType.NVarChar)
+                };
+                parametros[0].Value = idOrden;
+                parametros[1].Value = unDetalleOrden.Producto.ID;
+                parametros[2].Value = unDetalleOrden.Cantidad;
+                parametros[3].Value = "INSERT";
+                if (db.EscribirPorStoreProcedure("DETALLEPROC", parametros) > 0)
+                {
+                    return true;
                 }
-                return true;
+                return false;
             }
             catch (System.Data.SqlClient.SqlException)
             {
@@ -94,8 +103,12 @@ namespace DAL
         }
         public DataTable ListadeDetalleOrden(int idOrden)
         {
-            string query = string.Format("listadetalle @idorden = {0}", idOrden);
-            dt = db.LeerPorComando(query);
+            SqlParameter[] parametros =
+            {
+                new SqlParameter("@idorden",SqlDbType.Int)
+            };
+            parametros[0].Value = idOrden;
+            dt = db.LeerPorStoreProcedure("listadetalle", parametros);
             return dt;
         }
     }

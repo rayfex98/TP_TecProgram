@@ -39,10 +39,10 @@ namespace PruebasUnitarias
             Assert.AreEqual(ndetalle.Eliminar(idDetalle, idorden), true);
         }
         [TestMethod]
-        public void ListarDetall()// lista todos los detalles 
+        public void ListarDetalle()// lista todos los detalles 
         {
             int idorden = 1;
-            Assert.IsNotNull(ndetalle.ListarDetalleOrden(idorden));
+            Assert.IsNotNull(ndetalle.RecuperarDetalleOrden(idorden));
         }
 
 

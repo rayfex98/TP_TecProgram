@@ -70,6 +70,7 @@ namespace BLL
         }
         /// <summary>
         /// Llena DT con Direcciones
+        /// columnas: 'altura', 'calle', 'codigo postal', 'localidad', 'provincia'
         /// </summary>
         /// <returns>DataTable o Excepcion "NoEncontrado"</returns>
         public DataTable ListaDireccion()

@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Data.SqlClient;
 using System.Text;
 
 namespace DAL
@@ -15,12 +16,18 @@ namespace DAL
         {
             try
             {
-                string query = string.Format("EXEC CATEGORIAPROC @ID = null,@DESCRIPCION = {0},@HABILITADO = null,@TIPO =  'INSERT';", nombre);
-                if (1 != db.EscribirPorComando(query))
+                SqlParameter[] parametros =
                 {
-                    return false;
+                    new SqlParameter("@DESCRIPCION",SqlDbType.NVarChar),
+                    new SqlParameter("@TIPO",SqlDbType.NVarChar)
+                };
+                parametros[0].Value = nombre;
+                parametros[1].Value = "INSERT";
+                if(db.EscribirPorStoreProcedure("CATEGORIAPROC", parametros) > 0)
+                {
+                    return true;
                 }
-                return true;
+                return false;
             }
             catch (System.Data.SqlClient.SqlException)
             {
@@ -91,15 +98,21 @@ namespace DAL
 
         public DataTable ListadeCategoria()
         {
-            string query = string.Format("ListaCategorias");
-            dt = db.LeerPorComando(query);
+            SqlParameter[] parametros =
+            {
+            };
+            dt = db.LeerPorStoreProcedure("ListaCategorias", parametros);
             return dt;
         }
 
         public DataTable ListadeCategoriaPorCategoria(string descripcion)
         {
-            string query = string.Format("Exec ListaCategoriasCondicion @descripcion = {0}", descripcion);
-            dt = db.LeerPorComando(query);
+            SqlParameter[] parametros =
+            {
+                new SqlParameter("@descripcion",SqlDbType.NVarChar)
+            };
+            parametros[0].Value = descripcion;
+            dt = db.LeerPorStoreProcedure("ListaCategoriasCondicion", parametros);
             return dt;
         }
     }

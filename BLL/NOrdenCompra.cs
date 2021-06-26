@@ -51,6 +51,10 @@ namespace BLL
             }
             throw new FallaEnEliminacion();
         }
+        /// <summary>
+        /// columnas: 'id orden ','cantidad','producto','razon social','fecha aprobacion'
+        /// </summary>
+        /// <returns>DataTable o Excepcion "NoEncontrado"</returns>
         public DataTable RecuperarOrdenCompra()
         {
             dt = unOrdenCompra.ListadeOrdenCompra();
@@ -60,6 +64,10 @@ namespace BLL
             }
             return dt;
         }
+        /// <summary>
+        /// columnas: 'id orden ','cantidad','producto','razon social'
+        /// </summary>
+        /// <returns>DataTable o Excepcion "NoEncontrado"</returns>
         public DataTable RecuperarOrdenPendiente()
         {
             dt = unOrdenCompra.OrdenPendiente();
@@ -95,6 +103,11 @@ namespace BLL
             }
             return total;
         }
+        /// <summary>
+        /// columnas: 'id orden ','cantidad','producto','razon social','fecha aprobacion'
+        /// </summary>
+        /// <param name="nombre"></param>
+        /// <returns>DataTable, Excepcion "NoEncontrado" o "ExcepcionDeDatos"</returns>
         public DataTable RecuperarPorProducto(string nombre)
         {
             if (string.IsNullOrEmpty(nombre))
@@ -108,6 +121,11 @@ namespace BLL
             }
             return dt;
         }
+        /// <summary>
+        /// columnas: 'id orden ','cantidad','producto','razon social','fecha aprobacion'
+        /// </summary>
+        /// <param name="razonSocial"></param>
+        /// <returns>DataTable, Excepcion "NoEncontrado" o "ExcepcionDeDatos"</returns>
         public DataTable RecuperarPorProveedor(string razonSocial)
         {
             if (string.IsNullOrEmpty(razonSocial))

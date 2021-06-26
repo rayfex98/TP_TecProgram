@@ -22,10 +22,10 @@ namespace BLL
             return dt;
         }
         /// <summary>
-        /// hfhgfhg
+        /// Quita en bbdd los detalles pertenecientes a una orden
         /// </summary>
-        /// <param name="_unOrdenCompra">hghjghjg</param>
-        /// <returns>hgfhgfhgf</returns>
+        /// <param name="idOrden"></param>
+        /// <returns>True o Excepcion "FallaEnEdicion"</returns>
         public bool QuitarDeDeposito(int idOrden)
         {
             if (unDeposito.QuitarDeDeposito(idOrden))
@@ -35,10 +35,10 @@ namespace BLL
             throw new FallaEnEdicion();
         }
         /// <summary>
-        /// Cargar 
+        /// Carga en bbdd los detalles pertenecientes a una orden
         /// </summary>
-        /// <param name="_unOrdenCompra"></param>
-        /// <returns></returns>
+        /// <param name="idOrden"></param>
+        /// <returns>True o Excepcion "FallaEnEdicion"</returns>
         public bool AgregarADeposito(int idOrden)
         {
             if (unDeposito.AgregarADeposito(idOrden))

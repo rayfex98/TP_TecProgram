@@ -27,14 +27,19 @@ namespace DAL
                     {
                         return false;
                     }
-                    unOrdenCompra.FechaAprobacion = DateTime.Now;
-                    string query = string.Format("EXEC ORDENCOMPRAPROC @ID={0},@PROVEEDOR={1},@USUARIO=NULL,@FECHA=NULL cast(@FECHA as datetime),@TIPO = 'INSERT';"
-                    , id_orden, unOrdenCompra.Proveedor.ID);
-                    if (1 != db.EscribirPorComando(query))
+                    SqlParameter[] parametros =
                     {
-                        return false;
+                        new SqlParameter("@ID",SqlDbType.Int),
+                        new SqlParameter("@PROVEEDOR",SqlDbType.Int),
+                        new SqlParameter("@TIPO",SqlDbType.NVarChar)
+                    };
+                    parametros[0].Value = id_orden;
+                    parametros[1].Value = unOrdenCompra.Proveedor.ID;
+                    parametros[4].Value = "INSERT";
+                    if (db.EscribirPorStoreProcedure("ORDENCOMPRAPROC", parametros) > 0)
+                    {
+                        return true;
                     }
-                    return true;
                 }
                 return false;
             }
@@ -47,7 +52,6 @@ namespace DAL
         {
             try
             {
-
                 unOrdenCompra.FechaAprobacion = DateTime.Now;
                 string query = string.Format("EXEC ORDENCOMPRAPROC @ID={0},@PROVEEDOR={1},@USUARIO={2},@FECHA={3},@TIPO = 'UPDATE';"
                     , unOrdenCompra.ID, unOrdenCompra.Proveedor.ID, unOrdenCompra.UsuarioAprobador.ID, unOrdenCompra.FechaAprobacion);
@@ -119,29 +123,33 @@ namespace DAL
         }
         public DataTable CalcularTotal(int idOrden)
         {
-            string query = string.Format("exec sumartotalorden @orden= {0};", idOrden);
-            dt = db.LeerPorComando(query);
+            SqlParameter[] parametros =
+            {
+                new SqlParameter("@orden",SqlDbType.Int)
+            };
+            parametros[0].Value = idOrden;
+            dt = db.LeerPorStoreProcedure("OrdenCompraBuscarProveedor", parametros);
             return dt;
         }
         public DataTable ListaPorProducto(string nombre)
         {
             SqlParameter[] parametros =
             {
-                new SqlParameter("@producto",SqlDbType.NVarChar)
+                new SqlParameter("@producto",SqlDbType.VarChar)
 
             };
             parametros[0].Value = nombre;
-            dt = db.LeerPorStoreProcedure("leer_compra_por_producto", parametros);
+            dt = db.LeerPorStoreProcedure("OrdenCompraBuscarProducto", parametros);
             return dt;
         }
-        public DataTable ListaPorProveedor(string nombre)
+        public DataTable ListaPorProveedor(string razonSocial)
         {
             SqlParameter[] parametros =
             {
-                new SqlParameter("@proveedor",SqlDbType.NVarChar)
+                new SqlParameter("@proveedor",SqlDbType.VarChar)
             };
-            parametros[0].Value = nombre;
-            dt = db.LeerPorStoreProcedure("leer_compra_por_proveedor", parametros);
+            parametros[0].Value = razonSocial;
+            dt = db.LeerPorStoreProcedure("OrdenCompraBuscarProveedor", parametros);
             return dt;
         }
     }

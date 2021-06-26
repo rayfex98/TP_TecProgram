@@ -1,6 +1,7 @@
 ﻿using Entidades;
 using System;
 using System.Data;
+using System.Data.SqlClient;
 
 namespace DAL
 {
@@ -12,8 +13,18 @@ namespace DAL
         {
             try
             {
-                string query = string.Format("EXEC ALERTAPROC @ID = NULL, @STOCK = {0},@USUARIO = {1},@MINIMO = {2},@TIPO = 'INSERT' ", unAlerta.Stock.ID, unAlerta.UsuarioCreador.ID, unAlerta.CantidadMinima);
-                if (1 != db.EscribirPorComando(query))
+                SqlParameter[] parametros =
+                {
+                    new SqlParameter("@STOCK",SqlDbType.Int),
+                    new SqlParameter("@USUARIO",SqlDbType.Int),
+                    new SqlParameter("@MINIMO",SqlDbType.Int),
+                    new SqlParameter("@TIPO",SqlDbType.NVarChar)
+                };
+                parametros[0].Value = unAlerta.Stock.ID;
+                parametros[1].Value = unAlerta.UsuarioCreador.ID;
+                parametros[1].Value = unAlerta.CantidadMinima;
+                parametros[3].Value = "INSERT";
+                if (1 != db.EscribirPorStoreProcedure("ALERTAPROC", parametros))
                 {
                     return false;
                 }
