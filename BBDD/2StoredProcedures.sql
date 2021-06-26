@@ -326,67 +326,6 @@ AS
 	END
 GO
 
-/*procedimientos de PERSONA, 
-EXEC PERSONAPROC @ID=INT,@DIRECCION=INT,@DNI=INT,@NOMBRE=VARCHAR50,@APELLIDO=VARCHAR50,@TIPO=NVARCHAR10;
-*/
-if object_id('PERSONAPROC') is not null
-  drop procedure PERSONAPROC
-go
-CREATE PROCEDURE PERSONAPROC	(@ID INT,
-						@DIRECCION INT,
-						@DNI INT,
-						@NOMBRE NVARCHAR(50),
-						@APELLIDO NVARCHAR(50),
-						@TIPO NVARCHAR(10) = '')
-AS
-	BEGIN
-		IF @TIPO = 'INSERT'
-			BEGIN
-				INSERT INTO [dbo].[PERSONA]
-					   (id_direccion,
-					   [DNI],
-					   [NOMBRE],
-					   [APELLIDO])
-				VALUES
-					   (@DIRECCION,
-					   @DNI,
-					   @NOMBRE,
-					   @APELLIDO)
-			END
-		IF @TIPO = 'UPDATE'
-			BEGIN
-				IF (@DIRECCION IS NOT NULL)
-					BEGIN
-						UPDATE [dbo].[persona]
-						SET	id_direccion = @DIRECCION
-						WHERE id = @ID
-					END
-				IF (@DNI IS NOT NULL)
-					BEGIN
-						UPDATE [dbo].[persona]
-						SET	[DNI] = @DNI
-						WHERE id = @ID
-					END
-				IF (@NOMBRE IS NOT NULL)
-					BEGIN
-						UPDATE [dbo].[persona]
-						SET	[NOMBRE] = @NOMBRE
-						WHERE id = @ID
-					END
-				IF (@APELLIDO IS NOT NULL)
-					BEGIN
-						UPDATE [dbo].[persona]
-						SET	[APELLIDO] = @APELLIDO
-						WHERE id = @ID
-					END
-			END
-		IF @TIPO = 'DELETE'
-			BEGIN
-				DELETE FROM [dbo].[persona]
-				WHERE id = @ID
-			END
-	END
-GO
 if object_id('PRODUCTOPROC') is not null
   drop procedure PRODUCTOPROC
 go
@@ -571,71 +510,6 @@ AS
 				UPDATE [dbo].[stock]
 				SET	[HABILITADO] = null
 				WHERE id_stock = @ID
-			END
-	END
-GO
-
-/*procedimientos de USUARIO, 
-EXEC USUARIOPROC @ID=INT,@ROL=INT,@PASSWORD=NVARCHAR50,@LEGAJO=INT,@HABILITADO = DATETIME,@TIPO=NVARCHAR10;
-*/
- if object_id('USUARIOPROC') is not null
-  drop procedure USUARIOPROC
-go
-CREATE PROCEDURE USUARIOPROC	(@ID INT,
-								@ROL INT,
-								@PASSWORD NVARCHAR(50),
-								@LEGAJO INT,
-								@HABILITADO DATETIME,
-								@TIPO NVARCHAR(10) = '')
-AS
-	BEGIN
-		IF @TIPO = 'INSERT'
-			BEGIN
-			set @HABILITADO = GETUTCDATE()
-				INSERT INTO [dbo].[usuario]
-					   (id_rol,
-					   [PASSWORD],
-					   [LEGAJO],
-					   deshabilitado)
-				VALUES
-					   (@ROL,
-						@PASSWORD,
-						@LEGAJO,
-						@HABILITADO)
-			END
-		IF @TIPO = 'HABILITAR'
-			BEGIN
-			set @HABILITADO = GETUTCDATE()
-				UPDATE [dbo].[usuario]
-				SET	deshabilitado = @HABILITADO 
-				WHERE id_persona = @ID
-			END
-		IF @TIPO = 'UPDATE'
-			BEGIN
-				IF (@ROL IS NOT NULL)
-					BEGIN
-						UPDATE [dbo].[usuario]
-						SET	id_rol = @ROL
-						WHERE id_persona = @ID
-					END
-				IF (@PASSWORD IS NOT NULL)
-					BEGIN
-						UPDATE [dbo].[usuario]
-						SET	[password] = @PASSWORD
-						WHERE id_persona = @ID
-					END
-				IF (@LEGAJO IS NOT NULL)
-					BEGIN
-						UPDATE [dbo].[usuario]
-						SET	legajo = @LEGAJO
-						WHERE id_persona = @ID
-					END
-			END
-		IF @TIPO = 'DELETE'
-			BEGIN
-				UPDATE [dbo].[usuario]
-				SET	deshabilitado = null
-				WHERE id_persona = @ID
 			END
 	END
 GO
