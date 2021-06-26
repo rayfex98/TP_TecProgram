@@ -21,17 +21,27 @@ namespace BLL
             }
             return dt;
         }
-        public bool QuitarDeDeposito(OrdenDeCompra _unOrdenCompra)
+        /// <summary>
+        /// hfhgfhg
+        /// </summary>
+        /// <param name="_unOrdenCompra">hghjghjg</param>
+        /// <returns>hgfhgfhgf</returns>
+        public bool QuitarDeDeposito(int idOrden)
         {
-            if (unDeposito.QuitarDeDeposito(_unOrdenCompra))
+            if (unDeposito.QuitarDeDeposito(idOrden))
             {
                 return true;
             }
             throw new FallaEnEdicion();
         }
-        public bool AgregarADeposito(OrdenDeCompra _unOrdenCompra)
+        /// <summary>
+        /// Cargar 
+        /// </summary>
+        /// <param name="_unOrdenCompra"></param>
+        /// <returns></returns>
+        public bool AgregarADeposito(int idOrden)
         {
-            if (unDeposito.AgregarADeposito(_unOrdenCompra))
+            if (unDeposito.AgregarADeposito(idOrden))
             {
                 return true;
             }

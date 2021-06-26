@@ -17,12 +17,12 @@ namespace DAL
             dt = db.LeerPorComando(query);
             return dt;
         }
-        public bool QuitarDeDeposito(OrdenDeCompra _unOrdenCompra)
+        public bool QuitarDeDeposito(int idOrden)
         {
             int idproducto;
             int cantidad;
 
-            string query = string.Format("exec quitardestock @orden= {0};", _unOrdenCompra.ID);
+            string query = string.Format("exec quitardestock @orden= {0};", idOrden);
             dt = db.LeerPorComando(query);
             foreach (DataRow item in dt.Rows)
             {
@@ -35,12 +35,12 @@ namespace DAL
             }
             return true;
         }
-        public bool AgregarADeposito(OrdenDeCompra _unOrdenCompra)
+        public bool AgregarADeposito(int idOrden)
         {
             int idproducto;
             int cantidad;
 
-            string query = string.Format("exec quitardestock @orden= {0};", _unOrdenCompra.ID);
+            string query = string.Format("exec quitardestock @orden= {0};", idOrden);
             dt = db.LeerPorComando(query);
             foreach (DataRow item in dt.Rows)
             {

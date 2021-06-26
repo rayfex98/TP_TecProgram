@@ -57,6 +57,7 @@ namespace BLL
             }
             throw new FallaEnEliminacion();
         }
+
         public DataTable RecuperarDetalleOrden(int _idOrden)
         {
             DataTable dt = unDetalleOrden.ListadeDetalleOrden(_idOrden);

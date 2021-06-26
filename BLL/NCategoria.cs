@@ -65,6 +65,7 @@ namespace BLL
             }
             throw new FallaEnEdicion();
         }
+
         public DataTable ListarCategoria()
         {
             DataTable dt = unCategoria.ListadeCategoria();
