@@ -1,0 +1,17 @@
+--Orden de compra (Enacargado)
+En la pantalla principal, pulso opcion hacer ordenes de compra y se carga el form  (ordenes_compra_enc)
+Creo lista vacia de detalles
+Cargo combobox de producto (nombre) public DataTable ListarProductos()
+Cargo combobox de proveedor (razon social) public DataTable DataTableProveedores()
+Cuando pulso "agregar" tomo id producto y cantidad, para guardarlo en la lista.
+pulso "generar orden", y tomo id proveedor, id usuario que crea la orden y la lista de detalles
+Llamo a metodo de NOrden.Nuevo()
+le pasa la lista de detalles {public bool Nuevo(DetalleOrden _unDetalleOrden, int _idOrden)}
+
+--ordenes de compra 
+
+En la pantalla principal, pulso opcion listar ordenes de compra y se carga el form  (ordenes_compra_ger)
+
+cuando pulso " mostrar todas"  {public DataTable OrdenPendiente()}
+cunado pulso "mostrar solo habilitadas" {public DataTable ListarOrdenCompra()}
+cuando pulso el checkbox o algun boton para habilitad la orden {public bool AprobarOrden(OrdenDeCompra _unOrdenCompra)}
