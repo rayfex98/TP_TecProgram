@@ -8,8 +8,14 @@ namespace BLL
     public class NOrdenCompra
     {
         DOrdenCompra unOrdenCompra = new DOrdenCompra();
-
-        public bool NuevoOrden(OrdenDeCompra _unOrdenCompra)
+        DataTable dt = new DataTable();
+        /// <summary>
+        /// Carga de la orden de compra en bbdd,
+        /// Requiero id_proveedor, id_usuarioCreador
+        /// </summary>
+        /// <param name="_unOrdenCompra"></param>
+        /// <returns>True o excepcion "FallaEnInsercion"</returns>
+        public bool NuevaOrden(OrdenDeCompra _unOrdenCompra)
         {
             if (_unOrdenCompra.Proveedor.ID < 0 || _unOrdenCompra.UsuarioCreador.ID < 0)
             {
@@ -45,36 +51,50 @@ namespace BLL
             }
             throw new FallaEnEliminacion();
         }
-        public DataTable ListarOrdenCompra()
+        /// <summary>
+        /// columnas: 'id orden ','cantidad','producto','razon social','fecha aprobacion'
+        /// </summary>
+        /// <returns>DataTable o Excepcion "NoEncontrado"</returns>
+        public DataTable RecuperarOrdenCompra()
         {
-            return unOrdenCompra.ListadeOrdenCompra();
+            dt = unOrdenCompra.ListadeOrdenCompra();
+            if (dt.Rows.Count == 0)
+            {
+                throw new NoEncontrado();
+            }
+            return dt;
         }
-        public DataTable OrdenPendiente()
+        /// <summary>
+        /// columnas: 'id orden ','cantidad','producto','razon social'
+        /// </summary>
+        /// <returns>DataTable o Excepcion "NoEncontrado"</returns>
+        public DataTable RecuperarOrdenPendiente()
         {
-            return unOrdenCompra.OrdenPendiente();
+            dt = unOrdenCompra.OrdenPendiente();
+            if (dt.Rows.Count == 0)
+            {
+                throw new NoEncontrado();
+            }
+            return dt;
         }
-        public DataTable OrdenCompraBuscarProducto(string nombre)
+        public bool AprobarOrden(int id_orden, int id_usuario)
         {
-            return unOrdenCompra.OrdenCompraBuscarProducto(nombre);
-        }
-            public bool AprobarOrden(OrdenDeCompra _unOrdenCompra)
-        {
-            if (_unOrdenCompra.ID < 0)
+            if (id_orden < 0)
             {
                 throw new ExcepcionDeDatos();
             }
-            if (unOrdenCompra.AprobarOrden(_unOrdenCompra))
+            if (unOrdenCompra.AprobarOrden(id_orden, id_usuario))
             {
                 return true;
             }
             throw new FallaEnEdicion();
         }
-        public float CalcularTotalOrden(int id)
+        public float RecuperarTotalOrden(int idOrden)
         {
             float total = 0;
             int cantidad;
             float precio;
-            DataTable Totales = unOrdenCompra.CalcularTotal(id);
+            DataTable Totales = unOrdenCompra.CalcularTotal(idOrden);
             foreach (DataRow item in Totales.Rows)
             {
                 cantidad = int.Parse(item.ItemArray[0].ToString());
@@ -82,6 +102,42 @@ namespace BLL
                 total += cantidad * precio;
             }
             return total;
+        }
+        /// <summary>
+        /// columnas: 'id orden ','cantidad','producto','razon social','fecha aprobacion'
+        /// </summary>
+        /// <param name="nombre"></param>
+        /// <returns>DataTable, Excepcion "NoEncontrado" o "ExcepcionDeDatos"</returns>
+        public DataTable RecuperarPorProducto(string nombre)
+        {
+            if (string.IsNullOrEmpty(nombre))
+            {
+                throw new ExcepcionDeDatos();
+            }
+            dt = unOrdenCompra.ListaPorProducto(nombre);
+            if(dt.Rows.Count == 0)
+            {
+                throw new NoEncontrado();
+            }
+            return dt;
+        }
+        /// <summary>
+        /// columnas: 'id orden ','cantidad','producto','razon social','fecha aprobacion'
+        /// </summary>
+        /// <param name="razonSocial"></param>
+        /// <returns>DataTable, Excepcion "NoEncontrado" o "ExcepcionDeDatos"</returns>
+        public DataTable RecuperarPorProveedor(string razonSocial)
+        {
+            if (string.IsNullOrEmpty(razonSocial))
+            {
+                throw new ExcepcionDeDatos();
+            }
+            dt = unOrdenCompra.ListaPorProveedor(razonSocial);
+            if (dt.Rows.Count == 0)
+            {
+                throw new NoEncontrado();
+            }
+            return dt;
         }
     }
 }

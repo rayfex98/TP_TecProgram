@@ -1,21 +1,5 @@
 --sobre cargas de tablas
 
---cargo direccion
-	USE [dbTecProg]
-	GO
-
-	INSERT INTO [dbo].[direccion] ([calle],[altura],[localidad],[codigo_postal],[provincia])
-		 VALUES
-			   ('Las Rosas', '3245','Monte Grande','1842','Buenos Aires'),
-			   ('Malvinas', '464','Luis Guillon','1200','Buenos Aires'),
-			   ('Las Heras', '4556','Lomas de Zamora','1800','Buenos Aires'),
-			   ('Fair', '123','Ezeiza','1111','Buenos Aires'),
-			   ('Oliver', '3454','Monte Grande','1842','Buenos Aires'),
-			   ('9 de Julio', '355','Monte Grande','1842','Buenos Aires'),
-			   ('Las Rosas', '34','Monte Grande','1842','Buenos Aires'),
-			   ('25 de Mayo', '34','Ezeiza','1333','Buenos Aires')
-
-	GO
 --cargo categoria
 	go
 	insert into [dbo].[CATEGORIA] (descripcion,habilitado)	
@@ -56,32 +40,60 @@
 	go
 --cargo direccion
 	go
+	INSERT INTO [dbo].[direccion] ([calle],[altura],[localidad],[codigo_postal],[provincia])
+     VALUES
+           ('las rosas', '3245','monte grande','1842','buenos aires'),
+		   ('malvinas', '464','luis guillon','1200','buenos aires'),
+		   ('las heras', '4556','lomas de zamora','1800','buenos aires'),
+		   ('fair', '123','ezeiza','1111','buenos aires'),
+		   ('oliver', '3454','monte grande','1842','buenos aires'),
+		   ('9 de julio', '355','monte grande','1842','buenos aires'),
+		   ('las rosas', '34','monte grande','1842','buenos aires'),
+		   ('25 de mayo', '34','ezeiza','1333','buenos aires')
+	go
 	insert into dbo.direccion (altura,calle,codigo_postal,localidad,provincia)
-	values	(123,'estrada',1122,'ezeiza','bsas'),
-			(67,'paraguay',1231,'temperley','bsas'),
-			(64,'belgrano',1823,'capital','bsas'),
-			(13,'cabildo',1823,'capital','bsas'),
-			(1323,'uruguay',1823,'flores','bsas'),
-			(27,'ramos',1823,'lanus','bsas'),
-			(1313,'alcorta',1823,'caballito','bsas'),
-			(121,'cabildo',1823,'banfield','bsas'),
-			(232,'brasil',1823,'temperley','bsas')
+	values	(123,'estrada','1122','ezeiza','buenos aires'),
+			(67,'paraguay','1231','temperley','buenos aires'),
+			(64,'belgrano','1823','capital','buenos aires'),
+			(13,'cabildo','1823','capital','buenos aires'),
+			(1323,'uruguay','1823','flores','buenos aires'),
+			(27,'ramos','1823','lanus','buenos Aires'),
+			(1313,'alcorta','1823','caballito','buenos aires'),
+			(121,'cabildo','1823','banfield','buenos aires'),
+			(232,'brasil','1823','temperley','buenos aires'),
+			(156,'yrigoyen','5641','rio cuarto','cordoba'),
+			(4245,'san martin','1823','temperley','buenos aires'),
+			(21,'belgrano','1254','rio cuarto','cordoba'),
+			(456,'jacaranda','1234','monte grande','buenos aires')
 	go
 --cargo persona
 	go
+	INSERT INTO [dbo].[persona] ([apellido],[nombre],[dni],[id_direccion])
+     VALUES
+		   ('morrone','mlorencia','22333444', 1),
+		   ('solohaga','braian','22333111', 2),
+		   ('ovejero','jorge','33444666', 3),
+           ('ramirez','martin','33444555', 4),
+           ('santos','mario','33666999', 5),
+           ('medina','gabriel','11333999', 6),
+           ('lampone','pablo','11222999', 7),
+           ('ravenna','emilio','11555999', 8)
+	go
 	insert into dbo.PERSONA(id_direccion,dni,nombre,apellido)	
-	values	(1,12342332,'marcelo','tevez'),
-			(2,32321412,'roberto','velez'),
-			(3,53342332,'lucas','sanchez'),
-			(6,12345621,'cristian','lugano'),
-			(4,21345789,'marcelo','tevez'),
-			(7,45612378,'facundo','guillot')
+	values	(9,12342332,'marcelo','tevez'),
+			(10,32321412,'roberto','velez'),
+			(11,53342332,'martin','perez'),
+			(12,12345621,'cristian','lugano'),
+			(13,21345789,'marcelo','tevez'),
+			(14,45612378,'facundo','guillot')
+	go
 	
 --cargo rol
 	go
 	insert into dbo.ROL(descripcion)
 	values	('encargado'),
-			('gerente')
+			('gerente'),
+			('vendedor')
 	go
 --cargo usuario
 	 go
@@ -94,36 +106,50 @@
  -- cargo alerta 
 	 go
 	 insert into dbo.ALERTA(id_stock,id_persona,cantidad_minima) 
-	 values		(2,1,100),
-				(3,3,100),
-				(4,2,100),
+	 values		(1,1,100),
 				(2,3,100),
-				(3,1,100)
+				(3,2,100),
+				(4,3,100),
+				(5,1,100)
 	 go
 --carga proveedor 
 	 go
-	 insert into dbo.PROVEEDOR(id_direccion,cuil,razonsocial) 
-	 values		(2,20302010222,'loma negra'),
-				(4,32220102224,'molinos cañuelas'),
-				(6,20364587586,'coto'),
-				(1,21321411212,'dia'),
-				(5,30010242122,'sinteplast')
+	 insert into dbo.PROVEEDOR(id_direccion,cuil,razonsocial,habilitado) 
+	 values		(15,20302010222,'loma negra',20-10-20),
+				(16,32220102224,'molinos cañuelas',20-10-20),
+				(17,20364587586,'coto',20-10-20),
+				(18,21321411212,'dia',20-10-20),
+				(19,30010242122,'sinteplast',20-10-20)
 	 go
 --carga orden 
 	 go
 	 insert into dbo.orden(id_persona,fecha) 
-	 values		(1,20-10-10),
-				(2,20-10-10),
-				(3,20-10-10),
-				(4,20-10-10);
+	 values		(10,20-10-10),
+				(11,20-10-10),
+				(10,20-10-10),
+				(12,20-10-10);
 	 go
+--carga detalleorden
+	go
+	INSERT INTO [dbo].[detalle_orden]
+			   ([cantidad]
+			   ,[id_orden]
+			   ,[id_producto])
+		 VALUES
+			   (10,1,2),
+			   (5,1,1),
+			   (20,1,3),
+			   (10,2,6),
+			   (5,2,4),
+			   (20,3,5)
+	GO
 --carga ordencompra 
 	 go
 	 insert into dbo.orden_compra (id_orden,id_persona,id_proveedor) 
-	 values		(1,1,5),
-				(2,3,1),
-				(3,4,2),
-				(4,1,1)
+	 values		(1,9,5),
+				(2,10,1),
+				(3,11,2),
+				(4,12,1)
 	 go
 --carga detalle 
 	 GO

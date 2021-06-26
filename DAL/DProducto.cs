@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Data.SqlClient;
 using System.Text;
 
 namespace DAL
@@ -14,13 +15,24 @@ namespace DAL
         {
             try
             {
-                string query = string.Format(" EXEC PRODUCTOPROC @ID = NULL, @CATEGORIA = {0}, @NOMBRE = {1}, @COMPRA = {2}, @VENTA = {3}, @HABILITADO = NULL, @TIPO = 'INSERT' ; "
-                    , unProducto.Categoria.ID, unProducto.Nombre, unProducto.PrecioCompra, unProducto.PrecioVenta);
-                if (1 != db.EscribirPorComando(query))
+                SqlParameter[] parametros =
                 {
-                    return false;
+                    new SqlParameter("@CATEGORIA",SqlDbType.Int),
+                    new SqlParameter("@NOMBRE",SqlDbType.VarChar),
+                    new SqlParameter("@COMPRA",SqlDbType.Float),
+                    new SqlParameter("@VENTA",SqlDbType.Float),
+                    new SqlParameter("@TIPO",SqlDbType.NVarChar)
+                };
+                parametros[0].Value = unProducto.Categoria.ID;
+                parametros[1].Value = unProducto.Nombre;
+                parametros[2].Value = unProducto.PrecioCompra;
+                parametros[3].Value = unProducto.PrecioVenta;
+                parametros[4].Value = "INSERT";
+                if (db.EscribirPorStoreProcedure("PRODUCTOPROC", parametros) > 0)
+                {
+                    return true;
                 }
-                return true;
+                return false;
             }
             catch (System.Data.SqlClient.SqlException)
             {
@@ -62,20 +74,35 @@ namespace DAL
 
         public DataTable ListadeProductos()
         {
-            string query = string.Format("ListaProductosHabilitados");
+            string query = string.Format("EXEC ListaProductos");
             dt = db.LeerPorComando(query);
             return dt;
         }
-        public DataTable BuscarProdcutoNombre(string nombre)
+        public DataTable productosLista()
         {
-            string query = string.Format("exec BuscarProductoNombre @nombre = {0}",nombre);
+            string query = string.Format("ProductosParalista");
             dt = db.LeerPorComando(query);
             return dt;
         }
-        public DataTable BuscarProdcutoCategoria(string nombre)
+
+        public DataTable ListaPorCategoria(string nombre)
         {
-            string query = string.Format("exec BuscarProductoCategoria @nombre = {0}", nombre);
-            dt = db.LeerPorComando(query);
+            SqlParameter[] parametros =
+            {
+                new SqlParameter("@categoria",SqlDbType.VarChar)
+            };
+            parametros[0].Value = nombre;
+            dt = db.LeerPorStoreProcedure("BuscarProductoCategoria", parametros);
+            return dt;
+        }
+        public DataTable ListaPorNombre(string nombre)
+        {
+            SqlParameter[] parametros =
+            {
+                new SqlParameter("@nombre",SqlDbType.VarChar)
+            };
+            parametros[0].Value = nombre;
+            dt = db.LeerPorStoreProcedure("BuscarProductoNombre", parametros);
             return dt;
         }
     }

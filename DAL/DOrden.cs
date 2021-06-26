@@ -1,6 +1,7 @@
 ﻿using System;
 using Entidades;
 using System.Data;
+using System.Data.SqlClient;
 
 namespace DAL
 {
@@ -12,13 +13,18 @@ namespace DAL
         {
             try
             {
-                Conexion db = new Conexion();
-                string query = string.Format("EXEC ORDENPROD @ID = NULL,@USUARIO={0},@FECHA=NULL,@TIPO = 'INSERT';", unOrden.UsuarioCreador.ID);
-                if (1 != db.EscribirPorComando(query))
+                SqlParameter[] parametros =
                 {
-                    return false;
+                    new SqlParameter("@USUARIO",SqlDbType.Int),
+                    new SqlParameter("@TIPO",SqlDbType.NVarChar)
+                };
+                parametros[0].Value = unOrden.UsuarioCreador.ID;
+                parametros[1].Value = "INSERT";
+                if (db.EscribirPorStoreProcedure("ORDENPROC", parametros) > 0)
+                {
+                    return true;
                 }
-                return true;
+                return false;
             }
             catch (System.Data.SqlClient.SqlException)
             {
@@ -85,6 +91,24 @@ namespace DAL
             catch (System.NullReferenceException)
             {
                 return false;
+            }
+        }
+        public int UltimaOrden()
+        {
+            try
+            {
+                string query = string.Format("SELECT MAX([ID]) FROM [dbo].[orden]");
+                dt = db.LeerPorComando(query);
+                return int.Parse(dt.Rows[0].ItemArray[0].ToString());
+
+            }
+            catch (System.Data.SqlClient.SqlException)
+            {
+                return -1;
+            }
+            catch (System.NullReferenceException)
+            {
+                return -1;
             }
         }
     }

@@ -18,30 +18,31 @@ namespace PruebasUnitarias
             _unOrdencompra.Proveedor.ID = 3;
             _unOrdencompra.UsuarioAprobador = new Usuario();
             _unOrdencompra.UsuarioAprobador.ID = 1;
-            Assert.AreEqual(NordenCompra.NuevoOrden(_unOrdencompra), true);
+            Assert.AreEqual(NordenCompra.NuevaOrden(_unOrdencompra), true);
         }
         [TestMethod]
-        public void aprobarorden()// metodo para aprobar orden de compra, se puede enlazar con ordenes pendientes para que tenga mas sentido 
+        public void AprobarOrden()// metodo para aprobar orden de compra, se puede enlazar con ordenes pendientes para que tenga mas sentido 
         {
-            _unOrdencompra.ID = 1;         
-            Assert.AreEqual(NordenCompra.AprobarOrden(_unOrdencompra), true);
+            int idOrden = 1;
+            int Aprobador = 1;
+            Assert.AreEqual(NordenCompra.AprobarOrden(idOrden, Aprobador), true);
         }
 
         [TestMethod]
         public void ListarOrdenesPendientes()// devuelve un datatable con las ordenes que no esten habilitadas 
         {
-            Assert.IsNotNull(NordenCompra.OrdenPendiente());
+            Assert.IsNotNull(NordenCompra.RecuperarOrdenPendiente());
         }
         [TestMethod]
         public void ListarOrdenes()// devuelve las ordenes habilitadas 
         {
-            Assert.IsNotNull(NordenCompra.ListarOrdenCompra());
+            Assert.IsNotNull(NordenCompra.RecuperarOrdenCompra());
         }
         [TestMethod]
-        public void pruebaSuma()// sirve para sumar el precio total de una orden de compra solo se le tiene que pasar el id de la orden 
+        public void PruebaSuma()// sirve para sumar el precio total de una orden de compra solo se le tiene que pasar el id de la orden 
         {
-            _unOrdencompra.ID = 1;
-            Assert.AreEqual(NordenCompra.CalcularTotalOrden(_unOrdencompra),18000);
+            int idOrden = 1;
+            Assert.AreEqual(NordenCompra.RecuperarTotalOrden(idOrden),18000);
         }
     }
 }

@@ -8,7 +8,10 @@ namespace BLL
     public class NDeposito
     {
         DDeposito unDeposito = new DDeposito();
-
+        /// <summary>
+        /// Llena DT con stocks
+        /// </summary>
+        /// <returns>DataTable o Excepcion "NoEncontrado"</returns>
         public DataTable ListarDeposito()
         {
             DataTable dt = unDeposito.ListadeDeposito();
@@ -18,17 +21,27 @@ namespace BLL
             }
             return dt;
         }
-        public bool QuitarDeDeposito(OrdenDeCompra _unOrdenCompra)
+        /// <summary>
+        /// Quita en bbdd los detalles pertenecientes a una orden
+        /// </summary>
+        /// <param name="idOrden"></param>
+        /// <returns>True o Excepcion "FallaEnEdicion"</returns>
+        public bool QuitarDeDeposito(int idOrden)
         {
-            if (unDeposito.QuitarDeDeposito(_unOrdenCompra))
+            if (unDeposito.QuitarDeDeposito(idOrden))
             {
                 return true;
             }
             throw new FallaEnEdicion();
         }
-        public bool AgregarADeposito(OrdenDeCompra _unOrdenCompra)
+        /// <summary>
+        /// Carga en bbdd los detalles pertenecientes a una orden
+        /// </summary>
+        /// <param name="idOrden"></param>
+        /// <returns>True o Excepcion "FallaEnEdicion"</returns>
+        public bool AgregarADeposito(int idOrden)
         {
-            if (unDeposito.AgregarADeposito(_unOrdenCompra))
+            if (unDeposito.AgregarADeposito(idOrden))
             {
                 return true;
             }

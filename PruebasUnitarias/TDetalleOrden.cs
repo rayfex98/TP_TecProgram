@@ -1,7 +1,7 @@
 ﻿using BLL;
 using Entidades;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-
+using System.Collections.Generic;
 namespace PruebasUnitarias
 {
     [TestClass]
@@ -39,12 +39,34 @@ namespace PruebasUnitarias
             Assert.AreEqual(ndetalle.Eliminar(idDetalle, idorden), true);
         }
         [TestMethod]
-        public void ListarDetall()// lista todos los detalles 
+        public void ListarDetalle()// lista todos los detalles 
         {
             int idorden = 1;
-            Assert.IsNotNull(ndetalle.ListarDetalleOrden(idorden));
+            Assert.IsNotNull(ndetalle.RecuperarDetalleOrden(idorden));
         }
 
+        [TestMethod]
+        public void CargarListaDetalles()// lista todos los detalles 
+        {
+            List<DetalleOrden> detalles = new List<DetalleOrden>();
+            DetalleOrden undetalle = new DetalleOrden();
+            undetalle.Cantidad = 10;
+            undetalle.Producto = new Producto();
+            undetalle.Producto.ID = 6;
+            detalles.Add(undetalle);
+            undetalle.Cantidad = 20;
+            undetalle.Producto = new Producto();
+            undetalle.Producto.ID = 5;
+            int idorden= 1;
+            detalles.Add(undetalle);
+            Assert.AreEqual(ndetalle.CargarListaDetalles(detalles,idorden),true);
+        }
 
+        [TestMethod]
+        public void UltimoDetalle()// lista todos los detalles 
+        {
+            int idorden = 3;
+            Assert.AreEqual(ndetalle.RecuperarUltimoid(),idorden);
+        }
     }
 }

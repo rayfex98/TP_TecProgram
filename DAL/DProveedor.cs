@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Data.SqlClient;
 using System.Text;
 
 namespace DAL
@@ -12,16 +13,41 @@ namespace DAL
         DataTable dt = new DataTable();
         public bool Nuevo(Proveedor ObjProveedor)
         {
-
             try
             {
-                string query = string.Format("EXEC PROVEEDORPROC @ID=NULL,@DIRECCION={0},@CUIL={1},@RAZONSOCIAL={2},@HABILITADO = null,@TIPO = 'INSERT';"
-                        , ObjProveedor.Direccion.ID, ObjProveedor.CUIL, ObjProveedor.RazonSocial);
-                if (1 != db.EscribirPorComando(query))
+                DDireccion nueva = new DDireccion();
+                Direccion dir = new Direccion 
                 {
-                    return false;
+                    Calle = ObjProveedor.Direccion.Calle,
+                    Altura = ObjProveedor.Direccion.Altura,
+                    Localidad = ObjProveedor.Direccion.Localidad,
+                    CodigoPostal = ObjProveedor.Direccion.CodigoPostal,
+                    Provincia = ObjProveedor.Direccion.Provincia
+                };
+                if (nueva.Nuevo(dir))
+                {
+                    ObjProveedor.Direccion.ID = nueva.UltimaDireccion();
+                    if (ObjProveedor.Direccion.ID == -1)
+                    {
+                        return false;
+                    }
+                    SqlParameter[] parametros =
+                    {
+                        new SqlParameter("@DIRECCION",SqlDbType.Int),
+                        new SqlParameter("@CUIL",SqlDbType.NVarChar),
+                        new SqlParameter("@RAZONSOCIAL",SqlDbType.NVarChar),
+                        new SqlParameter("@TIPO",SqlDbType.NVarChar)
+                    };
+                    parametros[0].Value = ObjProveedor.Direccion.ID;
+                    parametros[1].Value = ObjProveedor.CUIL;
+                    parametros[2].Value = ObjProveedor.RazonSocial;
+                    parametros[3].Value = "INSERT";
+                    if (db.EscribirPorStoreProcedure("PROVEEDORPROC", parametros) > 0)
+                    {
+                        return true;
+                    }
                 }
-                return true;
+                return false;
             }
             catch (System.Data.SqlClient.SqlException)
             {
@@ -85,13 +111,23 @@ namespace DAL
         }
         public DataTable ListaProveedoresPorProvincia(string Provincia)
         {
-            string query = string.Format("exec BuscarProveedorProvincia @provincia= {0};", Provincia);
-            dt = db.LeerPorComando(query);
+            SqlParameter[] parametros =
+            {
+                new SqlParameter("@provincia",SqlDbType.NVarChar)
+            };
+            parametros[0].Value = Provincia;
+            dt = db.LeerPorStoreProcedure("BuscarProveedorProvincia", parametros);
             return dt;
         }
         public DataTable ListaProveedoresHabilitados()
         {
             string query = string.Format("ListaProveedoresHabilitados");
+            dt = db.LeerPorComando(query);
+            return dt;
+        }
+        public DataTable UltimoProveedor()
+        {
+            string query = string.Format("UltimoProveedor");
             dt = db.LeerPorComando(query);
             return dt;
         }

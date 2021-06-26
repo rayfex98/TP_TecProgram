@@ -1,5 +1,6 @@
 ﻿using Entidades;
 using System.Data;
+using System.Data.SqlClient;
 
 namespace DAL
 {
@@ -11,14 +12,26 @@ namespace DAL
         {
             try
             {
-
-                string query = string.Format("EXEC DIRECCIONPROC @ID=NULL,@ALTURA={0},@CALLE={1},@CP={2},@LOCALIDAD={3},@PROVINCIA={4},@TIPO = 'INSERT';"
-                    , unDireccion.Altura.ToString(), unDireccion.Calle, unDireccion.CodigoPostal.ToString(), unDireccion.Localidad, unDireccion.Provincia);
-                if (1 != db.EscribirPorComando(query))
+                SqlParameter[] parametros =
                 {
-                    return false;
+                    new SqlParameter("@ALTURA",SqlDbType.NVarChar),
+                    new SqlParameter("@CALLE",SqlDbType.NVarChar),
+                    new SqlParameter("@CP",SqlDbType.NVarChar),
+                    new SqlParameter("@LOCALIDAD",SqlDbType.NVarChar),
+                    new SqlParameter("@PROVINCIA",SqlDbType.NVarChar),
+                    new SqlParameter("@TIPO",SqlDbType.NVarChar)
+                };
+                parametros[0].Value = unDireccion.Altura.ToString();
+                parametros[1].Value = unDireccion.Calle.ToString();
+                parametros[2].Value = unDireccion.CodigoPostal.ToString();
+                parametros[3].Value = unDireccion.Localidad.ToString();
+                parametros[3].Value = unDireccion.Provincia.ToString();
+                parametros[4].Value = "INSERT";
+                if (db.EscribirPorStoreProcedure("DIRECCIONPROC", parametros) > 0)
+                {
+                    return true;
                 }
-                return true;
+                return false;
             }
             catch (System.Data.SqlClient.SqlException)
             {
@@ -68,9 +81,27 @@ namespace DAL
         }
         public DataTable ListaDirecion()
         {
-            string query = string.Format("listadirecion");
+            string query = string.Format("listadireccion");
             dt = db.LeerPorComando(query);
             return dt;
+        }
+        public int UltimaDireccion()
+        {
+            try
+            {
+                string query = string.Format("SELECT MAX([ID]) FROM [dbo].[direccion]");
+                dt = db.LeerPorComando(query);
+                return int.Parse(dt.Rows[0].ItemArray[0].ToString());
+
+            }
+            catch (System.Data.SqlClient.SqlException)
+            {
+                return -1;
+            }
+            catch (System.NullReferenceException)
+            {
+                return -1;
+            }
         }
     }
 }

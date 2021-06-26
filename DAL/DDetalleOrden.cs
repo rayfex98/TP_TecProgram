@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Data.SqlClient;
 using System.Text;
 
 namespace DAL
@@ -10,7 +11,6 @@ namespace DAL
     {
         readonly Conexion db = new Conexion();
         DataTable dt = new DataTable();
-
         public bool Nuevo(DetalleOrden unDetalleOrden, int idOrden)
         {
             try
@@ -94,9 +94,22 @@ namespace DAL
         }
         public DataTable ListadeDetalleOrden(int idOrden)
         {
-            string query = string.Format("listadetalle @idorden = {0}", idOrden);
+            SqlParameter[] parametros =
+            {
+                new SqlParameter("@idorden",SqlDbType.Int)
+            };
+            parametros[0].Value = idOrden;
+            dt = db.LeerPorStoreProcedure("listadetalle", parametros);
+            return dt;
+        }
+        public DataTable UltimaOrden()
+        {
+            Conexion db = new Conexion();
+            DataTable dt = new DataTable();
+            string query = string.Format("ultimoidOrden");
             dt = db.LeerPorComando(query);
             return dt;
+
         }
     }
 }

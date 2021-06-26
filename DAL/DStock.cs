@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Data.SqlClient;
 using System.Text;
 
 namespace DAL
@@ -14,8 +15,16 @@ namespace DAL
         {
             try
             {
-                string query = string.Format("STOCKPROC @ID=null,@PRODUCTO={0},@CANTIDAD={1},@HABILITADO = null,@TIPO='INSERT';", unStock.Producto.ID, unStock.Cantidad);
-                if (1 != db.EscribirPorComando(query))
+                SqlParameter[] parametros =
+                {
+                    new SqlParameter("@PRODUCTO",SqlDbType.Int),
+                    new SqlParameter("@CANTIDAD",SqlDbType.Int),
+                    new SqlParameter("@TIPO",SqlDbType.NVarChar)
+                };
+                parametros[0].Value = unStock.Producto.ID;
+                parametros[1].Value = unStock.Cantidad;
+                parametros[2].Value = "INSERT";
+                if (1 != db.EscribirPorStoreProcedure("STOCKPROC", parametros))
                 {
                     return false;
                 }
@@ -50,7 +59,7 @@ namespace DAL
         {
             try
             {
-                string query = string.Format("STOCKPROC @ID={0},@PRODUCTO=null,@CANTIDAD=null,@HABILITADO = null,@TIPO='DELETE';", idProducto);
+                string query = string.Format("EXEC STOCKPROC @ID={0},@PRODUCTO=null,@CANTIDAD=null,@HABILITADO = null,@TIPO='DELETE';", idProducto);
                 if (1 != db.EscribirPorComando(query))
                 {
                     return false;
@@ -71,8 +80,14 @@ namespace DAL
         {
             try
             {
-                string query = string.Format("exec sumarstock @ID = {0} , @cantidad= {1};", ID_producto, cantidad);
-                if (1 != db.EscribirPorComando(query))
+                SqlParameter[] parametros =
+                {
+                    new SqlParameter("@ID",SqlDbType.Int),
+                    new SqlParameter("@cantidad",SqlDbType.Int)
+                };
+                parametros[0].Value = ID_producto;
+                parametros[1].Value = cantidad;
+                if (1 != db.EscribirPorStoreProcedure("sumarstock", parametros))
                 {
                     return false;
                 }
@@ -92,8 +107,14 @@ namespace DAL
         {
             try
             {
-                string query = string.Format("exec restarstock @ID = {0} , @cantidad= {1};", ID_producto, cantidad);
-                if (1 != db.EscribirPorComando(query))
+                SqlParameter[] parametros =
+                {
+                    new SqlParameter("@ID",SqlDbType.Int),
+                    new SqlParameter("@cantidad",SqlDbType.Int)
+                };
+                parametros[0].Value = ID_producto;
+                parametros[1].Value = cantidad;
+                if (1 != db.EscribirPorStoreProcedure("restarstock", parametros))
                 {
                     return false;
                 }
@@ -110,8 +131,10 @@ namespace DAL
         }
         public DataTable ListarStockVista()
         {
-            string query = string.Format("vista_stock");
-            dt = db.LeerPorComando(query);
+            SqlParameter[] parametros =
+            {
+            };
+            dt = db.LeerPorStoreProcedure("vista_stock", parametros);
             return dt;
         }
     }

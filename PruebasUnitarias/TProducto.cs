@@ -41,14 +41,14 @@ namespace PruebasUnitarias
         public void ListaProductos()// devuelve una lista de los productos que estan habilitados 
         {
             NProducto Obj = new NProducto();
-            Assert.IsNotNull(Obj.ListarProductos());
+            Assert.IsNotNull(Obj.RecuperarProductos());
         }
         [TestMethod]
-        public void BuscarProducto()// devuelve una lista de los productos que estan habilitados 
+        public void ProductosEnLista()
         {
-            string nombre = "c";
             NProducto Obj = new NProducto();
-            Assert.IsNotNull(Obj.BuscarProducto(nombre));
+
+            Assert.IsNotNull(Obj.RecuperarProductos());
         }
     }
 }

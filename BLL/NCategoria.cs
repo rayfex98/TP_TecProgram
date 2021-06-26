@@ -9,6 +9,12 @@ namespace BLL
     {
         DCategoria unCategoria = new DCategoria();
 
+        /// <summary>
+        /// Carga categoria en bbdd,
+        /// Requiero descripcion
+        /// </summary>
+        /// <param name="nombre"></param>
+        /// <returns>True o Excepcion "FallaEnInsercion"</returns>
         public bool AgregarCategoria(string nombre)
         {
             if (string.IsNullOrEmpty(nombre))
@@ -59,6 +65,10 @@ namespace BLL
             }
             throw new FallaEnEdicion();
         }
+        /// <summary>
+        /// columnas: 'descripcion','id categoria'
+        /// </summary>
+        /// <returns>DataTable o Excepcion "NoEncontrado"</returns>
         public DataTable ListarCategoria()
         {
             DataTable dt = unCategoria.ListadeCategoria();
@@ -68,6 +78,11 @@ namespace BLL
             }
             return dt;
         }
+        /// <summary>
+        /// columnas: 'descripcion','id categoria'
+        /// </summary>
+        /// <param name="descripcion"></param>
+        /// <returns>DataTable o Excepcion "NoEncontrado"</returns>
         public DataTable ListadeCategoriaPorCategoria(string descripcion)
         {
             DataTable dt = unCategoria.ListadeCategoriaPorCategoria(descripcion);

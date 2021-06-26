@@ -8,7 +8,12 @@ namespace BLL
     public class NAlerta
     {
         DAlerta unAlerta = new DAlerta();
-
+        /// <summary>
+        /// Carga Alerta en bbdd,
+        /// Requiero id_stock, id_usuario, cantidad minima
+        /// </summary>
+        /// <param name="_unAlerta"></param>
+        /// <returns>True o Excepcion "FallaEnInsercion"</returns>
         public bool CrearAlerta(Alerta _unAlerta)
         {
             if ((_unAlerta.CantidadMinima < 0) || (_unAlerta.Stock.ID < 0) || (_unAlerta.UsuarioCreador.ID < 0)) throw new ExcepcionDeDatos();
@@ -35,7 +40,11 @@ namespace BLL
             }
             throw new FallaEnEliminacion();
         }
-        public DataTable ListarAlerta()
+        /// <summary>
+        /// columnas: 'id alerta','Descripcion', 'producto','usuario', 'cantidad minima','cantidad stock'
+        /// </summary>
+        /// <returns>DataTable o Excepcion "NoEncontrado"</returns>
+        public DataTable RecuperarAlerta()
         {
             DataTable dt = unAlerta.ListadeAlertas();
             if (dt.Rows.Count == 0)
@@ -44,7 +53,11 @@ namespace BLL
             }
             return dt;
         }
-        public DataTable ListarAlertasCriticas()
+        /// <summary>
+        /// columnas: 'id alerta','Descripcion', 'producto','usuario', 'cantidad minima','cantidad stock'
+        /// </summary>
+        /// <returns>DataTable o Excepcion "NoEncontrado"</returns>
+        public DataTable RecuperarAlertasCriticas()
         {
             DataTable dt = unAlerta.ListalertasCriticas();
             if (dt.Rows.Count == 0)
@@ -53,24 +66,5 @@ namespace BLL
             }
             return dt;
         }
-        public DataTable BuscarAlertaCategoria(string nombre)
-        {
-            DataTable dt = unAlerta.BuscarAlertaCategoria(nombre);
-            if (dt.Rows.Count == 0)
-            {
-                throw new NoEncontrado();
-            }
-            return dt;
-        }
-        public DataTable BuscarAlertaNombre(string nombre)
-        {
-            DataTable dt = unAlerta.BuscarAlertaNombre(nombre);
-            if (dt.Rows.Count == 0)
-            {
-                throw new NoEncontrado();
-            }
-            return dt;
-        }
-
     }
 }
