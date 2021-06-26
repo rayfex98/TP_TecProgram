@@ -33,13 +33,13 @@ namespace PruebasUnitarias
         [TestMethod]
         public void ListarProvedores()//devuelve la lista de proveedores completa
         {
-            Assert.IsNotNull(obj.ListaProveedoresTodos());
+            Assert.IsNotNull(obj.RecuperarTodosLosProveedores());
 
         }
         [TestMethod]
         public void ListarProvedoreshabilitados()//devuelve la lista de proveedores habilitados 
         {
-            Assert.IsNotNull(obj.ListarProveedoresHabilitados());
+            Assert.IsNotNull(obj.RecuperarProveedoresHabilitados());
 
         }
 
@@ -61,7 +61,7 @@ namespace PruebasUnitarias
         public void ListarProvedoresPorProvincia()//Lista proveedores por provincia que se ingrese que se pasa por string 
         {
             string provincia = "b";
-            Assert.IsNotNull(obj.ListarProveedoresPorProvincia(provincia));
+            Assert.IsNotNull(obj.RecuperarProveedoresPorProvincia(provincia));
 
         }
     }

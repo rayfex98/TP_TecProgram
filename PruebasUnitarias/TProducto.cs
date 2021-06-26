@@ -41,7 +41,7 @@ namespace PruebasUnitarias
         public void ListaProductos()// devuelve una lista de los productos que estan habilitados 
         {
             NProducto Obj = new NProducto();
-            Assert.IsNotNull(Obj.ListarProductos());
+            Assert.IsNotNull(Obj.RecuperarProductos());
         }
     }
 }

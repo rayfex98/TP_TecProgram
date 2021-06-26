@@ -48,13 +48,13 @@ namespace PruebasUnitarias
         public void ListarAlertas()// lista todas las alertas 
         {
             NAlerta MetodoAlerta = new NAlerta();
-            Assert.IsNotNull(MetodoAlerta.ListarAlerta());
+            Assert.IsNotNull(MetodoAlerta.RecuperarAlerta());
         }
         [TestMethod]
         public void ListarAlertasCriticas()// lista alertas que se encuentren por debajo de la cantidad minimas de producto 
         {
             NAlerta MetodoAlerta = new NAlerta();
-            Assert.IsNotNull(MetodoAlerta.ListarAlertasCriticas());
+            Assert.IsNotNull(MetodoAlerta.RecuperarAlertasCriticas());
         }
     }
 }
