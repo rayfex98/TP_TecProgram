@@ -746,14 +746,7 @@ GO
 			 on P.id_categoria = C.id_categoria 
 			 inner join dbo.STOCK as S
 			 on P.id_producto = S.id_producto 
---listar productos para llenar lista
-			 if object_id('ProductosParalista') is not null
-		drop procedure ProductosParalista;
-		go
-		create procedure ProductosParalista as
-			 select 
-				NOMBRE as 'nombre'
-			 from dbo.PRODUCTO 
+
 --busca un producto por su nombre 
 		if object_id('BuscarProductoNombre') is not null
 		drop procedure BuscarProductoNombre;
@@ -1037,14 +1030,5 @@ if object_id('UltimoProveedor') is not null
 			codigo_postal as 'codigo postal',
 			localidad as 'localidad',
 			provincia as 'provincia'
-			id_direccion as 'id direccion'
+			--id_direccion as 'id direccion'
 			from dbo.DIRECCION;
-
- --store procedure para orden devuelve ultimo id orden 
- if object_id('ultimoidOrden') is not null
-		drop procedure ultimoidOrden
-		go
-		create procedure ultimoidOrden as 
-			select 
-			Max(IDORDEN) as 'id'
-			from dbo.orden;	
