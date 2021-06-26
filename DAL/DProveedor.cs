@@ -33,15 +33,19 @@ namespace DAL
                     }
                     SqlParameter[] parametros =
                     {
+                        new SqlParameter("@ID",SqlDbType.Int),
                         new SqlParameter("@DIRECCION",SqlDbType.Int),
                         new SqlParameter("@CUIL",SqlDbType.NVarChar),
                         new SqlParameter("@RAZONSOCIAL",SqlDbType.NVarChar),
-                        new SqlParameter("@TIPO",SqlDbType.NVarChar)
+                        new SqlParameter("@HABILITADO",SqlDbType.DateTime),
+                        new SqlParameter("@TIPO",SqlDbType.NVarChar),
                     };
-                    parametros[0].Value = ObjProveedor.Direccion.ID;
-                    parametros[1].Value = ObjProveedor.CUIL;
-                    parametros[2].Value = ObjProveedor.RazonSocial;
-                    parametros[3].Value = "INSERT";
+                    parametros[0].Value = 0;
+                    parametros[1].Value = ObjProveedor.Direccion.ID;
+                    parametros[2].Value = ObjProveedor.CUIL;
+                    parametros[3].Value = ObjProveedor.RazonSocial;
+                    parametros[4].Value = System.DateTime.Now;
+                    parametros[5].Value = "INSERT";
                     if (db.EscribirPorStoreProcedure("PROVEEDORPROC", parametros) > 0)
                     {
                         return true;

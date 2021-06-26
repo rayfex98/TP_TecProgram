@@ -736,52 +736,18 @@ GO
 		go
 		create procedure ListaProductos as
 			 select 
-			 P.nombre as 'nombre',
-			 C.descripcion as 'categoria',
-			 S.CANTIDAD as 'Stock',
-			 P.precio_compra as 'Precio de compra',
-			 P.precio_venta as 'Precio de venta'
+				 P.id_producto as 'id_producto',
+				 P.nombre as 'nombre',
+				 C.id_categoria as 'idcategoria',
+				 C.descripcion as 'categoria',
+				 S.CANTIDAD as 'Stock',
+				 P.precio_compra as 'Precio de compra',
+				 P.precio_venta as 'Precio de venta'
 			 from dbo.producto as P
-			 inner join dbo.categoria as C 
-			 on P.id_categoria = C.id_categoria 
-			 inner join dbo.STOCK as S
-			 on P.id_producto = S.id_producto 
-
---busca un producto por su nombre 
-		if object_id('BuscarProductoNombre') is not null
-		drop procedure BuscarProductoNombre;
-		go
-		create procedure BuscarProductoNombre(@nombre varchar(30) ) as
-			 select 
-			 P.nombre as 'nombre',
-			 C.descripcion as 'categoria',
-			 S.CANTIDAD as 'Stock',
-			 P.precio_compra as 'Precio de compra',
-			 P.precio_venta as 'Precio de venta'
-			 from dbo.producto as P
-			 inner join dbo.categoria as C 
-			 on P.id_categoria = C.id_categoria 
-			 inner join dbo.STOCK as S
-			 on P.id_producto = S.id_producto 
-			 where  P.NOMBRE like  @nombre + '%';
-
---busca un producto por su descripcion(categoria) 
-		if object_id('BuscarProductoCategoria') is not null
-		drop procedure BuscarProductoCategoria;
-		go
-		create procedure BuscarProductoCategoria(@nombre varchar(30) ) as
-			 select 
-			 P.nombre as 'nombre',
-			 C.descripcion as 'categoria',
-			 S.CANTIDAD as 'Stock',
-			 P.precio_compra as 'Precio de compra',
-			 P.precio_venta as 'Precio de venta'
-			 from dbo.producto as P
-			 inner join dbo.categoria as C 
-			 on P.id_categoria = C.id_categoria 
-			 inner join dbo.STOCK as S
-			 on P.id_producto = S.id_producto 
-			 where  C.DESCRIPCION like  @nombre + '%';
+				 inner join dbo.categoria as C 
+				 on P.id_categoria = C.id_categoria 
+				 inner join dbo.STOCK as S
+				 on P.id_producto = S.id_producto 
 
 --store procedures de proveedor 
 		if object_id('ListaProveedores') is not null
@@ -789,17 +755,18 @@ GO
 		go
 		create procedure ListaProveedores as 
 			 select 
-			 P.razonsocial as 'Razon social',
-			 d.id as 'Direccion',
-			 D.PROVINCIA as 'Provincia',
-			 P.cuil as 'Cuil',
-			 D.CALLE as 'Calle',
-			 D.LOCALIDAD as 'Localidad',
-			 D.codigo_postal as 'Codigo postal',
-			 P.habilitado as 'Habilitado'
+				 P.id_proveedor as 'ID Proveedor',
+				 P.razonsocial as 'Razon social',
+				 d.id as 'Direccion',
+				 D.PROVINCIA as 'Provincia',
+				 P.cuil as 'CUIL',
+				 D.CALLE as 'Calle',
+				 D.altura as 'Altura',
+				 D.LOCALIDAD as 'Localidad',
+				 D.codigo_postal as 'Codigo postal'
 			 from dbo.proveedor as P 
-			 inner join dbo.direccion as D
-			 on P.id_direccion = D.id;
+				 inner join dbo.direccion as D
+				 on P.id_direccion = D.id;
 
 --ultimo proveedor ingresado 
 if object_id('UltimoProveedor') is not null
@@ -808,17 +775,18 @@ if object_id('UltimoProveedor') is not null
 		create procedure UltimoProveedor as
 
 			 select 
-			 P.razonsocial as 'Razon social',
-			 d.id as 'Direccion',
-			 D.PROVINCIA as 'Provincia',
-			 P.cuil as 'Cuil',
-			 D.CALLE as 'Calle',
-			 D.LOCALIDAD as 'Localidad',
-			 D.codigo_postal as 'Codigo postal',
-			 P.habilitado as 'Habilitado'
+				 P.id_proveedor as 'ID Proveedor',
+				 P.razonsocial as 'Razon social',
+				 d.id as 'Direccion',
+				 D.PROVINCIA as 'Provincia',
+				 P.cuil as 'Cuil',
+				 D.CALLE as 'Calle',
+				 D.altura as 'Altura',
+				 D.LOCALIDAD as 'Localidad',
+				 D.codigo_postal as 'Codigo postal'
 			 from dbo.proveedor as P 
-			 inner join dbo.direccion as D
-			 on P.id_direccion = D.id 
+				 inner join dbo.direccion as D
+				 on P.id_direccion = D.id 
 			 where P.id_proveedor = MAX(p.id_proveedor)
  
  --store procedures de proveedor habilitados
@@ -827,14 +795,15 @@ if object_id('UltimoProveedor') is not null
 		go
 		create procedure ListaProveedoresHabilitados as 
 			select 
-				 P.razonsocial as 'Razon social',
-				 d.id as 'Direccion',
-				 D.PROVINCIA as 'Provincia',
-				 P.cuil as 'Cuil',
-				 D.CALLE as 'Calle',
-				 D.LOCALIDAD as 'Localidad',
-				 D.codigo_postal as 'Codigo postal',
-				 P.habilitado as 'Habilitado'
+				P.id_proveedor as 'ID Proveedor',
+				P.razonsocial as 'Razon social',
+				d.id as 'Direccion',
+				D.PROVINCIA as 'Provincia',
+				P.cuil as 'Cuil',
+				D.CALLE as 'Calle',
+				D.altura as 'Altura',
+				D.LOCALIDAD as 'Localidad',
+				D.codigo_postal as 'Codigo postal'
 			from dbo.proveedor as P 
 				 inner join dbo.direccion as D
 				 on P.id_direccion = D.id
@@ -846,6 +815,7 @@ if object_id('UltimoProveedor') is not null
 		go
 		create procedure BuscarProveedorProvincia(@provincia NVARCHAR(50)) as
 			 select 
+				 P.id_proveedor as 'ID Proveedor',
 				 P.razonsocial as 'Razon social',
 				 d.id as 'Direccion',
 				 D.PROVINCIA as 'Provincia',

@@ -16,10 +16,14 @@ namespace DAL
                 SqlParameter[] parametros =
                 {
                     new SqlParameter("@USUARIO",SqlDbType.Int),
-                    new SqlParameter("@TIPO",SqlDbType.NVarChar)
+                    new SqlParameter("@TIPO",SqlDbType.NVarChar),
+                    new SqlParameter("@FECHA",SqlDbType.DateTime),
+                    new SqlParameter("@ID",SqlDbType.Int),
                 };
                 parametros[0].Value = unOrden.UsuarioCreador.ID;
                 parametros[1].Value = "INSERT";
+                parametros[2].Value = System.DateTime.Now;
+                parametros[3].Value = 0;
                 if (db.EscribirPorStoreProcedure("ORDENPROC", parametros) > 0)
                 {
                     return true;

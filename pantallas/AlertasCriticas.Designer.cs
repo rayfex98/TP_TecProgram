@@ -36,8 +36,8 @@ namespace pantallas
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            this.dtgvAlertaCritica = new System.Windows.Forms.DataGridView();
+            ((System.ComponentModel.ISupportInitialize)(this.dtgvAlertaCritica)).BeginInit();
             this.SuspendLayout();
             // 
             // button1
@@ -103,16 +103,17 @@ namespace pantallas
             this.label1.TabIndex = 9;
             this.label1.Text = "id alerta";
             // 
-            // dataGridView1
+            // dtgvAlertaCritica
             // 
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(46, 130);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.RowTemplate.Height = 25;
-            this.dataGridView1.Size = new System.Drawing.Size(685, 175);
-            this.dataGridView1.TabIndex = 8;
+            this.dtgvAlertaCritica.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dtgvAlertaCritica.Location = new System.Drawing.Point(46, 130);
+            this.dtgvAlertaCritica.Name = "dtgvAlertaCritica";
+            this.dtgvAlertaCritica.RowTemplate.Height = 25;
+            this.dtgvAlertaCritica.Size = new System.Drawing.Size(685, 175);
+            this.dtgvAlertaCritica.TabIndex = 8;
+            this.dtgvAlertaCritica.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
             // 
-            // Form7
+            // AlertasCriticas
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -124,10 +125,11 @@ namespace pantallas
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.dataGridView1);
-            this.Name = "Form7";
+            this.Controls.Add(this.dtgvAlertaCritica);
+            this.Name = "AlertasCriticas";
             this.Text = "Alertas criticas ";
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            this.Load += new System.EventHandler(this.AlertaCritica_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.dtgvAlertaCritica)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -142,6 +144,6 @@ namespace pantallas
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.DataGridView dtgvAlertaCritica;
     }
 }

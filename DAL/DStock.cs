@@ -17,13 +17,17 @@ namespace DAL
             {
                 SqlParameter[] parametros =
                 {
+                    new SqlParameter("@ID",SqlDbType.Int),
                     new SqlParameter("@PRODUCTO",SqlDbType.Int),
                     new SqlParameter("@CANTIDAD",SqlDbType.Int),
+                    new SqlParameter("@HABILITADO",SqlDbType.DateTime),
                     new SqlParameter("@TIPO",SqlDbType.NVarChar)
                 };
-                parametros[0].Value = unStock.Producto.ID;
-                parametros[1].Value = unStock.Cantidad;
-                parametros[2].Value = "INSERT";
+                parametros[0].Value = 0;
+                parametros[1].Value = unStock.Producto.ID;
+                parametros[2].Value = unStock.Cantidad;
+                parametros[3].Value = System.DateTime.Now;
+                parametros[4].Value = "INSERT";
                 if (1 != db.EscribirPorStoreProcedure("STOCKPROC", parametros))
                 {
                     return false;

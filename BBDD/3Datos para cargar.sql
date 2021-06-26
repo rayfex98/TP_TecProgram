@@ -115,12 +115,13 @@
 --carga proveedor 
 	 go
 	 insert into dbo.PROVEEDOR(id_direccion,cuil,razonsocial,habilitado) 
-	 values		(15,20302010222,'loma negra',20-10-20),
-				(16,32220102224,'molinos cañuelas',20-10-20),
-				(17,20364587586,'coto',20-10-20),
-				(18,21321411212,'dia',20-10-20),
-				(19,30010242122,'sinteplast',20-10-20)
+	 values		(15,20302010222,'loma negra',GETDATE()),
+				(16,32220102224,'molinos cañuelas',GETDATE()),
+				(17,20364587586,'coto',GETDATE()),
+				(18,21321411212,'dia',GETDATE()),
+				(19,30010242122,'sinteplast',GETDATE())
 	 go
+
 --carga orden 
 	 go
 	 insert into dbo.orden(id_persona,fecha) 

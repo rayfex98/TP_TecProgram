@@ -31,11 +31,15 @@ namespace DAL
                     {
                         new SqlParameter("@ID",SqlDbType.Int),
                         new SqlParameter("@PROVEEDOR",SqlDbType.Int),
-                        new SqlParameter("@TIPO",SqlDbType.NVarChar)
+                        new SqlParameter("@TIPO",SqlDbType.NVarChar),
+                        new SqlParameter("@FECHA",SqlDbType.DateTime),
+                        new SqlParameter("@USUARIO",SqlDbType.Int)
                     };
                     parametros[0].Value = id_orden;
                     parametros[1].Value = unOrdenCompra.Proveedor.ID;
-                    parametros[4].Value = "INSERT";
+                    parametros[2].Value = "INSERT";
+                    parametros[3].Value = System.DateTime.Now;
+                    parametros[4].Value = 0;
                     if (db.EscribirPorStoreProcedure("ORDENCOMPRAPROC", parametros) > 0)
                     {
                         return true;

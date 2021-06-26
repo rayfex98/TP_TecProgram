@@ -1,6 +1,7 @@
 ﻿using DAL;
 using Entidades;
 using Excepciones;
+using System.Collections.Generic;
 using System.Data;
 
 namespace BLL
@@ -9,6 +10,15 @@ namespace BLL
     {
         DDireccion unDireccion = new DDireccion();
 
+        public DataTable CargarProvincias()
+        {
+            DataTable prov = unDireccion.RecuperaProvincias();
+            if(prov.Rows.Count == 0)
+            {
+                throw new NoEncontrado();
+            }
+            return prov;
+        }
         private Direccion Estandarizar(Direccion _unDireccion)
         {
             _unDireccion.Calle.ToLower();

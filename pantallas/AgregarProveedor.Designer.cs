@@ -45,7 +45,7 @@ namespace pantallas
             this.textBox5 = new System.Windows.Forms.TextBox();
             this.textBox6 = new System.Windows.Forms.TextBox();
             this.textBox7 = new System.Windows.Forms.TextBox();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
+            this.btnProveedor = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // textBox1
@@ -72,7 +72,6 @@ namespace pantallas
             this.label2.Size = new System.Drawing.Size(28, 15);
             this.label2.TabIndex = 2;
             this.label2.Text = "Cuil";
-            this.label2.Click += new System.EventHandler(this.label2_Click);
             // 
             // textBox2
             // 
@@ -108,7 +107,7 @@ namespace pantallas
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(36, 187);
+            this.label4.Location = new System.Drawing.Point(36, 199);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(37, 15);
             this.label4.TabIndex = 7;
@@ -117,7 +116,7 @@ namespace pantallas
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(183, 187);
+            this.label5.Location = new System.Drawing.Point(157, 199);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(31, 15);
             this.label5.TabIndex = 8;
@@ -126,7 +125,7 @@ namespace pantallas
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(352, 187);
+            this.label6.Location = new System.Drawing.Point(352, 199);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(79, 15);
             this.label6.TabIndex = 9;
@@ -136,7 +135,7 @@ namespace pantallas
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(496, 187);
+            this.label7.Location = new System.Drawing.Point(479, 199);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(59, 15);
             this.label7.TabIndex = 10;
@@ -145,7 +144,7 @@ namespace pantallas
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(635, 187);
+            this.label8.Location = new System.Drawing.Point(612, 199);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(55, 15);
             this.label8.TabIndex = 11;
@@ -154,9 +153,9 @@ namespace pantallas
             // 
             // textBox4
             // 
-            this.textBox4.Location = new System.Drawing.Point(183, 227);
+            this.textBox4.Location = new System.Drawing.Point(157, 227);
             this.textBox4.Name = "textBox4";
-            this.textBox4.Size = new System.Drawing.Size(123, 23);
+            this.textBox4.Size = new System.Drawing.Size(149, 23);
             this.textBox4.TabIndex = 12;
             this.textBox4.TextChanged += new System.EventHandler(this.textBox4_TextChanged);
             // 
@@ -170,34 +169,33 @@ namespace pantallas
             // 
             // textBox6
             // 
-            this.textBox6.Location = new System.Drawing.Point(496, 227);
+            this.textBox6.Location = new System.Drawing.Point(479, 227);
             this.textBox6.Name = "textBox6";
-            this.textBox6.Size = new System.Drawing.Size(85, 23);
+            this.textBox6.Size = new System.Drawing.Size(102, 23);
             this.textBox6.TabIndex = 14;
             // 
             // textBox7
             // 
-            this.textBox7.Location = new System.Drawing.Point(635, 227);
+            this.textBox7.Location = new System.Drawing.Point(612, 227);
             this.textBox7.Name = "textBox7";
-            this.textBox7.Size = new System.Drawing.Size(93, 23);
+            this.textBox7.Size = new System.Drawing.Size(129, 23);
             this.textBox7.TabIndex = 15;
             // 
-            // checkBox1
+            // btnProveedor
             // 
-            this.checkBox1.AutoSize = true;
-            this.checkBox1.Location = new System.Drawing.Point(352, 149);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(79, 19);
-            this.checkBox1.TabIndex = 16;
-            this.checkBox1.Text = "habilitado";
-            this.checkBox1.UseVisualStyleBackColor = true;
+            this.btnProveedor.Location = new System.Drawing.Point(572, 67);
+            this.btnProveedor.Name = "btnProveedor";
+            this.btnProveedor.Size = new System.Drawing.Size(115, 39);
+            this.btnProveedor.TabIndex = 17;
+            this.btnProveedor.Text = "Agregar";
+            this.btnProveedor.UseVisualStyleBackColor = true;
             // 
-            // Form4
+            // AgregarProveedor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Controls.Add(this.checkBox1);
+            this.Controls.Add(this.btnProveedor);
             this.Controls.Add(this.textBox7);
             this.Controls.Add(this.textBox6);
             this.Controls.Add(this.textBox5);
@@ -214,8 +212,7 @@ namespace pantallas
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.textBox1);
-            this.Name = "Form4";
-            this.Text = "Agregar proveedor";
+            this.Name = "AgregarProveedor";
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -239,6 +236,6 @@ namespace pantallas
         private System.Windows.Forms.TextBox textBox5;
         private System.Windows.Forms.TextBox textBox6;
         private System.Windows.Forms.TextBox textBox7;
-        private System.Windows.Forms.CheckBox checkBox1;
+        private System.Windows.Forms.Button btnProveedor;
     }
 }

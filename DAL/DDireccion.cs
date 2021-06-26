@@ -19,7 +19,8 @@ namespace DAL
                     new SqlParameter("@CP",SqlDbType.NVarChar),
                     new SqlParameter("@LOCALIDAD",SqlDbType.NVarChar),
                     new SqlParameter("@PROVINCIA",SqlDbType.NVarChar),
-                    new SqlParameter("@TIPO",SqlDbType.NVarChar)
+                    new SqlParameter("@TIPO",SqlDbType.NVarChar),
+                    new SqlParameter("@ID",SqlDbType.Int)
                 };
                 parametros[0].Value = unDireccion.Altura.ToString();
                 parametros[1].Value = unDireccion.Calle.ToString();
@@ -27,6 +28,7 @@ namespace DAL
                 parametros[3].Value = unDireccion.Localidad.ToString();
                 parametros[3].Value = unDireccion.Provincia.ToString();
                 parametros[4].Value = "INSERT";
+                parametros[5].Value = 0;
                 if (db.EscribirPorStoreProcedure("DIRECCIONPROC", parametros) > 0)
                 {
                     return true;
@@ -78,6 +80,13 @@ namespace DAL
             {
                 return false;
             }
+        }
+
+        public DataTable RecuperaProvincias()
+        {
+            string query = string.Format("SELECT DISTINCT [provincia] FROM [dbo].[direccion]");
+            dt = db.LeerPorComando(query);
+            return dt;
         }
         public DataTable ListaDirecion()
         {
