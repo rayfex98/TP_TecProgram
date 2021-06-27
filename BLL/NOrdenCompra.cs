@@ -72,7 +72,7 @@ namespace BLL
             return dt;
         }
         /// <summary>
-        /// columnas: 'id orden ','cantidad','producto','razon social'
+        /// columnas: 'id orden '
         /// </summary>
         /// <returns>DataTable o Excepcion "NoEncontrado"</returns>
         public DataTable RecuperarOrdenPendiente()
@@ -84,6 +84,12 @@ namespace BLL
             }
             return dt;
         }
+        /// <summary>
+        /// Toma id de orden y usuario para aprobar en la bbdd
+        /// </summary>
+        /// <param name="id_orden"></param>
+        /// <param name="id_usuario"></param>
+        /// <returns>True, ExcepcionDeDatos o FallaEnEdicion </returns>
         public bool AprobarOrden(int id_orden, int id_usuario)
         {
             if (id_orden < 0)

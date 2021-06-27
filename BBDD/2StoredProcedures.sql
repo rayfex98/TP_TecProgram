@@ -304,7 +304,7 @@ AS
 				IF (@USUARIO IS NOT NULL AND @FECHA IS NOT NULL)
 					BEGIN
 						UPDATE [dbo].orden_compra
-						SET	id_proveedor = @USUARIO,
+						SET	id_persona = @USUARIO,
 							fecha_aprobacion = @FECHA
 						WHERE id_orden = @ID
 					END
@@ -314,7 +314,7 @@ AS
 			SET @FECHA = GETUTCDATE()
 				UPDATE [dbo].orden_compra
 					SET fecha_aprobacion = @FECHA,
-						id_proveedor = @USUARIO
+						id_persona = @USUARIO
 				WHERE id_orden = @ID
 		END
 
@@ -713,19 +713,19 @@ if object_id('UltimoProveedor') is not null
 		go
 		create procedure OrdenCompraVista as 
 			select DISTINCT
-				 O.id_orden as 'id orden',
-				 D.CANTIDAD as 'cantidad',
-				 P.NOMBRE as 'producto',
-				 V.RAZONSOCIAL as 'razon social',
-				 O.fecha_aprobacion as 'fecha aprobacion'
-			from dbo.orden_compra AS O
-				 inner join dbo.detalle_orden AS D
-				 on  O.id_orden =  D.id_orden
-				 inner join dbo.PRODUCTO as P
-				 on D.id_producto = P.id_producto
-				 inner join dbo.PROVEEDOR as V
-				 on O.id_proveedor = V.id_proveedor
-			where O.fecha_aprobacion is not null
+				 OC.id_orden as 'id orden',
+				 U.nombre +' '+  U.apellido as 'Creador',
+				 O.fecha as 'Creacion',
+				 OC.id_persona as 'Aprobador',
+				 OC.fecha_aprobacion as 'Fecha Aprobacion',
+				 P.razonsocial as 'Proveedor'
+			from dbo.orden_compra AS OC
+			inner join dbo.orden as O
+			on O.id = OC.id_orden
+			inner join dbo.persona as U
+			on O.id_persona = U.id
+			inner join dbo.proveedor as P
+			on OC.id_proveedor = P.id_proveedor
 
 --store procedures buscar orden de compra por nombre producto
 		  if object_id('OrdenCompraBuscarProducto') is not null
@@ -769,25 +769,6 @@ if object_id('UltimoProveedor') is not null
 			where O.fecha_aprobacion is not null
 			 and V.razonsocial like  @proveedor + '%';
 
- -- Crea el store procedure para ver las ordenes de compra pendiente 
-		 if object_id('OrdenCompraPendientes') is not null
-		  drop procedure OrdenCompraPendientes
-		go
-		 create procedure OrdenCompraPendientes as 
-			 select 
-			 O.id_orden as 'id orden ',
-			 D.CANTIDAD as 'cantidad',
-			 P.NOMBRE as 'producto',
-			 V.razonsocial as 'razon social'
-			 from dbo.orden_compra AS O
-			 inner join dbo.detalle_orden AS D
-			 on  O.id_orden =  D.id_orden
-			 inner join dbo.PRODUCTO as P
-			 on D.id_producto = P.id_producto
-			 inner join dbo.PROVEEDOR as V
-			 on O.id_proveedor = V.id_proveedor
-			 where O.fecha_aprobacion is null --ahora uso is null
-
 --store procedures para sumar el precio de la compra
 		 if object_id('sumartotalorden') is not null
 		 drop procedure sumartotalorden;
@@ -816,18 +797,6 @@ if object_id('UltimoProveedor') is not null
 				inner join PRODUCTO as P
 				on D.id_producto = P.id_producto
 				where d.id_orden = @orden;
-
- -- Crea el store procedure para ver las ordenes de compra pendiente 
-		 if object_id('OrdenCompraPendientes') is not null
-		  drop procedure OrdenCompraPendientes
-		go
-		 create procedure OrdenCompraPendientes as 
-			select 
-			O.id_orden as 'id orden ',
-			O.fecha_aprobacion as 'fecha aprobacion'
-
-			from dbo.orden_compra AS O
-			where O.fecha_aprobacion is null;
 
  --store procedure categoria muestra todas las categorias 
 		if object_id('ListaCategorias') is not null

@@ -84,13 +84,18 @@ namespace DAL
 
         public DataTable ListadeOrdenCompra()
         {
-            string query = string.Format("OrdenCompraVista");
+            string query = string.Format("SELECT DISTINCT OC.id_orden as 'Orden', U.nombre + ' ' + U.apellido as 'Creador', O.fecha as 'Creacion', " +
+                "OC.id_persona as 'Aprobador', OC.fecha_aprobacion as 'Fecha Aprobacion', P.razonsocial as 'Proveedor' from dbo.orden_compra AS OC " +
+                "inner join dbo.orden as O on O.id = OC.id_orden inner join dbo.persona as U on O.id_persona = U.id inner join dbo.proveedor as P on OC.id_proveedor = P.id_proveedor");
             dt = db.LeerPorComando(query);
             return dt;
         }
         public DataTable OrdenPendiente()
         {
-            string query = string.Format("select id_orden as 'Orden' from orden_compra where fecha_aprobacion is null");
+            string query = string.Format("SELECT DISTINCT OC.id_orden as 'Orden', U.nombre + ' ' + U.apellido as 'Creador', O.fecha as 'Creacion', " +
+                "OC.id_persona as 'Aprobador', OC.fecha_aprobacion as 'Fecha Aprobacion', P.razonsocial as 'Proveedor' from dbo.orden_compra AS OC " +
+                "inner join dbo.orden as O on O.id = OC.id_orden inner join dbo.persona as U on O.id_persona = U.id inner join dbo.proveedor as P on OC.id_proveedor = P.id_proveedor " +
+                "WHERE fecha_aprobacion is null");
             dt = db.LeerPorComando(query);
             return dt;
 
@@ -99,13 +104,24 @@ namespace DAL
         {
             try
             {
-                string query = string.Format("EXEC ORDENCOMPRAPROC @ID={0},@PROVEEDOR=null,@USUARIO={1},@FECHA=null,@TIPO = 'APROBAR';"
-                , id_orden, id_usuario);
-                if (1 != db.EscribirPorComando(query))
+                SqlParameter[] parametros =
+                    {
+                        new SqlParameter("@ID",SqlDbType.Int),
+                        new SqlParameter("@PROVEEDOR",SqlDbType.Int),
+                        new SqlParameter("@TIPO",SqlDbType.NVarChar),
+                        new SqlParameter("@FECHA",SqlDbType.DateTime),
+                        new SqlParameter("@USUARIO",SqlDbType.Int)
+                    };
+                parametros[0].Value = id_orden;
+                parametros[1].Value = 0;
+                parametros[2].Value = "APROBAR";
+                parametros[3].Value = System.DateTime.Now;
+                parametros[4].Value = id_usuario;
+                if (db.EscribirPorStoreProcedure("ORDENCOMPRAPROC", parametros) > 0)
                 {
-                    return false;
+                    return true;
                 }
-                return true;
+                return false;
             }
             catch (System.Data.SqlClient.SqlException)
             {
