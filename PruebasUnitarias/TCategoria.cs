@@ -37,14 +37,7 @@ namespace PruebasUnitarias
         [TestMethod]
         public void Listado()//lista las categorias habilitadas 
         {
-            Assert.IsNotNull(Obj.ListarCategoria());
+            Assert.IsNotNull(Obj.RecuperarCategoria());
         }
-        [TestMethod]
-        public void ListadoPorCategoria()//lista por descripcion / se puede utilizar para cuando ingresa un producto 
-        {
-            string Nombre = "d";
-            Assert.IsNotNull(Obj.ListadeCategoriaPorCategoria(Nombre));
-        }
-
     }
 }

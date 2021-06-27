@@ -69,7 +69,7 @@ namespace PruebasUnitarias
         //devuelve una lista de los productos dentro de deposito que esten habilitados 
         public void Listadeposito()
         {
-            Assert.IsNotNull(undeposito.ListarDeposito());
+            Assert.IsNotNull(undeposito.RecuperarDeposito());
         }
 
 

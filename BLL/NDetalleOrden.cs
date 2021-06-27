@@ -8,7 +8,7 @@ namespace BLL
     public class NDetalleOrden
     {
         readonly DDetalleOrden unDetalleOrden = new DDetalleOrden();
-        readonly List<DetalleOrden> detalles = new List<DetalleOrden>();
+        List<DetalleOrden> detalles = new List<DetalleOrden>();
 
         public bool Nuevo(DetalleOrden _unDetalleOrden, int _idOrden)
         {
