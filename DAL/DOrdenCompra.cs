@@ -15,15 +15,7 @@ namespace DAL
         {
             try
             {
-                DOrden ord = new DOrden();
-                if (ord.Nuevo(unOrdenCompra.UsuarioCreador.ID))
-                {
-                    int id_orden = ord.UltimaOrden();
-                    if (id_orden == -1)
-                    {
-                        return false;
-                    }
-                    SqlParameter[] parametros =
+                SqlParameter[] parametros =
                     {
                         new SqlParameter("@ID",SqlDbType.Int),
                         new SqlParameter("@PROVEEDOR",SqlDbType.Int),
@@ -31,15 +23,14 @@ namespace DAL
                         new SqlParameter("@FECHA",SqlDbType.DateTime),
                         new SqlParameter("@USUARIO",SqlDbType.Int)
                     };
-                    parametros[0].Value = id_orden;
-                    parametros[1].Value = unOrdenCompra.Proveedor.ID;
-                    parametros[2].Value = "INSERT";
-                    parametros[3].Value = System.DateTime.Now;
-                    parametros[4].Value = 0;
-                    if (db.EscribirPorStoreProcedure("ORDENCOMPRAPROC", parametros) > 0)
-                    {
-                        return true;
-                    }
+                parametros[0].Value = unOrdenCompra.ID;
+                parametros[1].Value = unOrdenCompra.Proveedor.ID;
+                parametros[2].Value = "INSERT";
+                parametros[3].Value = System.DateTime.Now;
+                parametros[4].Value = 0;
+                if (db.EscribirPorStoreProcedure("ORDENCOMPRAPROC", parametros) > 0)
+                {
+                    return true;
                 }
                 return false;
             }

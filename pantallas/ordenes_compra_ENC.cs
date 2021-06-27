@@ -15,7 +15,6 @@ namespace pantallas
     {
         NOrdenCompra OrdenCompra = new NOrdenCompra();
         List<DetalleOrden> newdetalle = new List<DetalleOrden>();
-        DetalleOrden undetalle = new DetalleOrden();
         OrdenDeCompra unaOrdenCompra = new OrdenDeCompra();
         public ordenes_compra_ENC()
         {
@@ -43,10 +42,11 @@ namespace pantallas
 
         private void button1_Click(object sender, EventArgs e)
         {
+            DetalleOrden undetalle = new DetalleOrden();
             undetalle.Producto = (Producto)cmbProducto.SelectedItem;
             undetalle.Cantidad= Convert.ToInt32(tboxCantidad.Text);
             //meter en lista dentro de "orden" 
-            this.newdetalle.Add(undetalle);
+            newdetalle.Add(undetalle);
             int n = dtgvProductos.Rows.Add();
             dtgvProductos.Rows[n].Cells[0].Value = this.newdetalle[n].Producto.Nombre;
             dtgvProductos.Rows[n].Cells[1].Value = this.newdetalle[n].Producto.Categoria.Nombre;
@@ -64,7 +64,7 @@ namespace pantallas
             Usuario newusuario = new Usuario();
             newusuario.ID = 1;
             unaOrdenCompra.Proveedor = (Proveedor)cboxProveedor.SelectedItem;               
-            unaOrdenCompra.Detalles = this.newdetalle;
+            unaOrdenCompra.Detalles = newdetalle;
             unaOrdenCompra.UsuarioCreador = newusuario;
             if (OrdenCompra.NuevaOrden(unaOrdenCompra))
             {
@@ -74,6 +74,7 @@ namespace pantallas
             {
                 MessageBox.Show(" no se pudo crear la orden de compra");
             }
+            newdetalle.Clear();
         }
 
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)

@@ -27,10 +27,6 @@ namespace BLL
             {
                 throw new ExcepcionDeDatos();
             }
-            if(_unOrdenCompra.Detalles.Count == 0)
-            {
-                throw new ExcepcionDeDatos();
-            }
             if (unOrdenCompra.NuevoOrden(_unOrdenCompra))
             {
                 return true;
