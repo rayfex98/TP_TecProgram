@@ -1,15 +1,15 @@
 ﻿using DAL;
 using Entidades;
 using Excepciones;
+using System.Collections.Generic;
 using System.Data;
 
 namespace BLL
 {
     public class NProveedor
     {
+        List<Proveedor> _proveedores = new List<Proveedor>();
         DProveedor ObjProveedor = new DProveedor();
-        DataTable dt = new DataTable();
-
         private Proveedor Estandarizar(Proveedor obj)
         {
             obj.CUIL.ToLower();
@@ -31,6 +31,7 @@ namespace BLL
             _proveedor = Estandarizar(_proveedor);
             if (ObjProveedor.Nuevo(_proveedor))
             {
+                _proveedores.Add(_proveedor);
                 return true;
             }
             throw new FallaEnInsercion();
@@ -72,56 +73,96 @@ namespace BLL
             }
             throw new FallaEnEdicion();
         }
+        /// <summary>
+        /// Cargar la lista a utilizar de proveedores
+        /// </summary>
+        /// <param name="filtro">false Para todos, true para habilitado</param>
+        public Proveedor ConvertirProveedor(DataRow item)
+        {
+            Proveedor nuevoprov = new Proveedor();
+            Direccion nuevacdir = new Direccion();
+            nuevoprov.ID = (int)item["ID Proveedor"];
+            nuevoprov.RazonSocial = item["Razon social"].ToString();
+            nuevoprov.CUIL = item["CUIL"].ToString();
+            nuevacdir.ID = (int)item["Direccion"];
+            nuevacdir.Calle = item["Calle"].ToString();
+            nuevacdir.CodigoPostal = item["Codigo postal"].ToString();
+            nuevacdir.Localidad = item["Localidad"].ToString();
+            nuevacdir.Provincia = item["Provincia"].ToString();
+            nuevoprov.Direccion = nuevacdir;
 
-        #region listaProvedores
-        /// <summary>
-        /// columnas: 'Razon social','Direccion','Provincia','Cuil','Calle','Localidad','Codigo postal','Habilitado'
-        /// </summary>
-        /// <returns>DataTable o Excepcion "NoEncontrado</returns>
-        public DataTable RecuperarTodosLosProveedores()
-        {
-            dt = ObjProveedor.ListaProveedores();
-            if (dt.Rows.Count == 0)
-            {
-                throw new NoEncontrado();
-            }
-            return dt;
+            return nuevoprov;
         }
-        #endregion
+
+        #region listas de Provedores
+
         /// <summary>
         /// columnas: 'Razon social','Direccion','Provincia','Cuil','Calle','Localidad','Codigo postal','Habilitado'
         /// </summary>
         /// <returns>DataTable o Excepcion "NoEncontrado</returns>
-        public DataTable RecuperarProveedoresHabilitados()
+        public List<Proveedor> RecuperarTodosLosProveedores()
         {
-            dt = ObjProveedor.ListaProveedoresHabilitados();
-            if (dt.Rows.Count == 0)
+            _proveedores.Clear();
+            DataTable proveedores = ObjProveedor.ListaProveedores();
+            if (proveedores == null)
             {
                 throw new NoEncontrado();
+
             }
-            return dt;
+            foreach (DataRow row in proveedores.Rows)//carga lo de data table a row(que es un data row)
+            {
+                _proveedores.Add(ConvertirProveedor(row));//se agrega a ListaProducto un producto
+            }
+            return _proveedores;
+        }
+        /// <summary>
+        /// columnas: 'Razon social','Direccion','Provincia','Cuil','Calle','Localidad','Codigo postal','Habilitado'
+        /// </summary>
+        /// <returns>DataTable o Excepcion "NoEncontrado</returns>
+        public List<Proveedor> RecuperarProveedoresHabilitados()
+        {
+            _proveedores.Clear();
+            DataTable proveedores = ObjProveedor.ListaProveedoresHabilitados();
+            if (proveedores == null)
+            {
+                throw new NoEncontrado();
+
+            }
+            foreach (DataRow row in proveedores.Rows)//carga lo de data table a row(que es un data row)
+            {
+                _proveedores.Add(ConvertirProveedor(row));//se agrega a ListaProducto un producto
+            }
+            return _proveedores;
         }
         /// <summary>
         /// columnas: 'Razon social','Direccion','Provincia','Cuil','Calle','Localidad','Codigo postal','Habilitado'
         /// </summary>
         /// <param name="provincia"></param>
         /// <returns>DataTable o Excepcion "NoEncontrado"</returns>
-        public DataTable RecuperarProveedoresPorProvincia(string provincia)
+        public List<Proveedor> RecuperarProveedoresPorProvincia(string provincia)
         {
-            dt = ObjProveedor.ListaProveedoresPorProvincia(provincia);
-            if (dt.Rows.Count == 0)
+            _proveedores.Clear();
+            DataTable proveedores = ObjProveedor.ListaProveedoresPorProvincia(provincia);
+            if (proveedores == null)
             {
                 throw new NoEncontrado();
+
             }
-            return dt;
+            foreach (DataRow row in proveedores.Rows)//carga lo de data table a row(que es un data row)
+            {
+                _proveedores.Add(ConvertirProveedor(row));//se agrega a ListaProducto un producto
+            }
+            return _proveedores;
         }
+        #endregion
+
         /// <summary>
         /// columnas: 'Razon social','Direccion','Provincia','Cuil','Calle','Localidad','Codigo postal','Habilitado'
         /// </summary>
         /// <returns>DataTable o Excepcion "NoEncontrado</returns>
         public DataTable UltimoProveedor()
         {
-            dt = ObjProveedor.UltimoProveedor();
+            DataTable dt = ObjProveedor.UltimoProveedor();
             if (dt.Rows.Count == 0)
             {
                 throw new NoEncontrado();

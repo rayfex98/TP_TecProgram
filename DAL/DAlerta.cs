@@ -18,12 +18,14 @@ namespace DAL
                     new SqlParameter("@STOCK",SqlDbType.Int),
                     new SqlParameter("@USUARIO",SqlDbType.Int),
                     new SqlParameter("@MINIMO",SqlDbType.Int),
-                    new SqlParameter("@TIPO",SqlDbType.NVarChar)
+                    new SqlParameter("@TIPO",SqlDbType.NVarChar),
+                    new SqlParameter("@ID",SqlDbType.Int)
                 };
                 parametros[0].Value = unAlerta.Stock.ID;
                 parametros[1].Value = unAlerta.UsuarioCreador.ID;
                 parametros[1].Value = unAlerta.CantidadMinima;
                 parametros[3].Value = "INSERT";
+                parametros[4].Value = 0;
                 if (1 != db.EscribirPorStoreProcedure("ALERTAPROC", parametros))
                 {
                     return false;

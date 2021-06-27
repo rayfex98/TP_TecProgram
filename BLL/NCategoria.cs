@@ -1,14 +1,18 @@
 ﻿using DAL;
 using Entidades;
 using Excepciones;
+using System;
+using System.Collections.Generic;
 using System.Data;
 
 namespace BLL
 {
     public class NCategoria
     {
-        DCategoria unCategoria = new DCategoria();
+        private readonly DCategoria unCategoria = new DCategoria();
+        private readonly List<Categoria> _categorias = new List<Categoria>();
 
+        #region Agregar,Editar,Eliminar,Habilitar
         /// <summary>
         /// Carga categoria en bbdd,
         /// Requiero descripcion
@@ -24,6 +28,12 @@ namespace BLL
             nombre = nombre.ToUpper();
             if (unCategoria.AgregarCategoria(nombre)) 
             {
+                Categoria nueva = new Categoria
+                {
+                    Nombre = nombre,
+                    ID = unCategoria.UltimaCategoria()
+                };
+                _categorias.Add(nueva);
                 return true;
             } 
             throw new FallaEnInsercion();
@@ -65,32 +75,36 @@ namespace BLL
             }
             throw new FallaEnEdicion();
         }
+        #endregion
+
+        #region Listas
+        public void CargarLista()
+        {
+            _categorias.Clear();
+            DataTable products = unCategoria.RecuperarCategorias();
+            foreach (DataRow item in products.Rows)
+            {
+                Categoria nuevacat = new Categoria
+                {
+                    ID = (int)Convert.ToSingle(item["id categoria"]),
+                    Nombre = item["descripcion"].ToString()
+                };
+                _categorias.Add(nuevacat);
+            }
+        }
         /// <summary>
+        /// IMPORTANTE usar CargarLista() primero
         /// columnas: 'descripcion','id categoria'
         /// </summary>
         /// <returns>DataTable o Excepcion "NoEncontrado"</returns>
-        public DataTable ListarCategoria()
+        public List<Categoria> RecuperarCategoria()
         {
-            DataTable dt = unCategoria.ListadeCategoria();
-            if(dt.Rows.Count == 0)
+            if (_categorias.Count == 0)
             {
                 throw new NoEncontrado();
             }
-            return dt;
+            return _categorias;
         }
-        /// <summary>
-        /// columnas: 'descripcion','id categoria'
-        /// </summary>
-        /// <param name="descripcion"></param>
-        /// <returns>DataTable o Excepcion "NoEncontrado"</returns>
-        public DataTable ListadeCategoriaPorCategoria(string descripcion)
-        {
-            DataTable dt = unCategoria.ListadeCategoriaPorCategoria(descripcion);
-            if (dt.Rows.Count == 0)
-            {
-                throw new NoEncontrado();
-            }
-            return dt;
-        }
+        #endregion
     }
 }

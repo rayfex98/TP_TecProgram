@@ -1,4 +1,6 @@
-﻿using System;
+﻿using BLL;
+using Excepciones;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -13,21 +15,21 @@ namespace pantallas
         public ALertas()
         {
             InitializeComponent();
+
         }
 
         private void Form6_Load(object sender, EventArgs e)
         {
-
-        }
-
-        private void label2_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label6_Click(object sender, EventArgs e)
-        {
-
+            NAlerta bllAlerta = new NAlerta();
+            dtgvAlerta.DataSource = null;
+            try
+            {
+                dtgvAlerta.DataSource = bllAlerta.RecuperarAlerta();
+            }
+            catch (NoEncontrado ex)
+            {
+                MessageBox.Show(ex.Descripcion);
+            }
         }
     }
 }

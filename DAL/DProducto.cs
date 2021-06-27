@@ -21,13 +21,15 @@ namespace DAL
                     new SqlParameter("@NOMBRE",SqlDbType.VarChar),
                     new SqlParameter("@COMPRA",SqlDbType.Float),
                     new SqlParameter("@VENTA",SqlDbType.Float),
-                    new SqlParameter("@TIPO",SqlDbType.NVarChar)
+                    new SqlParameter("@TIPO",SqlDbType.NVarChar),
+                    new SqlParameter("@ID",SqlDbType.Int)
                 };
                 parametros[0].Value = unProducto.Categoria.ID;
                 parametros[1].Value = unProducto.Nombre;
                 parametros[2].Value = unProducto.PrecioCompra;
                 parametros[3].Value = unProducto.PrecioVenta;
                 parametros[4].Value = "INSERT";
+                parametros[5].Value = 0;
                 if (db.EscribirPorStoreProcedure("PRODUCTOPROC", parametros) > 0)
                 {
                     return true;
@@ -71,38 +73,20 @@ namespace DAL
                 return false;
             }
         }
-
+        public int UltimoProducto()
+        {
+            string query = string.Format("Select MAX (id_producto) FROM [dbo].[producto]");
+            dt = db.LeerPorComando(query);
+            if(dt.Rows.Count != 0)
+            {
+                return (int)dt.Rows[0].ItemArray[0];
+            }
+            return -1;
+        }
         public DataTable ListadeProductos()
         {
             string query = string.Format("EXEC ListaProductos");
             dt = db.LeerPorComando(query);
-            return dt;
-        }
-        public DataTable productosLista()
-        {
-            string query = string.Format("ProductosParalista");
-            dt = db.LeerPorComando(query);
-            return dt;
-        }
-
-        public DataTable ListaPorCategoria(string nombre)
-        {
-            SqlParameter[] parametros =
-            {
-                new SqlParameter("@categoria",SqlDbType.VarChar)
-            };
-            parametros[0].Value = nombre;
-            dt = db.LeerPorStoreProcedure("BuscarProductoCategoria", parametros);
-            return dt;
-        }
-        public DataTable ListaPorNombre(string nombre)
-        {
-            SqlParameter[] parametros =
-            {
-                new SqlParameter("@nombre",SqlDbType.VarChar)
-            };
-            parametros[0].Value = nombre;
-            dt = db.LeerPorStoreProcedure("BuscarProductoNombre", parametros);
             return dt;
         }
     }

@@ -9,7 +9,6 @@ namespace BLL
     {
         DDetalleOrden unDetalleOrden = new DDetalleOrden();
         List<DetalleOrden> detalles = new List<DetalleOrden>();
-
         public bool Nuevo(DetalleOrden _unDetalleOrden, int _idOrden)
         {
             if(_idOrden < 0 || _unDetalleOrden.Cantidad < 0 || _unDetalleOrden.Producto.ID < 0)

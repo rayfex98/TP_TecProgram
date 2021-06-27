@@ -1,111 +1,132 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using BLL;
+using Entidades;
 
 namespace pantallas
 {
     public partial class PantallaPrincipal : Form
     {
+        NProducto bllProducto = new NProducto();
+        NProveedor bllProveedor = new NProveedor();
+        NDireccion bllDireccion = new NDireccion();
+        NCategoria bllCategoria = new NCategoria();
+        int _pruebacomboproducto = 0;
         public PantallaPrincipal()
         {
             InitializeComponent();
         }
 
-        private void label3_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void Form1_Load(object sender, EventArgs e)
         {
+            bllProducto.CargarLista();
+            bllCategoria.CargarLista();
+            // cada vez a un combo box producto o de categoria 
+
+            cmbProveedor.DataSource = bllProveedor.RecuperarProveedoresHabilitados();
+            cmbProveedor.DisplayMember = "RazonSocial";
+            cmbProveedor.ValueMember = "RazonSocial";
+
+            cmboxProvincias.DataSource = bllDireccion.CargarProvincias();
+            cmboxProvincias.DisplayMember = "provincia";
+            cmboxProvincias.ValueMember = "provincia";
+
+
+            cmbProducto.DataSource = bllProducto.RecuperarProductos();
+            cmbProducto.DisplayMember = "Nombre";
+            cmbProducto.ValueMember = "Nombre";
+
+            cmbCategoria.DataSource = bllCategoria.RecuperarCategoria();
+            cmbCategoria.DisplayMember = "Nombre";
+            cmbCategoria.ValueMember = "Nombre";
 
         }
 
-        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        private void cmbProducto_SelectedIndexChanged(object sender, EventArgs e)
         {
-
+            if(_pruebacomboproducto < 2)
+            {
+                _pruebacomboproducto++;
+            }
+            else
+            {
+                dtgvBuscarProducto.DataSource = null;
+                dtgvBuscarProducto.DataSource = bllProducto.RecuperarProductoNombre(cmbProducto.SelectedValue.ToString());
+            }
         }
 
-        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        private void cmbCategoria_SelectedIndexChanged(object sender, EventArgs e)
         {
-            NProducto productos = new NProducto();
-
-            cmbProducto.DataSource = productos.RecuperarProductos();
-            cmbProducto.DisplayMember = "nombre";
+            //lleno el datagridview con los datos que traigo de este metodo 
+            dtgvBuscarProducto.DataSource = null;
+            dtgvBuscarProducto.DataSource = bllProducto.RecuperarProductoCategoria(cmbCategoria.SelectedValue.ToString());
+            //ver que rows trae en este orden datos 'nombre','categoria', 'Stock','Precio de compra','Precio de venta'
         }
-
-        private void button3_Click(object sender, EventArgs e)
+        private void cmbProveedor_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            dtgvProveedores.DataSource = null;
+            List<Proveedor> _unProveedor = new List<Proveedor>(); //lista con solo proveedor a mostrar
+            _unProveedor.Add((Proveedor)cmbProveedor.SelectedItem);
+            dtgvProveedores.DataSource = _unProveedor;//recuperar un proveedor
+        }
+        private void btnHacerOrden_Click(object sender, EventArgs e)
         {
            Form producto = new ordenes_compra_ENC();
             producto.Show();
         }
 
-        private void button7_Click(object sender, EventArgs e)
+        private void BtnListarOrdenesCompra_Click(object sender, EventArgs e)
         {
             Form producto = new ordenes_compra_GER();
             producto.Show();
         }
 
-        private void button8_Click(object sender, EventArgs e)
+        private void BtnVerDeposito_Click(object sender, EventArgs e)
         {
             Form producto = new Deposito();
             producto.Show();
         }
 
-        private void button9_Click(object sender, EventArgs e)
+        private void BtnVerAlertas_Click(object sender, EventArgs e)
         {
             Form producto = new ALertas();
             producto.Show();
         }
 
-        private void button10_Click(object sender, EventArgs e)
+        private void BtnAlertasCriticas_Click(object sender, EventArgs e)
         {
             Form producto = new AlertasCriticas();
             producto.Show();
         }
 
-        private void button6_Click(object sender, EventArgs e)
+        private void BtnAgregarProveedor_Click(object sender, EventArgs e)
         {
             Form producto = new AgregarProveedor();
             producto.Show();
         }
 
-        private void button5_Click(object sender, EventArgs e)
+        private void BtnAgregarCategoria_Click(object sender, EventArgs e)
         {
             Form producto = new AgregarCategoria();
             producto.Show();
         }
 
-        private void button4_Click(object sender, EventArgs e)
+        private void btnAgregarProducto_Click(object sender, EventArgs e)
         {
             Form producto = new AgregarProducto();
             producto.Show();
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void cmboxProvincias_SelectedIndexChanged(object sender, EventArgs e)
         {
-            //lleno el datagridview con los datos que traigo de este metodo 
-            NProveedor proveedor = new NProveedor();
-            string provincia = BtnBuscarPorProvincia.Text;
-            dtbvProveedoresProvincia.DataSource = proveedor.RecuperarProveedoresPorProvincia(provincia);
-            //ver que rows trae en este orden datos'Razon social','Direccion','Provincia','Cuil','Calle','Localidad','Codigo postal','Habilitado'
-
+            //dtgvProveedores.DataSource = null;
+            //dtgvProveedores.DataSource = bllProveedor.RecuperarProveedoresPorProvincia(cmboxProvincias.Text);
         }
 
-        private void button2_Click(object sender, EventArgs e)
+        private void dtgvProveedores_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            //lleno el datagridview con los datos que traigo de este metodo 
-            NProducto producto = new NProducto();
-            string categoria = txbBuscarProductoPorcategoria.Text;
-            dtgvBuscarProductoPorCategoria.DataSource = producto.RecuperarProductoCategoria(categoria);
-            //ver que rows trae en este orden datos 'nombre','categoria', 'Stock','Precio de compra','Precio de venta'
+
         }
     }
 }

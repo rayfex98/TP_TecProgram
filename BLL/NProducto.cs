@@ -3,20 +3,20 @@ using Entidades;
 using System.Data;
 using Excepciones;
 using System.Collections.Generic;
+using System;
+
 namespace BLL
 {
     public class NProducto
     {
         DProducto unProducto = new DProducto();
-        DataTable dt = new DataTable();
         List<Producto> productos = new List<Producto>();
-        Producto newproducto = new Producto();
 
         /// <summary>
         /// Carga nuevo producto
         /// </summary>
         /// <param name="_producto">nombre, precio de compra y venta, id de la categoria</param>
-        /// <returns>true si realizo carga, lanza excepcion en otro caso</returns>
+        /// <returns>true, ExcepcionDeDatos o FallaEnInsercion </returns>
         public bool NuevoProducto(Producto _producto)
         {
             if (string.IsNullOrEmpty(_producto.Nombre) || _producto.PrecioCompra < 0 || _producto.PrecioVenta < 0 || _producto.Categoria.ID < 0)
@@ -24,7 +24,16 @@ namespace BLL
                 throw new ExcepcionDeDatos();
             }
             _producto.Nombre.ToLower();
-            return unProducto.NuevoProducto(_producto);
+            if (unProducto.NuevoProducto(_producto))
+            {
+                _producto.ID = unProducto.UltimoProducto();
+                productos.Add(_producto);
+                return true;
+            }
+            else
+            {
+                throw new FallaEnInsercion();
+            }
         }
         /// <summary>
         /// Editar en la bbdd, para los campos que no requiera editar se puede asignar un NULL en el objeto
@@ -40,6 +49,7 @@ namespace BLL
             _producto.Nombre.ToLower();
             if (unProducto.EditarProducto(_producto))
             {
+                CargarLista();
                 return true;
             }
             throw new FallaEnEdicion();
@@ -58,23 +68,40 @@ namespace BLL
             }
             if (unProducto.EliminarProducto(_idProducto))
             {
+                CargarLista();
                 return true;
             }
             throw new FallaEnEliminacion();
         }
+        public void CargarLista()
+        {
+            productos.Clear();
+            DataTable products = unProducto.ListadeProductos();
+            foreach (DataRow item in products.Rows)
+            {
+                Producto newproducto = new Producto();
+                Categoria nuevacat = new Categoria();
+                newproducto.ID = (int)item["id_producto"];
+                newproducto.Nombre = item["nombre"].ToString();
+                nuevacat.ID = (int)Convert.ToSingle(item["idcategoria"]);
+                nuevacat.Nombre = item["categoria"].ToString();
+                newproducto.Categoria = nuevacat;
+                newproducto.PrecioCompra = (int)Convert.ToSingle(item["Precio de compra"]);
+                newproducto.PrecioVenta = (int)Convert.ToSingle(item["Precio de venta"]);
+                productos.Add(newproducto);
+            }
+        }
         /// <summary>
-        /// Llena DT con productos habilitados
-        /// columnas: 'Nombre','Categoria','Stock','Precio de compra','Precio de venta'
+        /// Llena lista con productos para consumir en DGV o CMBBOX
+        /// IMPORTANTE LLAMAR A CargarLista() primero
+        /// columnas: 'id','nombre','Categoria','Stock','Precio de compra','Precio de venta'
         /// </summary>
         /// <returns>DataTable o Excepcion "NoEncontrado"</returns>
         public List<Producto> RecuperarProductos()
         {
-
-            DataTable products = unProducto.productosLista();
-            foreach (DataRow item in products.Rows)
+            if(productos.Count == 0)
             {
-                newproducto.Nombre = item.ItemArray[0].ToString();
-                this.productos.Add(newproducto);
+                throw new NoEncontrado();
             }
             return productos;
         }
@@ -83,36 +110,42 @@ namespace BLL
         /// columnas: 'Nombre','Categoria','Stock','Precio de compra','Precio de venta'
         /// </summary>
         /// <returns>DataTable o Excepcion "NoEncontrado"</returns>
-        public DataTable RecuperarProductoCategoria(string nombre)
+        public List<Producto> RecuperarProductoCategoria(string nombre)
         {
+            List<Producto> filtro = new List<Producto>();
             if (string.IsNullOrEmpty(nombre))
             {
                 throw new ExcepcionDeDatos();
             }
-            dt = unProducto.ListaPorCategoria(nombre);
-            if (dt.Rows.Count == 0)
+            foreach (Producto prod in productos)
             {
-                throw new NoEncontrado();
+                if(prod.Categoria.Nombre == nombre)
+                {
+                    filtro.Add(prod);
+                }
             }
-            return dt;
+            return filtro;
         }
         /// <summary>
         /// Llena DT con productos habilitados
         /// columnas: 'nombre','categoria','Stock','Precio de compra','Precio de venta'
         /// </summary>
         /// <returns>DataTable o Excepcion "NoEncontrado"</returns>
-        public DataTable RecuperarProductoNombre(string nombre)
+        public List<Producto> RecuperarProductoNombre(string nombre)
         {
+            List<Producto> filtro = new List<Producto>();
             if (string.IsNullOrEmpty(nombre))
             {
                 throw new ExcepcionDeDatos();
             }
-            dt = unProducto.ListaPorNombre(nombre);
-            if (dt.Rows.Count == 0)
+            foreach (Producto prod in productos)
             {
-                throw new NoEncontrado();
+                if (prod.Nombre == nombre)
+                {
+                    filtro.Add(prod);
+                }
             }
-            return dt;
+            return filtro;
         }
     }
 }

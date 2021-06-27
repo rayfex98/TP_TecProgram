@@ -1,9 +1,6 @@
 ﻿using Entidades;
-using System;
-using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
-using System.Text;
 
 namespace DAL
 {
@@ -18,11 +15,15 @@ namespace DAL
             {
                 SqlParameter[] parametros =
                 {
-                    new SqlParameter("@DESCRIPCION",SqlDbType.NVarChar),
+                    new SqlParameter("@ID",SqlDbType.SmallInt),
+                    new SqlParameter("@DESCRIPCION",SqlDbType.VarChar),
+                    new SqlParameter("@HABILITADO",SqlDbType.DateTime),
                     new SqlParameter("@TIPO",SqlDbType.NVarChar)
                 };
-                parametros[0].Value = nombre;
-                parametros[1].Value = "INSERT";
+                parametros[0].Value = 0;
+                parametros[1].Value = nombre;
+                parametros[2].Value = System.DateTime.Now;
+                parametros[3].Value = "INSERT";
                 if(db.EscribirPorStoreProcedure("CATEGORIAPROC", parametros) > 0)
                 {
                     return true;
@@ -96,7 +97,7 @@ namespace DAL
         }
 
 
-        public DataTable ListadeCategoria()
+        public DataTable RecuperarCategorias()
         {
             SqlParameter[] parametros =
             {
@@ -115,5 +116,16 @@ namespace DAL
             dt = db.LeerPorStoreProcedure("ListaCategoriasCondicion", parametros);
             return dt;
         }
+        public int UltimaCategoria()
+        {
+            string query = string.Format("Select MAX(id_categoria) FROM [dbo].[categoria]");
+            dt = db.LeerPorComando(query);
+            if (dt.Rows.Count == 0)
+            {
+                return -1;
+            }
+            return int.Parse(dt.Rows[0].ItemArray[0].ToString());
+        }
+
     }
 }
