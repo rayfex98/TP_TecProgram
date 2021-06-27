@@ -8,9 +8,9 @@ namespace BLL
     {
         DOrden unOrden = new DOrden();
 
-        public bool Nuevo(Orden _unOrden)
+        public bool Nuevo(int _unOrden)
         {
-            if(_unOrden.UsuarioCreador.ID < 0)
+            if (_unOrden < 0)
             {
                 throw new ExcepcionDeDatos();
             }

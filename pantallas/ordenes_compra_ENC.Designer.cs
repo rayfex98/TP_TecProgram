@@ -31,34 +31,39 @@ namespace pantallas
         /// </summary>
         private void InitializeComponent()
         {
-            this.button1 = new System.Windows.Forms.Button();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.btnAgregar = new System.Windows.Forms.Button();
+            this.tboxCantidad = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.dtgvProductos = new System.Windows.Forms.DataGridView();
             this.label1 = new System.Windows.Forms.Label();
             this.cmbProducto = new System.Windows.Forms.ComboBox();
-            this.cmbProveedor = new System.Windows.Forms.ComboBox();
+            this.cboxProveedor = new System.Windows.Forms.ComboBox();
             this.label3 = new System.Windows.Forms.Label();
-            this.button2 = new System.Windows.Forms.Button();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            this.btnGenerarOrden = new System.Windows.Forms.Button();
+            this.Nombre = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Categoria = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Cantidad = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Precio_unitario = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Precio_total = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            ((System.ComponentModel.ISupportInitialize)(this.dtgvProductos)).BeginInit();
             this.SuspendLayout();
             // 
-            // button1
+            // btnAgregar
             // 
-            this.button1.Location = new System.Drawing.Point(403, 97);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(96, 25);
-            this.button1.TabIndex = 23;
-            this.button1.Text = "agregar";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.btnAgregar.Location = new System.Drawing.Point(403, 97);
+            this.btnAgregar.Name = "btnAgregar";
+            this.btnAgregar.Size = new System.Drawing.Size(96, 25);
+            this.btnAgregar.TabIndex = 23;
+            this.btnAgregar.Text = "agregar";
+            this.btnAgregar.UseVisualStyleBackColor = true;
+            this.btnAgregar.Click += new System.EventHandler(this.button1_Click);
             // 
-            // textBox1
+            // tboxCantidad
             // 
-            this.textBox1.Location = new System.Drawing.Point(67, 99);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(102, 23);
-            this.textBox1.TabIndex = 22;
+            this.tboxCantidad.Location = new System.Drawing.Point(67, 99);
+            this.tboxCantidad.Name = "tboxCantidad";
+            this.tboxCantidad.Size = new System.Drawing.Size(102, 23);
+            this.tboxCantidad.TabIndex = 22;
             // 
             // label2
             // 
@@ -69,14 +74,21 @@ namespace pantallas
             this.label2.TabIndex = 21;
             this.label2.Text = "cantidad ";
             // 
-            // dataGridView1
+            // dtgvProductos
             // 
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(70, 146);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.RowTemplate.Height = 25;
-            this.dataGridView1.Size = new System.Drawing.Size(534, 150);
-            this.dataGridView1.TabIndex = 20;
+            this.dtgvProductos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dtgvProductos.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.Nombre,
+            this.Categoria,
+            this.Cantidad,
+            this.Precio_unitario,
+            this.Precio_total});
+            this.dtgvProductos.Location = new System.Drawing.Point(70, 146);
+            this.dtgvProductos.Name = "dtgvProductos";
+            this.dtgvProductos.RowTemplate.Height = 25;
+            this.dtgvProductos.Size = new System.Drawing.Size(544, 150);
+            this.dtgvProductos.TabIndex = 20;
+            this.dtgvProductos.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
             // 
             // label1
             // 
@@ -97,14 +109,15 @@ namespace pantallas
             this.cmbProducto.Text = "productos ";
             this.cmbProducto.SelectedIndexChanged += new System.EventHandler(this.cmbProducto_SelectedIndexChanged);
             // 
-            // cmbProveedor
+            // cboxProveedor
             // 
-            this.cmbProveedor.FormattingEnabled = true;
-            this.cmbProveedor.Location = new System.Drawing.Point(70, 369);
-            this.cmbProveedor.Name = "cmbProveedor";
-            this.cmbProveedor.Size = new System.Drawing.Size(121, 23);
-            this.cmbProveedor.TabIndex = 26;
-            this.cmbProveedor.Text = "proveedor ";
+            this.cboxProveedor.FormattingEnabled = true;
+            this.cboxProveedor.Location = new System.Drawing.Point(70, 369);
+            this.cboxProveedor.Name = "cboxProveedor";
+            this.cboxProveedor.Size = new System.Drawing.Size(121, 23);
+            this.cboxProveedor.TabIndex = 26;
+            this.cboxProveedor.Text = "proveedor ";
+            this.cboxProveedor.SelectedIndexChanged += new System.EventHandler(this.cboxProveedor_SelectedIndexChanged);
             // 
             // label3
             // 
@@ -115,34 +128,59 @@ namespace pantallas
             this.label3.TabIndex = 27;
             this.label3.Text = "proveedor ";
             // 
-            // button2
+            // btnGenerarOrden
             // 
-            this.button2.Location = new System.Drawing.Point(355, 369);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(96, 25);
-            this.button2.TabIndex = 28;
-            this.button2.Text = "generar orden ";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
+            this.btnGenerarOrden.Location = new System.Drawing.Point(355, 369);
+            this.btnGenerarOrden.Name = "btnGenerarOrden";
+            this.btnGenerarOrden.Size = new System.Drawing.Size(96, 25);
+            this.btnGenerarOrden.TabIndex = 28;
+            this.btnGenerarOrden.Text = "generar orden ";
+            this.btnGenerarOrden.UseVisualStyleBackColor = true;
+            this.btnGenerarOrden.Click += new System.EventHandler(this.btnGenerarOrden_Click);
+            // 
+            // Nombre
+            // 
+            this.Nombre.HeaderText = "Nombre";
+            this.Nombre.Name = "Nombre";
+            // 
+            // Categoria
+            // 
+            this.Categoria.HeaderText = "Categoria";
+            this.Categoria.Name = "Categoria";
+            // 
+            // Cantidad
+            // 
+            this.Cantidad.HeaderText = "Cantidad";
+            this.Cantidad.Name = "Cantidad";
+            // 
+            // Precio_unitario
+            // 
+            this.Precio_unitario.HeaderText = "Precio unitario";
+            this.Precio_unitario.Name = "Precio_unitario";
+            // 
+            // Precio_total
+            // 
+            this.Precio_total.HeaderText = "Precio total";
+            this.Precio_total.Name = "Precio_total";
             // 
             // ordenes_compra_ENC
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Controls.Add(this.button2);
+            this.Controls.Add(this.btnGenerarOrden);
             this.Controls.Add(this.label3);
-            this.Controls.Add(this.cmbProveedor);
+            this.Controls.Add(this.cboxProveedor);
             this.Controls.Add(this.cmbProducto);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.button1);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.btnAgregar);
+            this.Controls.Add(this.tboxCantidad);
             this.Controls.Add(this.label2);
-            this.Controls.Add(this.dataGridView1);
+            this.Controls.Add(this.dtgvProductos);
             this.Name = "ordenes_compra_ENC";
             this.Text = "Orden de compra";
             this.Load += new System.EventHandler(this.ordenes_compra_ENC_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dtgvProductos)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -150,14 +188,19 @@ namespace pantallas
 
         #endregion
 
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.Button btnAgregar;
+        private System.Windows.Forms.TextBox tboxCantidad;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.DataGridView dtgvProductos;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.ComboBox cmbProducto;
-        private System.Windows.Forms.ComboBox cmbProveedor;
+        private System.Windows.Forms.ComboBox cboxProveedor;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button btnGenerarOrden;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Nombre;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Categoria;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Cantidad;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Precio_unitario;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Precio_total;
     }
 }

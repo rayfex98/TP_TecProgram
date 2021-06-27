@@ -16,11 +16,7 @@ namespace DAL
             try
             {
                 DOrden ord = new DOrden();
-                Orden nueva = new Orden
-                {
-                    UsuarioCreador = unOrdenCompra.UsuarioCreador
-                };
-                if (ord.Nuevo(nueva))
+                if (ord.Nuevo(unOrdenCompra.UsuarioCreador.ID))
                 {
                     int id_orden = ord.UltimaOrden();
                     if (id_orden == -1)

@@ -9,6 +9,9 @@ namespace BLL
     {
         DOrdenCompra unOrdenCompra = new DOrdenCompra();
         DataTable dt = new DataTable();
+        NDetalleOrden NewDetalle = new NDetalleOrden();
+        DOrden NewOrden = new DOrden();
+        NOrden NOrden = new NOrden();
         /// <summary>
         /// Carga de la orden de compra en bbdd,
         /// Requiero id_proveedor, id_usuarioCreador y lista de detalles(con idproducto y cantidades)
@@ -17,6 +20,9 @@ namespace BLL
         /// <returns>True o excepcion "FallaEnInsercion"</returns>
         public bool NuevaOrden(OrdenDeCompra _unOrdenCompra)
         {
+            NOrden.Nuevo(_unOrdenCompra.UsuarioCreador.ID);
+            _unOrdenCompra.ID = NewOrden.UltimaOrden();
+            NewDetalle.CargarListaDetalles(_unOrdenCompra.Detalles, _unOrdenCompra.ID);
             if (_unOrdenCompra.Proveedor.ID < 0 || _unOrdenCompra.UsuarioCreador.ID < 0)
             {
                 throw new ExcepcionDeDatos();

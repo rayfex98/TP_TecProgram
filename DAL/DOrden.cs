@@ -9,7 +9,7 @@ namespace DAL
     {
         DataTable dt = new DataTable();
         readonly Conexion db = new Conexion();
-        public bool Nuevo(Orden unOrden)
+        public bool Nuevo(int unOrden)
         {
             try
             {
@@ -20,7 +20,7 @@ namespace DAL
                     new SqlParameter("@FECHA",SqlDbType.DateTime),
                     new SqlParameter("@ID",SqlDbType.Int),
                 };
-                parametros[0].Value = unOrden.UsuarioCreador.ID;
+                parametros[0].Value = unOrden;
                 parametros[1].Value = "INSERT";
                 parametros[2].Value = System.DateTime.Now;
                 parametros[3].Value = 0;

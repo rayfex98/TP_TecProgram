@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Windows.Forms;
 using BLL;
 using Entidades;
@@ -12,7 +13,6 @@ namespace pantallas
         NProveedor bllProveedor = new NProveedor();
         NDireccion bllDireccion = new NDireccion();
         NCategoria bllCategoria = new NCategoria();
-        int _pruebacomboproducto = 0;
         public PantallaPrincipal()
         {
             InitializeComponent();
@@ -44,15 +44,12 @@ namespace pantallas
 
         private void cmbProducto_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if(_pruebacomboproducto < 2)
+            dtgvBuscarProducto.DataSource = null;
+            List<Producto> productos = new List<Producto>
             {
-                _pruebacomboproducto++;
-            }
-            else
-            {
-                dtgvBuscarProducto.DataSource = null;
-                dtgvBuscarProducto.DataSource = bllProducto.RecuperarProductoNombre(cmbProducto.SelectedValue.ToString());
-            }
+                (Producto)cmbProducto.SelectedItem
+            };//lista con producto especifico
+            dtgvBuscarProducto.DataSource = productos;
         }
 
         private void cmbCategoria_SelectedIndexChanged(object sender, EventArgs e)
@@ -65,10 +62,18 @@ namespace pantallas
         private void cmbProveedor_SelectedIndexChanged(object sender, EventArgs e)
         {
             dtgvProveedores.DataSource = null;
-            List<Proveedor> _unProveedor = new List<Proveedor>(); //lista con solo proveedor a mostrar
-            _unProveedor.Add((Proveedor)cmbProveedor.SelectedItem);
-            dtgvProveedores.DataSource = _unProveedor;//recuperar un proveedor
+            List<Proveedor> _unProveedor = new List<Proveedor>
+            {
+                (Proveedor)cmbProveedor.SelectedItem
+            }; //lista con proveedor especifico
+            dtgvProveedores.DataSource = _unProveedor;
         }
+        private void cmboxProvincias_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            dtgvProveedores.DataSource = null;
+            dtgvProveedores.DataSource = bllProveedor.RecuperarProveedoresPorProvincia(cmboxProvincias.Text);
+        }
+
         private void btnHacerOrden_Click(object sender, EventArgs e)
         {
            Form producto = new ordenes_compra_ENC();
@@ -117,10 +122,5 @@ namespace pantallas
             producto.Show();
         }
 
-        private void cmboxProvincias_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            dtgvProveedores.DataSource = null;
-            dtgvProveedores.DataSource = bllProveedor.RecuperarProveedoresPorProvincia(cmboxProvincias.Text);
-        }
     }
 }
