@@ -778,7 +778,7 @@ if object_id('UltimoProveedor') is not null
 			 O.id_orden as 'id orden ',
 			 D.CANTIDAD as 'cantidad',
 			 P.NOMBRE as 'producto',
-			 V.RAZONSOCIAL as 'razon social'
+			 V.razonsocial as 'razon social'
 			 from dbo.orden_compra AS O
 			 inner join dbo.detalle_orden AS D
 			 on  O.id_orden =  D.id_orden
@@ -786,7 +786,7 @@ if object_id('UltimoProveedor') is not null
 			 on D.id_producto = P.id_producto
 			 inner join dbo.PROVEEDOR as V
 			 on O.id_proveedor = V.id_proveedor
-			 where O.fecha_aprobacion = null
+			 where O.fecha_aprobacion is null --ahora uso is null
 
 --store procedures para sumar el precio de la compra
 		 if object_id('sumartotalorden') is not null

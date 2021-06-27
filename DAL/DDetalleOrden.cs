@@ -1,9 +1,6 @@
 ﻿using Entidades;
-using System;
-using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
-using System.Text;
 
 namespace DAL
 {
@@ -105,7 +102,6 @@ namespace DAL
         public DataTable UltimaOrden()
         {
             Conexion db = new Conexion();
-            DataTable dt = new DataTable();
             string query = string.Format("ultimoidOrden");
             dt = db.LeerPorComando(query);
             return dt;

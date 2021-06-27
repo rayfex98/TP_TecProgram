@@ -8,7 +8,7 @@ namespace pantallas
 {
     public partial class AgregarProducto : Form
     {
-        NCategoria bllCategoria = new NCategoria();
+        readonly NCategoria bllCategoria = new NCategoria();
         public AgregarProducto()
         {
             InitializeComponent();
@@ -24,8 +24,10 @@ namespace pantallas
             try
             {
                 Producto nuevo = new Producto();
-                Categoria nuevaCat = new Categoria();
-                nuevaCat.ID = int.Parse(cmboxCategoria.SelectedValue.ToString());
+                Categoria nuevaCat = new Categoria
+                {
+                    ID = int.Parse(cmboxCategoria.SelectedValue.ToString())
+                };
                 nuevo.Nombre = tboxNombre.Text;
                 nuevo.PrecioCompra = float.Parse(tboxPrecioCompra.Text);
                 nuevo.PrecioVenta = float.Parse(tboxPrecioVenta.Text);

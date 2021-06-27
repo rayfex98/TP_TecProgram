@@ -9,16 +9,16 @@ namespace BLL
 {
     public class NDeposito
     {
-        Deposito _unDeposito = new Deposito();
-        DDeposito unDeposito = new DDeposito();
+        readonly Deposito _unDeposito = new Deposito();
+        readonly DDeposito unDeposito = new DDeposito();
 
         /// <summary>
         /// Llena lista con stocks
         /// </summary>
         /// <returns>DataTable o Excepcion "NoEncontrado"</returns>
-        public List<Stock> ListarDeposito()
+        public List<Stock> RecuperarDeposito()
         {
-            _unDeposito.Stocks.Clear();
+            _unDeposito.Stocks = new List<Stock>();
             DataTable deposito = unDeposito.ListadeDeposito();
             if(deposito.Rows.Count == 0)
             {
@@ -26,12 +26,18 @@ namespace BLL
             }
             foreach (DataRow item in deposito.Rows)
             {
-                Stock nuevo = new Stock();
-                nuevo.ID = (int)(item["id stock"]);
-                nuevo.Cantidad = (int)item["cantidad"];
+                Stock nuevo = new Stock
+                {
+                    ID = (int)(item["id stock"]),
+                    Cantidad = (int)item["cantidad"],
+                    Producto = new Producto()
+                };
                 nuevo.Producto.ID = (int)(item["id producto"]);
                 nuevo.Producto.Nombre = item["producto"].ToString();
-                nuevo.Producto.Categoria.Nombre = item["categoria"].ToString();
+                nuevo.Producto.Categoria = new Categoria
+                {
+                    Nombre = item["categoria"].ToString()
+                };
                 _unDeposito.Stocks.Add(nuevo);
             }
             return _unDeposito.Stocks;

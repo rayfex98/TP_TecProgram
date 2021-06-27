@@ -13,9 +13,9 @@ namespace pantallas
 {
     public partial class ordenes_compra_ENC : Form
     {
-        NOrdenCompra OrdenCompra = new NOrdenCompra();
-        List<DetalleOrden> newdetalle = new List<DetalleOrden>();
-        OrdenDeCompra unaOrdenCompra = new OrdenDeCompra();
+        readonly NOrdenCompra OrdenCompra = new NOrdenCompra();
+        readonly List<DetalleOrden> newdetalle = new List<DetalleOrden>();
+        readonly OrdenDeCompra unaOrdenCompra = new OrdenDeCompra();
         public ordenes_compra_ENC()
         {
             InitializeComponent();
@@ -42,9 +42,11 @@ namespace pantallas
 
         private void button1_Click(object sender, EventArgs e)
         {
-            DetalleOrden undetalle = new DetalleOrden();
-            undetalle.Producto = (Producto)cmbProducto.SelectedItem;
-            undetalle.Cantidad= Convert.ToInt32(tboxCantidad.Text);
+            DetalleOrden undetalle = new DetalleOrden
+            {
+                Producto = (Producto)cmbProducto.SelectedItem,
+                Cantidad = Convert.ToInt32(tboxCantidad.Text)
+            };
             //meter en lista dentro de "orden" 
             newdetalle.Add(undetalle);
             int n = dtgvProductos.Rows.Add();
@@ -61,8 +63,10 @@ namespace pantallas
 
         private void btnGenerarOrden_Click(object sender, EventArgs e)
         {
-            Usuario newusuario = new Usuario();
-            newusuario.ID = 1;
+            Usuario newusuario = new Usuario
+            {
+                ID = 1
+            };
             unaOrdenCompra.Proveedor = (Proveedor)cboxProveedor.SelectedItem;               
             unaOrdenCompra.Detalles = newdetalle;
             unaOrdenCompra.UsuarioCreador = newusuario;

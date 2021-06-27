@@ -2,6 +2,7 @@
 using Entidades;
 using System.Data;
 using Excepciones;
+using System.Collections.Generic;
 
 namespace BLL
 {

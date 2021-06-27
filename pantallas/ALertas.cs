@@ -1,4 +1,5 @@
 ﻿using BLL;
+using Entidades;
 using Excepciones;
 using System;
 using System.Collections.Generic;
@@ -15,10 +16,8 @@ namespace pantallas
         public ALertas()
         {
             InitializeComponent();
-
         }
-
-        private void Form6_Load(object sender, EventArgs e)
+        private void CargaDGV()
         {
             NAlerta bllAlerta = new NAlerta();
             dtgvAlerta.DataSource = null;
@@ -30,6 +29,28 @@ namespace pantallas
             {
                 MessageBox.Show(ex.Descripcion);
             }
+        }
+        private void btnConfigurar_Click(object sender, EventArgs e)
+        {
+            NAlerta bllAlerta = new NAlerta();
+            Alerta _unAlerta = new Alerta
+            {
+                Stock = new Stock
+                {
+                    ID = int.Parse(tboxStock.Text)
+                },
+                UsuarioCreador = new Usuario
+                {
+                    ID = 1 //HARDCODE: Usuario
+                },
+                CantidadMinima = int.Parse(tboxCantidad.Text)
+            };
+            bllAlerta.CrearAlerta(_unAlerta);
+            CargaDGV();
+        }
+        private void Form6_Load(object sender, EventArgs e)
+        {
+            CargaDGV();
         }
     }
 }

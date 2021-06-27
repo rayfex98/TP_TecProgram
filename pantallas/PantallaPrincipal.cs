@@ -9,10 +9,10 @@ namespace pantallas
 {
     public partial class PantallaPrincipal : Form
     {
-        NProducto bllProducto = new NProducto();
-        NProveedor bllProveedor = new NProveedor();
-        NDireccion bllDireccion = new NDireccion();
-        NCategoria bllCategoria = new NCategoria();
+        readonly NProducto bllProducto = new NProducto();
+        readonly NProveedor bllProveedor = new NProveedor();
+        readonly NDireccion bllDireccion = new NDireccion();
+        readonly NCategoria bllCategoria = new NCategoria();
         public PantallaPrincipal()
         {
             InitializeComponent();

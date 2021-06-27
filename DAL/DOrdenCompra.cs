@@ -90,7 +90,7 @@ namespace DAL
         }
         public DataTable OrdenPendiente()
         {
-            string query = string.Format("OrdenCompraPendientes");
+            string query = string.Format("select id_orden as 'Orden' from orden_compra where fecha_aprobacion is null");
             dt = db.LeerPorComando(query);
             return dt;
 

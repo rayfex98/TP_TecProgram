@@ -7,7 +7,7 @@ namespace BLL
 {
     public class NAlerta
     {
-        DAlerta unAlerta = new DAlerta();
+        readonly DAlerta unAlerta = new DAlerta();
         /// <summary>
         /// Carga Alerta en bbdd,
         /// Requiero id_stock, id_usuario, cantidad minima
@@ -46,12 +46,15 @@ namespace BLL
         /// <returns>DataTable o Excepcion "NoEncontrado"</returns>
         public DataTable RecuperarAlerta()
         {
-            DataTable dt = unAlerta.ListadeAlertas();
-            if (dt.Rows.Count == 0)
+            Alerta _alerta = new Alerta
+            {
+                TablaReporte = unAlerta.ListadeAlertas()
+            };
+            if (_alerta.TablaReporte.Rows.Count == 0)
             {
                 throw new NoEncontrado();
             }
-            return dt;
+            return _alerta.TablaReporte;
         }
         /// <summary>
         /// columnas: 'id alerta','Descripcion', 'producto','usuario', 'cantidad minima','cantidad stock'
@@ -59,12 +62,15 @@ namespace BLL
         /// <returns>DataTable o Excepcion "NoEncontrado"</returns>
         public DataTable RecuperarAlertasCriticas()
         {
-            DataTable dt = unAlerta.ListalertasCriticas();
-            if (dt.Rows.Count == 0)
+            Alerta _alerta = new Alerta
+            {
+                TablaReporte = unAlerta.ListalertasCriticas()
+            };
+            if (_alerta.TablaReporte.Rows.Count == 0)
             {
                 throw new NoEncontrado();
             }
-            return dt;
+            return _alerta.TablaReporte;
         }
     }
 }
