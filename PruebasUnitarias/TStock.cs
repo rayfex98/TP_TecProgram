@@ -52,7 +52,7 @@ namespace PruebasUnitarias
         [TestMethod]
         //este metodo se utilizaria para quitar productos que se vendieron del stock 
         //deberia usarse luego de realizarse una venta 
-        public void quitardedeposito()
+        public void Quitardedeposito()
         {
             int idOrden = 2;
             Assert.AreEqual(undeposito.QuitarDeDeposito(idOrden),true);
@@ -60,7 +60,7 @@ namespace PruebasUnitarias
         [TestMethod]
         // Necesita el id de una orden de compra// este metodo sirve para agregar en el deposito los productos de el detalle orden utiliza id orden
         // para poder ingresar el producto con el id asociado y su cantidad, este metodo deberia ejecutarse luego de que la orden se realizo 
-        public void agregardeposito()
+        public void Agregardeposito()
         {
             int idOrden = 2;
             Assert.AreEqual(undeposito.AgregarADeposito(idOrden), true);
