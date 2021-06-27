@@ -10,7 +10,11 @@
 			('muebles',20-10-20),
 			('tecnologia',20-10-20),
 			('decoracion',20-10-20),
-			('indumentaria',20-10-20)
+			('indumentaria',20-10-20),
+			('camping',20-10-20),
+			('deportes',20-10-20),
+			('instrumentos',20-10-20),
+			('iluminaria',20-10-20)
 	go
 --cargo producto
 	go
@@ -24,19 +28,27 @@
 			(7,'lampara',400,800),
 			(8,'camisa',400,800),
 			(6,'dvd',2000,5000),
-			(8,'short',150,600)
+			(8,'short',150,600),
+			(9'carpa',2000,5000),
+			(10,'pelota',800,1000),
+			(11,'guitarra',1000,2000),
+			(12,'Lampara',1000,2000)
 	go
 --cargo stock
 	go
 	insert into [dbo].[STOCK] (id_producto,cantidad,habilitado) 
-	values	(1,20,10-10-20),
-			(2,50,10-10-20),
-			(3,100,10-10-20),
-			(4,100,10-10-20),
-			(5,10,10-10-20),
-			(6,100,10-10-20),
-			(7,100,10-10-20),
-			(8,100,10-10-20)
+	values	(1,20,GETDATE()),
+			(2,50,GETDATE()),
+			(3,100,GETDATE()),
+			(4,100,GETDATE()),
+			(5,10,GETDATE()),
+			(6,100,GETDATE()),
+			(7,100,GETDATE()),
+			(8,100,GETDATE()),
+			(10,50,GETDATE()),
+			(11,10,GETDATE()),
+			(13,100,GETDATE()),
+			(14,10,GETDATE())
 	go
 --cargo direccion
 	go
@@ -64,7 +76,12 @@
 			(156,'yrigoyen','5641','rio cuarto','cordoba'),
 			(4245,'san martin','1823','temperley','buenos aires'),
 			(21,'belgrano','1254','rio cuarto','cordoba'),
-			(456,'jacaranda','1234','monte grande','buenos aires')
+			(456,'jacaranda','1234','monte grande','buenos aires'),
+			(416,'santa fe','1124','monte grande','la pampa'),
+			(1456,'aaaaaaaa','15634','rio cuarto','santa fe'),
+			(4356,'25 mayo','1244','monte grande','san luis'),
+			(46,'guarani','1412','rio hondo','mendoza'),
+			(463,'general peron','1123','los horneros','rio negro')
 	go
 --cargo persona
 	go
@@ -77,7 +94,10 @@
            ('santos','mario','33666999', 5),
            ('medina','gabriel','11333999', 6),
            ('lampone','pablo','11222999', 7),
-           ('ravenna','emilio','11555999', 8)
+           ('ravenna','emilio','11555999', 8),
+		   ('contretas','elias','1212321321', 9),
+		   ('castillo','claudia','1521421221', 10),
+		   ('martelli','mario','1132112421', 11)
 	go
 	insert into dbo.PERSONA(id_direccion,dni,nombre,apellido)	
 	values	(9,12342332,'marcelo','tevez'),
@@ -98,10 +118,11 @@
 --cargo usuario
 	 go
 	 insert into dbo.USUARIO (id_persona,id_rol,password,legajo,deshabilitado) 
-	 values	 (1,1,'1234',1,20-10-20),
-			 (2,2,'1234',2,20-10-20),
-			 (3,1,'1234',3,20-10-20),
-			 (4,1,'1234',4,20-10-20)
+	 values	 (1,1,'1234',1,GETDATE()),
+			 (2,2,'1234',2,GETDATE()),
+			 (3,1,'1234',3,GETDATE()),
+			 (4,1,'1234',4,GETDATE()),
+			 (5,1,'1234',5,GETDATE())
 	 go
  -- cargo alerta 
 	 go
@@ -119,16 +140,22 @@
 				(16,32220102224,'molinos cañuelas',GETDATE()),
 				(17,20364587586,'coto',GETDATE()),
 				(18,21321411212,'dia',GETDATE()),
-				(19,30010242122,'sinteplast',GETDATE())
+				(19,30010242122,'sinteplast',GETDATE()),
+				(20,80102123122,'la redonda',GETDATE()),
+				(21,11210242122,'carrefour',GETDATE()),
+				(22,68010242122,'zara',GETDATE())
 	 go
 
 --carga orden 
 	 go
 	 insert into dbo.orden(id_persona,fecha) 
-	 values		(10,20-10-10),
-				(11,20-10-10),
-				(10,20-10-10),
-				(12,20-10-10);
+	 values		(10,GETDATE()),
+				(11,GETDATE()),
+				(10,GETDATE()),
+				(12,GETDATE()),
+				(13,GETDATE()),
+				(14,GETDATE()),
+				(12,GETDATE())
 	 go
 --carga detalleorden
 	go
@@ -142,7 +169,13 @@
 			   (20,1,3),
 			   (10,2,6),
 			   (5,2,4),
-			   (20,3,5)
+			   (20,3,5),
+			   (10,3,5),
+			   (30,4,7),
+			   (50,5,10),
+			   (40,5,11),
+			   (54,6,12),
+			   (30,7,8)
 	GO
 --carga ordencompra 
 	 go
