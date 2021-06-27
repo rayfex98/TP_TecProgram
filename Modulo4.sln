@@ -11,8 +11,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PruebasUnitarias", "Pruebas
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Excepciones", "Excepciones\Excepciones.csproj", "{7408D0B7-52AE-4B6A-913B-05107F052B5D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pantallas", "Pantallas\Pantallas.csproj", "{9055505D-4C94-49D7-9543-45AC6288AD97}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -35,10 +33,6 @@ Global
 		{7408D0B7-52AE-4B6A-913B-05107F052B5D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7408D0B7-52AE-4B6A-913B-05107F052B5D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7408D0B7-52AE-4B6A-913B-05107F052B5D}.Release|Any CPU.Build.0 = Release|Any CPU
-		{9055505D-4C94-49D7-9543-45AC6288AD97}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{9055505D-4C94-49D7-9543-45AC6288AD97}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{9055505D-4C94-49D7-9543-45AC6288AD97}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{9055505D-4C94-49D7-9543-45AC6288AD97}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
