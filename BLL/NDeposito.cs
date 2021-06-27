@@ -2,24 +2,39 @@
 using Entidades;
 using DAL;
 using System.Data;
+using System;
+using System.Collections.Generic;
 
 namespace BLL
 {
     public class NDeposito
     {
+        Deposito _unDeposito = new Deposito();
         DDeposito unDeposito = new DDeposito();
+
         /// <summary>
-        /// Llena DT con stocks
+        /// Llena lista con stocks
         /// </summary>
         /// <returns>DataTable o Excepcion "NoEncontrado"</returns>
-        public DataTable ListarDeposito()
+        public List<Stock> ListarDeposito()
         {
-            DataTable dt = unDeposito.ListadeDeposito();
-            if (dt.Rows.Count == 0)
+            _unDeposito.Stocks.Clear();
+            DataTable deposito = unDeposito.ListadeDeposito();
+            if(deposito.Rows.Count == 0)
             {
                 throw new NoEncontrado();
             }
-            return dt;
+            foreach (DataRow item in deposito.Rows)
+            {
+                Stock nuevo = new Stock();
+                nuevo.ID = (int)(item["id stock"]);
+                nuevo.Cantidad = (int)item["cantidad"];
+                nuevo.Producto.ID = (int)(item["id producto"]);
+                nuevo.Producto.Nombre = item["producto"].ToString();
+                nuevo.Producto.Categoria.Nombre = item["categoria"].ToString();
+                _unDeposito.Stocks.Add(nuevo);
+            }
+            return _unDeposito.Stocks;
         }
         /// <summary>
         /// Quita en bbdd los detalles pertenecientes a una orden

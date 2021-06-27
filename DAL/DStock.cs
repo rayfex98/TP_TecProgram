@@ -9,7 +9,6 @@ namespace DAL
 {
     public class DStock
     {
-        DataTable dt = new DataTable();
         readonly Conexion db = new Conexion();
         public bool CargarProductoEnStock(Stock unStock)
         {
@@ -132,14 +131,6 @@ namespace DAL
             {
                 return false;
             }
-        }
-        public DataTable ListarStockVista()
-        {
-            SqlParameter[] parametros =
-            {
-            };
-            dt = db.LeerPorStoreProcedure("vista_stock", parametros);
-            return dt;
         }
     }
 }

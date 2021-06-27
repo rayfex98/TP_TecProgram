@@ -49,12 +49,6 @@ namespace PruebasUnitarias
         {
             Assert.AreEqual(newstock.EliminarStock(32), true);
         }
-        //Este metodo sirve para listar todos los productos dentro de deposito 
-        [TestMethod]
-        public void ListaStockVista()//muestra los productos habilitados dentro de stock 
-        {
-            Assert.IsNotNull(newstock.ListarStockVista());
-        }
         [TestMethod]
         //este metodo se utilizaria para quitar productos que se vendieron del stock 
         //deberia usarse luego de realizarse una venta 

@@ -104,20 +104,5 @@ namespace BLL
         }
         #endregion
 
-        #region ListarStockVista
-        /// <summary>
-        /// Llena DT con Stock
-        /// </summary>
-        /// <returns>DataTable o Excepcion "NoEncontrado"</returns>
-        public DataTable ListarStockVista()
-        {
-            DataTable dt = unStock.ListarStockVista();
-            if (dt.Rows.Count == 0)
-            {
-                throw new NoEncontrado();
-            }
-            return dt;
-        }
-        #endregion
     }
 }

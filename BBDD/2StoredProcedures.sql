@@ -543,13 +543,16 @@ GO
 		go
 		create procedure vista_stock as
 			select 
-			s.id_stock as 'id stock',
-			s.cantidad as 'cantidad',
-			p.nombre as 'nombre',
-			s.habilitado as 'habilitado'
+				s.id_stock as 'id stock',
+				s.cantidad as 'cantidad',
+				p.id_producto as 'id producto',
+				p.nombre as 'producto',
+				c.descripcion as 'categoria'
 			from [dbo].[stock] as s
-			inner join [dbo].producto as p
-			on s.id_producto = p.id_producto
+				inner join [dbo].producto as p
+				on s.id_producto = p.id_producto
+				inner join [dbo].[categoria] as C
+				on c.id_categoria = p.id_categoria
 			where s.habilitado is not null;
 
 --store procedure de alertas criticas 

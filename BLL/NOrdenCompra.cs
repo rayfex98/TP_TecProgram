@@ -11,13 +11,17 @@ namespace BLL
         DataTable dt = new DataTable();
         /// <summary>
         /// Carga de la orden de compra en bbdd,
-        /// Requiero id_proveedor, id_usuarioCreador
+        /// Requiero id_proveedor, id_usuarioCreador y lista de detalles(con idproducto y cantidades)
         /// </summary>
         /// <param name="_unOrdenCompra"></param>
         /// <returns>True o excepcion "FallaEnInsercion"</returns>
         public bool NuevaOrden(OrdenDeCompra _unOrdenCompra)
         {
             if (_unOrdenCompra.Proveedor.ID < 0 || _unOrdenCompra.UsuarioCreador.ID < 0)
+            {
+                throw new ExcepcionDeDatos();
+            }
+            if(_unOrdenCompra.Detalles.Count == 0)
             {
                 throw new ExcepcionDeDatos();
             }
