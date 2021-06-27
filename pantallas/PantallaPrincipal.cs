@@ -68,7 +68,7 @@ namespace pantallas
             }; //lista con proveedor especifico
             dtgvProveedores.DataSource = _unProveedor;
         }
-        private void cmboxProvincias_SelectedIndexChanged(object sender, EventArgs e)
+        private void cmboxProvincias_SelectedIndexChanged(object sender, EventArgs e) //A VECES SE BORRA EL SP
         {
             dtgvProveedores.DataSource = null;
             dtgvProveedores.DataSource = bllProveedor.RecuperarProveedoresPorProvincia(cmboxProvincias.Text);

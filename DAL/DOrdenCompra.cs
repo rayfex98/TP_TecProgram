@@ -135,7 +135,7 @@ namespace DAL
                 new SqlParameter("@orden",SqlDbType.Int)
             };
             parametros[0].Value = idOrden;
-            dt = db.LeerPorStoreProcedure("OrdenCompraBuscarProveedor", parametros);
+            dt = db.LeerPorStoreProcedure("sumartotalorden", parametros);
             return dt;
         }
         public DataTable ListaPorProducto(string nombre)

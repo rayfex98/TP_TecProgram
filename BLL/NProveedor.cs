@@ -141,18 +141,25 @@ namespace BLL
         /// <returns>DataTable o Excepcion "NoEncontrado"</returns>
         public List<Proveedor> RecuperarProveedoresPorProvincia(string provincia)
         {
-            _proveedores.Clear();
-            DataTable proveedores = ObjProveedor.ListaProveedoresPorProvincia(provincia);
-            if (proveedores == null)
+            try
             {
-                throw new NoEncontrado();
+                _proveedores.Clear();
+                DataTable proveedores = ObjProveedor.ListaProveedoresPorProvincia(provincia);
+                if (proveedores == null)
+                {
+                    throw new NoEncontrado();
 
+                }
+                foreach (DataRow row in proveedores.Rows)//carga lo de data table a row(que es un data row)
+                {
+                    _proveedores.Add(ConvertirProveedor(row));//se agrega a ListaProducto un producto
+                }
+                return _proveedores;
             }
-            foreach (DataRow row in proveedores.Rows)//carga lo de data table a row(que es un data row)
+            catch (System.Data.SqlClient.SqlException)
             {
-                _proveedores.Add(ConvertirProveedor(row));//se agrega a ListaProducto un producto
+                return _proveedores;
             }
-            return _proveedores;
         }
         #endregion
 

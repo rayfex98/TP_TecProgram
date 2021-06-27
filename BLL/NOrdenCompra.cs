@@ -59,7 +59,7 @@ namespace BLL
             throw new FallaEnEliminacion();
         }
         /// <summary>
-        /// columnas: 'id orden ','cantidad','producto','razon social','fecha aprobacion'
+        /// columnas: 'Orden','Creador','Creacion','Aprobador','Fecha Aprobacion','Proveedor'
         /// </summary>
         /// <returns>DataTable o Excepcion "NoEncontrado"</returns>
         public DataTable RecuperarOrdenCompra()
@@ -72,7 +72,7 @@ namespace BLL
             return dt;
         }
         /// <summary>
-        /// columnas: 'id orden '
+        /// columnas: 'Orden','Creador','Creacion','Aprobador','Fecha Aprobacion','Proveedor'
         /// </summary>
         /// <returns>DataTable o Excepcion "NoEncontrado"</returns>
         public DataTable RecuperarOrdenPendiente()
@@ -102,7 +102,7 @@ namespace BLL
             }
             throw new FallaEnEdicion();
         }
-        public float RecuperarTotalOrden(int idOrden)
+        public float RecuperarTotalCompra(int idOrden)
         {
             float total = 0;
             int cantidad;

@@ -14,18 +14,87 @@ namespace pantallas
         NDetalleOrden blldetalle = new NDetalleOrden();
         NOrdenCompra bllCompra = new NOrdenCompra();
         bool combo = true;
+        bool comboTodas = true;
+
         public ordenes_compra_GER()
         {
             InitializeComponent();
-            CargaCmbBoxPendiente();
+            CargaCmbBox();
+        }
+        private void ordenes_compra_GER_Load(object sender, EventArgs e)
+        {
         }
 
-        private void CargaCmbBoxPendiente()
+        private void CargaCmbBox()
         {
             cmboxPendientes.DataSource = null;
             cmboxPendientes.DataSource = bllCompra.RecuperarOrdenPendiente();
             cmboxPendientes.DisplayMember = "Orden";
             cmboxPendientes.ValueMember = "Orden";
+            cmboxTodas.DataSource = null;
+            cmboxTodas.DataSource = bllCompra.RecuperarOrdenCompra();
+            cmboxTodas.DisplayMember = "Orden";
+            cmboxTodas.ValueMember = "Orden";
+        }
+
+        
+
+        private void cmboxPendientes_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (combo)
+            {
+                combo = false;
+                return;
+            }
+            dgvOrdenes.DataSource = null;
+            try
+            {
+                float total = bllCompra.RecuperarTotalCompra((int)cmboxPendientes.SelectedValue);
+                tboxTotal.Text = total.ToString();
+                dgvOrdenes.DataSource = blldetalle.RecuperarDetalleOrden((int)cmboxPendientes.SelectedValue);
+            }
+            catch(NoEncontrado)
+            {
+                MessageBox.Show("Orden Sin Detalles");
+            }
+            catch (NullReferenceException)
+            {
+            }
+        }
+
+        private void cmboxTodas_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (comboTodas)
+            {
+                comboTodas = false;
+                return;
+            }
+            dgvOrdenes.DataSource = null;
+            try
+            {
+                float total = bllCompra.RecuperarTotalCompra((int)cmboxTodas.SelectedValue);
+                tboxTotal.Text = total.ToString();
+                dgvOrdenes.DataSource = blldetalle.RecuperarDetalleOrden((int)cmboxTodas.SelectedValue);
+            }
+            catch (NoEncontrado)
+            {
+                MessageBox.Show("Orden Sin Detalles");
+            }
+            catch (NullReferenceException)
+            {
+            }
+        }
+        private void btpPendientes_Click(object sender, EventArgs e)
+        {
+            dgvOrdenes.DataSource = null;
+            try
+            {
+                dgvOrdenes.DataSource = bllCompra.RecuperarOrdenPendiente();
+            }
+            catch (NoEncontrado ex)
+            {
+                MessageBox.Show(ex.Descripcion);
+            }
         }
         private void btnTodas_Click(object sender, EventArgs e)
         {
@@ -39,34 +108,6 @@ namespace pantallas
                 MessageBox.Show(ex.Descripcion);
             }
         }
-
-        private void cmboxPendientes_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (combo)
-            {
-                combo = false;
-                return;
-            }
-            dgvOrdenes.DataSource = null;
-            try
-            {
-                dgvOrdenes.DataSource = blldetalle.RecuperarDetalleOrden((int)cmboxPendientes.SelectedValue);
-            }
-            catch(NoEncontrado)
-            {
-                MessageBox.Show("Orden Sin Detalles");
-            }
-            catch (NullReferenceException)
-            {
-            }
-        }
-
-        private void btpPendientes_Click(object sender, EventArgs e)
-        {
-            dgvOrdenes.DataSource = null;
-            dgvOrdenes.DataSource = bllCompra.RecuperarOrdenPendiente();
-        }
-
         private void btnHabilitar_Click(object sender, EventArgs e)
         {
             int id = (int)cmboxPendientes.SelectedValue;
@@ -84,7 +125,7 @@ namespace pantallas
             }
             finally
             {
-                CargaCmbBoxPendiente();
+                CargaCmbBox();
             }
         }
     }

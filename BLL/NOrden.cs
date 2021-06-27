@@ -36,7 +36,6 @@ namespace BLL
             }
             throw new FallaEnEdicion();
         }
-
         public bool Eliminar(int _idOrden)
         {
             if (unOrden.Eliminar(_idOrden))
