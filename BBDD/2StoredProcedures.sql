@@ -650,7 +650,8 @@ if object_id('UltimoProveedor') is not null
 		drop procedure UltimoProveedor;
 		go
 		create procedure UltimoProveedor as
-
+		DECLARE @PROVEEDOR INT
+		select @PROVEEDOR = max(id_proveedor) from dbo.proveedor
 			 select 
 				 P.id_proveedor as 'ID Proveedor',
 				 P.razonsocial as 'Razon social',
@@ -664,7 +665,7 @@ if object_id('UltimoProveedor') is not null
 			 from dbo.proveedor as P 
 				 inner join dbo.direccion as D
 				 on P.id_direccion = D.id 
-			 where P.id_proveedor = MAX(p.id_proveedor)
+			 where P.id_proveedor = @PROVEEDOR
  
  --store procedures de proveedor habilitados
 		if object_id('ListaProveedoresHabilitados') is not null
@@ -707,26 +708,6 @@ if object_id('UltimoProveedor') is not null
 			 where P.habilitado is not null
 				and D.provincia like  @provincia + '%';
 
- --store procedures de orden de compra lista orden compra 
-		if object_id('OrdenCompraVista') is not null
-			drop procedure OrdenCompraVista;
-		go
-		create procedure OrdenCompraVista as 
-			select DISTINCT
-				 OC.id_orden as 'id orden',
-				 U.nombre +' '+  U.apellido as 'Creador',
-				 O.fecha as 'Creacion',
-				 OC.id_persona as 'Aprobador',
-				 OC.fecha_aprobacion as 'Fecha Aprobacion',
-				 P.razonsocial as 'Proveedor'
-			from dbo.orden_compra AS OC
-			inner join dbo.orden as O
-			on O.id = OC.id_orden
-			inner join dbo.persona as U
-			on O.id_persona = U.id
-			inner join dbo.proveedor as P
-			on OC.id_proveedor = P.id_proveedor
-
 --store procedures buscar orden de compra por nombre producto
 		  if object_id('OrdenCompraBuscarProducto') is not null
 		 drop procedure OrdenCompraBuscarProducto;
@@ -749,8 +730,8 @@ if object_id('UltimoProveedor') is not null
 			 and P.NOMBRE like  @nombre + '%';
 
 --store procedures buscar orden de compra por proveedor
-		  if object_id('OrdenCompraBuscarProducto') is not null
-		 drop procedure OrdenCompraBuscarProducto;
+		  if object_id('OrdenCompraBuscarProveedor') is not null
+		 drop procedure OrdenCompraBuscarProveedor;
 		go
 		 create procedure OrdenCompraBuscarProveedor(@proveedor varchar(30)) as 
 			 select DISTINCT
@@ -776,7 +757,7 @@ if object_id('UltimoProveedor') is not null
 		create procedure sumartotalorden(@orden int) as 
 			select 
 			D.cantidad as 'cantidad',
-			P.precio_venta as 'precio venta'
+			P.precio_compra as 'precio'
 
 			from detalle_orden as D
 			inner join producto as P
@@ -829,7 +810,9 @@ if object_id('UltimoProveedor') is not null
 		create procedure listadetalle(@idorden int) as 
 			select 
 			D.cantidad as 'cantidad',
-			P.NOMBRE as 'producto'
+			P.NOMBRE as 'producto',
+			P.precio_compra as 'precio',
+			D.Cantidad * P.precio_compra as 'Subtotal'
 			from dbo.detalle_orden as D
 			inner join dbo.PRODUCTO as P 
 			on D.id_producto = P.id_producto
