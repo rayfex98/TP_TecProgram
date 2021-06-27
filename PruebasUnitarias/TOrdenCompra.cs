@@ -42,7 +42,7 @@ namespace PruebasUnitarias
         public void PruebaSuma()// sirve para sumar el precio total de una orden de compra solo se le tiene que pasar el id de la orden 
         {
             int idOrden = 1;
-            Assert.AreEqual(NordenCompra.RecuperarTotalOrden(idOrden),18000);
+            Assert.AreEqual(NordenCompra.RecuperarTotalCompra(idOrden),18000);
         }
     }
 }
