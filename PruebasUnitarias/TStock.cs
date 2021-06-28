@@ -1,6 +1,7 @@
 ﻿using BLL;
 using Entidades;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Collections.Generic;
 
 namespace PruebasUnitarias
 {
@@ -17,37 +18,49 @@ namespace PruebasUnitarias
         [TestMethod]
         public void Agregarunproducto()
         {
-            unproducto.ID = 39;
+            unproducto.ID = 13;
             unstock.Producto = unproducto;
             unstock.Cantidad = 10;
             Assert.AreEqual(newstock.CargarProductoEnStock(unstock), true);
-
+            List<Stock> lista = new List<Stock>();
+            lista = undeposito.RecuperarDeposito();
+            bool prueba = lista.Exists(x => x.Producto.ID == unstock.Producto.ID && x.Cantidad == unstock.Cantidad);
+            Assert.AreEqual(prueba, true);
         }
         //este metodo sirve para cambiar el producto dentro de stock usando el id de stock para encontrarlo 
         [TestMethod]
         public void EditarStock()
         {
-            unproducto.ID = 2;
+            unstock.Cantidad = 14;
             unstock.Producto = unproducto;
-            unstock.ID = 1;
+            unstock.ID = 13;
             Assert.AreEqual(newstock.EditarStock(unstock), true);
-
+            List<Stock> lista = new List<Stock>();
+            lista = undeposito.RecuperarDeposito();
+            bool prueba = lista.Exists(x => x.Producto.ID == unstock.ID && x.Cantidad == unstock.Cantidad);
+            Assert.AreEqual(prueba, true);
         }
 
         [TestMethod]
         public void SumarStock()// le paso un id_producto y la cantidad para sumar el stock relacionado a ese producto se utiliza para realizar orden de compra
         {
-            Assert.AreEqual(newstock.AgregarStock(39, 20), true);
+            Assert.AreEqual(newstock.AgregarStock(10, 20), true);
+            List<Stock> lista = new List<Stock>();
+            lista = undeposito.RecuperarDeposito();
+            bool prueba = lista.Exists(x => x.Producto.ID == 10 && x.Cantidad == 30);
+            Assert.AreEqual(prueba, true);
         }
         [TestMethod]
-        public void QuitarStock()// le paso un id_producto y la cantidad para restar el stock relacionado a ese producto se utiliza para realizar orden de venta
+        public void RestarStock()// le paso un id_producto y la cantidad para restar el stock relacionado a ese producto se utiliza para realizar orden de venta
         {
-            Assert.AreEqual(newstock.RestarStock(39, 4), true);
+            int id = 10;
+            Assert.AreEqual(newstock.RestarStock(id, 5), true);
         }
         [TestMethod]
         public void EliminarProductoDeStock()//elimina de forma logica un producto de la bdd deshabilitando el producto de stock 
         {
-            Assert.AreEqual(newstock.EliminarStock(32), true);
+            int id = 11;
+            Assert.AreEqual(newstock.EliminarStock(id), true);
         }
         [TestMethod]
         //este metodo se utilizaria para quitar productos que se vendieron del stock 
