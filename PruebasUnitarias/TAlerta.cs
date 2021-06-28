@@ -16,9 +16,9 @@ namespace PruebasUnitarias
             unaAlerta.Stock = new Stock();
             unaAlerta.Stock.Producto = new Producto();
             unaAlerta.UsuarioCreador = new Usuario();
-            unaAlerta.Stock.ID = 31;
             unaAlerta.UsuarioCreador.ID = 1;
             unaAlerta.CantidadMinima = 100;
+            unaAlerta.Stock.ID = 1;
             Assert.AreEqual(MetodoAlerta.CrearAlerta(unaAlerta), true);//ya esta creada con este id
         }
 
@@ -32,7 +32,7 @@ namespace PruebasUnitarias
             unaAlerta.UsuarioCreador.ID = 1;
             unaAlerta.CantidadMinima = 10;
             unaAlerta.Stock.ID = 1;
-            unaAlerta.ID = 16;
+            unaAlerta.ID = 1;
             Assert.AreEqual(MetodoAlerta.EditarAlerta(unaAlerta), false);// da false pero actua sobre la base de datos hay que revisar esto 
         }
 
