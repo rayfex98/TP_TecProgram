@@ -25,7 +25,7 @@ namespace BLL
             {
                 throw new ExcepcionDeDatos();
             }
-            nombre = nombre.ToUpper();
+            nombre = nombre.ToLower();
             if (unCategoria.AgregarCategoria(nombre)) 
             {
                 Categoria nueva = new Categoria
@@ -44,7 +44,7 @@ namespace BLL
             {
                 throw new ExcepcionDeDatos();
             } 
-            _unCategoria.Nombre = _unCategoria.Nombre.ToUpper();
+            _unCategoria.Nombre = _unCategoria.Nombre.ToLower();
             if (unCategoria.EditarCategoria(_unCategoria))
             {
                 return true;

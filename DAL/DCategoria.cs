@@ -40,10 +40,7 @@ namespace DAL
             try
             {
                 string query = string.Format("EXEC CATEGORIAPROC @ID = {0},@DESCRIPCION = {1},@HABILITADO = null,@TIPO ='UPDATE';", unaCat.ID.ToString(), unaCat.Nombre);
-                if (1 != db.EscribirPorComando(query))
-                {
-                    return false;
-                }
+                int prueba = db.EscribirPorComando(query);
                 return true;
             }
             catch (System.Data.SqlClient.SqlException)
