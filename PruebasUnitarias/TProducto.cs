@@ -1,6 +1,7 @@
 ﻿using BLL;
 using Entidades;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Collections.Generic;
 
 namespace PruebasUnitarias
 {
@@ -44,11 +45,15 @@ namespace PruebasUnitarias
             Assert.IsNotNull(Obj.RecuperarProductos());
         }
         [TestMethod]
-        public void ProductosEnLista()
+        public void PruebaListaDeProductos()
         {
-            NProducto Obj = new NProducto();
+            NProducto bllProducto = new NProducto();
+            bllProducto.CargarLista();
+            List<Producto> productos = new List<Producto>();
+            productos = bllProducto.RecuperarProductos();
+            Producto unproducto = new Producto();
+            Assert.AreEqual(productos.Exists(unproducto => unproducto.Nombre == "ropero"), true);
 
-            Assert.IsNotNull(Obj.RecuperarProductos());
         }
     }
 }

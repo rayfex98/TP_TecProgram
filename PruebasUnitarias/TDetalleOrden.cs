@@ -2,6 +2,8 @@
 using Entidades;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
+using System.Data;
+
 namespace PruebasUnitarias
 {
     [TestClass]
@@ -67,6 +69,17 @@ namespace PruebasUnitarias
         {
             int idorden = 3;
             Assert.AreEqual(ndetalle.RecuperarUltimoid(),idorden);
+        }
+        [TestMethod]
+        public void PruebaListaDeDetalles()
+        {
+            NDetalleOrden BLLdetalle = new NDetalleOrden();
+            List<DetalleOrden> ListaDetalle = new List<DetalleOrden>();
+            DataTable dt = new DataTable();
+            int id = 1;
+            dt = BLLdetalle.RecuperarDetalleOrden(id);
+            DetalleOrden undetalle = new DetalleOrden();
+            Assert.AreEqual(ListaDetalle.Exists(undetalle => undetalle.Producto.Nombre == "cocina"), true);
         }
     }
 }
