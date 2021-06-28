@@ -13,7 +13,7 @@ namespace PruebasUnitarias
         [TestMethod]
         public void _1Insert()//ingresa una categoria /no debe estar repetida 
         {
-            string nombre = "pera";
+            string nombre = "Nueva";
             Assert.AreEqual(bll.AgregarCategoria(nombre), true);
             //Reviso insert
             bll.CargarLista();
@@ -27,7 +27,7 @@ namespace PruebasUnitarias
         public void _2Editar()//edita una categoria utilizando el id para buscarla 
         {
 
-            unObj.Nombre = "ghj";
+            unObj.Nombre = "Editada";
             unObj.ID = 13;
             Assert.AreEqual(bll.EditarCategoria(unObj), true);
             bll.CargarLista();
@@ -43,7 +43,7 @@ namespace PruebasUnitarias
             bll.CargarLista();
             List<Categoria> lista = new List<Categoria>();
             lista = bll.RecuperarCategoria(); //recupera habilitados
-            Assert.AreEqual(lista.Exists(x => x.Nombre == "electro"), false);
+            Assert.AreEqual(lista.Exists(x => x.Nombre == "Editada"), false);
         }
         [TestMethod]
         public void Listado()//lista las categorias habilitadas 

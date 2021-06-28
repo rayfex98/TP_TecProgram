@@ -2,7 +2,7 @@
 using Entidades;
 using BLL;
 
-namespace Pruebas
+namespace PruebasUnitarias
 {
     [TestClass]
     public class TDireccion
