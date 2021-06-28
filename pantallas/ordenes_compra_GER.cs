@@ -27,14 +27,20 @@ namespace pantallas
 
         private void CargaCmbBox()
         {
-            cmboxPendientes.DataSource = null;
-            cmboxPendientes.DataSource = bllCompra.RecuperarOrdenPendiente();
-            cmboxPendientes.DisplayMember = "Orden";
-            cmboxPendientes.ValueMember = "Orden";
-            cmboxTodas.DataSource = null;
-            cmboxTodas.DataSource = bllCompra.RecuperarOrdenCompra();
-            cmboxTodas.DisplayMember = "Orden";
-            cmboxTodas.ValueMember = "Orden";
+            try
+            {
+                cmboxPendientes.DataSource = null;
+                cmboxPendientes.DataSource = bllCompra.RecuperarOrdenPendiente();
+                cmboxPendientes.DisplayMember = "Orden";
+                cmboxPendientes.ValueMember = "Orden";
+                cmboxTodas.DataSource = null;
+                cmboxTodas.DataSource = bllCompra.RecuperarOrdenCompra();
+                cmboxTodas.DisplayMember = "Orden";
+                cmboxTodas.ValueMember = "Orden";
+            }
+            catch (NoEncontrado)
+            {
+            }
         }
 
         
@@ -125,6 +131,8 @@ namespace pantallas
             }
             finally
             {
+                combo = true;
+                comboTodas = true;
                 CargaCmbBox();
             }
         }
